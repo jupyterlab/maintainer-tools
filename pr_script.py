@@ -33,7 +33,7 @@ def run(cmd, **kwargs):
         raise e
 
 
-def run_script(target, script):
+def run_script(target, script, commit_message=''):
     """Run a script on the target pull request URL"""
     # e.g. https://github.com/foo/bar/pull/81
     owner, repo = target.replace("https://github.com/", "").split('/')[:2]
@@ -62,7 +62,8 @@ def run_script(target, script):
         'git config user.email "41898282+github-actions[bot]@users.noreply.github.com"'
     )
     run('git config user.name "GitHub Action"')
-    run(f"git commit -a -m  'Run maintainer script' -m 'by {maintainer}' -m '{json.dumps(script)}'")
+    message = commit_message or "Run maintainer script"
+    run(f"git commit -a -m  '{message}' -m 'by {maintainer}' -m '{json.dumps(script)}'")
     run(f"git push origin {branch}")
 
 
@@ -70,6 +71,7 @@ if __name__ == '__main__':
     # https://docs.github.com/en/actions/creating-actions/metadata-syntax-for-github-actions#inputs
     target = os.environ.get('TARGET')
     maintainer = os.environ['MAINTAINER']
+    commit_message = os.environ.get('COMMIT_MESSAGE', '')
     try:
         script = json.loads(os.environ.get('SCRIPT', '[]'))
     except Exception:
@@ -80,4 +82,4 @@ if __name__ == '__main__':
         script += ['pre-commit run --all-files']
     print(f'Running script on {target}:')
     print(f'   {script}')
-    run_script(target, script)
+    run_script(target, script, commit_message)
