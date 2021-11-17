@@ -1,0 +1,10 @@
+{
+    "name": "@jupyterlab/maintainer-tools",
+    "version": "0.1.0",
+    "private": true,
+    "jupyter-releaser": {
+        "hooks": {
+            "after-draft-release": "bash ./.github/scripts/bump_tag.sh"
+        }
+    }
+}

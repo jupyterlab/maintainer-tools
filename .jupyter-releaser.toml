@@ -1,2 +1,0 @@
-[hooks]
-after-draft-release = "bash ./.github/scripts/bump_tag.sh"
