@@ -12,7 +12,7 @@ on:
         description: Whether to run the pre-commit script
         required: false
       commit_message:
-        description: The commit message
+        description: Optional commit message
         required: false
 jobs:
   build:
