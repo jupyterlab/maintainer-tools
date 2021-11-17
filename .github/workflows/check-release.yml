@@ -42,9 +42,6 @@ jobs:
       - name: Upgrade packaging dependencies
         run: |
           pip install --upgrade pip setuptools wheel --user
-      - name: Install Dependencies
-        run: |
-          pip install -e .
       - name: Check Release
         if: ${{ matrix.group == 'check_release' }}
         uses: jupyter-server/jupyter_releaser/.github/actions/check-release@v1
