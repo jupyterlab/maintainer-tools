@@ -1,0 +1,39 @@
+name: Run Script on PR
+on:
+  workflow_dispatch:
+    inputs:
+      target:
+        description: Target Pull Request Link
+        required: true
+      script:
+        description: Command(s) to run
+        required: false
+      pre_commit:
+        description: Whether to run the pre-commit script
+        required: false
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Install Python
+        uses: actions/setup-python@v1
+        with:
+          python-version: "3.9"
+          architecture: "x64"
+      - name: Upgrade packaging dependencies
+        run: |
+          pip install --upgrade pip setuptools wheel --user
+      - name: Install dependencies
+        run: |
+          pip install ghapi pre-commit
+      - name: Run the script
+        env:
+          GITHUB_ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          MAINTAINER: ${{ github.actor }}
+          TARGET: ${{ github.event.inputs.target }}
+          SCRIPT: ${{ github.event.inputs.script }}
+          PRE_COMMIT: ${{ github.event.inputs.pre_commit }}
+        run: |
+          python pr_script.py
