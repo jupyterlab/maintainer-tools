@@ -65,6 +65,7 @@ runs:
     - name: Print Diagnostics
       shell: bash
       run: |
+        set -x
         env
         pip debug
         yarn --version
