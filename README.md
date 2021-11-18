@@ -19,7 +19,8 @@ option to run pre-commit against the PR to fix up any pre-commit errors.
 
 ## Base Setup
 
-Use this action to consolidate setup steps in your workflows.  An example workflow file would be:
+Use this action to consolidate setup steps in your workflows.  You can control the versions of Python and Node used by setting `matrix.python-version` and `matrix.node-version`, respectively.
+An example workflow file would be:
 
 ```yaml
 name: Tests

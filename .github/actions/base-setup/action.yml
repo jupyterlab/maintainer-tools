@@ -6,8 +6,8 @@ runs:
     - name: Set Versions
       shell: bash
       run: |
-        echo "PYTHON_VERSION=${{ matrix.python || '3.9' }}" >> $GITHUB_ENV
-        echo "NODE_VERSION=${{ matrix.node || '14.x' }}" >> $GITHUB_ENV
+        echo "PYTHON_VERSION=${{ matrix.python-version || '3.9' }}" >> $GITHUB_ENV
+        echo "NODE_VERSION=${{ matrix.node-version || '14.x' }}" >> $GITHUB_ENV
 
     - name: Install Python
       uses: actions/setup-python@v2
@@ -56,6 +56,11 @@ runs:
         key: ${{ runner.os }}-yarn-${{ env.NODE_VERSION }}-${{ hashFiles('**/yarn.lock') }}
         restore-keys: |
           ${{ runner.os }}-yarn-${{ env.NODE_VERSION }}
+
+    - name: Enable long paths on Windows
+      if: startsWith(runner.os, 'Windows')
+      run: Set-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem -Name LongPathsEnabled -Value 1
+      shell: pwsh
 
     - name: Upgrade packaging dependencies
       shell: bash
