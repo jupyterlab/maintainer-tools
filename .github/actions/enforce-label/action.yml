@@ -1,0 +1,10 @@
+name: "Enforce Labels"
+description: "Enforce assigning triage labels before merging PRs"
+runs:
+  using: "composite"
+  steps:
+    - name: enforce-triage-labels
+      uses: yogevbd/enforce-label-action@2.1.0
+        with:
+          REQUIRED_LABELS_ANY: "bug,enhancement,feature,maintenance,documenation"
+          REQUIRED_LABELS_ANY_DESCRIPTION: "Select at least one triage label ['bug','enhancement','feature','maintenance','documentation']"

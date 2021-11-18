@@ -13,3 +13,24 @@ The PR Script Workflow allows you to make a commit against a PR as a maintainer 
 to check out the PR locally and push the change.  The manual workflow takes as its inputs a link to the PR
 and a comma-separated list of quoted commands to run.  As a convenience, you can also type "True" for the
 option to run pre-commit against the PR to fix up any pre-commit errors.
+
+
+## Actions
+
+## Enforce Labels
+
+Use this action to enforce one of the triage labels on PRs in your repo.  An example workflow file would be:
+
+```yaml
+name: Enforce PR label
+
+on:
+  pull_request:
+    types: [labeled, unlabeled, opened, edited, synchronize]
+jobs:
+  enforce-label:
+    runs-on: ubuntu-latest
+    steps:
+      - name: enforce-triage-label
+        uses: jupyterlab/maintainer-tools/.github/actions/enforce-label@v1
+```
