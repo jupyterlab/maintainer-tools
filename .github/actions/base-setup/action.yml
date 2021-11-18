@@ -1,0 +1,61 @@
+name: "Base Setup"
+description: "Base Setup Actions Used Across Workflows"
+runs:
+  using: "composite"
+  steps:
+    - name: Install Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python || '3.9' }}
+        architecture: "x64"
+
+    - name: Install node
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{ matrix.node || "14.x" }}
+
+    - name: Get pip cache dir
+      shell: bash
+      id: pip-cache
+      run: |
+        echo "::set-output name=dir::$(pip cache dir)"
+
+    - name: Cache pip
+      uses: actions/cache@v2
+      with:
+        path: ${{ steps.pip-cache.outputs.dir }}
+        key: ${{ runner.os }}-pip-${{ matrix.python || '3.9' }}-${{ hashFiles('setup.cfg', 'setup.py', '**/requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-${{ matrix.python || '3.9 '}}
+
+    - name: Cache checked links
+      if: ${{ matrix.group == 'link_check' }}
+      uses: actions/cache@v2
+      with:
+        path: ~/.cache/pytest-link-check
+        key: ${{ runner.os }}-linkcheck-${{ hashFiles('**/*.md', '**/*.rst') }}-md-links
+        restore-keys: |
+          ${{ runner.os }}-linkcheck-
+
+    # Cache yarn
+    - name: Get yarn cache directory path
+      id: yarn-cache-dir-path
+      run: echo "::set-output name=dir::$(yarn cache dir)"
+    - name: Cache yarn
+      uses: actions/cache@v2
+      id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+      with:
+        path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+        key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-yarn-
+
+    - name: Print env
+      shell: bash
+      run: env
+
+    - name: Upgrade packaging dependencies
+      shell: bash
+      run: |
+        pip install --upgrade pip setuptools wheel --user
+
