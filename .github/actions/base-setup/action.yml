@@ -1,12 +1,10 @@
 name: "Base Setup"
 description: "Base Setup Actions Used Across Workflows"
-defaults:
-  run:
-    shell: bash
 runs:
   using: "composite"
   steps:
     - name: Set Versions
+      shell: bash
       run: |
         echo "PYTHON_VERSION=${{ matrix.python || '3.9' }}" >> $GITHUB_ENV
         echo "NODE_VERSION=${{ matrix.node || '14.x' }}" >> $GITHUB_ENV
@@ -24,6 +22,7 @@ runs:
 
     - name: Get pip cache dir
       id: pip-cache
+      shell: bash
       run: |
         echo "::set-output name=dir::$(pip cache dir)"
 
@@ -47,6 +46,7 @@ runs:
     # Cache yarn
     - name: Get yarn cache directory path
       id: yarn-cache-dir-path
+      shell: bash
       run: echo "::set-output name=dir::$(yarn cache dir)"
     - name: Cache yarn
       uses: actions/cache@v2
@@ -58,9 +58,11 @@ runs:
           ${{ runner.os }}-yarn-${{ env.NODE_VERSION }}
 
     - name: Print env
+      shell: bash
       run: env
 
     - name: Upgrade packaging dependencies
+      shell: bash
       run: |
         pip install --upgrade pip setuptools wheel --user
 
