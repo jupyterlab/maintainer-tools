@@ -5,6 +5,6 @@ runs:
   steps:
     - name: enforce-triage-labels
       uses: yogevbd/enforce-label-action@2.1.0
-        with:
-          REQUIRED_LABELS_ANY: "bug,enhancement,feature,maintenance,documenation"
-          REQUIRED_LABELS_ANY_DESCRIPTION: "Select at least one triage label ['bug','enhancement','feature','maintenance','documentation']"
+      with:
+        REQUIRED_LABELS_ANY: "bug,enhancement,feature,maintenance,documenation"
+        REQUIRED_LABELS_ANY_DESCRIPTION: "Select at least one triage label ['bug','enhancement','feature','maintenance','documentation']"
