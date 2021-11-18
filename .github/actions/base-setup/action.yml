@@ -57,12 +57,15 @@ runs:
         restore-keys: |
           ${{ runner.os }}-yarn-${{ env.NODE_VERSION }}
 
-    - name: Print env
-      shell: bash
-      run: env
-
     - name: Upgrade packaging dependencies
       shell: bash
       run: |
         pip install --upgrade pip setuptools wheel --user
 
+    - name: Print Diagnostics
+      shell: bash
+      run: |
+        env
+        pip debug
+        yarn --version
+        node --version
