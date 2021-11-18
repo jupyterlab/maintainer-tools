@@ -5,10 +5,12 @@ defaults:
     shell: bash
 runs:
   using: "composite"
-  env:
-    PYTHON_VERSION: ${{ matrix.python || '3.9' }}
-    NODE_VERSION: ${{ matrix.node || '14.x' }}
   steps:
+    - name: Set Versions
+      run: |
+        echo "PYTHON_VERSION=${{ matrix.python || '3.9' }}" >> $GITHUB_ENV
+        echo "NODE_VERSION=${{ matrix.node || '14.x' }}" >> $GITHUB_ENV
+
     - name: Install Python
       uses: actions/setup-python@v2
       with:
