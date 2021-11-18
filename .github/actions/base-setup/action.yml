@@ -1,21 +1,26 @@
 name: "Base Setup"
 description: "Base Setup Actions Used Across Workflows"
+defaults:
+  run:
+    shell: bash
 runs:
   using: "composite"
+  env:
+    PYTHON_VERSION: ${{ matrix.python || '3.9' }}
+    NODE_VERSION: ${{ matrix.node || '14.x' }}
   steps:
     - name: Install Python
       uses: actions/setup-python@v2
       with:
-        python-version: ${{ matrix.python || '3.9' }}
+        python-version: ${{ env.PYTHON_VERSION }}
         architecture: "x64"
 
     - name: Install node
       uses: actions/setup-node@v2
       with:
-        node-version: ${{ matrix.node || '14.x' }}
+        node-version: ${{ env.NODE_VERSION }}
 
     - name: Get pip cache dir
-      shell: bash
       id: pip-cache
       run: |
         echo "::set-output name=dir::$(pip cache dir)"
@@ -24,9 +29,9 @@ runs:
       uses: actions/cache@v2
       with:
         path: ${{ steps.pip-cache.outputs.dir }}
-        key: ${{ runner.os }}-pip-${{ matrix.python || '3.9' }}-${{ hashFiles('setup.cfg', 'setup.py', '**/requirements.txt') }}
+        key: ${{ runner.os }}-pip-${{ env.PYTHON_VERSION }}-${{ hashFiles('setup.cfg', 'setup.py', '**/requirements.txt') }}
         restore-keys: |
-          ${{ runner.os }}-pip-${{ matrix.python || '3.9' }}
+          ${{ runner.os }}-pip-${{ env.PYTHON_VERSION }}
 
     - name: Cache checked links
       if: ${{ matrix.group == 'link_check' }}
@@ -40,23 +45,20 @@ runs:
     # Cache yarn
     - name: Get yarn cache directory path
       id: yarn-cache-dir-path
-      shell: bash
       run: echo "::set-output name=dir::$(yarn cache dir)"
     - name: Cache yarn
       uses: actions/cache@v2
       id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
       with:
         path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-        key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+        key: ${{ runner.os }}-yarn-${{ env.NODE_VERSION }}-${{ hashFiles('**/yarn.lock') }}
         restore-keys: |
-          ${{ runner.os }}-yarn-
+          ${{ runner.os }}-yarn-${{ env.NODE_VERSION }}
 
     - name: Print env
-      shell: bash
       run: env
 
     - name: Upgrade packaging dependencies
-      shell: bash
       run: |
         pip install --upgrade pip setuptools wheel --user
 
