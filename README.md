@@ -17,6 +17,34 @@ option to run pre-commit against the PR to fix up any pre-commit errors.
 
 ## Actions
 
+## Base Setup
+
+Use this action to consolidate setup steps in your workflows.  You can control the versions of Python and Node used by setting `matrix.python-version` and `matrix.node-version`, respectively.
+An example workflow file would be:
+
+```yaml
+name: Tests
+on:
+  push:
+    branches: "main"
+  pull_request:
+    branches: "*"
+jobs:
+  build:
+    runs-on: ubuntu-latest
+  steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Base Setup
+      uses: jupyterlab/maintainer-tools/.github/actions/base-setup@v1
+    - name: Install
+      shell: bash
+      run: pip install -e ".[test]"
+    - name: Test
+      shell: bash
+      run: pytest
+```
+
 ## Enforce Labels
 
 Use this action to enforce one of the triage labels on PRs in your repo.  An example workflow file would be:
