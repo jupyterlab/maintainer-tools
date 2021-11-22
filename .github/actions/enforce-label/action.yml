@@ -3,6 +3,10 @@ description: "Enforce assigning triage labels before merging PRs"
 runs:
   using: "composite"
   steps:
+    - name: sleep-if-needed
+      shell: bash
+      if: ${{ github.event.action == 'opened' }}
+      run: sleep 60
     - name: enforce-triage-labels
       uses: yogevbd/enforce-label-action@2.1.0
       with:
