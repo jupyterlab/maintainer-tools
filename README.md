@@ -47,7 +47,7 @@ jobs:
 
 ## Enforce Labels
 
-Use this action to enforce one of the triage labels on PRs in your repo.  An example workflow file would be:
+Use this action to enforce one of the triage labels on PRs in your repo (one of `documentation`, `bug`, `enhancement`, `feature`, `maintenance`).  An example workflow file would be:
 
 ```yaml
 name: Enforce PR label
