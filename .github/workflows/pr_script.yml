@@ -15,7 +15,7 @@ on:
         description: Optional commit message
         required: false
 jobs:
-  build:
+  run:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
