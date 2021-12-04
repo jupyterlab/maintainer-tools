@@ -22,5 +22,5 @@ runs:
           ./test/bin/python -m pip install -U pip
           ./test/bin/python -m pip install ${package_spec}
           ./test/bin/python -m pip install . --force-reinstall
-          ${{ input.env_values }} ./test/bin/pytest ${pytest_args}
+          ${{ input.env_values }}; ./test/bin/pytest ${pytest_args}
           rm -rf ./test
