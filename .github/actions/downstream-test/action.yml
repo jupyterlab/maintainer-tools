@@ -16,11 +16,24 @@ runs:
     - name: set up venv
       shell: bash
       run: |
-          package_spec=${${{input.package_spec}}:-"${{inputs.package_name}}[test]"}
-          pytest_args=${${{input.pytest_args}}:-"--pyargs ${{inputs.package_name}}"}
-          python -m venv test
-          ./test/bin/python -m pip install -U pip
-          ./test/bin/python -m pip install ${package_spec}
-          ./test/bin/python -m pip install . --force-reinstall
-          ${{ input.env_values }}; ./test/bin/pytest ${pytest_args}
-          rm -rf ./test
+          set -x
+          # Set up env values
+          package_spec="${{inputs.package_spec}}"
+          package_spec=${package_spec:-"${{inputs.package_name}}[test]"}
+          pytest_args="${{inputs.pytest_args}}"
+          pytest_args=${pytest_args:-"--pyargs ${{inputs.package_name}}"}
+          eval "${{inputs.env_values}}"
+
+          # Set up venv
+          python -m venv test_venv
+          export PATH=$(pwd)/test_venv/bin:$PATH
+          python -m pip install -U pip
+          python -m pip install ${package_spec}
+          python -m pip install . --force-reinstall
+          cd $HOME
+
+          # Test the downstream package
+          pytest ${pytest_args}
+
+          # Cleanup
+          rm -rf ./test_venv
