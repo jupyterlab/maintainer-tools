@@ -63,9 +63,9 @@ jobs:
         uses: jupyterlab/maintainer-tools/.github/actions/enforce-label@v1
 ```
 
-## Test Downstream Library
+## Test Downstream Libraries
 
-Use this action to test a package against a downstream library.  This can be used to catch breaking changes prior to merging them. An example workflow file would be:
+Use this action to test a package against downstream libraries.  This can be used to catch breaking changes prior to merging them. An example workflow file would be:
 
 
 ```yaml
