@@ -62,3 +62,34 @@ jobs:
       - name: enforce-triage-label
         uses: jupyterlab/maintainer-tools/.github/actions/enforce-label@v1
 ```
+
+## Test Downstream Library
+
+Use this action to test a package against a downstream library.  This can be used to catch breaking changes prior to merging them. An example workflow file would be:
+
+
+```yaml
+name: Downstream Tests
+on:
+  push:
+    branches: "main"
+  pull_request:
+    branches: "*"
+jobs:
+  build:
+    runs-on: ubuntu-latest
+  steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Base Setup
+      uses: jupyterlab/maintainer-tools/.github/actions/base-setup@v1
+    - name: Test Against Foo
+      uses: jupyterlab/maintainer-tools/.github/actions/downstream-test@v1
+      with:
+        package_name: foo
+    - name: Test Against Bar
+      uses: jupyterlab/maintainer-tools/.github/actions/downstream-test@v1
+      with:
+        package_name: bar
+        env_values: "FIZZ=buzz NAME=snuffy"
+```
