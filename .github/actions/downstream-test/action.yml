@@ -6,8 +6,10 @@ inputs:
     required: true
   package_spec:
     description: "The package spec(s) to install, defaults to '<package_name>[test]"
-  pytest_args:
-    description: "The pytest args (defaults to '--pyargs <package_name>'"
+  test_command:
+    description: "The test command (defaults to `pytest --pyargs <package_name>`)"
+  extra_test:
+    description: "Optional extra test to run"
   env_values:
     description: "Optional env values to set for test, e.g. 'FOO=BAR FIZZ=BUZZ'"
 runs:
@@ -20,8 +22,8 @@ runs:
           # Set up env values
           package_spec="${{inputs.package_spec}}"
           package_spec=${package_spec:-"${{inputs.package_name}}[test]"}
-          pytest_args="${{inputs.pytest_args}}"
-          pytest_args=${pytest_args:-"--pyargs ${{inputs.package_name}}"}
+          test_command="${{inputs.test_command}}"
+          test_command=${test_command:-"pytest --pyargs ${{inputs.package_name}}"}
           eval "${{inputs.env_values}}"
 
           # Set up venv
@@ -33,7 +35,8 @@ runs:
           cd $HOME
 
           # Test the downstream package
-          pytest ${pytest_args}
+          eval ${test_command}
+          eval ${extra_test}
 
           # Cleanup
           rm -rf ./test_venv
