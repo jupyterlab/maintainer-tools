@@ -2,6 +2,28 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.4.0
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...34d22a5e70fb062c12a74d20a54f7967789ecb33))
+
+### Enhancements made
+
+- Add downstream tester [#21](https://github.com/jupyterlab/maintainer-tools/pull/21) ([@blink1073](https://github.com/blink1073))
+
+### Maintenance and upkeep improvements
+
+- Update PR script job name to `run` [#19](https://github.com/jupyterlab/maintainer-tools/pull/19) ([@jtpio](https://github.com/jtpio))
+
+- Add docs about the triage labels [#18](https://github.com/jupyterlab/maintainer-tools/pull/18) ([@blink1073](https://github.com/blink1073))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2021-11-23&to=2021-12-05&type=c))
+
+[@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2021-11-23..2021-12-05&type=Issues) | [@jtpio](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ajtpio+updated%3A2021-11-23..2021-12-05&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.3.0
 
 ([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...527efbd1eb05653e8c77bb69333d6c2bdf9a6aad))
@@ -19,8 +41,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2021-11-18&to=2021-11-23&type=c))
 
 [@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2021-11-18..2021-11-23&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.2.0
 
