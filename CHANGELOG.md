@@ -2,6 +2,22 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.4.1
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...589b8846d3f8917652d387b8a3d9ccc75496d958))
+
+### Enhancements made
+
+- Make the downstream tester more configurable [#23](https://github.com/jupyterlab/maintainer-tools/pull/23) ([@blink1073](https://github.com/blink1073))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2021-12-05&to=2021-12-05&type=c))
+
+[@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2021-12-05..2021-12-05&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.4.0
 
 ([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...34d22a5e70fb062c12a74d20a54f7967789ecb33))
@@ -21,8 +37,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2021-11-23&to=2021-12-05&type=c))
 
 [@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2021-11-23..2021-12-05&type=Issues) | [@jtpio](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ajtpio+updated%3A2021-11-23..2021-12-05&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.3.0
 
