@@ -8,7 +8,7 @@ runs:
       run: |
         echo "PYTHON_VERSION=${{ matrix.python-version || '3.9' }}" >> $GITHUB_ENV
         echo "NODE_VERSION=${{ matrix.node-version || '14.x' }}" >> $GITHUB_ENV
-        echo "CACHE_PREFIX=${{ runner.os }}-${{ github.job }}" >> $GITHUB_ENV
+        echo "CACHE_PREFIX=${{ runner.os }}-${{ github.workflow}}-${{ github.job }}" >> $GITHUB_ENV
 
     - name: Install Python
       uses: actions/setup-python@v2
