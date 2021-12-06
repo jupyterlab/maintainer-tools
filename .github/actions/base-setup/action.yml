@@ -8,6 +8,7 @@ runs:
       run: |
         echo "PYTHON_VERSION=${{ matrix.python-version || '3.9' }}" >> $GITHUB_ENV
         echo "NODE_VERSION=${{ matrix.node-version || '14.x' }}" >> $GITHUB_ENV
+        echo "CACHE_PREFIX="${{ runner.os }}-${{ github.job }}" >> $GITHUB_ENV
 
     - name: Install Python
       uses: actions/setup-python@v2
@@ -30,18 +31,28 @@ runs:
       uses: actions/cache@v2
       with:
         path: ${{ steps.pip-cache.outputs.dir }}
-        key: ${{ runner.os }}-pip-${{ env.PYTHON_VERSION }}-${{ hashFiles('setup.cfg', 'setup.py', '**/requirements.txt') }}
+        key: ${{ env.CACHE_PREFIX }}-pip-${{ env.PYTHON_VERSION }}-${{ hashFiles('setup.cfg', 'setup.py', '**/requirements.txt') }}
         restore-keys: |
-          ${{ runner.os }}-pip-${{ env.PYTHON_VERSION }}
+          ${{ env.CACHE_PREFIX }}-pip-${{ env.PYTHON_VERSION }}
 
     - name: Cache checked links
       if: ${{ matrix.group == 'link_check' }}
       uses: actions/cache@v2
       with:
         path: ~/.cache/pytest-link-check
-        key: ${{ runner.os }}-linkcheck-${{ hashFiles('**/*.md', '**/*.rst') }}-links
+        key: ${{ env.CACHE_PREFIX }}-linkcheck-${{ hashFiles('**/*.md', '**/*.rst') }}-links
         restore-keys: |
-          ${{ runner.os }}-linkcheck-
+          ${{ env.CACHE_PREFIX }}-linkcheck-
+
+    - name: Cache conda
+      uses: actions/cache@v2
+      with:
+        path: ~/conda_pkgs_dir
+        key:
+          ${{ env.CACHE_PREFIX  }}-conda-${{ env.CACHE_NUMBER }}-${{
+          hashFiles('**/environment*.yml') }}
+        restore-keys: |
+          ${{ env.CACHE_PREFIX }}-conda-
 
     # Cache yarn
     - name: Get yarn cache directory path
@@ -53,9 +64,9 @@ runs:
       id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
       with:
         path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-        key: ${{ runner.os }}-yarn-${{ env.NODE_VERSION }}-${{ hashFiles('**/yarn.lock') }}
+        key: ${{ env.CACHE_PREFIX }}-yarn-${{ env.NODE_VERSION }}-${{ hashFiles('**/yarn.lock') }}
         restore-keys: |
-          ${{ runner.os }}-yarn-${{ env.NODE_VERSION }}
+          ${{ env.CACHE_PREFIX }}-yarn-${{ env.NODE_VERSION }}
 
     - name: Enable long paths on Windows
       if: startsWith(runner.os, 'Windows')
