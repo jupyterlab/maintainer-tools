@@ -37,4 +37,4 @@ jobs:
     - uses: ./.github/actions/binder-link
       with:
         github_token: ${{secrets.GITHUB_TOKEN}}
-        url_path="foo/bar"
+        url_path: "foo/bar"
