@@ -5,6 +5,8 @@ on:
   pull_request:
     branches: ["*"]
 
+permissions:
+    pull-requests: write
 
 jobs:
   check_release:
@@ -29,11 +31,10 @@ jobs:
 
   binder:
     runs-on: ubuntu-latest
-    permissions:
-      pull-requests: write
     steps:
     - name: Checkout
       uses: actions/checkout@v2
     - uses: ./.github/actions/binder-link
       with:
         github_token: ${{secrets.GITHUB_TOKEN}}
+        url_path="foo/bar"
