@@ -96,8 +96,10 @@ jobs:
 
 ## PR Binder Link
 
-Use this action to add binder links for testing PRs, which show up as a comment.  An example workflow would be:
+Use this action to add binder links for testing PRs, which show up as a comment.  
 You can use the optional `url_path` parameter to use a different url than the default `lab`.
+An example workflow would be:
+
 
 ```yaml
 name: Binder Badge
