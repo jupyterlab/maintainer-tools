@@ -10,13 +10,14 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: set up venv
+    - name: add binder link
       uses: actions/github-script@v3
       with:
         github-token: ${{ inputs.github_token }}
         script: |
           var PR_HEAD_USERREPO = process.env.PR_HEAD_USERREPO;
           var PR_HEAD_REF = process.env.PR_HEAD_REF;
+          var URL_PATH = process.env.URL_PATH;
           github.issues.createComment({
             issue_number: context.issue.number,
             owner: context.repo.owner,
