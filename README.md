@@ -93,3 +93,25 @@ jobs:
         package_name: bar
         env_values: "FIZZ=buzz NAME=snuffy"
 ```
+
+## PR Binder Link
+
+Use this action to add binder links for testing PRs, which show up as a comment.  An example workflow would be:
+You can use the optional `url_path` parameter to use a different url than the default `lab`.
+
+```yaml
+name: Binder Badge
+on:
+  pull_request_target:
+    types: [opened]
+
+jobs:
+  binder:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    steps:
+      - uses: jupyterlab/maintainer-tools/.github/actions/binder-link@v1
+        with:
+          github_token: ${{ secrets.github_token }}
+```
