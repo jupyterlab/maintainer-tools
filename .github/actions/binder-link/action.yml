@@ -25,9 +25,9 @@ runs:
             repo: context.repo.repo,
             body: body
           };
-          if [ "${{ inputs.github_token }}" != "FAKE" ]; then
+          if ("${{ inputs.github_token }}" !== "FAKE") {
             github.issues.createComment($CONTENT);
-          fi
+          }
       env:
         PR_HEAD_REF: ${{ github.event.pull_request.head.ref }}
         PR_HEAD_USERREPO: ${{ github.event.pull_request.head.repo.full_name }}
