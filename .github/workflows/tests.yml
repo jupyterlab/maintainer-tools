@@ -28,3 +28,14 @@ jobs:
           test_command: "echo 'hello'"
           extra_test: "pytest --pyargs nbclient"
           env_values: IPYKERNEL_CELL_NAME=\<IPY-INPUT\>
+
+  check_binder_link:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Base Setup
+        uses: ./.github/actions/base-setup
+        with:
+          github_token: ""
+          url_path: "/foo/bar"
