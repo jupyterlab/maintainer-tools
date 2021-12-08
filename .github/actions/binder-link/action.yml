@@ -25,7 +25,7 @@ runs:
             repo: context.repo.repo,
             body: body
           };
-          if [ ! -z "${{ inputs.github_token }}" ]; then
+          if [ "${{ inputs.github_token }}" != "FAKE" ]; then
             github.issues.createComment($CONTENT);
           fi
       env:

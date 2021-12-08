@@ -39,5 +39,5 @@ jobs:
       - name: Check Binder Link
         uses: ./.github/actions/binder-link
         with:
-          github_token: ""
+          github_token: "FAKE"
           url_path: "/foo/bar"
