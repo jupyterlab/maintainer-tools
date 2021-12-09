@@ -18,12 +18,16 @@ runs:
           var PR_HEAD_USERREPO = process.env.PR_HEAD_USERREPO;
           var PR_HEAD_REF = process.env.PR_HEAD_REF;
           var URL_PATH = process.env.URL_PATH;
-          github.issues.createComment({
+          var BODY = `[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/${PR_HEAD_USERREPO}/${PR_HEAD_REF}?urlpath=${URL_PATH}) :point_left: Launch a Binder on branch _${PR_HEAD_USERREPO}/${PR_HEAD_REF}_`;
+          var CONTENT = {
             issue_number: context.issue.number,
             owner: context.repo.owner,
             repo: context.repo.repo,
-            body: `[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/${PR_HEAD_USERREPO}/${PR_HEAD_REF}?urlpath=${URL_PATH}) :point_left: Launch a Binder on branch _${PR_HEAD_USERREPO}/${PR_HEAD_REF}_`
-          })
+            body: BODY
+          };
+          if ("${{ inputs.github_token }}" !== "FAKE") {
+            github.issues.createComment($CONTENT);
+          }
       env:
         PR_HEAD_REF: ${{ github.event.pull_request.head.ref }}
         PR_HEAD_USERREPO: ${{ github.event.pull_request.head.repo.full_name }}

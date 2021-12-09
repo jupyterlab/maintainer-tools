@@ -36,7 +36,7 @@ runs:
 
           # Test the downstream package
           eval ${test_command}
-          eval ${extra_test}
+          eval "${{inputs.extra_test}}"
 
           # Cleanup
           rm -rf ./test_venv
