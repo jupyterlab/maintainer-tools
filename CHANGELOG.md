@@ -2,6 +2,27 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.4.3
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...0723cf06139a6339880ef48b70642e6ac76da507))
+
+### Enhancements made
+
+- Add binder link generator [#28](https://github.com/jupyterlab/maintainer-tools/pull/28) ([@blink1073](https://github.com/blink1073))
+
+### Maintenance and upkeep improvements
+
+- Add some testing of actions [#30](https://github.com/jupyterlab/maintainer-tools/pull/30) ([@blink1073](https://github.com/blink1073))
+- Update body text for the Binder link comment [#29](https://github.com/jupyterlab/maintainer-tools/pull/29) ([@jtpio](https://github.com/jtpio))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2021-12-06&to=2021-12-13&type=c))
+
+[@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2021-12-06..2021-12-13&type=Issues) | [@jtpio](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ajtpio+updated%3A2021-12-06..2021-12-13&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.4.2
 
 ([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...8a09c172a011ffbdaea95f8d5592de1cf18d8b0f))
@@ -15,8 +36,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2021-12-05&to=2021-12-06&type=c))
 
 [@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2021-12-05..2021-12-06&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.4.1
 
