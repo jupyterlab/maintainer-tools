@@ -2,6 +2,22 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.4.4
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...2e9d034f7915a1d9704528c5dd4396d61443410b))
+
+### Bugs fixed
+
+- Fix use of `CONTENT` in `binder-link` action [#32](https://github.com/jupyterlab/maintainer-tools/pull/32) ([@jtpio](https://github.com/jtpio))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2021-12-13&to=2021-12-13&type=c))
+
+[@jtpio](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ajtpio+updated%3A2021-12-13..2021-12-13&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.4.3
 
 ([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...0723cf06139a6339880ef48b70642e6ac76da507))
@@ -20,8 +36,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2021-12-06&to=2021-12-13&type=c))
 
 [@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2021-12-06..2021-12-13&type=Issues) | [@jtpio](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ajtpio+updated%3A2021-12-06..2021-12-13&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.4.2
 
