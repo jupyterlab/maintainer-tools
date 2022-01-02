@@ -1,0 +1,24 @@
+name: Trigger Test
+on:
+  pull_request:
+    types: [opened]
+  issue_comment:
+    types: [created]
+
+jobs:
+  pr_script:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: khan/pull-request-comment-trigger@master
+        id: check
+        with:
+          trigger: 'test trigger'
+      - if: steps.check.outputs.triggered == 'true'
+        name: Create comment
+        uses: peter-evans/create-or-update-comment@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          issue-number:  ${{ github.event.pull_request.number }}
+          body: |
+            hello ${{ GITHUB_ACTOR }}
+            hello ${{ GITHUB REF }}
