@@ -20,5 +20,5 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           issue-number:  ${{ github.event.pull_request.number }}
           body: |
-            hello ${GITHUB_ACTOR}
-            hello ${GITHUB REF}
+            hello ${{ github.actor }}
+            hello ${{ github.ref }}
