@@ -72,10 +72,14 @@ if __name__ == '__main__':
     target = os.environ.get('TARGET')
     maintainer = os.environ['MAINTAINER']
     commit_message = os.environ.get('COMMIT_MESSAGE', '')
+    script = os.environ.get('SCRIPT', '[]')
+    script_prefix = os.environ.get('SCRIPT_PREFIX', '')
+    if script:
+        script = script.replace(script_prefix, '')
     try:
-        script = json.loads(os.environ.get('SCRIPT', '[]'))
+        script = json.loads(script)
     except Exception:
-        script = os.environ.get('SCRIPT', [])
+        pass
     if not isinstance(script, list):
         script = [script]
     if os.environ.get('PRE_COMMIT') == 'true':

@@ -1,0 +1,38 @@
+name: Run Script on PR
+description: "Run a script against a PR"
+inputs:
+    target:
+      description: Target Pull Request Link
+      required: true
+    token:
+      description: GitHub Access Token
+      required: true
+    script:
+      description: Command(s) to run
+      required: false
+    pre_commit:
+      description: Whether to run the pre-commit script
+      required: false
+    commit_message:
+      description: Optional commit message
+      required: false
+    script_prefix:
+      description: The prefix in the script to strip, if applicable
+      required: false
+runs:
+  using: "composite"
+  steps:
+    - name: Install dependencies
+      run: |
+        pip install ghapi pre-commit
+    - name: Run the script
+      env:
+        GITHUB_ACCESS_TOKEN: ${{ inputs.token }}
+        MAINTAINER: ${{ github.actor }}
+        TARGET: ${{ inputs.target }}
+        SCRIPT: ${{ inputs.script }}
+        PRE_COMMIT: ${{ inputs.pre_commit }}
+        COMMIT_MESSAGE: ${{ inputs.commit_message }}
+        SCRIPT_PREFIX: ${{ inputs.script_prefix }}
+      run: |
+        python ${{ github.action_path }}/pr_script.py
