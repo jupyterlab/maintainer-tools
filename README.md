@@ -117,3 +117,60 @@ jobs:
         with:
           github_token: ${{ secrets.github_token }}
 ```
+
+## PR Script
+
+You can use the PR Script action in your repo along with [pull-request-comment-trigger](https://github.com/Khan/pull-request-comment-trigger) to enable maintainers to comment on PRs to run
+a script against a pull request.  In this example, the maintainer can write the
+comment "auto run pre-commit", and `pre-commit` will be run against the PR::
+
+
+```yaml
+name: Trigger Pre-Commit on a PR
+on:
+  issue_comment:
+    types: [created]
+jobs:
+  pr-script:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: khan/pull-request-comment-trigger@1.0.0
+        id: check
+          with:
+            trigger: 'auto run pre-commit'
+      - if: steps.check.outputs.triggered == 'true'
+        uses: jupyterlab/maintainer-tools/.github/actions/pr-script@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          pre_commit: true
+          commit_message: "auto run pre-commit"
+          target: ${{ github.event.issue_url }}
+```
+
+In this example, the maintainer can write the
+comment "auto run script <foo>", and the script will be run against the PR.
+The script can be a list, such as `["jlpm run integrity", "jlpm run lint"]`.
+
+
+```yaml
+name: Run a Script against a PR
+on:
+  issue_comment:
+    types: [created]
+jobs:
+  pr-script:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: khan/pull-request-comment-trigger@1.0.0
+        id: check
+          with:
+            trigger: 'auto run script'
+      - if: steps.check.outputs.triggered == 'true'
+        uses: jupyterlab/maintainer-tools/.github/actions/pr-script@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          script: ${{ steps.check.outputs.comment_body }}
+          script_prefix: 'auto run script'
+          commit_message: "auto run script"
+          target: ${{ github.event.issue_url }}
+```
