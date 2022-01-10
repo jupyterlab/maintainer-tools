@@ -2,6 +2,22 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.5.0
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...24671dbf073945f988963ad4eb992dc8b8a9d207))
+
+### Enhancements made
+
+- Add PR script action [#37](https://github.com/jupyterlab/maintainer-tools/pull/37) ([@blink1073](https://github.com/blink1073))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2021-12-13&to=2022-01-10&type=c))
+
+[@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2021-12-13..2022-01-10&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.4.4
 
 ([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...2e9d034f7915a1d9704528c5dd4396d61443410b))
@@ -15,8 +31,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2021-12-13&to=2021-12-13&type=c))
 
 [@jtpio](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ajtpio+updated%3A2021-12-13..2021-12-13&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.4.3
 
