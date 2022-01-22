@@ -121,8 +121,16 @@ jobs:
 ## PR Script
 
 You can use the PR Script action in your repo along with [pull-request-comment-trigger](https://github.com/Khan/pull-request-comment-trigger) to enable maintainers to comment on PRs to run
-a script against a pull request.  In this example, the maintainer can write the
-comment "auto run pre-commit", and `pre-commit` will be run against the PR::
+a script against a pull request. The script can only be run by a org member, collaborator, or repo owner if the association parameter is used (as in the examples below).
+
+Note that the resulting commit will *not* trigger the
+workflows to run again.  You will have to close/reopen the PR, or push another
+commit for the workflows to run again.  If this behavior is not desirable,
+you can use a personal access token instead of the default GitHub token provided
+to the workflow. Make sure the token used is of as limited scope as possible (preferrably a bot account token with access to the `public_repo` scope only).
+
+This first example allows maintainers to run `pre-commit` by commenting
+"auto run pre-commit" on a Pull Request.
 
 
 ```yaml
@@ -130,47 +138,56 @@ name: Trigger Pre-Commit on a PR
 on:
   issue_comment:
     types: [created]
+
+permissions:
+  pull-requests: write
+
 jobs:
   pr-script:
     runs-on: ubuntu-latest
     steps:
       - uses: khan/pull-request-comment-trigger@1.0.0
         id: check
-          with:
-            trigger: 'auto run pre-commit'
+        with:
+          trigger: "auto run pre-commit"
       - if: steps.check.outputs.triggered == 'true'
         uses: jupyterlab/maintainer-tools/.github/actions/pr-script@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           pre_commit: true
           commit_message: "auto run pre-commit"
-          target: ${{ github.event.issue_url }}
+          target: ${{ github.event.issue.html_url }}
+          association: ${{ github.event.comment.author_association }}
 ```
 
-In this example, the maintainer can write the
-comment "auto run script <foo>", and the script will be run against the PR.
-The script can be a list, such as `["jlpm run integrity", "jlpm run lint"]`.
+In this example, the repo has a custom script that should be run, which is
+triggered by a PR comment "auto run cleanup".  Again, this can only be run
+by a org member, collaborator, or repo owner.
 
 
 ```yaml
-name: Run a Script against a PR
+name: Trigger a Cleanup Script on a PR
 on:
   issue_comment:
     types: [created]
+
+permissions:
+  pull-requests: write
+
 jobs:
   pr-script:
     runs-on: ubuntu-latest
     steps:
       - uses: khan/pull-request-comment-trigger@1.0.0
         id: check
-          with:
-            trigger: 'auto run script'
+        with:
+          trigger: 'auto run cleanup'
       - if: steps.check.outputs.triggered == 'true'
         uses: jupyterlab/maintainer-tools/.github/actions/pr-script@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          script: ${{ steps.check.outputs.comment_body }}
-          script_prefix: 'auto run script'
-          commit_message: "auto run script"
-          target: ${{ github.event.issue_url }}
+          script: "[\"jlpm run integrity\", \"jlpm run lint\"]"
+          commit_message: "auto run cleanup"
+          target:  ${{ github.event.issue.html_url }}
+          association: ${{ github.event.comment.author_association }}
 ```
