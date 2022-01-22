@@ -10,14 +10,19 @@ inputs:
     script:
       description: Command(s) to run
       required: false
+    association:
+      description: The Author Association for the Script
+      required: false
     pre_commit:
       description: Whether to run the pre-commit script
       required: false
     commit_message:
       description: Optional commit message
       required: false
-    script_prefix:
-      description: The prefix in the script to strip, if applicable
+    association:
+        description:
+    dry_run:
+      description: Whether this is a dry run
       required: false
 runs:
   using: "composite"
@@ -33,6 +38,7 @@ runs:
         SCRIPT: ${{ inputs.script }}
         PRE_COMMIT: ${{ inputs.pre_commit }}
         COMMIT_MESSAGE: ${{ inputs.commit_message }}
-        SCRIPT_PREFIX: ${{ inputs.script_prefix }}
+        ASSOCIATION: ${{ inputs.association }}
+        DRY_RUN: ${{ inputs.dry_run }}
       run: |
         python ${{ github.action_path }}/pr_script.py

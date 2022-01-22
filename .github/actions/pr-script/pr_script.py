@@ -17,6 +17,10 @@ def run(cmd, **kwargs):
     else:
         kwargs.setdefault("stderr", PIPE)
 
+    dry_run = os.environ.get("DRY_RUN").lower() == "true"
+    if dry_run:
+        return
+
     parts = shlex.split(cmd)
     if "/" not in parts[0]:
         executable = shutil.which(parts[0])
@@ -44,16 +48,20 @@ def run_script(target, script, maintainer, commit_message=""):
     print(f"Extracting PR {number} from {owner}/{repo}")
     gh = GhApi(owner=owner, repo=repo, token=auth)
 
+    dry_run = os.environ.get("DRY_RUN").lower() == "true"
+
     print("Checking for authorized user")
     association = os.environ.get("ASSOCIATION", "COLLABORATOR")
     if association not in ["COLLABORATOR", "MEMBER", "OWNER"]:
         msg = f"Cannot run script for user \"{maintainer}\" with association \"{association}\""
-        gh.issues.create_comment(number, msg)
+        if not dry_run:
+            gh.issues.create_comment(number, msg)
         raise ValueError(msg)
 
     # Give a confirmation message
     msg = f"Running script \"{script}\" on behalf of \"{maintainer}\""
-    gh.issues.create_comment(number, msg)
+    if not dry_run:
+        gh.issues.create_comment(number, msg)
 
     # here we get the target owner and branch so we can check it out below
     pull = gh.pulls.get(number)
@@ -64,6 +72,9 @@ def run_script(target, script, maintainer, commit_message=""):
         shutil.rmtree("./test")
     url = f"https://{maintainer}:{auth}@github.com/{user_name}/{repo}"
     run(f"git clone {url} -b {branch} test")
+    if dry_run:
+        os.mkdir("./test")
+
     os.chdir("test")
     run("pip install -e '.[test]'")
     for cmd in script:
@@ -101,4 +112,4 @@ if __name__ == "__main__":
         script += ["pre-commit run --all-files"]
     print(f"Running script on {target}:")
     print(f"   {script}")
-    run_script(target, script, maintainer, commit_message)
+    run_script(target, script, commit_message)
