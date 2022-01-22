@@ -17,7 +17,7 @@ def run(cmd, **kwargs):
     else:
         kwargs.setdefault("stderr", PIPE)
 
-    dry_run = os.environ.get("DRY_RUN").lower() == "true"
+    dry_run = os.environ.get("DRY_RUN", "").lower() == "true"
     if dry_run:
         return
 
@@ -38,9 +38,29 @@ def run(cmd, **kwargs):
         raise e
 
 
-def run_script(target, script, maintainer, commit_message=""):
+def run_script():
     """Run a script on the target pull request URL"""
     # e.g. https://github.com/foo/bar/pull/81
+
+    # Gather the inputs
+    # https://docs.github.com/en/actions/creating-actions/metadata-syntax-for-github-actions#inputs
+    target = os.environ["TARGET"]
+    maintainer = os.environ["MAINTAINER"]
+    commit_message = os.environ.get("COMMIT_MESSAGE", "")
+    script = os.environ.get("SCRIPT")
+    if not script:
+        script = "[]"
+    try:
+        script = json.loads(script)
+    except Exception:
+        pass
+    if not isinstance(script, list):
+        script = [script]
+    if os.environ.get("PRE_COMMIT") == "true":
+        script += ["pre-commit run --all-files"]
+    print(f"Running script on {target}:")
+    print(f"   {script}")
+
     print(f"Finding owner and repo for {target}")
     owner, repo = target.replace("https://github.com/", "").split("/")[:2]
     number = target.split("/")[-1]
@@ -48,7 +68,7 @@ def run_script(target, script, maintainer, commit_message=""):
     print(f"Extracting PR {number} from {owner}/{repo}")
     gh = GhApi(owner=owner, repo=repo, token=auth)
 
-    dry_run = os.environ.get("DRY_RUN").lower() == "true"
+    dry_run = os.environ.get("DRY_RUN", "").lower() == "true"
 
     print("Checking for authorized user")
     association = os.environ.get("ASSOCIATION", "COLLABORATOR")
@@ -95,21 +115,4 @@ def run_script(target, script, maintainer, commit_message=""):
 
 
 if __name__ == "__main__":
-    # https://docs.github.com/en/actions/creating-actions/metadata-syntax-for-github-actions#inputs
-    target = os.environ.get("TARGET")
-    maintainer = os.environ["MAINTAINER"]
-    commit_message = os.environ.get("COMMIT_MESSAGE", "")
-    script = os.environ.get("SCRIPT")
-    if not script:
-        script = "[]"
-    try:
-        script = json.loads(script)
-    except Exception:
-        pass
-    if not isinstance(script, list):
-        script = [script]
-    if os.environ.get("PRE_COMMIT") == "true":
-        script += ["pre-commit run --all-files"]
-    print(f"Running script on {target}:")
-    print(f"   {script}")
-    run_script(target, script, commit_message)
+    run_script()
