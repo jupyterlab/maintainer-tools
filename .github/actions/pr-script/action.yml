@@ -19,8 +19,6 @@ inputs:
     commit_message:
       description: Optional commit message
       required: false
-    association:
-        description:
     dry_run:
       description: Whether this is a dry run
       required: false
