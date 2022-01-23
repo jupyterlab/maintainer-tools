@@ -63,7 +63,7 @@ jobs:
     - name: Check PR Script
       uses: ./.github/actions/pr-script
       with:
-        github_token: "FAKE"
+        github_token: ${{ secrets.GITHUB_TOKEN }}
         dry_run: true
         script: "[\"jlpm run integrity\", \"jlpm run lint\"]"
         commit_message: "auto run cleanup"
