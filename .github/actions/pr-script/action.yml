@@ -26,9 +26,11 @@ runs:
   using: "composite"
   steps:
     - name: Install dependencies
+      shell: bash
       run: |
         pip install ghapi pre-commit
     - name: Run the script
+      shell: bash
       env:
         GITHUB_ACCESS_TOKEN: ${{ inputs.token }}
         MAINTAINER: ${{ github.actor }}
