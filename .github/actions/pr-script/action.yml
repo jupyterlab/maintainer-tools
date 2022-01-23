@@ -4,7 +4,7 @@ inputs:
     target:
       description: Target Pull Request Link
       required: true
-    token:
+    github_token:
       description: GitHub Access Token
       required: true
     script:
@@ -32,7 +32,7 @@ runs:
     - name: Run the script
       shell: bash
       env:
-        GITHUB_ACCESS_TOKEN: ${{ inputs.token }}
+        GITHUB_ACCESS_TOKEN: ${{ inputs.github_token }}
         MAINTAINER: ${{ github.actor }}
         TARGET: ${{ inputs.target }}
         SCRIPT: ${{ inputs.script }}

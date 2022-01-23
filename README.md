@@ -153,7 +153,7 @@ jobs:
       - if: steps.check.outputs.triggered == 'true'
         uses: jupyterlab/maintainer-tools/.github/actions/pr-script@v1
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           pre_commit: true
           commit_message: "auto run pre-commit"
           target: ${{ github.event.issue.html_url }}
@@ -185,7 +185,7 @@ jobs:
       - if: steps.check.outputs.triggered == 'true'
         uses: jupyterlab/maintainer-tools/.github/actions/pr-script@v1
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           script: "[\"jlpm run integrity\", \"jlpm run lint\"]"
           commit_message: "auto run cleanup"
           target:  ${{ github.event.issue.html_url }}

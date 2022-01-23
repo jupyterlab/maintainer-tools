@@ -77,9 +77,11 @@ def run_script():
         if not dry_run:
             gh.issues.create_comment(number, msg)
         raise ValueError(msg)
+    print("User is authorized")
 
     # Give a confirmation message
     msg = f"Running script \"{script}\" on behalf of \"{maintainer}\""
+    print(msg)
     if not dry_run:
         gh.issues.create_comment(number, msg)
 

@@ -60,7 +60,7 @@ jobs:
       uses: actions/checkout@v2
     - name: Base Setup
       uses: ./.github/actions/base-setup
-    - name: Check Binder Link
+    - name: Check PR Script
       uses: ./.github/actions/pr-script
       with:
         github_token: "FAKE"
