@@ -53,20 +53,19 @@ jobs:
           github_token: "FAKE"
           url_path: "/foo/bar"
 
-
   pr_script:
-      runs-on: ubuntu-latest
-      setps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Base Setup
-        uses: ./.github/actions/base-setup
-      - name: Check Binder Link
-        uses: ./.github/actions/pr-script
-        with:
-          github_token: "FAKE"
-          dry_run: true
-          script: "[\"jlpm run integrity\", \"jlpm run lint\"]"
-          commit_message: "auto run cleanup"
-          target:  "https://github.com/jupyterlab/maintainer-tools/pull/39"
-          association: "MEMBER"
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Base Setup
+      uses: ./.github/actions/base-setup
+    - name: Check Binder Link
+      uses: ./.github/actions/pr-script
+      with:
+        github_token: "FAKE"
+        dry_run: true
+        script: "[\"jlpm run integrity\", \"jlpm run lint\"]"
+        commit_message: "auto run cleanup"
+        target:  "https://github.com/jupyterlab/maintainer-tools/pull/39"
+        association: "MEMBER"
