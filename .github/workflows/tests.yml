@@ -69,13 +69,10 @@ jobs:
         commit_message: "auto run cleanup"
         target:  "https://github.com/jupyterlab/maintainer-tools/pull/39"
         association: "MEMBER"
-        git_username: "snuffy-bot"
-        git_email: "snuffy-bot@example.com"
     - name: Check PR Script Defaults
       uses: ./.github/actions/pr-script
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         dry_run: true
         pre_commit: true
-        commit_message: "auto run cleanup"
         target:  "https://github.com/jupyterlab/maintainer-tools/pull/39"
