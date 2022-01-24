@@ -94,7 +94,7 @@ def run_script():
     if Path("./test").exists():
         shutil.rmtree("./test")
     url = f"https://empty:{auth}@github.com/{user_name}/{repo}"
-    run(f"git clone {url} -b {branch} test")
+    run(f"git clone {url} --filter=blob:none -b {branch} test")
     if dry_run:
         os.mkdir("./test")
 
