@@ -70,14 +70,15 @@ def run_script():
 
     dry_run = os.environ.get("DRY_RUN", "").lower() == "true"
 
-    print("Checking for authorized user")
-    association = os.environ.get("ASSOCIATION", "COLLABORATOR")
-    if association not in ["COLLABORATOR", "MEMBER", "OWNER"]:
-        msg = f"Cannot run script for user \"{maintainer}\" with association \"{association}\""
-        if not dry_run:
-            gh.issues.create_comment(number, msg)
-        raise ValueError(msg)
-    print("User is authorized")
+    # Validate the association, unless none was given.
+    association = os.environ.get("ASSOCIATION")
+    if association:
+        if association not in ["COLLABORATOR", "MEMBER", "OWNER"]:
+            msg = f"Cannot run script for user \"{maintainer}\" with association \"{association}\""
+            if not dry_run:
+                gh.issues.create_comment(number, msg)
+            raise ValueError(msg)
+        print(f"User is authorized as {association}")
 
     # Give a confirmation message
     msg = f"Running script \"{script}\" on behalf of \"{maintainer}\""
