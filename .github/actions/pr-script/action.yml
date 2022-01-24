@@ -7,6 +7,10 @@ inputs:
     github_token:
       description: GitHub Access Token
       required: true
+    git_username:
+      description: The Git Username to Use for the Commit
+    git_email:
+      description: The Git Email to Use for the Commit
     script:
       description: Command(s) to run
       required: false
@@ -34,6 +38,8 @@ runs:
       env:
         GITHUB_ACCESS_TOKEN: ${{ inputs.github_token }}
         MAINTAINER: ${{ github.actor }}
+        GIT_USERNAME: ${{ inputs.git_username }}
+        GIT_EMAIL: ${{ inputs.git_email }}
         TARGET: ${{ inputs.target }}
         SCRIPT: ${{ inputs.script }}
         PRE_COMMIT: ${{ inputs.pre_commit }}
