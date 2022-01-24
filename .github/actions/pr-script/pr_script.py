@@ -92,7 +92,7 @@ def run_script():
 
     if Path("./test").exists():
         shutil.rmtree("./test")
-    url = f"https://{maintainer}:{auth}@github.com/{user_name}/{repo}"
+    url = f"https://empty:{auth}@github.com/{user_name}/{repo}"
     run(f"git clone {url} -b {branch} test")
     if dry_run:
         os.mkdir("./test")
@@ -105,11 +105,13 @@ def run_script():
         except Exception:
             continue
 
-    # Use email address for the GitHub Actions bot
+    # Use GitHub Actions bot user and email by default
     # https://github.community/t/github-actions-bot-email-address/17204/6
-    email = "41898282+github-actions[bot]@users.noreply.github.com"
+    username = os.environ.get("GIT_USERNAME", "GitHub Action")
+    bot_email = "41898282+github-actions[bot]@users.noreply.github.com"
+    email = os.environ.get("GIT_EMAIL", bot_email)
     run(f"git config user.email {email}")
-    run('git config user.name "GitHub Action"')
+    run(f"git config user.name {username}")
     message = commit_message or "Run maintainer script"
     opts = f"-m '{message}' -m 'by {maintainer}' -m '{json.dumps(script)}'"
     run(f"git commit -a {opts}")
