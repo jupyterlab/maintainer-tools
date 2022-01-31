@@ -1,11 +1,11 @@
 import json
 import os
-from pathlib import Path
-import re
 import shlex
 import shutil
-from subprocess import check_output, CalledProcessError, PIPE
-import sys
+from pathlib import Path
+from subprocess import CalledProcessError
+from subprocess import check_output
+from subprocess import PIPE
 
 from ghapi.core import GhApi
 
@@ -17,11 +17,16 @@ def run(cmd, **kwargs):
     else:
         kwargs.setdefault("stderr", PIPE)
 
+    dry_run = os.environ.get("DRY_RUN", "").lower() == "true"
+    if dry_run:
+        return
+
     parts = shlex.split(cmd)
     if "/" not in parts[0]:
         executable = shutil.which(parts[0])
         if not executable:
-            raise CalledProcessError(1, f'Could not find executable "{parts[0]}"')
+            msg = f'Could not find executable "{parts[0]}"'
+            raise CalledProcessError(1, msg)
         parts[0] = executable
 
     try:
@@ -33,13 +38,54 @@ def run(cmd, **kwargs):
         raise e
 
 
-def run_script(target, script, commit_message=''):
+def run_script():
     """Run a script on the target pull request URL"""
     # e.g. https://github.com/foo/bar/pull/81
-    owner, repo = target.replace("https://github.com/", "").split('/')[:2]
+
+    # Gather the inputs
+    # https://docs.github.com/en/actions/creating-actions/metadata-syntax-for-github-actions#inputs
+    target = os.environ["TARGET"]
+    maintainer = os.environ["MAINTAINER"]
+    commit_message = os.environ.get("COMMIT_MESSAGE", "")
+    script = os.environ.get("SCRIPT")
+    if not script:
+        script = "[]"
+    try:
+        script = json.loads(script)
+    except Exception:
+        pass
+    if not isinstance(script, list):
+        script = [script]
+    if os.environ.get("PRE_COMMIT") == "true":
+        script += ["pre-commit run --all-files"]
+    print(f"Running script on {target}:")
+    print(f"   {script}")
+
+    print(f"Finding owner and repo for {target}")
+    owner, repo = target.replace("https://github.com/", "").split("/")[:2]
     number = target.split("/")[-1]
-    auth = os.environ['GITHUB_ACCESS_TOKEN']
+    auth = os.environ["GITHUB_ACCESS_TOKEN"]
+    print(f"Extracting PR {number} from {owner}/{repo}")
     gh = GhApi(owner=owner, repo=repo, token=auth)
+
+    dry_run = os.environ.get("DRY_RUN", "").lower() == "true"
+
+    # Validate the association, unless none was given.
+    association = os.environ.get("ASSOCIATION")
+    if association:
+        if association not in ["COLLABORATOR", "MEMBER", "OWNER"]:
+            msg = f"Cannot run script for user \"{maintainer}\" with association \"{association}\""
+            if not dry_run:
+                gh.issues.create_comment(number, msg)
+            raise ValueError(msg)
+        print(f"User is authorized as {association}")
+
+    # Give a confirmation message
+    msg = f"Running script \"{script}\" on behalf of \"{maintainer}\""
+    print(msg)
+    if not dry_run:
+        gh.issues.create_comment(number, msg)
+
     # here we get the target owner and branch so we can check it out below
     pull = gh.pulls.get(number)
     user_name = pull.head.repo.owner.login
@@ -47,7 +93,11 @@ def run_script(target, script, commit_message=''):
 
     if Path("./test").exists():
         shutil.rmtree("./test")
-    run(f"git clone https://{maintainer}:{auth}@github.com/{user_name}/{repo} -b {branch} test")
+    url = f"https://empty:{auth}@github.com/{user_name}/{repo}"
+    run(f"git clone {url} --filter=blob:none -b {branch} test")
+    if dry_run:
+        os.mkdir("./test")
+
     os.chdir("test")
     run("pip install -e '.[test]'")
     for cmd in script:
@@ -56,34 +106,18 @@ def run_script(target, script, commit_message=''):
         except Exception:
             continue
 
-    # Use email address for the GitHub Actions bot
+    # Use GitHub Actions bot user and email by default.
     # https://github.community/t/github-actions-bot-email-address/17204/6
-    run(
-        'git config user.email "41898282+github-actions[bot]@users.noreply.github.com"'
-    )
-    run('git config user.name "GitHub Action"')
+    username = os.environ.get("GIT_USERNAME", "GitHub Action")
+    bot_email = "41898282+github-actions[bot]@users.noreply.github.com"
+    email = os.environ.get("GIT_EMAIL", bot_email)
+    run(f"git config user.email {email}")
+    run(f"git config user.name {username}")
     message = commit_message or "Run maintainer script"
-    run(f"git commit -a -m  '{message}' -m 'by {maintainer}' -m '{json.dumps(script)}'")
+    opts = f"-m '{message}' -m 'by {maintainer}' -m '{json.dumps(script)}'"
+    run(f"git commit -a {opts}")
     run(f"git push origin {branch}")
 
 
-if __name__ == '__main__':
-    # https://docs.github.com/en/actions/creating-actions/metadata-syntax-for-github-actions#inputs
-    target = os.environ.get('TARGET')
-    maintainer = os.environ['MAINTAINER']
-    commit_message = os.environ.get('COMMIT_MESSAGE', '')
-    script = os.environ.get('SCRIPT', '[]')
-    script_prefix = os.environ.get('SCRIPT_PREFIX', '')
-    if script:
-        script = script.replace(script_prefix, '')
-    try:
-        script = json.loads(script)
-    except Exception:
-        pass
-    if not isinstance(script, list):
-        script = [script]
-    if os.environ.get('PRE_COMMIT') == 'true':
-        script += ['pre-commit run --all-files']
-    print(f'Running script on {target}:')
-    print(f'   {script}')
-    run_script(target, script, commit_message)
+if __name__ == "__main__":
+    run_script()

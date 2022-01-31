@@ -4,11 +4,18 @@ inputs:
     target:
       description: Target Pull Request Link
       required: true
-    token:
+    github_token:
       description: GitHub Access Token
       required: true
+    git_username:
+      description: The Git Username to Use for the Commit
+    git_email:
+      description: The Git Email to Use for the Commit
     script:
       description: Command(s) to run
+      required: false
+    association:
+      description: The Author Association for the Script
       required: false
     pre_commit:
       description: Whether to run the pre-commit script
@@ -16,23 +23,28 @@ inputs:
     commit_message:
       description: Optional commit message
       required: false
-    script_prefix:
-      description: The prefix in the script to strip, if applicable
+    dry_run:
+      description: Whether this is a dry run
       required: false
 runs:
   using: "composite"
   steps:
     - name: Install dependencies
+      shell: bash
       run: |
         pip install ghapi pre-commit
     - name: Run the script
+      shell: bash
       env:
-        GITHUB_ACCESS_TOKEN: ${{ inputs.token }}
+        GITHUB_ACCESS_TOKEN: ${{ inputs.github_token }}
         MAINTAINER: ${{ github.actor }}
+        GIT_USERNAME: ${{ inputs.git_username }}
+        GIT_EMAIL: ${{ inputs.git_email }}
         TARGET: ${{ inputs.target }}
         SCRIPT: ${{ inputs.script }}
         PRE_COMMIT: ${{ inputs.pre_commit }}
         COMMIT_MESSAGE: ${{ inputs.commit_message }}
-        SCRIPT_PREFIX: ${{ inputs.script_prefix }}
+        ASSOCIATION: ${{ inputs.association }}
+        DRY_RUN: ${{ inputs.dry_run }}
       run: |
         python ${{ github.action_path }}/pr_script.py

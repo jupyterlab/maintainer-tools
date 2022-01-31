@@ -52,3 +52,29 @@ jobs:
         with:
           github_token: "FAKE"
           url_path: "/foo/bar"
+
+  pr_script:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Base Setup
+      uses: ./.github/actions/base-setup
+    - name: Check PR Script All Options
+      uses: ./.github/actions/pr-script
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        dry_run: true
+        script: "[\"jlpm run integrity\", \"jlpm run lint\"]"
+        commit_message: "auto run cleanup"
+        target:  "https://github.com/jupyterlab/maintainer-tools/pull/39"
+        association: "MEMBER"
+        git_username: "snuffy-bot"
+        git_email: "snuffy-bot@example.com"
+    - name: Check PR Script Defaults
+      uses: ./.github/actions/pr-script
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        dry_run: true
+        pre_commit: true
+        target:  "https://github.com/jupyterlab/maintainer-tools/pull/39"
