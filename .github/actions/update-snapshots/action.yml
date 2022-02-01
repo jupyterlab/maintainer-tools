@@ -23,6 +23,10 @@ inputs:
     description: The playwright browser to install (one of [`chromium`, `firefox`, `webkit`])
     required: false
     default: chromium
+  dry_run:
+    description: Whether this is a dry run (one of [`yes`, `no`])
+    required: false
+    default: no
 
 runs:
   using: composite
@@ -46,11 +50,21 @@ runs:
         timeout: 360000
 
     - name: Generate new snapshots
-      shell: bash
+      shell: bash -l {0}
       working-directory: ${{ inputs.test_folder }}
       run: yarn run ${{ inputs.update_script }}
 
+
+    - name: Compress snapshots
+      if: ${{ runner.os == 'Linux' }}
+      shell: bash -l {0}
+      working-directory: ${{ inputs.test_folder }}
+      run: |
+        sudo apt install optipng
+        find . -wholename "*-snapshots/*.png" -exec optipng {} \;
+
     - name: Commit new snapshots
+      if: ${{ inputs.dry_run !== 'yes' }}
       shell: bash -l {0}
       run: |
         git config user.name 'github-actions[bot]'
@@ -61,3 +75,8 @@ runs:
         git push
       env:
         GITHUB_TOKEN: ${{ inputs.github_token }}
+
+    - name: Server log
+      shell: bash -l {0}
+      if: ${{ always() }}
+      run: cat /tmp/snapshots-update-server.log

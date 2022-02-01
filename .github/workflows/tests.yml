@@ -119,4 +119,5 @@ jobs:
         github_token: "FAKE"
         test_folder: ${{ env.TEST_FOLDER }}
         test_url: https-get://playwright.dev
+        dry_run: yes
         
