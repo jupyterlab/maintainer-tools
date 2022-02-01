@@ -107,7 +107,7 @@ jobs:
         EOF
         
         # Create fake snapshot
-        touch ${TEST_FOLDER}/tests/example.spec.ts-snapshots/dummy.txt
+        touch tests/example.spec.ts-snapshots/dummy.txt
 
         git co -b test-snapshot
         popd
