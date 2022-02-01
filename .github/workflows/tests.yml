@@ -95,7 +95,6 @@ jobs:
         pushd ${TEST_FOLDER}
         yarn init -yp
         yarn add -D playwright
-        cat package.json | jq '. += {"scripts": {"start": "echo starting...", "test:update": "yarn playwright test -u"}}'
         cat package.json | jq '. += {"scripts": {"start": "echo starting...", "test:update": "yarn playwright test -u"}}' > new_package.json
         cat > tests/example.spec.ts << EOF
         import { test, expect } from '@playwright/test';
@@ -107,9 +106,7 @@ jobs:
         });
         EOF
         
-        cat package.json
-        cat new_package.json
-        cat tests/example.spec.ts
+        cp new_package.json package.json
 
         # Create fake snapshot
         touch tests/example.spec.ts-snapshots/dummy.txt
