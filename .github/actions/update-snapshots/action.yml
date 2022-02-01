@@ -1,0 +1,63 @@
+name: Update playwright snapshots on PR
+description: Update the playwright snapshots on PR by pushing a commit.
+
+inputs:
+  github_token:
+    description: "The GitHub token to use, must have pull_request:write access"
+    required: true
+  test_folder:
+    description: The folder defining the playwright tests
+    required: true
+  test_url:
+    description: The server URL to wait for (see https://github.com/iFaxity/wait-on-action `resource`)
+    required: true
+  start_server_script:
+    description: The yarn script to execute to start the server
+    required: false
+    default: start
+  update_script:
+    description: The yarn script to execute to update the snapshots
+    required: false
+    default: test:update
+  browser:
+    description: The playwright browser to install (one of [`chromium`, `firefox`, `webkit`])
+    required: false
+    default: chromium
+
+runs:
+  using: composite
+  steps:
+    - name: Start the server
+      working-directory: ${{ inputs.test_folder }}
+      shell: bash -l {0}
+      run: yarn run ${{ inputs.start_server_script }} 2>&1 1>/tmp/snapshots-update-server.log &
+
+    - name: Setup integration tests
+      shell: bash -l {0}
+      working-directory: ${{ inputs.test_folder }}
+      run: |
+        yarn install
+        yarn playwright install ${{ inputs.chromium }}
+
+    - name: Wait for the server
+      uses: ifaxity/wait-on-action@v1
+      with:
+        resource: ${{ inputs.test_url }}
+        timeout: 360000
+
+    - name: Generate new snapshots
+      shell: bash
+      working-directory: ${{ inputs.test_folder }}
+      run: yarn run ${{ inputs.update_script }}
+
+    - name: Commit new snapshots
+      shell: bash -l {0}
+      run: |
+        git config user.name 'github-actions[bot]'
+        git config user.email 'github-actions[bot]@users.noreply.github.com'
+        git pull
+        git add ${{ inputs.test_folder }}/*-snapshots/*.*
+        git commit -m "Update Playwright Snapshots"
+        git push
+      env:
+        GITHUB_TOKEN: ${{ inputs.github_token }}
