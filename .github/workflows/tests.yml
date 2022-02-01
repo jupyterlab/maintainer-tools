@@ -109,7 +109,7 @@ jobs:
         # Create fake snapshot
         touch tests/example.spec.ts-snapshots/dummy.txt
 
-        git co -b test-snapshot
+        git checkout -b test-snapshot
         popd
     - name: Check update snapshots action
       uses: ./.github/actions/update-snapshots
