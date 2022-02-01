@@ -94,7 +94,7 @@ jobs:
         mkdir -p ${TEST_FOLDER}/tests/example.spec.ts-snapshots
         pushd ${TEST_FOLDER}
         yarn init -yp
-        yarn add -D playwright
+        yarn add -D @playwright/test
         cat package.json | jq '. += {"scripts": {"start": "echo starting...", "test:update": "yarn playwright test -u"}}' > new_package.json
         cat > tests/example.spec.ts << EOF
         import { test, expect } from '@playwright/test';
