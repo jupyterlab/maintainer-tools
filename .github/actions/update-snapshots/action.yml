@@ -8,7 +8,7 @@ inputs:
   test_folder:
     description: The folder defining the playwright tests
     required: true
-  test_url:
+  server_url:
     description: The server URL to wait for (see https://github.com/iFaxity/wait-on-action `resource`)
     required: true
   start_server_script:
@@ -46,7 +46,7 @@ runs:
     - name: Wait for the server
       uses: ifaxity/wait-on-action@v1
       with:
-        resource: ${{ inputs.test_url }}
+        resource: ${{ inputs.server_url }}
         timeout: 360000
 
     - name: Generate new snapshots
@@ -64,12 +64,11 @@ runs:
         find . -wholename "*-snapshots/*.png" -exec optipng {} \;
 
     - name: Commit new snapshots
-      if: ${{ inputs.dry_run !== 'yes' }}
+      if: ${{ inputs.dry_run != 'yes' }}
       shell: bash -l {0}
       run: |
         git config user.name 'github-actions[bot]'
         git config user.email 'github-actions[bot]@users.noreply.github.com'
-        git pull
         git add ${{ inputs.test_folder }}/*-snapshots/*.*
         git commit -m "Update Playwright Snapshots"
         git push
