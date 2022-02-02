@@ -108,9 +108,9 @@ def run_script():
 
     # Use GitHub Actions bot user and email by default.
     # https://github.community/t/github-actions-bot-email-address/17204/6
-    username = os.environ.get("GIT_USERNAME", "GitHub Action")
+    username = os.environ.get("GIT_USERNAME") or  "GitHub Action"
     bot_email = "41898282+github-actions[bot]@users.noreply.github.com"
-    email = os.environ.get("GIT_EMAIL", bot_email)
+    email = os.environ.get("GIT_EMAIL") or bot_email
     run(f"git config user.email {email}")
     run(f"git config user.name {username}")
     message = commit_message or "Run maintainer script"
