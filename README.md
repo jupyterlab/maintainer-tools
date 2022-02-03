@@ -140,6 +140,7 @@ on:
     types: [created]
 
 permissions:
+  contents: write
   pull-requests: write
 
 jobs:
@@ -150,6 +151,8 @@ jobs:
         id: check
         with:
           trigger: "auto run pre-commit"
+      - if: steps.check.outputs.triggered == 'true'
+        uses: jupyterlab/maintainer-tools/.github/actions/base-setup@v1
       - if: steps.check.outputs.triggered == 'true'
         uses: jupyterlab/maintainer-tools/.github/actions/pr-script@v1
         with:
@@ -172,6 +175,7 @@ on:
     types: [created]
 
 permissions:
+  contents: write
   pull-requests: write
 
 jobs:
@@ -182,6 +186,8 @@ jobs:
         id: check
         with:
           trigger: 'auto run cleanup'
+      - if: steps.check.outputs.triggered == 'true'
+        uses: jupyterlab/maintainer-tools/.github/actions/base-setup@v1
       - if: steps.check.outputs.triggered == 'true'
         uses: jupyterlab/maintainer-tools/.github/actions/pr-script@v1
         with:
