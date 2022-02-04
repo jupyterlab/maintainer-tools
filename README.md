@@ -213,6 +213,10 @@ on:
   issue_comment:
     types: [created, edited]
 
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
   update-snapshots:
     if: ${{ github.event.issue.pull_request && contains(github.event.comment.body, 'update playwright snapshots') }}
@@ -223,7 +227,10 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Checkout the branch from the PR that triggered the job
-        run: hub pr checkout ${{ github.event.issue.number }}
+        run: |
+          # PR branch remote must be checked out using https URL
+          git config --global hub.protocol https
+          hub pr checkout ${{ github.event.issue.number }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 

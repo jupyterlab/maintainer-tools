@@ -1,24 +1,23 @@
 name: Update playwright snapshots on PR
-description: Update the playwright snapshots on PR by pushing a commit.
+description: |
+  Update the playwright snapshots on PR by pushing a commit.
+  The remote repository containing the PR branch must be checked out
+  using `https`. If you are using the GitHub `hub` CLI, you can
+  achieve that using `git config --global hub.protocol https`
 
 inputs:
+  # Mandatory inputs
   github_token:
     description: "The GitHub token to use, must have pull_request:write access"
-    required: true
-  test_folder:
-    description: The folder defining the playwright tests
     required: true
   server_url:
     description: The server URL to wait for (see https://github.com/iFaxity/wait-on-action `resource`)
     required: true
-  start_server_script:
-    description: The yarn script to execute to start the server
-    required: false
-    default: start
-  update_script:
-    description: The yarn script to execute to update the snapshots
-    required: false
-    default: test:update
+  test_folder:
+    description: The folder defining the playwright tests
+    required: true
+
+  # Optional inputs
   browser:
     description: The playwright browser to install (one of [`chromium`, `firefox`, `webkit`])
     required: false
@@ -27,6 +26,22 @@ inputs:
     description: Whether this is a dry run (one of [`yes`, `no`])
     required: false
     default: no
+  git_username:
+    description: The Git Username to Use for the Commit
+    required: false
+    default: github-actions[bot]
+  git_email:
+    description: The Git Email to Use for the Commit
+    required: false
+    default: github-actions[bot]@users.noreply.github.com
+  start_server_script:
+    description: The yarn script to execute to start the server
+    required: false
+    default: start
+  update_script:
+    description: The yarn script to execute to update the snapshots
+    required: false
+    default: test:update
 
 runs:
   using: composite
@@ -41,7 +56,7 @@ runs:
       working-directory: ${{ inputs.test_folder }}
       run: |
         yarn install
-        yarn playwright install ${{ inputs.chromium }}
+        yarn run playwright install ${{ inputs.chromium }}
 
     - name: Wait for the server
       uses: ifaxity/wait-on-action@v1
@@ -67,8 +82,10 @@ runs:
       if: ${{ inputs.dry_run != 'yes' }}
       shell: bash -l {0}
       run: |
-        git config user.name 'github-actions[bot]'
-        git config user.email 'github-actions[bot]@users.noreply.github.com'
+        git config user.name '${{ inputs.git_username }}'
+        git config user.email '${{ inputs.git_email }}'
+
+        git pull
         git add ${{ inputs.test_folder }}/*-snapshots/*.*
         git commit -m "Update Playwright Snapshots"
         git push
