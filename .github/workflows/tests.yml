@@ -78,3 +78,46 @@ jobs:
         dry_run: true
         pre_commit: true
         target:  "https://github.com/jupyterlab/maintainer-tools/pull/39"
+
+  update_snapshots:
+    runs-on: ubuntu-latest
+    env:
+      TEST_FOLDER: mock-playwright
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Base Setup
+      uses: ./.github/actions/base-setup
+    - name: Create a mock playwright test package
+      shell: bash
+      run: |
+        mkdir -p ${TEST_FOLDER}/tests/example.spec.ts-snapshots
+        pushd ${TEST_FOLDER}
+        yarn init -yp
+        yarn add -D @playwright/test
+        cat package.json | jq '. += {"scripts": {"start": "echo starting...", "test:update": "yarn playwright test -u"}}' > new_package.json
+        cat > tests/example.spec.ts << EOF
+        import { test, expect } from '@playwright/test';
+
+        test('basic test', async ({ page }) => {
+          await page.goto('https://playwright.dev/');
+          await page.locator('text=Get started').click();
+          await expect(page).toHaveTitle(/Getting started/);
+        });
+        EOF
+        
+        cp new_package.json package.json
+
+        # Create fake snapshot
+        touch tests/example.spec.ts-snapshots/dummy.txt
+
+        git checkout -b test-snapshot
+        popd
+    - name: Check update snapshots action
+      uses: ./.github/actions/update-snapshots
+      with:
+        github_token: "FAKE"
+        test_folder: ${{ env.TEST_FOLDER }}
+        server_url: https-get://playwright.dev
+        dry_run: yes
+        

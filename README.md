@@ -197,3 +197,63 @@ jobs:
           target:  ${{ github.event.issue.html_url }}
           association: ${{ github.event.comment.author_association }}
 ```
+
+## Update snapshots
+
+You can use _update snapshots_ action to commit on a branch 
+[Playwright](https://playwright.dev) updated snapshots.
+
+The requirements and constrains are:
+- You must be on the branch to which the snapshots will be committed
+- You must installed your project before calling the action
+- The action is using `yarn` package manager
+- The Playwright tests must be in TypeScript or JavaScript
+
+An example of workflow that get triggered when a PR comment contains 
+_update playwright snapshots_ would be:
+
+```yaml
+name: Update Playwright Snapshots
+
+on:
+  issue_comment:
+    types: [created, edited]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update-snapshots:
+    if: ${{ github.event.issue.pull_request && contains(github.event.comment.body, 'update playwright snapshots') }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Checkout the branch from the PR that triggered the job
+        run: |
+          # PR branch remote must be checked out using https URL
+          git config --global hub.protocol https
+          hub pr checkout ${{ github.event.issue.number }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install your project
+        run: |
+          # Execute the required installation command
+
+      - name: Update snapshots
+        uses: jupyterlab/maintainer-tools/.github/actions/update-snapshots@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          # Test folder within your repository
+          test_folder: playwright-tests
+          # Server url to wait for before updating the snapshots
+          #  See specification for https://github.com/iFaxity/wait-on-action `resource`
+          server_url: http-get://localhost:8888
+          # Optional npm scripts (the default values are displayed)
+          start_server_script: start
+          update_script: test:update
+```
