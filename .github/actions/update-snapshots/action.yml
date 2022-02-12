@@ -49,7 +49,7 @@ runs:
     - name: Start the server
       working-directory: ${{ inputs.test_folder }}
       shell: bash -l {0}
-      run: yarn run ${{ inputs.start_server_script }} 2>&1 1>/tmp/snapshots-update-server.log &
+      run: (yarn run ${{ inputs.start_server_script }} 1>/tmp/snapshots-update-server.log 2>&1) &
 
     - name: Setup integration tests
       shell: bash -l {0}
@@ -68,7 +68,6 @@ runs:
       shell: bash -l {0}
       working-directory: ${{ inputs.test_folder }}
       run: yarn run ${{ inputs.update_script }}
-
 
     - name: Compress snapshots
       if: ${{ runner.os == 'Linux' }}
