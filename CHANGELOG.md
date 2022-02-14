@@ -2,6 +2,31 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.6.2
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...bdbc35d3dba30e0daeffaea42a4f82334514e583))
+
+### Enhancements made
+
+- Add action to build and commit playwright snapshots [#41](https://github.com/jupyterlab/maintainer-tools/pull/41) ([@fcollonval](https://github.com/fcollonval))
+
+### Bugs fixed
+
+- Fix server log redirection [#45](https://github.com/jupyterlab/maintainer-tools/pull/45) ([@fcollonval](https://github.com/fcollonval))
+- Clean up usage docs for PR Script [#44](https://github.com/jupyterlab/maintainer-tools/pull/44) ([@blink1073](https://github.com/blink1073))
+
+### Documentation improvements
+
+- Clean up usage docs for PR Script [#44](https://github.com/jupyterlab/maintainer-tools/pull/44) ([@blink1073](https://github.com/blink1073))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2022-02-02&to=2022-02-14&type=c))
+
+[@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2022-02-02..2022-02-14&type=Issues) | [@fcollonval](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Afcollonval+updated%3A2022-02-02..2022-02-14&type=Issues) | [@martinRenou](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3AmartinRenou+updated%3A2022-02-02..2022-02-14&type=Issues) | [@welcome](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Awelcome+updated%3A2022-02-02..2022-02-14&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.6.1
 
 ([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...f90e28f139909d23b525b770eb6157392c2d96f4))
@@ -15,8 +40,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2022-01-31&to=2022-02-02&type=c))
 
 [@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2022-01-31..2022-02-02&type=Issues) | [@martinRenou](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3AmartinRenou+updated%3A2022-01-31..2022-02-02&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.6.0
 
