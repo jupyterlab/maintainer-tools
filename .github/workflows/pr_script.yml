@@ -25,7 +25,7 @@ jobs:
       - name: PR Script
         uses: ./.github/actions/pr-script
         with:
-          token: ${{ secrets.ACCESS_TOKEN }}
+          github_token: ${{ secrets.ACCESS_TOKEN }}
           target:  ${{ github.event.inputs.target }}
           script: ${{ github.event.inputs.script }}
           pre_commit: ${{ github.event.inputs.pre_commit }}
