@@ -250,10 +250,13 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           # Test folder within your repository
           test_folder: playwright-tests
+
+          # Optional npm scripts (the default values are displayed)
+          # Script to start the server or 'null' if Playwright is taking care of it
+          #   If not `null`, you must provide a `server_url` to listen to.
+          start_server_script: start
           # Server url to wait for before updating the snapshots
           #  See specification for https://github.com/iFaxity/wait-on-action `resource`
           server_url: http-get://localhost:8888
-          # Optional npm scripts (the default values are displayed)
-          start_server_script: start
           update_script: test:update
 ```
