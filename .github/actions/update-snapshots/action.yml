@@ -10,14 +10,15 @@ inputs:
   github_token:
     description: "The GitHub token to use, must have pull_request:write access"
     required: true
-  server_url:
-    description: The server URL to wait for (see https://github.com/iFaxity/wait-on-action `resource`)
-    required: true
   test_folder:
     description: The folder defining the playwright tests
     required: true
 
   # Optional inputs
+  server_url:
+    description: The server URL to wait for (see https://github.com/iFaxity/wait-on-action `resource`)
+    required: false
+    default: http-get://localhost:8888
   browser:
     description: The playwright browser to install (one of [`chromium`, `firefox`, `webkit`])
     required: false
@@ -35,7 +36,7 @@ inputs:
     required: false
     default: github-actions[bot]@users.noreply.github.com
   start_server_script:
-    description: The yarn script to execute to start the server
+    description: The yarn script to execute to start the server; set it to `null` if Playwright is handling it.
     required: false
     default: start
   update_script:
@@ -47,6 +48,7 @@ runs:
   using: composite
   steps:
     - name: Start the server
+      if: ${{ inputs.start_server_script != 'null' }}
       working-directory: ${{ inputs.test_folder }}
       shell: bash -l {0}
       run: (yarn run ${{ inputs.start_server_script }} 1>/tmp/snapshots-update-server.log 2>&1) &
@@ -59,6 +61,7 @@ runs:
         yarn run playwright install ${{ inputs.chromium }}
 
     - name: Wait for the server
+      if: ${{ inputs.start_server_script != 'null' }}
       uses: ifaxity/wait-on-action@v1
       with:
         resource: ${{ inputs.server_url }}
@@ -92,6 +95,6 @@ runs:
         GITHUB_TOKEN: ${{ inputs.github_token }}
 
     - name: Server log
+      if: ${{ inputs.start_server_script != 'null' && always() }}
       shell: bash -l {0}
-      if: ${{ always() }}
       run: cat /tmp/snapshots-update-server.log
