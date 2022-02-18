@@ -14,7 +14,7 @@ for req in w.requires_dist:
             spec = str(specifier).replace('~', '=')
             spec = spec.replace('>=', '==')
             spec = spec.replace('>', '==')
-            constraints.append(f"{r.name}{spec}")
+            constraints.append(f"{r.name}{spec}\n")
 
 # Write the constraints to to a pip constraints file.
 with open('contraints_file.txt', 'w') as fid:
