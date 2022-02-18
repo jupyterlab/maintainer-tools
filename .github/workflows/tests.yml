@@ -88,14 +88,14 @@ jobs:
       uses: ./.github/actions/base-setup
     - name: Clone a repo
       run:
-        git clone --depth=1 https://github.com/jupyterlab/jupyterlab_server.git
+        git clone --depth=1 https://github.com/jupyter/jupyter_client.git
     - name: Install miniumum versions
       uses: ./.github/actions/install-minimums
       with:
-        working-directory: jupyterlab_server
+        working-directory: jupyter_client
     - name: Run the unit tests
-      working-directory: jupyterlab_server
-      run: pytest -vv --pyargs jupyterlab_server
+      working-directory: jupyter_client
+      run: pytest -vv
 
   update_snapshots-manual-server:
     runs-on: ubuntu-latest
