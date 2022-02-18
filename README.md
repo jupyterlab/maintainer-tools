@@ -100,7 +100,8 @@ jobs:
 
 ## Test Against Dependency Minimum Version
 
-Use this action to test that your minimum dependency version constraints are vaild.  Note: you may want to also
+Use this action to test that your minimum dependency version constraints are vaild.  Note: you may want to also use the minimum supported version of Python
+since the minimum versions might not have wheels on newer Pythons.
 
 
 ```yaml
