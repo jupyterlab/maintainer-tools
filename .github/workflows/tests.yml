@@ -79,6 +79,19 @@ jobs:
         pre_commit: true
         target:  "https://github.com/jupyterlab/maintainer-tools/pull/39"
 
+  install_minimums:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Base Setup
+      uses: ./.github/actions/base-setup
+    - name: Clone a repo
+      run:
+        git clone --depth=1 https://github.com/jupyter-server/jupyter_server.git .
+    - name: Install miniumum versions
+      uses: ./.github/actions/install_minimums
+    - name: Run the unit tests
+      run: pytest -vv
+
   update_snapshots-manual-server:
     runs-on: ubuntu-latest
     env:
