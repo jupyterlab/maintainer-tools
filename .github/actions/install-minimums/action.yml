@@ -5,6 +5,10 @@ inputs:
       description: The Extras to Install (comma separated)
       default: test
       required: false
+    working-directory:
+      description: The working directory
+      default: .
+      required: false
 
 runs:
   using: "composite"
@@ -14,6 +18,7 @@ runs:
       run: |
         set -ex
         python -m pip install -U pip build pkginfo packaging
+        cd ${{ inputs.working_directory }}
         python -m build --wheel .
         python ${{ github.action_path }}/create_constraints_file.py dist/*.whl
         cat contraints_file.txt
