@@ -90,7 +90,7 @@ jobs:
       run:
         git clone --depth=1 https://github.com/jupyter-server/jupyter_server.git
     - name: Install miniumum versions
-      uses: ./.github/actions/install_minimums
+      uses: ./.github/actions/install-minimums
       with:
         working-directory: jupyter_server
     - name: Run the unit tests
