@@ -82,14 +82,18 @@ jobs:
   install_minimums:
     runs-on: ubuntu-latest
     steps:
-    - name: Install Python
-      uses: actions/setup-python@v2
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Base Setup
+      uses: ./.github/actions/base-setup
     - name: Clone a repo
       run:
-        git clone --depth=1 https://github.com/jupyter-server/jupyter_server.git .
+        git clone --depth=1 https://github.com/jupyter-server/jupyter_server.git
     - name: Install miniumum versions
       uses: ./.github/actions/install_minimums
+      working-directory: jupyter_server
     - name: Run the unit tests
+      working-directory: jupyter_server
       run: pytest -vv
 
   update_snapshots-manual-server:
