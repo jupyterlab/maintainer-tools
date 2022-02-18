@@ -82,8 +82,8 @@ jobs:
   install_minimums:
     runs-on: ubuntu-latest
     steps:
-    - name: Base Setup
-      uses: ./.github/actions/base-setup
+    - name: Install Python
+      uses: actions/setup-python@v2
     - name: Clone a repo
       run:
         git clone --depth=1 https://github.com/jupyter-server/jupyter_server.git .
