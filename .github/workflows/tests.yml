@@ -92,9 +92,9 @@ jobs:
     - name: Install miniumum versions
       uses: ./.github/actions/install-minimums
       with:
-        working-directory: jupyter_packaging
+        working-directory: jupyter-packaging
     - name: Run the unit tests
-      working-directory: jupyter_packaging
+      working-directory: jupyter-packaging
       run: pytest -vv
 
   update_snapshots-manual-server:
