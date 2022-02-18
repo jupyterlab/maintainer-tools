@@ -88,14 +88,14 @@ jobs:
       uses: ./.github/actions/base-setup
     - name: Clone a repo
       run:
-        git clone --depth=1 https://github.com/jupyter-server/jupyter_releaser.git
+        git clone --depth=1 https://github.com/jupyterlab/jupyterlab_server.git
     - name: Install miniumum versions
       uses: ./.github/actions/install-minimums
       with:
-        working-directory: jupyter_releaser
+        working-directory: jupyterlab_server
     - name: Run the unit tests
-      working-directory: jupyter_releaser
-      run: pytest -vv
+      working-directory: jupyterlab_server
+      run: pytest -vv --pyargs jupyterlab_server
 
   update_snapshots-manual-server:
     runs-on: ubuntu-latest
