@@ -88,13 +88,13 @@ jobs:
       uses: ./.github/actions/base-setup
     - name: Clone a repo
       run:
-        git clone --depth=1 https://github.com/jupyter-server/jupyter_server.git
+        git clone --depth=1 https://github.com/jupyter-server/jupyter_releaser.git
     - name: Install miniumum versions
       uses: ./.github/actions/install-minimums
       with:
-        working-directory: jupyter_server
+        working-directory: jupyter_releaser
     - name: Run the unit tests
-      working-directory: jupyter_server
+      working-directory: jupyter_releaser
       run: pytest -vv
 
   update_snapshots-manual-server:
