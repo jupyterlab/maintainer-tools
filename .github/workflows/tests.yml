@@ -88,13 +88,13 @@ jobs:
       uses: ./.github/actions/base-setup
     - name: Clone a repo
       run:
-        git clone --depth=1 https://github.com/jupyter/jupyter_client.git
+        git clone --depth=1 https://github.com/jupyter/jupyter_packaging.git
     - name: Install miniumum versions
       uses: ./.github/actions/install-minimums
       with:
-        working-directory: jupyter_client
+        working-directory: jupyter_packaging
     - name: Run the unit tests
-      working-directory: jupyter_client
+      working-directory: jupyter_packaging
       run: pytest -vv
 
   update_snapshots-manual-server:
