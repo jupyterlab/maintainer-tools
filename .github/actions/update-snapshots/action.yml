@@ -81,15 +81,23 @@ runs:
         find . -wholename "*-snapshots/*.png" -exec optipng {} \;
 
     - name: Commit new snapshots
-      if: ${{ inputs.dry_run != 'yes' }}
       shell: bash -l {0}
+      working-directory: ${{ inputs.test_folder }}
       run: |
         git config user.name '${{ inputs.git_username }}'
         git config user.email '${{ inputs.git_email }}'
 
         git pull
-        git add ${{ inputs.test_folder }}/*-snapshots/*.*
+        git add ./*-snapshots/*.*
         git commit -m "Update Playwright Snapshots"
+      env:
+        GITHUB_TOKEN: ${{ inputs.github_token }}
+        
+    - name: Push new snapshots
+      if: ${{ inputs.dry_run != 'yes' }}
+      shell: bash -l {0}
+      working-directory: ${{ inputs.test_folder }}
+      run: |
         git push
       env:
         GITHUB_TOKEN: ${{ inputs.github_token }}
