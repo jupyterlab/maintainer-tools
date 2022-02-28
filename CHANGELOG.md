@@ -2,6 +2,27 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.6.3
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v0.6.2...2362eb6cd68175de1baea4c28d96b6a65784eb3b))
+
+### Enhancements made
+
+- Support starting server from Playwright config [#50](https://github.com/jupyterlab/maintainer-tools/pull/50) ([@fcollonval](https://github.com/fcollonval))
+
+### Bugs fixed
+
+- Support git repository not in workflow root [#52](https://github.com/jupyterlab/maintainer-tools/pull/52) ([@fcollonval](https://github.com/fcollonval))
+- Fix handling of github token in action workflow [#49](https://github.com/jupyterlab/maintainer-tools/pull/49) ([@blink1073](https://github.com/blink1073))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2022-02-14&to=2022-02-28&type=c))
+
+[@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2022-02-14..2022-02-28&type=Issues) | [@fcollonval](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Afcollonval+updated%3A2022-02-14..2022-02-28&type=Issues) | [@jtpio](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ajtpio+updated%3A2022-02-14..2022-02-28&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.6.2
 
 ([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...bdbc35d3dba30e0daeffaea42a4f82334514e583))
@@ -24,8 +45,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2022-02-02&to=2022-02-14&type=c))
 
 [@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2022-02-02..2022-02-14&type=Issues) | [@fcollonval](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Afcollonval+updated%3A2022-02-02..2022-02-14&type=Issues) | [@martinRenou](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3AmartinRenou+updated%3A2022-02-02..2022-02-14&type=Issues) | [@welcome](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Awelcome+updated%3A2022-02-02..2022-02-14&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.6.1
 
