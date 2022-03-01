@@ -1,0 +1,28 @@
+name: Install Minimums
+description: "Install the miminum versions of dependencies"
+inputs:
+    extras:
+      description: The Extras to Install (comma separated)
+      default: test
+      required: false
+    working-directory:
+      description: The working directory
+      default: .
+      required: false
+
+runs:
+  using: "composite"
+  steps:
+    - name: Run the script
+      shell: bash
+      run: |
+        set -ex
+        python -m pip install -U pip build pkginfo packaging
+        cd ${{ inputs.working-directory }}
+        python -m build --wheel .
+        python ${{ github.action_path }}/create_constraints_file.py dist/*.whl
+        cat contraints_file.txt
+        pip install -e ".[${{ inputs.extras }}]" -c contraints_file.txt
+        rm contraints_file.txt
+        pip check
+        pip list

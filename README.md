@@ -24,25 +24,26 @@ An example workflow file would be:
 
 ```yaml
 name: Tests
+
 on:
   push:
-    branches: "main"
+    branches: ["main"]
   pull_request:
-    branches: "*"
+
 jobs:
   build:
     runs-on: ubuntu-latest
-  steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-    - name: Base Setup
-      uses: jupyterlab/maintainer-tools/.github/actions/base-setup@v1
-    - name: Install
-      shell: bash
-      run: pip install -e ".[test]"
-    - name: Test
-      shell: bash
-      run: pytest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Base Setup
+        uses: jupyterlab/maintainer-tools/.github/actions/base-setup@v1
+      - name: Install
+        shell: bash
+        run: pip install -e ".[test]"
+      - name: Test
+        shell: bash
+        run: pytest
 ```
 
 ## Enforce Labels
@@ -55,6 +56,7 @@ name: Enforce PR label
 on:
   pull_request:
     types: [labeled, unlabeled, opened, edited, synchronize]
+
 jobs:
   enforce-label:
     runs-on: ubuntu-latest
@@ -70,11 +72,12 @@ Use this action to test a package against downstream libraries.  This can be use
 
 ```yaml
 name: Downstream Tests
+
 on:
   push:
-    branches: "main"
+    branches: ["main"]
   pull_request:
-    branches: "*"
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -92,6 +95,38 @@ jobs:
       with:
         package_name: bar
         env_values: "FIZZ=buzz NAME=snuffy"
+```
+
+
+## Test Against Dependency Minimum Version
+
+Use this action to test that your minimum dependency version constraints are vaild.  Note: you may want to also use the minimum supported version of Python
+since the minimum versions might not have wheels on newer Pythons.
+
+
+```yaml
+name: Minimum Dependencies
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+
+jobs:
+  test_minimums:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.7"]  # Test against minimum Python version as well
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Base Setup
+      uses: jupyterlab/maintainer-tools/.github/actions/base-setup@v1
+    - name: Install miniumum versions
+      uses: jupyterlab/maintainer-tools/.github/actions/install-minimums@v1
+    - name: Run the unit tests
+      run: pytest -vv
 ```
 
 ## PR Binder Link

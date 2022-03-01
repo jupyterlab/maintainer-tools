@@ -79,6 +79,27 @@ jobs:
         pre_commit: true
         target:  "https://github.com/jupyterlab/maintainer-tools/pull/39"
 
+  install_minimums:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.7"]  # Test against minimum Python version as well
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Base Setup
+      uses: ./.github/actions/base-setup
+    - name: Clone a repo
+      run:
+        git clone --depth=1 https://github.com/jupyter/jupyter-packaging.git
+    - name: Install miniumum versions
+      uses: ./.github/actions/install-minimums
+      with:
+        working-directory: jupyter-packaging
+    - name: Run the unit tests
+      working-directory: jupyter-packaging
+      run: pytest -vv
+
   update_snapshots-manual-server:
     runs-on: ubuntu-latest
     env:
