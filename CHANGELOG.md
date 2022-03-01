@@ -2,6 +2,22 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.7.0
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...b405f7fcaa7099aee6d240903f64950bf0d9fb14))
+
+### Enhancements made
+
+- Add minimum version handler [#51](https://github.com/jupyterlab/maintainer-tools/pull/51) ([@blink1073](https://github.com/blink1073))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2022-02-28&to=2022-03-01&type=c))
+
+[@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2022-02-28..2022-03-01&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.6.3
 
 ([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v0.6.2...2362eb6cd68175de1baea4c28d96b6a65784eb3b))
@@ -20,8 +36,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2022-02-14&to=2022-02-28&type=c))
 
 [@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2022-02-14..2022-02-28&type=Issues) | [@fcollonval](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Afcollonval+updated%3A2022-02-14..2022-02-28&type=Issues) | [@jtpio](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ajtpio+updated%3A2022-02-14..2022-02-28&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.6.2
 
