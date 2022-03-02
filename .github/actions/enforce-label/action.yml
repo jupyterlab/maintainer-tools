@@ -16,14 +16,14 @@ runs:
         github-token: ${{inputs.github_token}}
         script: |
           const required = ['bug', 'enhancement', 'feature', 'maintenance', 'documentation'];
-          const issue = await github.issues.get({
+          const response = await github.issues.get({
             owner: context.repo.owner,
             repo: context.repo.repo,
             issue_number: context.issue.number,
           });
-          console.log(issue);
+          console.log(response.data);
           let found = false;
-          issue.labels.forEach(label => {
+          response.data.labels.forEach(label => {
             if (required.includes(label)) {
               found = true;
             }
