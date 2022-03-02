@@ -7,8 +7,25 @@ runs:
       shell: bash
       if: ${{ github.event.action == 'opened' }}
       run: sleep 60
-    - name: enforce-triage-labels
-      uses: yogevbd/enforce-label-action@2.1.0
+    - name: enforce-triage-label
+      uses: actions/github-script@v3
       with:
-        REQUIRED_LABELS_ANY: "bug,enhancement,feature,maintenance,documentation"
-        REQUIRED_LABELS_ANY_DESCRIPTION: "Select at least one triage label ['bug','enhancement','feature','maintenance','documentation']"
+        github-token: ${{secrets.GITHUB_TOKEN}}
+        script: |
+          const required = ['bug', 'enhancement', 'feature', 'maintenance', 'documentation'];
+          const issue = await github.issues.get({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: context.issue.number,
+          });
+          let found = false;
+          issue.labels.forEach(label => {
+            if (required.includes(label)) {
+              found = true;
+            }
+          });
+          if (!found) {
+            console.error('Select at least one triage label:')
+            console.error(required)
+            process.exit(1)
+          }
