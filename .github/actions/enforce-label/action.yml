@@ -10,7 +10,6 @@ runs:
     - name: enforce-triage-label
       uses: actions/github-script@v3
       with:
-        github-token: ${{secrets.GITHUB_TOKEN}}
         script: |
           const required = ['bug', 'enhancement', 'feature', 'maintenance', 'documentation'];
           const issue = await github.issues.get({
