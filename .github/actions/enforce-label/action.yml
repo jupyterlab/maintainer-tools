@@ -25,6 +25,7 @@ runs:
           response.data.labels.forEach(label => {
             if (required.includes(label.name)) {
               found = true;
+              console.log(`Found matching label "${label.name}"!`)
             }
           });
           if (!found) {
