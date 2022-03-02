@@ -2,6 +2,23 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.8.0
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...973111fe55aae47252c1f87b800a9e364bb1b19a))
+
+### Enhancements made
+
+- Use custom script for enforce label [#58](https://github.com/jupyterlab/maintainer-tools/pull/58) ([@blink1073](https://github.com/blink1073))
+- Add version inputs to base setup action [#57](https://github.com/jupyterlab/maintainer-tools/pull/57) ([@blink1073](https://github.com/blink1073))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2022-03-01&to=2022-03-02&type=c))
+
+[@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2022-03-01..2022-03-02&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.7.0
 
 ([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...b405f7fcaa7099aee6d240903f64950bf0d9fb14))
@@ -15,8 +32,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2022-02-28&to=2022-03-01&type=c))
 
 [@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2022-02-28..2022-03-01&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.6.3
 
