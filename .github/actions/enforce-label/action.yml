@@ -1,8 +1,5 @@
 name: "Enforce Labels"
 description: "Enforce assigning triage labels before merging PRs"
-inputs:
-  github_token:
-    required: true
 runs:
   using: "composite"
   steps:
@@ -13,7 +10,6 @@ runs:
     - name: enforce-triage-label
       uses: actions/github-script@v3
       with:
-        github-token: ${{inputs.github_token}}
         script: |
           const required = ['bug', 'enhancement', 'feature', 'maintenance', 'documentation'];
           const response = await github.issues.get({
