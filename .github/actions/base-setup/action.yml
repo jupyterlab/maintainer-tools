@@ -1,13 +1,18 @@
 name: "Base Setup"
 description: "Base Setup Actions Used Across Workflows"
+inputs:
+  python_version:
+    description: "The python version"
+  node_version:
+    description: "The node version"
 runs:
   using: "composite"
   steps:
     - name: Set Versions
       shell: bash
       run: |
-        echo "PYTHON_VERSION=${{ matrix.python-version || '3.9' }}" >> $GITHUB_ENV
-        echo "NODE_VERSION=${{ matrix.node-version || '14.x' }}" >> $GITHUB_ENV
+        echo "PYTHON_VERSION=${{ inputs.python_version || matrix.python-version || '3.9' }}" >> $GITHUB_ENV
+        echo "NODE_VERSION=${{ inputs.node_version || matrix.node-version || '14.x' }}" >> $GITHUB_ENV
         echo "CACHE_PREFIX=${{ runner.os }}-${{ github.workflow}}-${{ github.job }}" >> $GITHUB_ENV
 
     - name: Install Python

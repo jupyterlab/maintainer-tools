@@ -6,6 +6,17 @@ on:
     branches: ["*"]
 
 jobs:
+  base_setup:
+     runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Base Setup
+        uses: ./.github/actions/base-setup
+        with:
+          python_version: 3.7
+          node_version: 15.0
+
   downstream_defaults:
     runs-on: ubuntu-latest
     steps:

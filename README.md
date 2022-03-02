@@ -115,14 +115,13 @@ on:
 jobs:
   test_minimums:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: ["3.7"]  # Test against minimum Python version as well
     steps:
     - name: Checkout
       uses: actions/checkout@v2
     - name: Base Setup
       uses: jupyterlab/maintainer-tools/.github/actions/base-setup@v1
+      with:
+        python_version: "3.7"  # Test against minimum Python version as well
     - name: Install miniumum versions
       uses: jupyterlab/maintainer-tools/.github/actions/install-minimums@v1
     - name: Run the unit tests
