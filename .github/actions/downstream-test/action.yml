@@ -53,4 +53,5 @@ runs:
           eval "${{inputs.extra_test}}"
 
           # Cleanup
+          cd ${root}
           rm -rf ./test_venv
