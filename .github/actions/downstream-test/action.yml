@@ -37,7 +37,10 @@ runs:
           cd test_venv
 
           # Download and extract the sdist
+          mkdir downstream_test
+          cd downstream_test
           pip download --no-deps --no-binary ${package_name} ${package_name}
+          mkdir ${package_name}
           tar xfz *.tar.gz -C ${package_name} --strip-components 1
           cd ${package_name}
 
