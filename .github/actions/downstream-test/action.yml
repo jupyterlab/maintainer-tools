@@ -38,7 +38,7 @@ runs:
 
           # Download and extract the sdist
           pip download --no-deps --no-binary ${package_name} ${package_name}
-          tar -xfz *.tar.gz -C ${package_name} --strip-components 1
+          tar xfz *.tar.gz -C ${package_name} --strip-components 1
           cd ${package_name}
 
           # Install the target package, then re-install ourselves
