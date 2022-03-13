@@ -33,7 +33,7 @@ runs:
           # Set up venv
           python -m venv test_venv
           export PATH=$(pwd)/test_venv/bin:$PATH
-          python -m pip install -U pip
+          python -m pip install -U pip wheel setuptools
           cd test_venv
 
           # Download and extract the sdist
