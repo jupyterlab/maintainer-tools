@@ -2,12 +2,16 @@ name: "Downstream Test"
 description: "Test against a downstream library"
 inputs:
   package_name:
-    description: "The downstream package name"
+    description: "The downstream PyPI package name"
     required: true
   package_spec:
-    description: "The package spec(s) to install, defaults to '<package_name>[test]"
+    description: "The package spec to install"
+    default: "-e .\"[test]\""
+    required: true
   test_command:
-    description: "The test command (defaults to `pytest --pyargs <package_name>`)"
+    description: "The test command"
+    default: "pytest"
+    required: true
   extra_test:
     description: "Optional extra test to run"
   env_values:
@@ -20,19 +24,26 @@ runs:
       run: |
           set -x
           # Set up env values
+          package_name=${{inputs.package_name}}
           package_spec="${{inputs.package_spec}}"
-          package_spec=${package_spec:-"${{inputs.package_name}}[test]"}
           test_command="${{inputs.test_command}}"
-          test_command=${test_command:-"pytest --pyargs ${{inputs.package_name}}"}
+          root=$(pwd)
           eval "${{inputs.env_values}}"
 
           # Set up venv
           python -m venv test_venv
           export PATH=$(pwd)/test_venv/bin:$PATH
           python -m pip install -U pip
+          cd test_venv
+
+          # Download and extract the sdist
+          pip download --no-deps --no-binary ${package_name} ${package_name}
+          tar -xfz *.tar.gz -C ${package_name} --strip-components 1
+          cd ${package_name}
+
+          # Install the target package, then re-install ourselves
           python -m pip install ${package_spec}
-          python -m pip install . --force-reinstall
-          cd $HOME
+          python -m pip install ${root} --force-reinstall
 
           # Test the downstream package
           eval ${test_command}
