@@ -78,7 +78,9 @@ runs:
       working-directory: ${{ inputs.test_folder }}
       run: |
         sudo apt install optipng
-        find . -wholename "*-snapshots/*.png" -exec optipng {} \;
+        # Apply compression only on new and modified versioned files
+        # - this does not filter out deleted files but it should not happen.
+        git ls-files --exclude-standard -om | grep -e "\.png" | xargs optipng
 
     - name: Commit new snapshots
       shell: bash -l {0}
