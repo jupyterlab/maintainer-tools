@@ -80,7 +80,7 @@ runs:
         sudo apt install optipng
         # Apply compression only on new and modified versioned files
         # - this does not filter out deleted files but it should not happen.
-        git ls-files --exclude-standard -om | grep -e "\.png" | xargs optipng
+        git ls-files --exclude-standard -om | grep -e "\.png$" | xargs optipng
 
     - name: Commit new snapshots
       shell: bash -l {0}
