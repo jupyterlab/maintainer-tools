@@ -2,6 +2,22 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.8.4
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...aebcbd13dae485ed9480c43298595bc4c759fd8c))
+
+### Bugs fixed
+
+- Do not install editable by default and dedupe constraints files [#70](https://github.com/jupyterlab/maintainer-tools/pull/70) ([@blink1073](https://github.com/blink1073))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2022-03-13&to=2022-03-16&type=c))
+
+[@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2022-03-13..2022-03-16&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.8.3
 
 ([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...acbff090729a4d7d3ce17462bb2d0d4283b2cb9d))
@@ -15,8 +31,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2022-03-13&to=2022-03-13&type=c))
 
 [@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2022-03-13..2022-03-13&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.8.2
 
