@@ -2,6 +2,26 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.8.5
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...ea22b7d32f9a4929fd0744fd4e38dc576afe5cdc))
+
+### Bugs fixed
+
+- Compress only new and modified versioned files [#69](https://github.com/jupyterlab/maintainer-tools/pull/69) ([@fcollonval](https://github.com/fcollonval))
+
+### Maintenance and upkeep improvements
+
+- Clean up default downstream test defaults [#72](https://github.com/jupyterlab/maintainer-tools/pull/72) ([@blink1073](https://github.com/blink1073))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2022-03-16&to=2022-03-22&type=c))
+
+[@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2022-03-16..2022-03-22&type=Issues) | [@fcollonval](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Afcollonval+updated%3A2022-03-16..2022-03-22&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.8.4
 
 ([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...aebcbd13dae485ed9480c43298595bc4c759fd8c))
@@ -15,8 +35,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2022-03-13&to=2022-03-16&type=c))
 
 [@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2022-03-13..2022-03-16&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.8.3
 
