@@ -81,7 +81,7 @@ runs:
     - name: Upgrade packaging dependencies
       shell: bash
       run: |
-        pip install --upgrade pip setuptools wheel --user
+        pip install --upgrade pip setuptools wheel pytest-github-actions-annotate-failures --user
 
     - name: Print Diagnostics
       shell: bash
