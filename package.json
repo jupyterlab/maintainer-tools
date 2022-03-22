@@ -1,6 +1,6 @@
 {
     "name": "@jupyterlab/maintainer-tools",
-    "version": "0.8.4",
+    "version": "0.8.5",
     "private": true,
     "jupyter-releaser": {
         "hooks": {
