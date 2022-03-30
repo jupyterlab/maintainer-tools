@@ -31,8 +31,9 @@ runs:
           eval "${{inputs.env_values}}"
 
           # Set up venv
+          cd $HOME
           python -m venv test_venv
-          export PATH=$(pwd)/test_venv/bin:$PATH
+          export PATH=$HOME/test_venv/bin:$PATH
           python -m pip install -U pip wheel setuptools
           cd test_venv
 
@@ -53,5 +54,5 @@ runs:
           eval "${{inputs.extra_test}}"
 
           # Cleanup
-          cd ${root}
+          cd $HOME
           rm -rf ./test_venv
