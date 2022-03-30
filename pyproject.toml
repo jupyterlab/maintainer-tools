@@ -6,6 +6,7 @@ build-backend = "flit_core.buildapi"
 name = "foobar"
 authors = [{name = "Sir Robin", email = "robin@camelot.uk"}]
 dynamic = ["version", "description"]
+long_description_content_type = "text/x-markdown"
 
 [tool.jupyter-packaging.builder]
 factory = "jupyter_packaging.npm_builder"
