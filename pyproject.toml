@@ -34,4 +34,4 @@ tag_template = "v{new_version}"
 src = "package.json"
 
 [tool.pytest.ini_options]
-testpaths = ["test.py"]
+testpaths = ["foobar.py"]
