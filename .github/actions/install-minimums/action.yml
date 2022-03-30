@@ -1,14 +1,14 @@
 name: Install Minimums
 description: "Install the miminum versions of dependencies"
 inputs:
-    extras:
-      description: The Extras to Install (comma separated)
-      default: test
-      required: false
-    working-directory:
-      description: The working directory
-      default: .
-      required: false
+  extras:
+    description: The Extras to Install (comma separated)
+    default: test
+    required: false
+  working-directory:
+    description: The working directory
+    default: .
+    required: false
 
 runs:
   using: "composite"

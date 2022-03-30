@@ -1,31 +1,31 @@
 name: Run Script on PR
 description: "Run a script against a PR"
 inputs:
-    target:
-      description: Target Pull Request Link
-      required: true
-    github_token:
-      description: GitHub Access Token
-      required: true
-    git_username:
-      description: The Git Username to Use for the Commit
-    git_email:
-      description: The Git Email to Use for the Commit
-    script:
-      description: Command(s) to run
-      required: false
-    association:
-      description: The Author Association for the Script
-      required: false
-    pre_commit:
-      description: Whether to run the pre-commit script
-      required: false
-    commit_message:
-      description: Optional commit message
-      required: false
-    dry_run:
-      description: Whether this is a dry run
-      required: false
+  target:
+    description: Target Pull Request Link
+    required: true
+  github_token:
+    description: GitHub Access Token
+    required: true
+  git_username:
+    description: The Git Username to Use for the Commit
+  git_email:
+    description: The Git Email to Use for the Commit
+  script:
+    description: Command(s) to run
+    required: false
+  association:
+    description: The Author Association for the Script
+    required: false
+  pre_commit:
+    description: Whether to run the pre-commit script
+    required: false
+  commit_message:
+    description: Optional commit message
+    required: false
+  dry_run:
+    description: Whether this is a dry run
+    required: false
 runs:
   using: "composite"
   steps:
