@@ -1,0 +1,15 @@
+name: "Make an sdist"
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/checkout@v2
+    - name: Base Setup
+      uses: ${{ github.action_path }}/../base-setup
+    - name: Build SDist
+      run: |
+        pip install build
+        python -m build --sdist
+    - uses: actions/upload-artifact@v2
+      with:
+        name: "sdist"
+        path: dist/*.tar.gz

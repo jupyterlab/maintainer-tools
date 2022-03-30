@@ -1,0 +1,36 @@
+name: "Test Sdist"
+description: "Test a built sdist"
+inputs:
+  package_spec:
+    description: "The package spec to install"
+    default: ".\"[test]\""
+    required: true
+  test_command:
+    description: "The test command"
+    default: "pytest -vv -raXxs --durations 10 --color=yes"
+    required: true
+  extra_test:
+    description: "Optional extra test to run"
+  env_values:
+    description: "Optional env values to set for test, e.g. 'FOO=BAR FIZZ=BUZZ'"
+runs:
+  using: "composite"
+  steps:
+    - name: Base Setup
+      uses: ${{ github.action_path }}/..
+    - name: Download sdist
+      uses: actions/download-artifact@v2
+    - name: Install From SDist
+      run: |
+        set -ex
+        cd sdist
+        mkdir test
+        tar --strip-components=1 -zxvf *.tar.gz -C ./test
+        cd test
+        python -m pip install ${package_spec}
+    - name: Run Test
+      run: |
+        cd sdist/test
+        eval "${{inputs.env_values}}"
+        eval ${inputs.test_command}
+        eval "${{inputs.extra_test}}"
