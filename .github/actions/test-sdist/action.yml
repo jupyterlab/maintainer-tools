@@ -26,7 +26,7 @@ runs:
         mkdir test
         tar --strip-components=1 -zxvf *.tar.gz -C ./test
         cd test
-        python -m pip install ${package_spec}
+        python -m pip install ${inputs.package_spec}
     - name: Run Test
       shell: bash
       run: |
