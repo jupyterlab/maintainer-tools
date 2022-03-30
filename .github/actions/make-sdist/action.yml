@@ -4,7 +4,7 @@ runs:
   steps:
     - uses: actions/checkout@v2
     - name: Base Setup
-      uses: ${{ github.action_path }}/../base-setup
+      uses: ../base-setup
     - name: Build SDist
       shell: bash
       run: |
