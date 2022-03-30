@@ -200,7 +200,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: ./.github/actions/make_sdist
+      - uses: ./.github/actions/make-sdist
 
   test_sdist:
     runs-on: ubuntu-latest
