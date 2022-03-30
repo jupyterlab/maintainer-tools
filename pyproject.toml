@@ -25,5 +25,8 @@ regex = '''
 message_template = "Bump to {new_version}"
 tag_template = "v{new_version}"
 
-[[file]]
+[[tool.tbump.file]]
 src = "package.json"
+
+[tool.pytest.ini_options]
+testpaths = ["test.py"]
