@@ -128,6 +128,39 @@ jobs:
       run: pytest -vv
 ```
 
+## Test SDist
+
+Use this pair of actions to build an sdist for your package, and then test it
+in an isolated environment.
+
+```yaml
+name: Test Sdist
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+
+jobs:
+  make_sdist:
+    name: Make SDist
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v2
+      - uses: jupyterlab/maintainer-tools/.github/actions/base-setup@v1
+      - uses: jupyterlab/maintainer-tools/.github/actions/make-sdist@v1
+
+  test_sdist:
+    runs-on: ubuntu-latest
+    needs: [make_sdist]
+    name: Install from SDist and Test
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v2
+      - uses: jupyterlab/maintainer-tools/.github/actions/base-setup@v1
+      - uses: jupyterlab/maintainer-tools/.github/actions/test-sdist@v1
+```
+
 ## PR Binder Link
 
 Use this action to add binder links for testing PRs, which show up as a comment.  
