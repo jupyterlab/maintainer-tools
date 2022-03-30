@@ -2,6 +2,22 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.8.6
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...73ee4b640285eca88d22b36ac065434ffb311f0f))
+
+### Bugs fixed
+
+- Use a different directory for downstream tests [#75](https://github.com/jupyterlab/maintainer-tools/pull/75) ([@blink1073](https://github.com/blink1073))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2022-03-22&to=2022-03-30&type=c))
+
+[@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2022-03-22..2022-03-30&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.8.5
 
 ([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...ea22b7d32f9a4929fd0744fd4e38dc576afe5cdc))
@@ -19,8 +35,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2022-03-16&to=2022-03-22&type=c))
 
 [@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2022-03-16..2022-03-22&type=Issues) | [@fcollonval](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Afcollonval+updated%3A2022-03-16..2022-03-22&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.8.4
 
