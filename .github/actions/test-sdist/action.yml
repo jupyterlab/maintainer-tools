@@ -16,8 +16,6 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Base Setup
-      uses: ../base-setup
     - name: Download sdist
       uses: actions/download-artifact@v2
     - name: Install From SDist

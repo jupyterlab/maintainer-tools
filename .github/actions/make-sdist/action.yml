@@ -2,9 +2,6 @@ name: "Make an sdist"
 runs:
   using: "composite"
   steps:
-    - uses: actions/checkout@v2
-    - name: Base Setup
-      uses: ../base-setup
     - name: Build SDist
       shell: bash
       run: |
