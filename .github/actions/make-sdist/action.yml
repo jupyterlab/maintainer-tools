@@ -6,6 +6,7 @@ runs:
     - name: Base Setup
       uses: ${{ github.action_path }}/../base-setup
     - name: Build SDist
+      shell: bash
       run: |
         pip install build
         python -m build --sdist

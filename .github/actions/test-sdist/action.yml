@@ -21,6 +21,7 @@ runs:
     - name: Download sdist
       uses: actions/download-artifact@v2
     - name: Install From SDist
+      shell: bash
       run: |
         set -ex
         cd sdist
@@ -29,6 +30,7 @@ runs:
         cd test
         python -m pip install ${package_spec}
     - name: Run Test
+      shell: bash
       run: |
         cd sdist/test
         eval "${{inputs.env_values}}"
