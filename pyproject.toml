@@ -12,7 +12,7 @@ readme = "README.md"
 factory = "jupyter_packaging.npm_builder"
 
 [tool.jupyter-releaser]
-skip = ["check-links", "publish-assets"]
+skip = ["check-links", "publish-assets", "check-manifest"]
 
 [tool.jupyter-releaser.hooks]
 after-draft-release = ["bash ./.github/scripts/bump_tag.sh"]
