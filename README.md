@@ -98,7 +98,7 @@ jobs:
 ## Test Against Dependency Minimum Version
 
 Use this action to test that your minimum dependency version constraints are vaild. Note: you may want to also use the minimum supported version of Python
-since the minimum versions might not have wheels on newer Pythons.  Note that you should use `pytest -W default` if you are using `filterwarnings` and relying on newer versions of the library to have removed warnings.
+since the minimum versions might not have wheels on newer Pythons. Note that you should use `pytest -W default` if you are using `filterwarnings` and relying on newer versions of the library to have removed warnings.
 
 ```yaml
 name: Minimum Dependencies
