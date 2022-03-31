@@ -4,8 +4,9 @@ build-backend = "flit_core.buildapi"
 
 [project]
 name = "foobar"
+version = "0.8.6"
 authors = [{name = "Sir Robin", email = "robin@camelot.uk"}]
-dynamic = ["version", "description"]
+dynamic = ["description"]
 readme = "README.md"
 
 [tool.jupyter-packaging.builder]
@@ -35,7 +36,7 @@ tag_template = "v{new_version}"
 src = "package.json"
 
 [[tool.tbump.file]]
-src = "foobar.py"
+src = "pyproject.toml"
 
 [tool.pytest.ini_options]
 testpaths = ["foobar.py"]
