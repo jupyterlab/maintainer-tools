@@ -6,7 +6,7 @@ inputs:
     required: true
   package_spec:
     description: "The package spec to install"
-    default: ".\"[test]\""
+    default: '."[test]"'
     required: true
   test_command:
     description: "The test command"
@@ -22,37 +22,37 @@ runs:
     - name: set up venv
       shell: bash
       run: |
-          set -x
-          # Set up env values
-          package_name=${{inputs.package_name}}
-          package_spec="${{inputs.package_spec}}"
-          test_command="${{inputs.test_command}}"
-          root=$(pwd)
-          eval "${{inputs.env_values}}"
+        set -x
+        # Set up env values
+        package_name=${{inputs.package_name}}
+        package_spec="${{inputs.package_spec}}"
+        test_command="${{inputs.test_command}}"
+        root=$(pwd)
+        eval "${{inputs.env_values}}"
 
-          # Set up venv
-          cd $HOME
-          python -m venv test_venv
-          export PATH=$HOME/test_venv/bin:$PATH
-          python -m pip install -U pip wheel setuptools
-          cd test_venv
+        # Set up venv
+        cd $HOME
+        python -m venv test_venv
+        export PATH=$HOME/test_venv/bin:$PATH
+        python -m pip install -U pip wheel setuptools
+        cd test_venv
 
-          # Download and extract the sdist
-          mkdir downstream_test
-          cd downstream_test
-          pip download --no-deps --no-binary ${package_name} ${package_name}
-          mkdir ${package_name}
-          tar xfz *.tar.gz -C ${package_name} --strip-components 1
-          cd ${package_name}
+        # Download and extract the sdist
+        mkdir downstream_test
+        cd downstream_test
+        pip download --no-deps --no-binary ${package_name} ${package_name}
+        mkdir ${package_name}
+        tar xfz *.tar.gz -C ${package_name} --strip-components 1
+        cd ${package_name}
 
-          # Install the target package, then re-install ourselves
-          python -m pip install ${package_spec}
-          python -m pip install ${root} --force-reinstall
+        # Install the target package, then re-install ourselves
+        python -m pip install ${package_spec}
+        python -m pip install ${root} --force-reinstall
 
-          # Test the downstream package
-          eval ${test_command}
-          eval "${{inputs.extra_test}}"
+        # Test the downstream package
+        eval ${test_command}
+        eval "${{inputs.extra_test}}"
 
-          # Cleanup
-          cd $HOME
-          rm -rf ./test_venv
+        # Cleanup
+        cd $HOME
+        rm -rf ./test_venv

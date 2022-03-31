@@ -53,8 +53,7 @@ runs:
       uses: actions/cache@v2
       with:
         path: ~/conda_pkgs_dir
-        key:
-          ${{ env.CACHE_PREFIX  }}-conda-${{ env.CACHE_NUMBER }}-${{
+        key: ${{ env.CACHE_PREFIX  }}-conda-${{ env.CACHE_NUMBER }}-${{
           hashFiles('**/environment*.yml') }}
         restore-keys: |
           ${{ env.CACHE_PREFIX }}-conda-

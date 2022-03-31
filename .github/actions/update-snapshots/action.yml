@@ -94,7 +94,7 @@ runs:
         git commit -m "Update Playwright Snapshots"
       env:
         GITHUB_TOKEN: ${{ inputs.github_token }}
-        
+
     - name: Push new snapshots
       if: ${{ inputs.dry_run != 'yes' }}
       shell: bash -l {0}

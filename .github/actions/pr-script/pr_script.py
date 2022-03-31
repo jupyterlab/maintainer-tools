@@ -3,9 +3,7 @@ import os
 import shlex
 import shutil
 from pathlib import Path
-from subprocess import CalledProcessError
-from subprocess import check_output
-from subprocess import PIPE
+from subprocess import PIPE, CalledProcessError, check_output
 
 from ghapi.core import GhApi
 
@@ -74,14 +72,14 @@ def run_script():
     association = os.environ.get("ASSOCIATION")
     if association:
         if association not in ["COLLABORATOR", "MEMBER", "OWNER"]:
-            msg = f"Cannot run script for user \"{maintainer}\" with association \"{association}\""
+            msg = f'Cannot run script for user "{maintainer}" with association "{association}"'
             if not dry_run:
                 gh.issues.create_comment(number, msg)
             raise ValueError(msg)
         print(f"User is authorized as {association}")
 
     # Give a confirmation message
-    msg = f"Running script \"{script}\" on behalf of \"{maintainer}\""
+    msg = f'Running script "{script}" on behalf of "{maintainer}"'
     print(msg)
     if not dry_run:
         gh.issues.create_comment(number, msg)
@@ -108,7 +106,7 @@ def run_script():
 
     # Use GitHub Actions bot user and email by default.
     # https://github.community/t/github-actions-bot-email-address/17204/6
-    username = os.environ.get("GIT_USERNAME") or  "GitHub Action"
+    username = os.environ.get("GIT_USERNAME") or "GitHub Action"
     bot_email = "41898282+github-actions[bot]@users.noreply.github.com"
     email = os.environ.get("GIT_EMAIL") or bot_email
     run(f"git config user.email {email}")

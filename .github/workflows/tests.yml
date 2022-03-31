@@ -25,8 +25,7 @@ jobs:
       - name: Base Setup
         uses: ./.github/actions/base-setup
       - name: Create a mock python package
-        run:
-          echo "from setuptools import setup; setup(name='foo')" > setup.py
+        run: echo "from setuptools import setup; setup(name='foo')" > setup.py
       - name: Check Downstream test with defaults
         uses: ./.github/actions/downstream-test
         with:
@@ -40,8 +39,7 @@ jobs:
       - name: Base Setup
         uses: ./.github/actions/base-setup
       - name: Create a mock python package
-        run:
-          echo "from setuptools import setup; setup(name='foo')" > setup.py
+        run: echo "from setuptools import setup; setup(name='foo')" > setup.py
       - name: Check Downstream test with overrides
         uses: ./.github/actions/downstream-test
         with:
@@ -67,133 +65,132 @@ jobs:
   pr_script:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-    - name: Base Setup
-      uses: ./.github/actions/base-setup
-    - name: Check PR Script All Options
-      uses: ./.github/actions/pr-script
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        dry_run: true
-        script: "[\"jlpm run integrity\", \"jlpm run lint\"]"
-        commit_message: "auto run cleanup"
-        target:  "https://github.com/jupyterlab/maintainer-tools/pull/39"
-        association: "MEMBER"
-        git_username: "snuffy-bot"
-        git_email: "snuffy-bot@example.com"
-    - name: Check PR Script Defaults
-      uses: ./.github/actions/pr-script
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        dry_run: true
-        pre_commit: true
-        target:  "https://github.com/jupyterlab/maintainer-tools/pull/39"
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Base Setup
+        uses: ./.github/actions/base-setup
+      - name: Check PR Script All Options
+        uses: ./.github/actions/pr-script
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          dry_run: true
+          script: '["jlpm run integrity", "jlpm run lint"]'
+          commit_message: "auto run cleanup"
+          target: "https://github.com/jupyterlab/maintainer-tools/pull/39"
+          association: "MEMBER"
+          git_username: "snuffy-bot"
+          git_email: "snuffy-bot@example.com"
+      - name: Check PR Script Defaults
+        uses: ./.github/actions/pr-script
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          dry_run: true
+          pre_commit: true
+          target: "https://github.com/jupyterlab/maintainer-tools/pull/39"
 
   install_minimums:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ["3.7"]  # Test against minimum Python version as well
+        python-version: ["3.7"] # Test against minimum Python version as well
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-    - name: Base Setup
-      uses: ./.github/actions/base-setup
-    - name: Clone a repo
-      run:
-        git clone --depth=1 https://github.com/jupyter/jupyter-packaging.git
-    - name: Install miniumum versions
-      uses: ./.github/actions/install-minimums
-      with:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Base Setup
+        uses: ./.github/actions/base-setup
+      - name: Clone a repo
+        run: git clone --depth=1 https://github.com/jupyter/jupyter-packaging.git
+      - name: Install miniumum versions
+        uses: ./.github/actions/install-minimums
+        with:
+          working-directory: jupyter-packaging
+      - name: Run the unit tests
         working-directory: jupyter-packaging
-    - name: Run the unit tests
-      working-directory: jupyter-packaging
-      run: pytest -vv
+        run: pytest -vv
 
   update_snapshots-manual-server:
     runs-on: ubuntu-latest
     env:
       TEST_FOLDER: mock-playwright
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-    - name: Base Setup
-      uses: ./.github/actions/base-setup
-    - name: Create a mock playwright test package
-      shell: bash
-      run: |
-        mkdir -p ${TEST_FOLDER}/tests/example.spec.ts-snapshots
-        pushd ${TEST_FOLDER}
-        yarn init -yp
-        yarn add -D @playwright/test
-        cat package.json | jq '. += {"scripts": {"start": "echo starting...", "test:update": "yarn playwright test -u"}}' > new_package.json
-        cat > tests/example.spec.ts << EOF
-        import { test, expect } from '@playwright/test';
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Base Setup
+        uses: ./.github/actions/base-setup
+      - name: Create a mock playwright test package
+        shell: bash
+        run: |
+          mkdir -p ${TEST_FOLDER}/tests/example.spec.ts-snapshots
+          pushd ${TEST_FOLDER}
+          yarn init -yp
+          yarn add -D @playwright/test
+          cat package.json | jq '. += {"scripts": {"start": "echo starting...", "test:update": "yarn playwright test -u"}}' > new_package.json
+          cat > tests/example.spec.ts << EOF
+          import { test, expect } from '@playwright/test';
 
-        test('basic test', async ({ page }) => {
-          await page.goto('https://playwright.dev/');
-          await page.locator('text=Get started').click();
-          await expect(page).toHaveTitle(/Getting started/);
-        });
-        EOF
-        
-        cp new_package.json package.json
+          test('basic test', async ({ page }) => {
+            await page.goto('https://playwright.dev/');
+            await page.locator('text=Get started').click();
+            await expect(page).toHaveTitle(/Getting started/);
+          });
+          EOF
 
-        # Create fake snapshot
-        touch tests/example.spec.ts-snapshots/dummy.txt
+          cp new_package.json package.json
 
-        git checkout -b test-snapshot
-        popd
-    - name: Check update snapshots action
-      uses: ./.github/actions/update-snapshots
-      with:
-        github_token: "FAKE"
-        test_folder: ${{ env.TEST_FOLDER }}
-        server_url: https-get://playwright.dev
-        dry_run: yes
-        
+          # Create fake snapshot
+          touch tests/example.spec.ts-snapshots/dummy.txt
+
+          git checkout -b test-snapshot
+          popd
+      - name: Check update snapshots action
+        uses: ./.github/actions/update-snapshots
+        with:
+          github_token: "FAKE"
+          test_folder: ${{ env.TEST_FOLDER }}
+          server_url: https-get://playwright.dev
+          dry_run: yes
+
   update_snapshots:
     runs-on: ubuntu-latest
     env:
       TEST_FOLDER: mock-playwright
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-    - name: Base Setup
-      uses: ./.github/actions/base-setup
-    - name: Create a mock playwright test package
-      shell: bash
-      run: |
-        mkdir -p ${TEST_FOLDER}/tests/example.spec.ts-snapshots
-        pushd ${TEST_FOLDER}
-        yarn init -yp
-        yarn add -D @playwright/test
-        cat package.json | jq '. += {"scripts": {"test:update": "yarn playwright test -u"}}' > new_package.json
-        cat > tests/example.spec.ts << EOF
-        import { test, expect } from '@playwright/test';
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Base Setup
+        uses: ./.github/actions/base-setup
+      - name: Create a mock playwright test package
+        shell: bash
+        run: |
+          mkdir -p ${TEST_FOLDER}/tests/example.spec.ts-snapshots
+          pushd ${TEST_FOLDER}
+          yarn init -yp
+          yarn add -D @playwright/test
+          cat package.json | jq '. += {"scripts": {"test:update": "yarn playwright test -u"}}' > new_package.json
+          cat > tests/example.spec.ts << EOF
+          import { test, expect } from '@playwright/test';
 
-        test('basic test', async ({ page }) => {
-          await page.goto('https://playwright.dev/');
-          await page.locator('text=Get started').click();
-          await expect(page).toHaveTitle(/Getting started/);
-        });
-        EOF
-        
-        cp new_package.json package.json
+          test('basic test', async ({ page }) => {
+            await page.goto('https://playwright.dev/');
+            await page.locator('text=Get started').click();
+            await expect(page).toHaveTitle(/Getting started/);
+          });
+          EOF
 
-        # Create fake snapshot
-        touch tests/example.spec.ts-snapshots/dummy.txt
+          cp new_package.json package.json
 
-        git checkout -b test-snapshot
-        popd
-    - name: Check update snapshots action
-      uses: ./.github/actions/update-snapshots
-      with:
-        github_token: "FAKE"
-        test_folder: ${{ env.TEST_FOLDER }}
-        start_server_script: "null"
-        dry_run: yes
+          # Create fake snapshot
+          touch tests/example.spec.ts-snapshots/dummy.txt
+
+          git checkout -b test-snapshot
+          popd
+      - name: Check update snapshots action
+        uses: ./.github/actions/update-snapshots
+        with:
+          github_token: "FAKE"
+          test_folder: ${{ env.TEST_FOLDER }}
+          start_server_script: "null"
+          dry_run: yes
 
   make_sdist:
     name: Make SDist
