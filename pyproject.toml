@@ -18,7 +18,7 @@ skip = ["check-links", "publish-assets", "check-manifest"]
 after-draft-release = ["bash ./.github/scripts/bump_tag.sh"]
 
 [tool.tbump.version]
-current = "0.8.6"
+current = "0.9.0"
 regex = '''
   (?P<major>\d+)
   \.
