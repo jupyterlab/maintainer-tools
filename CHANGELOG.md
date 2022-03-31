@@ -2,6 +2,26 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.9.0
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...e6eae0613f9df3f9fca24b3d2deb1fa62b5b817d))
+
+### Enhancements made
+
+- Add test sdist actions [#77](https://github.com/jupyterlab/maintainer-tools/pull/77) ([@blink1073](https://github.com/blink1073))
+
+### Maintenance and upkeep improvements
+
+- Add pre-commit file and run auto-format [#78](https://github.com/jupyterlab/maintainer-tools/pull/78) ([@blink1073](https://github.com/blink1073))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2022-03-30&to=2022-03-31&type=c))
+
+[@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2022-03-30..2022-03-31&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.8.6
 
 ([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...73ee4b640285eca88d22b36ac065434ffb311f0f))
@@ -15,8 +35,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2022-03-22&to=2022-03-30&type=c))
 
 [@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2022-03-22..2022-03-30&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.8.5
 
