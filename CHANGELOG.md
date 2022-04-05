@@ -2,6 +2,35 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.10.0
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...ac366b99dc48d9f353ec93363fbfea2d17b36ab9))
+
+### Enhancements made
+
+- Automatically add maintainence label for known bots [#83](https://github.com/jupyterlab/maintainer-tools/pull/83) ([@blink1073](https://github.com/blink1073))
+
+### Bugs fixed
+
+- Fix push error [#84](https://github.com/jupyterlab/maintainer-tools/pull/84) ([@fcollonval](https://github.com/fcollonval))
+
+### Maintenance and upkeep improvements
+
+- [pre-commit.ci] pre-commit autoupdate [#82](https://github.com/jupyterlab/maintainer-tools/pull/82) ([@pre-commit-ci](https://github.com/pre-commit-ci))
+- Update docs on test-sdist [#80](https://github.com/jupyterlab/maintainer-tools/pull/80) ([@blink1073](https://github.com/blink1073))
+
+### Documentation improvements
+
+- Add note about default warnings in minimum version test [#81](https://github.com/jupyterlab/maintainer-tools/pull/81) ([@blink1073](https://github.com/blink1073))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2022-03-31&to=2022-04-05&type=c))
+
+[@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2022-03-31..2022-04-05&type=Issues) | [@fcollonval](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Afcollonval+updated%3A2022-03-31..2022-04-05&type=Issues) | [@pre-commit-ci](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Apre-commit-ci+updated%3A2022-03-31..2022-04-05&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.9.0
 
 ([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...e6eae0613f9df3f9fca24b3d2deb1fa62b5b817d))
@@ -19,8 +48,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2022-03-30&to=2022-03-31&type=c))
 
 [@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2022-03-30..2022-03-31&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.8.6
 
