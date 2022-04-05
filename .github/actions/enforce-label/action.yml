@@ -12,6 +12,8 @@ runs:
       with:
         script: |
           const required = ['bug', 'enhancement', 'feature', 'maintenance', 'documentation'];
+          const botUsers =['pre-commit-ci', 'dependabot'];
+          // https://docs.github.com/en/rest/reference/issues#get-an-issue
           const response = await github.issues.get({
             owner: context.repo.owner,
             repo: context.repo.repo,
@@ -25,6 +27,22 @@ runs:
             }
           });
           if (!found) {
+            // Try to automatically add maintenance label for known bot users
+            try {
+              if (botUsers.indeOf(response.data.user.login) !== -1) {
+                // https://docs.github.com/en/rest/reference/issues#add-labels-to-an-issue
+                octokit.rest.issues.addLabels({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: context.issue.number,
+                  labels: ['maintenance']
+                })
+                process.exit(0);
+              }
+            } catch (e) {
+              console.error(e);
+            }
+
             console.error('Select at least one triage label:')
             console.error(required)
             process.exit(1)
