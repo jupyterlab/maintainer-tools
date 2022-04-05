@@ -89,7 +89,7 @@ runs:
         git config user.name '${{ inputs.git_username }}'
         git config user.email '${{ inputs.git_email }}'
 
-        git pull
+        git pull --no-tags
         git add ./*-snapshots/*.*
         git commit -m "Update Playwright Snapshots"
       env:
@@ -100,6 +100,8 @@ runs:
       shell: bash -l {0}
       working-directory: ${{ inputs.test_folder }}
       run: |
+        git config push.default upstream
+
         git push
       env:
         GITHUB_TOKEN: ${{ inputs.github_token }}
@@ -107,4 +109,7 @@ runs:
     - name: Server log
       if: ${{ inputs.start_server_script != 'null' && always() }}
       shell: bash -l {0}
-      run: cat /tmp/snapshots-update-server.log
+      run: |
+        echo "::group::Server log"
+        cat /tmp/snapshots-update-server.log
+        echo "::endgroup::"
