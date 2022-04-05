@@ -35,6 +35,7 @@ runs:
                   issue_number: context.issue.number,
                   labels: ['maintenance']
                 })
+              }
             } catch (e) {
               console.error(e);
             }
