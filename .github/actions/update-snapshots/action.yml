@@ -87,7 +87,7 @@ runs:
         echo "::group::Optimize PNG files"
         git ls-files --exclude-standard -om | grep -e "\.png$" | xargs optipng
         echo "::endgroup::"
-        
+
     - name: Upload snapshots as artifacts
       uses: actions/upload-artifact@v3
       with:
