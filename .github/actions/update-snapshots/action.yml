@@ -1,6 +1,6 @@
 name: Update playwright snapshots on PR
 description: |
-  Update the playwright snapshots on PR by pushing a commit.
+  Update the playwright snapshots on PR by pushing a commit (and upload them as artifact).
   The remote repository containing the PR branch must be checked out
   using `https`. If you are using the GitHub `hub` CLI, you can
   achieve that using `git config --global hub.protocol https`
@@ -19,6 +19,10 @@ inputs:
     description: The server URL to wait for (see https://github.com/iFaxity/wait-on-action `resource`)
     required: false
     default: http-get://localhost:8888
+  artifact_name:
+    description: The uploaded artifact name
+    required: false
+    default: playwright-snapshots
   browser:
     description: The playwright browser to install (one of [`chromium`, `firefox`, `webkit`])
     required: false
@@ -80,7 +84,15 @@ runs:
         sudo apt install optipng
         # Apply compression only on new and modified versioned files
         # - this does not filter out deleted files but it should not happen.
+        echo "::group::Optimize PNG files"
         git ls-files --exclude-standard -om | grep -e "\.png$" | xargs optipng
+        echo "::endgroup::"
+        
+    - name: Upload snapshots as artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: ${{ inputs.artifact_name }}
+        path: ${{ inputs.test_folder }}/**/*-snapshots/*.*
 
     - name: Commit new snapshots
       shell: bash -l {0}
