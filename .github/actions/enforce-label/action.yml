@@ -29,7 +29,7 @@ runs:
           if (!found) {
             // Try to automatically add maintenance label for known bot users
             try {
-              if (botUsers.indeOf(response.data.user.login) !== -1) {
+              if (botUsers.indexOf(response.data.user.login) !== -1) {
                 // https://docs.github.com/en/rest/reference/issues#add-labels-to-an-issue
                 octokit.rest.issues.addLabels({
                   owner: context.repo.owner,
