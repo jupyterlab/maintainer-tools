@@ -23,36 +23,43 @@ runs:
       shell: bash
       run: |
         set -x
-        # Set up env values
+
+        echo "::group::Set up env values"
         package_name=${{inputs.package_name}}
         package_spec="${{inputs.package_spec}}"
         test_command="${{inputs.test_command}}"
         root=$(pwd)
         eval "${{inputs.env_values}}"
+        echo "::endgroup::"
 
-        # Set up venv
+        echo "::group::Set up venv"
         cd $HOME
         python -m venv test_venv
         export PATH=$HOME/test_venv/bin:$PATH
         python -m pip install -U pip wheel setuptools
         cd test_venv
+        echo "::endgroup::"
 
-        # Download and extract the sdist
+        echo "::group::Download and extract the sdist"
         mkdir downstream_test
         cd downstream_test
         pip download --no-deps --no-binary ${package_name} ${package_name}
         mkdir ${package_name}
         tar xfz *.tar.gz -C ${package_name} --strip-components 1
         cd ${package_name}
+        echo "::endgroup::"
 
-        # Install the target package, then re-install ourselves
+        echo "::group::Install the target package, then re-install ourselves"
         python -m pip install ${package_spec}
         python -m pip install ${root} --force-reinstall
+        echo "::endgroup::"
 
-        # Test the downstream package
+        echo "::group::Test the downstream package"
         eval ${test_command}
         eval "${{inputs.extra_test}}"
+        echo "::endgroup::"
 
-        # Cleanup
+        echo "::group::Cleanup"
         cd $HOME
         rm -rf ./test_venv
+        echo "::endgroup::"

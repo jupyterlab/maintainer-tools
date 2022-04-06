@@ -21,16 +21,21 @@ runs:
     - name: Install From SDist
       shell: bash
       run: |
+        echo "::group::Install from SDist"
         set -ex
         cd sdist
         mkdir test
         tar --strip-components=1 -zxvf *.tar.gz -C ./test
         cd test
         python -m pip install ${{inputs.package_spec}}
+        echo "::endgroup::"
     - name: Run Test
       shell: bash
       run: |
+        echo "::group::Run test"
+        set -ex
         cd sdist/test
         eval "${{inputs.env_values}}"
         eval "${{inputs.test_command}}"
         eval "${{inputs.extra_test}}"
+        echo "::endgroup::"

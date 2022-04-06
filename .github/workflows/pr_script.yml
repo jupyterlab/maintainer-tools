@@ -10,6 +10,7 @@ on:
         required: false
       pre_commit:
         description: Whether to run the pre-commit script
+        type: boolean
         required: false
       commit_message:
         description: Optional commit message
