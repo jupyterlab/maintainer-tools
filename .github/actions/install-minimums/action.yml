@@ -18,11 +18,6 @@ runs:
       run: |
         set -ex
 
-        echo "::group::Cleanup"
-        cd $HOME
-        rm -rf ./test_venv
-        echo "::endgroup::"
-
         echo "::group::Create Constraints file"
         python -m pip install -U pip build pkginfo packaging
         cd ${{ inputs.working-directory }}
