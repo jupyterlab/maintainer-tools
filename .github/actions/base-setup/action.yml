@@ -80,13 +80,17 @@ runs:
     - name: Upgrade packaging dependencies
       shell: bash
       run: |
+        echo "::group::Upgrade packaging dependencies"
         pip install --upgrade pip setuptools wheel pytest-github-actions-annotate-failures --user
+        echo "::endgroup::"
 
     - name: Print Diagnostics
       shell: bash
       run: |
         set -x
+        echo "::group::env"
         env
+        echo "::endgroup::"
         pip debug
         yarn --version
         node --version

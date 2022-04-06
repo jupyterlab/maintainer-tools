@@ -17,12 +17,20 @@ runs:
       shell: bash
       run: |
         set -ex
+
+        echo "::group::Create Constraints file"
         python -m pip install -U pip build pkginfo packaging
         cd ${{ inputs.working-directory }}
         python -m build --wheel .
         python ${{ github.action_path }}/create_constraints_file.py dist/*.whl
         cat contraints_file.txt
+        echo "::endgroup::"
+
+        echo "::group::Install from Constraints file"
         pip install -e ".[${{ inputs.extras }}]" -c contraints_file.txt
         rm contraints_file.txt
+        echo "::endgroup::"
+
+        # Show installed packages
         pip check
         pip list
