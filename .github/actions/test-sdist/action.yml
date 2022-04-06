@@ -7,7 +7,7 @@ inputs:
     required: true
   test_command:
     description: "The test command"
-    default: "pytest -vv -raXxs --durations 10 --color=yes"
+    default: "python -m pytest -vv -raXxs --durations 10 --color=yes"
     required: true
   extra_test:
     description: "Optional extra test to run"
