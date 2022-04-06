@@ -31,7 +31,6 @@ runs:
         rm contraints_file.txt
         echo "::endgroup::"
 
-        echo "::group::Show installed packages"
+        # Show installed packages
         pip check
         pip list
-        echo "::endgroup::"

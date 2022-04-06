@@ -87,10 +87,8 @@ runs:
     - name: Print Diagnostics
       shell: bash
       run: |
-        echo "::group::Print Diagnostics"
         set -x
         env
         pip debug
         yarn --version
         node --version
-        echo "::endgroup::"
