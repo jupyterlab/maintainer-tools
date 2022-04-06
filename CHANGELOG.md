@@ -2,6 +2,30 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.11.0
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...6e9e7f0029f85a2da0a3782eeebe18ce935cef00))
+
+### Enhancements made
+
+- Upload snapshots as artifact [#86](https://github.com/jupyterlab/maintainer-tools/pull/86) ([@fcollonval](https://github.com/fcollonval))
+
+### Bugs fixed
+
+- Fix typo [#88](https://github.com/jupyterlab/maintainer-tools/pull/88) ([@max-schaefer](https://github.com/max-schaefer))
+
+### Maintenance and upkeep improvements
+
+- Clean up log output and use boolean input value in pr_script workflow [#87](https://github.com/jupyterlab/maintainer-tools/pull/87) ([@blink1073](https://github.com/blink1073))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2022-04-05&to=2022-04-06&type=c))
+
+[@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2022-04-05..2022-04-06&type=Issues) | [@fcollonval](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Afcollonval+updated%3A2022-04-05..2022-04-06&type=Issues) | [@max-schaefer](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Amax-schaefer+updated%3A2022-04-05..2022-04-06&type=Issues) | [@welcome](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Awelcome+updated%3A2022-04-05..2022-04-06&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.10.0
 
 ([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...ac366b99dc48d9f353ec93363fbfea2d17b36ab9))
@@ -28,8 +52,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2022-03-31&to=2022-04-05&type=c))
 
 [@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2022-03-31..2022-04-05&type=Issues) | [@fcollonval](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Afcollonval+updated%3A2022-03-31..2022-04-05&type=Issues) | [@pre-commit-ci](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Apre-commit-ci+updated%3A2022-03-31..2022-04-05&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.9.0
 
