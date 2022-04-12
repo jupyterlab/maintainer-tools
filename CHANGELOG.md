@@ -2,6 +2,27 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.11.1
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...5fc4d20bec639b5e432c0f13268f448313afddf6))
+
+### Bugs fixed
+
+- Fix bot user names [#92](https://github.com/jupyterlab/maintainer-tools/pull/92) ([@blink1073](https://github.com/blink1073))
+- Fix default test command in test-sdist [#90](https://github.com/jupyterlab/maintainer-tools/pull/90) ([@blink1073](https://github.com/blink1073))
+
+### Maintenance and upkeep improvements
+
+- [pre-commit.ci] pre-commit autoupdate [#91](https://github.com/jupyterlab/maintainer-tools/pull/91) ([@pre-commit-ci](https://github.com/pre-commit-ci))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2022-04-06&to=2022-04-12&type=c))
+
+[@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2022-04-06..2022-04-12&type=Issues) | [@pre-commit-ci](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Apre-commit-ci+updated%3A2022-04-06..2022-04-12&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.11.0
 
 ([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...6e9e7f0029f85a2da0a3782eeebe18ce935cef00))
@@ -23,8 +44,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2022-04-05&to=2022-04-06&type=c))
 
 [@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2022-04-05..2022-04-06&type=Issues) | [@fcollonval](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Afcollonval+updated%3A2022-04-05..2022-04-06&type=Issues) | [@max-schaefer](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Amax-schaefer+updated%3A2022-04-05..2022-04-06&type=Issues) | [@welcome](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Awelcome+updated%3A2022-04-05..2022-04-06&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.10.0
 
