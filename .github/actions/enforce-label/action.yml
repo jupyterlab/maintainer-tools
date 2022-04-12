@@ -12,7 +12,7 @@ runs:
       with:
         script: |
           const required = ['bug', 'enhancement', 'feature', 'maintenance', 'documentation'];
-          const botUsers =['pre-commit-ci', 'dependabot'];
+          const botUsers =['pre-commit-ci[bot]', 'dependabot[bot]'];
           // https://docs.github.com/en/rest/reference/issues#get-an-issue
           const response = await github.issues.get({
             owner: context.repo.owner,
