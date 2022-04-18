@@ -31,12 +31,12 @@ runs:
             try {
               if (botUsers.indexOf(response.data.user.login) !== -1) {
                 // https://docs.github.com/en/rest/reference/issues#add-labels-to-an-issue
-                octokit.rest.issues.addLabels({
+                await github.issues.addLabels({
                   owner: context.repo.owner,
                   repo: context.repo.repo,
                   issue_number: context.issue.number,
                   labels: ['maintenance']
-                })
+                });
                 process.exit(0);
               }
             } catch (e) {
