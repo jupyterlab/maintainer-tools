@@ -2,6 +2,26 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.11.2
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...fbf18e3eeaa6726ce62fa5c328a864436584a475))
+
+### Bugs fixed
+
+- Fix auto maintainence label for bots [#95](https://github.com/jupyterlab/maintainer-tools/pull/95) ([@blink1073](https://github.com/blink1073))
+
+### Maintenance and upkeep improvements
+
+- [pre-commit.ci] pre-commit autoupdate [#94](https://github.com/jupyterlab/maintainer-tools/pull/94) ([@pre-commit-ci](https://github.com/pre-commit-ci))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2022-04-12&to=2022-04-18&type=c))
+
+[@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2022-04-12..2022-04-18&type=Issues) | [@pre-commit-ci](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Apre-commit-ci+updated%3A2022-04-12..2022-04-18&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.11.1
 
 ([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...5fc4d20bec639b5e432c0f13268f448313afddf6))
@@ -20,8 +40,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2022-04-06&to=2022-04-12&type=c))
 
 [@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2022-04-06..2022-04-12&type=Issues) | [@pre-commit-ci](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Apre-commit-ci+updated%3A2022-04-06..2022-04-12&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.11.0
 
