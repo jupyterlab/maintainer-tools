@@ -1,6 +1,6 @@
 [build-system]
-requires = ["flit_core >=3.2,<4"]
-build-backend = "flit_core.buildapi"
+requires = ["hatchling>=0.25"]
+build-backend = "hatchling.build"
 
 [project]
 name = "foobar"
@@ -13,7 +13,7 @@ readme = "README.md"
 factory = "jupyter_packaging.npm_builder"
 
 [tool.jupyter-releaser]
-skip = ["check-links", "publish-assets", "check-manifest"]
+skip = ["check-links", "publish-assets"]
 
 [tool.jupyter-releaser.hooks]
 after-draft-release = ["bash ./.github/scripts/bump_tag.sh"]
