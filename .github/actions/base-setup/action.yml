@@ -16,13 +16,13 @@ runs:
         echo "CACHE_PREFIX=${{ runner.os }}-${{ github.workflow}}-${{ github.job }}" >> $GITHUB_ENV
 
     - name: Install Python
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v3
       with:
         python-version: ${{ env.PYTHON_VERSION }}
         architecture: "x64"
 
     - name: Install node
-      uses: actions/setup-node@v2
+      uses: actions/setup-node@v3
       with:
         node-version: ${{ env.NODE_VERSION }}
 
@@ -33,7 +33,7 @@ runs:
         echo "::set-output name=dir::$(pip cache dir)"
 
     - name: Cache pip
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       with:
         path: ${{ steps.pip-cache.outputs.dir }}
         key: ${{ env.CACHE_PREFIX }}-pip-${{ env.PYTHON_VERSION }}-${{ hashFiles('setup.cfg', 'setup.py', '**/requirements.txt') }}
@@ -42,7 +42,7 @@ runs:
 
     - name: Cache checked links
       if: ${{ matrix.group == 'link_check' }}
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       with:
         path: ~/.cache/pytest-link-check
         key: ${{ env.CACHE_PREFIX }}-linkcheck-${{ hashFiles('**/*.md', '**/*.rst') }}-links
@@ -50,7 +50,7 @@ runs:
           ${{ env.CACHE_PREFIX }}-linkcheck-
 
     - name: Cache conda
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       with:
         path: ~/conda_pkgs_dir
         key: ${{ env.CACHE_PREFIX  }}-conda-${{ env.CACHE_NUMBER }}-${{
@@ -64,7 +64,7 @@ runs:
       shell: bash
       run: echo "::set-output name=dir::$(yarn cache dir)"
     - name: Cache yarn
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
       with:
         path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
@@ -81,7 +81,7 @@ runs:
       shell: bash
       run: |
         echo "::group::Upgrade packaging dependencies"
-        pip install --upgrade pip setuptools wheel pytest-github-actions-annotate-failures --user
+        python -m pip install --upgrade pip setuptools wheel pytest-github-actions-annotate-failures --user
         echo "::endgroup::"
 
     - name: Print Diagnostics

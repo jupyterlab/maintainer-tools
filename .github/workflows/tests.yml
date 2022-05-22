@@ -194,7 +194,7 @@ jobs:
 
   make_sdist:
     name: Make SDist
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v2
@@ -202,7 +202,7 @@ jobs:
       - uses: ./.github/actions/make-sdist
 
   test_sdist:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     needs: [make_sdist]
     name: Install from SDist and Test
     timeout-minutes: 20
