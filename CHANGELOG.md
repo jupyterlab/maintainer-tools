@@ -2,6 +2,28 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.11.3
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...e0e5f7eebf8b162fa114b03ad1877b59b7ffe84b))
+
+### Bugs fixed
+
+- Update workflows and base setup [#100](https://github.com/jupyterlab/maintainer-tools/pull/100) ([@blink1073](https://github.com/blink1073))
+
+### Maintenance and upkeep improvements
+
+- Switch to hatch backend [#99](https://github.com/jupyterlab/maintainer-tools/pull/99) ([@blink1073](https://github.com/blink1073))
+- Allow bot PRs to be automatically labeled [#98](https://github.com/jupyterlab/maintainer-tools/pull/98) ([@blink1073](https://github.com/blink1073))
+- [pre-commit.ci] pre-commit autoupdate [#97](https://github.com/jupyterlab/maintainer-tools/pull/97) ([@pre-commit-ci](https://github.com/pre-commit-ci))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2022-04-18&to=2022-05-22&type=c))
+
+[@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2022-04-18..2022-05-22&type=Issues) | [@pre-commit-ci](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Apre-commit-ci+updated%3A2022-04-18..2022-05-22&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.11.2
 
 ([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...fbf18e3eeaa6726ce62fa5c328a864436584a475))
@@ -19,8 +41,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2022-04-12&to=2022-04-18&type=c))
 
 [@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2022-04-12..2022-04-18&type=Issues) | [@pre-commit-ci](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Apre-commit-ci+updated%3A2022-04-12..2022-04-18&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.11.1
 
