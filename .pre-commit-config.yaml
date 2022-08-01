@@ -37,7 +37,7 @@ repos:
       - id: prettier
 
   - repo: https://github.com/pycqa/flake8
-    rev: 4.0.1
+    rev: 5.0.2
     hooks:
       - id: flake8
         additional_dependencies:
@@ -48,7 +48,7 @@ repos:
           ]
 
   - repo: https://github.com/sirosen/check-jsonschema
-    rev: 0.17.0
+    rev: 0.17.1
     hooks:
       - id: check-jsonschema
         name: "Check GitHub Workflows"
