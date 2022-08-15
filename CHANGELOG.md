@@ -2,6 +2,36 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.11.4
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...5a9b3a2875903aa78794e2dd24ac81548d7ef3be))
+
+### Bugs fixed
+
+- Ensure package is installed with test files in test-sdist [#114](https://github.com/jupyterlab/maintainer-tools/pull/114) ([@TiagodePAlves](https://github.com/TiagodePAlves))
+
+### Maintenance and upkeep improvements
+
+- [pre-commit.ci] pre-commit autoupdate [#112](https://github.com/jupyterlab/maintainer-tools/pull/112) ([@pre-commit-ci](https://github.com/pre-commit-ci))
+- Fix update snapshots tests [#111](https://github.com/jupyterlab/maintainer-tools/pull/111) ([@fcollonval](https://github.com/fcollonval))
+- Fix flake8 v5 compat [#110](https://github.com/jupyterlab/maintainer-tools/pull/110) ([@blink1073](https://github.com/blink1073))
+- [pre-commit.ci] pre-commit autoupdate [#109](https://github.com/jupyterlab/maintainer-tools/pull/109) ([@pre-commit-ci](https://github.com/pre-commit-ci))
+- [pre-commit.ci] pre-commit autoupdate [#108](https://github.com/jupyterlab/maintainer-tools/pull/108) ([@pre-commit-ci](https://github.com/pre-commit-ci))
+- [pre-commit.ci] pre-commit autoupdate [#107](https://github.com/jupyterlab/maintainer-tools/pull/107) ([@pre-commit-ci](https://github.com/pre-commit-ci))
+- [pre-commit.ci] pre-commit autoupdate [#106](https://github.com/jupyterlab/maintainer-tools/pull/106) ([@pre-commit-ci](https://github.com/pre-commit-ci))
+- [pre-commit.ci] pre-commit autoupdate [#105](https://github.com/jupyterlab/maintainer-tools/pull/105) ([@pre-commit-ci](https://github.com/pre-commit-ci))
+- [pre-commit.ci] pre-commit autoupdate [#104](https://github.com/jupyterlab/maintainer-tools/pull/104) ([@pre-commit-ci](https://github.com/pre-commit-ci))
+- [pre-commit.ci] pre-commit autoupdate [#103](https://github.com/jupyterlab/maintainer-tools/pull/103) ([@pre-commit-ci](https://github.com/pre-commit-ci))
+- [pre-commit.ci] pre-commit autoupdate [#102](https://github.com/jupyterlab/maintainer-tools/pull/102) ([@pre-commit-ci](https://github.com/pre-commit-ci))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2022-05-22&to=2022-08-15&type=c))
+
+[@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2022-05-22..2022-08-15&type=Issues) | [@fcollonval](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Afcollonval+updated%3A2022-05-22..2022-08-15&type=Issues) | [@pre-commit-ci](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Apre-commit-ci+updated%3A2022-05-22..2022-08-15&type=Issues) | [@TiagodePAlves](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3ATiagodePAlves+updated%3A2022-05-22..2022-08-15&type=Issues) | [@welcome](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Awelcome+updated%3A2022-05-22..2022-08-15&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.11.3
 
 ([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...e0e5f7eebf8b162fa114b03ad1877b59b7ffe84b))
@@ -21,8 +51,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2022-04-18&to=2022-05-22&type=c))
 
 [@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2022-04-18..2022-05-22&type=Issues) | [@pre-commit-ci](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Apre-commit-ci+updated%3A2022-04-18..2022-05-22&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.11.2
 
