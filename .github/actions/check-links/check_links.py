@@ -48,11 +48,11 @@ def check_links(ignore_glob, ignore_links, links_expire):
         matched = glob(f"**/*{ext}", recursive=True)
         files.extend(m for m in matched if m not in ignored and "node_modules" not in m)
 
-    log("Checking files with options:")
+    separator = f"\n\n{'-' * 80}\n"
+    log(f"{separator}Checking files with options:")
     log(cmd)
 
     fails = 0
-    separator = f"\n\n{'-' * 80}\n"
     for f in files:
         file_cmd = cmd + f' "{f}"'
         file_cmd = shlex.split(file_cmd)
@@ -75,8 +75,8 @@ def check_links(ignore_glob, ignore_links, links_expire):
 
 if __name__ == "__main__":
     ignore_glob = os.environ.get("IGNORE_GLOB", "")
-    ignore_glob = ignore_glob.split(" ")
+    ignore_glob = ignore_glob.strip().split(" ")
     ignore_links = os.environ.get("IGNORE_LINKS", "")
-    ignore_links = ignore_links.split(" ")
+    ignore_links = ignore_links.strip().split(" ")
     links_expire = os.environ.get("LINKS_EXPIRE") or "604800"
     check_links(ignore_glob, ignore_links, links_expire)
