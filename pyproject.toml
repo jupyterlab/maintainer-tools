@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "foobar"
-version = "0.11.4"
+version = "0.12.0"
 authors = [{name = "Sir Robin", email = "robin@camelot.uk"}]
 dynamic = ["description"]
 readme = "README.md"
@@ -19,7 +19,7 @@ skip = ["check-links", "publish-assets"]
 after-draft-release = ["bash ./.github/scripts/bump_tag.sh"]
 
 [tool.tbump.version]
-current = "0.11.4"
+current = "0.12.0"
 regex = '''
   (?P<major>\d+)
   \.
