@@ -45,6 +45,34 @@ jobs:
         run: pytest
 ```
 
+## Check Links
+
+Use this action to check the links in your repo using `pytest-check-links`.
+It will ignore links to GitHub and cache links to save time.
+
+When adding this to a repo, you may need to skip some files or links.
+If the build fails, you can copy the "Checking files with command" used in the
+build, and add the appropriate `--ignore-glob` and `--check-links-ignore` until
+the tests pass locally, and add them as `ignore_glob` and `ignore_links` inputs
+to the action, respectively.
+
+```yaml
+name: Check Links
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: jupyterlab/maintainer-tools/.github/actions/base-setup@v1
+      - uses: jupyterlab/maintainer-tools/.github/actions/check-links@v1
+```
+
 ## Enforce Labels
 
 Use this action to enforce one of the triage labels on PRs in your repo (one of `documentation`, `bug`, `enhancement`, `feature`, `maintenance`). An example workflow file would be:
