@@ -8,7 +8,7 @@ inputs:
     description: "Ignore links based on regex pattern(s) (space separated"
     required: false
   links_expire:
-    description: "Duration in seconds for links to be cached (default one week)",
+    description: "Duration in seconds for links to be cached (default one week)"
     required: false
 
 runs:

@@ -56,7 +56,6 @@ and add the appropriate `--ignore-glob` and `--check-links-ignore` until the
 tests pass locally, and add them as `ignore_glob` and `ignore_links` inputs to
 the action, respectively.
 
-
 ```yaml
 name: Check Links
 
@@ -73,7 +72,6 @@ jobs:
       - uses: jupyterlab/maintainer-tools/.github/actions/base-setup@v1
       - uses: jupyterlab/maintainer-tools/.github/actions/check-links@v1
 ```
-
 
 ## Enforce Labels
 

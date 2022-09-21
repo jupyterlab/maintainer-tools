@@ -1,10 +1,9 @@
 import os
-import os.path as osp
-import sys
-from glob import glob
-import subprocess
 import shlex
+import subprocess
+import sys
 import typing as t
+from glob import glob
 
 
 def log(*outputs, **kwargs):
@@ -74,11 +73,10 @@ def check_links(ignore_glob, ignore_links, links_expire):
         raise RuntimeError(f"Encountered failures in {fails} file(s)")
 
 
-if __name__ == '__main__':
-    ignore_glob = os.environ.get('IGNORE_GLOB', '')
-    ignore_glob = ignore_glob.split(' ')
-    ignore_links = os.environ.get('IGNORE_LINKS', '')
-    ignore_links = ignore_links.split(' ')
-    links_expire = os.environ.get('LINKS_EXPIRE', '604800')
+if __name__ == "__main__":
+    ignore_glob = os.environ.get("IGNORE_GLOB", "")
+    ignore_glob = ignore_glob.split(" ")
+    ignore_links = os.environ.get("IGNORE_LINKS", "")
+    ignore_links = ignore_links.split(" ")
+    links_expire = os.environ.get("LINKS_EXPIRE", "604800")
     check_links(ignore_glob, ignore_links, links_expire)
-
