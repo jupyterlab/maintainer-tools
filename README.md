@@ -51,10 +51,10 @@ Use this action to check the links in your repo using `pytest-check-links`.
 It will ignore links to GitHub and cache links to save time.
 
 When adding this to a repo, you may need to skip some files or links.
-If the build fails, you can copy the pytest invocation used in the build,
-and add the appropriate `--ignore-glob` and `--check-links-ignore` until the
-tests pass locally, and add them as `ignore_glob` and `ignore_links` inputs to
-the action, respectively.
+If the build fails, you can copy the "Checking files with command" used in the
+build, and add the appropriate `--ignore-glob` and `--check-links-ignore` until
+the tests pass locally, and add them as `ignore_glob` and `ignore_links` inputs
+to the action, respectively.
 
 ```yaml
 name: Check Links

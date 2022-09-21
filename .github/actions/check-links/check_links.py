@@ -49,7 +49,7 @@ def check_links(ignore_glob, ignore_links, links_expire):
         files.extend(m for m in matched if m not in ignored and "node_modules" not in m)
 
     separator = f"\n\n{'-' * 80}\n"
-    log(f"{separator}Checking files with options:")
+    log(f"{separator}Checking files with command:")
     log(cmd)
 
     fails = 0
