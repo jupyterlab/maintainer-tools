@@ -78,5 +78,5 @@ if __name__ == "__main__":
     ignore_glob = ignore_glob.split(" ")
     ignore_links = os.environ.get("IGNORE_LINKS", "")
     ignore_links = ignore_links.split(" ")
-    links_expire = os.environ.get("LINKS_EXPIRE", "604800")
+    links_expire = os.environ.get("LINKS_EXPIRE") or "604800"
     check_links(ignore_glob, ignore_links, links_expire)
