@@ -2,6 +2,22 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.12.0
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...621c3a1bd5c1a3e0706011a24a40dc33417472e5))
+
+### Maintenance and upkeep improvements
+
+- Upgraded python and node versions [#121](https://github.com/jupyterlab/maintainer-tools/pull/121) ([@3coins](https://github.com/3coins))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2022-08-15&to=2022-09-21&type=c))
+
+[@3coins](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3A3coins+updated%3A2022-08-15..2022-09-21&type=Issues) | [@pre-commit-ci](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Apre-commit-ci+updated%3A2022-08-15..2022-09-21&type=Issues) | [@welcome](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Awelcome+updated%3A2022-08-15..2022-09-21&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.11.4
 
 ([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...5a9b3a2875903aa78794e2dd24ac81548d7ef3be))
@@ -29,8 +45,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2022-05-22&to=2022-08-15&type=c))
 
 [@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2022-05-22..2022-08-15&type=Issues) | [@fcollonval](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Afcollonval+updated%3A2022-05-22..2022-08-15&type=Issues) | [@pre-commit-ci](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Apre-commit-ci+updated%3A2022-05-22..2022-08-15&type=Issues) | [@TiagodePAlves](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3ATiagodePAlves+updated%3A2022-05-22..2022-08-15&type=Issues) | [@welcome](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Awelcome+updated%3A2022-05-22..2022-08-15&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.11.3
 
