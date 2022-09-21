@@ -1,12 +1,11 @@
 [build-system]
-requires = ["hatchling>=0.25"]
+requires = ["hatchling>=0.25", "hatch-nodejs-version"]
 build-backend = "hatchling.build"
 
 [project]
 name = "foobar"
-version = "0.12.0"
 authors = [{name = "Sir Robin", email = "robin@camelot.uk"}]
-dynamic = ["description"]
+dynamic = ["description", "version"]
 readme = "README.md"
 
 [tool.jupyter-packaging.builder]
@@ -18,25 +17,8 @@ skip = ["check-links", "publish-assets"]
 [tool.jupyter-releaser.hooks]
 after-draft-release = ["bash ./.github/scripts/bump_tag.sh"]
 
-[tool.tbump.version]
-current = "0.12.0"
-regex = '''
-  (?P<major>\d+)
-  \.
-  (?P<minor>\d+)
-  \.
-  (?P<patch>\d+)
-'''
-
-[tool.tbump.git]
-message_template = "Bump to {new_version}"
-tag_template = "v{new_version}"
-
-[[tool.tbump.file]]
-src = "package.json"
-
-[[tool.tbump.file]]
-src = "pyproject.toml"
+[tool.hatch.version]
+source = "nodejs"
 
 [tool.pytest.ini_options]
 testpaths = ["foobar.py"]
