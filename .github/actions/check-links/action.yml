@@ -17,7 +17,7 @@ runs:
     - name: Run the script
       shell: bash
       run: |
-        pip install pytest-check-links
+        pip install pytest-check-links[cache]
         export IGNORE_GLOB=${{inputs.ignore_glob}}
         export IGNORE_LINKS=${{inputs.ignore_links}}
         export LINKS_EXPIRE=${{inputs.links_expire}}
