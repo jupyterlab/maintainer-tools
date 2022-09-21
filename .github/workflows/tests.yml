@@ -17,6 +17,13 @@ jobs:
           python_version: 3.7
           node_version: 15.0
 
+  check_links:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ./.github/actions/base-setup
+      - uses: ./.github/actions/check-links
+
   downstream_defaults:
     runs-on: ubuntu-latest
     steps:

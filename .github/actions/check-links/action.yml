@@ -1,0 +1,24 @@
+name: "Check Links"
+description: "Run a link check function for a repo"
+inputs:
+  ignore_glob:
+    description: "Ignore file paths based on glob pattern (space separated)"
+    required: false
+  ignore_links:
+    description: "Ignore links based on regex pattern(s) (space separated"
+    required: false
+  links_expire:
+    description: "Duration in seconds for links to be cached (default one week)",
+    required: false
+
+runs:
+  using: "composite"
+  steps:
+    - name: Run the script
+      shell: bash
+      run: |
+        pip install pytest-check-links
+        export IGNORE_GLOB=${{inputs.ignore_glob}}
+        export IGNORE_LINKS=${{inputs.ignore_links}}
+        export LINKS_EXPIRE=${{inputs.links_expire}}
+        python ${{ github.action_path }}/check_links.py
