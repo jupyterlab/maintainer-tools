@@ -2,6 +2,26 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.13.0
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...f3bacd76bd644df56e8503f991fdc43b315fa77d))
+
+### Enhancements made
+
+- Add check links action [#124](https://github.com/jupyterlab/maintainer-tools/pull/124) ([@blink1073](https://github.com/blink1073))
+
+### Maintenance and upkeep improvements
+
+- Switch to using hatch version [#123](https://github.com/jupyterlab/maintainer-tools/pull/123) ([@blink1073](https://github.com/blink1073))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2022-09-21&to=2022-09-22&type=c))
+
+[@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2022-09-21..2022-09-22&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.12.0
 
 ([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...621c3a1bd5c1a3e0706011a24a40dc33417472e5))
@@ -15,8 +35,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2022-08-15&to=2022-09-21&type=c))
 
 [@3coins](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3A3coins+updated%3A2022-08-15..2022-09-21&type=Issues) | [@pre-commit-ci](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Apre-commit-ci+updated%3A2022-08-15..2022-09-21&type=Issues) | [@welcome](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Awelcome+updated%3A2022-08-15..2022-09-21&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.11.4
 
