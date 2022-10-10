@@ -2,6 +2,26 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.15.0
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...e72e28cc825a58a7832604bbd0c32f7806643158))
+
+### Bugs fixed
+
+- Clean up packaging dependency update [#128](https://github.com/jupyterlab/maintainer-tools/pull/128) ([@blink1073](https://github.com/blink1073))
+
+### Maintenance and upkeep improvements
+
+- Install hatch with pip [#129](https://github.com/jupyterlab/maintainer-tools/pull/129) ([@blink1073](https://github.com/blink1073))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2022-10-03&to=2022-10-10&type=c))
+
+[@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2022-10-03..2022-10-10&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.14.0
 
 ([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...9254094e4b91621bece06497f83a912a546440bd))
@@ -15,8 +35,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2022-09-22&to=2022-10-03&type=c))
 
 [@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2022-09-22..2022-10-03&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.13.0
 
