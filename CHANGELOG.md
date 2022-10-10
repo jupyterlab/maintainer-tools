@@ -2,6 +2,22 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.15.3
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...eb2b74c56e92a369df05ca77448414dd009335cb))
+
+### Bugs fixed
+
+- Fix ignore links syntax [#132](https://github.com/jupyterlab/maintainer-tools/pull/132) ([@blink1073](https://github.com/blink1073))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2022-10-10&to=2022-10-10&type=c))
+
+[@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2022-10-10..2022-10-10&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.15.2
 
 ([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...aabbd216cc7d64608510a5d3eb8e77a9f45a6351))
@@ -15,8 +31,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2022-10-10&to=2022-10-10&type=c))
 
 [@jtpio](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ajtpio+updated%3A2022-10-10..2022-10-10&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.15.1
 
