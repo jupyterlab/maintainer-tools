@@ -107,7 +107,7 @@ jobs:
         uses: ./.github/actions/base-setup
       - name: Clone a repo
         run: git clone --depth=1 https://github.com/jupyter/jupyter-packaging.git
-      - name: Install miniumum versions
+      - name: Install minimum versions
         uses: ./.github/actions/install-minimums
         with:
           working-directory: jupyter-packaging
