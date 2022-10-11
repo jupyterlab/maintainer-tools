@@ -120,17 +120,17 @@
 
 ### Maintenance and upkeep improvements
 
-- [pre-commit.ci] pre-commit autoupdate [#112](https://github.com/jupyterlab/maintainer-tools/pull/112) ([@pre-commit-ci](https://github.com/pre-commit-ci))
+- \[pre-commit.ci\] pre-commit autoupdate [#112](https://github.com/jupyterlab/maintainer-tools/pull/112) ([@pre-commit-ci](https://github.com/pre-commit-ci))
 - Fix update snapshots tests [#111](https://github.com/jupyterlab/maintainer-tools/pull/111) ([@fcollonval](https://github.com/fcollonval))
 - Fix flake8 v5 compat [#110](https://github.com/jupyterlab/maintainer-tools/pull/110) ([@blink1073](https://github.com/blink1073))
-- [pre-commit.ci] pre-commit autoupdate [#109](https://github.com/jupyterlab/maintainer-tools/pull/109) ([@pre-commit-ci](https://github.com/pre-commit-ci))
-- [pre-commit.ci] pre-commit autoupdate [#108](https://github.com/jupyterlab/maintainer-tools/pull/108) ([@pre-commit-ci](https://github.com/pre-commit-ci))
-- [pre-commit.ci] pre-commit autoupdate [#107](https://github.com/jupyterlab/maintainer-tools/pull/107) ([@pre-commit-ci](https://github.com/pre-commit-ci))
-- [pre-commit.ci] pre-commit autoupdate [#106](https://github.com/jupyterlab/maintainer-tools/pull/106) ([@pre-commit-ci](https://github.com/pre-commit-ci))
-- [pre-commit.ci] pre-commit autoupdate [#105](https://github.com/jupyterlab/maintainer-tools/pull/105) ([@pre-commit-ci](https://github.com/pre-commit-ci))
-- [pre-commit.ci] pre-commit autoupdate [#104](https://github.com/jupyterlab/maintainer-tools/pull/104) ([@pre-commit-ci](https://github.com/pre-commit-ci))
-- [pre-commit.ci] pre-commit autoupdate [#103](https://github.com/jupyterlab/maintainer-tools/pull/103) ([@pre-commit-ci](https://github.com/pre-commit-ci))
-- [pre-commit.ci] pre-commit autoupdate [#102](https://github.com/jupyterlab/maintainer-tools/pull/102) ([@pre-commit-ci](https://github.com/pre-commit-ci))
+- \[pre-commit.ci\] pre-commit autoupdate [#109](https://github.com/jupyterlab/maintainer-tools/pull/109) ([@pre-commit-ci](https://github.com/pre-commit-ci))
+- \[pre-commit.ci\] pre-commit autoupdate [#108](https://github.com/jupyterlab/maintainer-tools/pull/108) ([@pre-commit-ci](https://github.com/pre-commit-ci))
+- \[pre-commit.ci\] pre-commit autoupdate [#107](https://github.com/jupyterlab/maintainer-tools/pull/107) ([@pre-commit-ci](https://github.com/pre-commit-ci))
+- \[pre-commit.ci\] pre-commit autoupdate [#106](https://github.com/jupyterlab/maintainer-tools/pull/106) ([@pre-commit-ci](https://github.com/pre-commit-ci))
+- \[pre-commit.ci\] pre-commit autoupdate [#105](https://github.com/jupyterlab/maintainer-tools/pull/105) ([@pre-commit-ci](https://github.com/pre-commit-ci))
+- \[pre-commit.ci\] pre-commit autoupdate [#104](https://github.com/jupyterlab/maintainer-tools/pull/104) ([@pre-commit-ci](https://github.com/pre-commit-ci))
+- \[pre-commit.ci\] pre-commit autoupdate [#103](https://github.com/jupyterlab/maintainer-tools/pull/103) ([@pre-commit-ci](https://github.com/pre-commit-ci))
+- \[pre-commit.ci\] pre-commit autoupdate [#102](https://github.com/jupyterlab/maintainer-tools/pull/102) ([@pre-commit-ci](https://github.com/pre-commit-ci))
 
 ### Contributors to this release
 
@@ -150,7 +150,7 @@
 
 - Switch to hatch backend [#99](https://github.com/jupyterlab/maintainer-tools/pull/99) ([@blink1073](https://github.com/blink1073))
 - Allow bot PRs to be automatically labeled [#98](https://github.com/jupyterlab/maintainer-tools/pull/98) ([@blink1073](https://github.com/blink1073))
-- [pre-commit.ci] pre-commit autoupdate [#97](https://github.com/jupyterlab/maintainer-tools/pull/97) ([@pre-commit-ci](https://github.com/pre-commit-ci))
+- \[pre-commit.ci\] pre-commit autoupdate [#97](https://github.com/jupyterlab/maintainer-tools/pull/97) ([@pre-commit-ci](https://github.com/pre-commit-ci))
 
 ### Contributors to this release
 
@@ -168,7 +168,7 @@
 
 ### Maintenance and upkeep improvements
 
-- [pre-commit.ci] pre-commit autoupdate [#94](https://github.com/jupyterlab/maintainer-tools/pull/94) ([@pre-commit-ci](https://github.com/pre-commit-ci))
+- \[pre-commit.ci\] pre-commit autoupdate [#94](https://github.com/jupyterlab/maintainer-tools/pull/94) ([@pre-commit-ci](https://github.com/pre-commit-ci))
 
 ### Contributors to this release
 
@@ -187,7 +187,7 @@
 
 ### Maintenance and upkeep improvements
 
-- [pre-commit.ci] pre-commit autoupdate [#91](https://github.com/jupyterlab/maintainer-tools/pull/91) ([@pre-commit-ci](https://github.com/pre-commit-ci))
+- \[pre-commit.ci\] pre-commit autoupdate [#91](https://github.com/jupyterlab/maintainer-tools/pull/91) ([@pre-commit-ci](https://github.com/pre-commit-ci))
 
 ### Contributors to this release
 
@@ -231,7 +231,7 @@
 
 ### Maintenance and upkeep improvements
 
-- [pre-commit.ci] pre-commit autoupdate [#82](https://github.com/jupyterlab/maintainer-tools/pull/82) ([@pre-commit-ci](https://github.com/pre-commit-ci))
+- \[pre-commit.ci\] pre-commit autoupdate [#82](https://github.com/jupyterlab/maintainer-tools/pull/82) ([@pre-commit-ci](https://github.com/pre-commit-ci))
 - Update docs on test-sdist [#80](https://github.com/jupyterlab/maintainer-tools/pull/80) ([@blink1073](https://github.com/blink1073))
 
 ### Documentation improvements
