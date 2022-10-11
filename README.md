@@ -94,6 +94,29 @@ jobs:
         uses: jupyterlab/maintainer-tools/.github/actions/enforce-label@v1
 ```
 
+## Pre-Commit Check
+
+Use this action to run a pre commit check with a manual stage. It
+will print a suitable error message on failure.
+
+```yaml
+name: Pre-Commit Check
+on:
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+
+jobs:
+  pre_commit:
+   runs-on: ubuntu-latest
+   steps:
+    - uses: actions/checkout@v2
+    - uses: jupyterlab/maintainer-tools/.github/actions/base-setup@v1
+    - uses: jupyterlab/maintainer-tools/.github/actions/pre-commit@v1
+```
+
 ## Test Downstream Libraries
 
 Use this action to test a package against downstream libraries. This can be used to catch breaking changes prior to merging them. An example workflow file would be:

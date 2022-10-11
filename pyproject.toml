@@ -1,5 +1,5 @@
 [build-system]
-requires = ["hatchling>=0.25", "hatch-nodejs-version"]
+requires = ["hatchling>=1.5", "hatch-nodejs-version"]
 build-backend = "hatchling.build"
 
 [project]
