@@ -30,7 +30,7 @@ runs:
       id: pip-cache
       shell: bash
       run: |
-        echo "::set-output name=dir::$(pip cache dir)"
+        echo "dir=$(pip cache dir)" >> $GITHUB_OUTPUT
 
     - name: Cache pip
       uses: actions/cache@v3
@@ -62,7 +62,7 @@ runs:
     - name: Get yarn cache directory path
       id: yarn-cache-dir-path
       shell: bash
-      run: echo "::set-output name=dir::$(yarn cache dir)"
+      run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
     - name: Cache yarn
       uses: actions/cache@v3
       id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
