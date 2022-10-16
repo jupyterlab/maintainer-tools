@@ -81,7 +81,7 @@ runs:
       shell: bash
       run: |
         echo "::group::Upgrade packaging dependencies"
-        pip install --upgrade pip setuptools wheel pytest-github-actions-annotate-failures
+        python -m pip install --upgrade pip setuptools wheel pytest-github-actions-annotate-failures
         pipx install hatch
         echo "::endgroup::"
 
