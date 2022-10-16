@@ -2,6 +2,27 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.16.2
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...8cdd6f2d6a03806393c076b78adbec3b2b32294e))
+
+### Bugs fixed
+
+- Fix handling of base setup [#138](https://github.com/jupyterlab/maintainer-tools/pull/138) ([@blink1073](https://github.com/blink1073))
+
+### Maintenance and upkeep improvements
+
+- Update action.yml [#137](https://github.com/jupyterlab/maintainer-tools/pull/137) ([@gabalafou](https://github.com/gabalafou))
+- Fix package.json formatting [#136](https://github.com/jupyterlab/maintainer-tools/pull/136) ([@blink1073](https://github.com/blink1073))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2022-10-11&to=2022-10-16&type=c))
+
+[@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2022-10-11..2022-10-16&type=Issues) | [@gabalafou](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Agabalafou+updated%3A2022-10-11..2022-10-16&type=Issues) | [@welcome](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Awelcome+updated%3A2022-10-11..2022-10-16&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.16.1
 
 ([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...5078813e8b20cdd7836964dd096cb213e9c47cc7))
@@ -15,8 +36,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2022-10-11&to=2022-10-11&type=c))
 
 [@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2022-10-11..2022-10-11&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.16.0
 
