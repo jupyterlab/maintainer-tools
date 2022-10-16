@@ -3,7 +3,6 @@ on:
   push:
     branches: ["main"]
   pull_request:
-    branches: ["*"]
 
 jobs:
   base_setup:
@@ -49,7 +48,7 @@ jobs:
       - name: Check Downstream test with defaults
         uses: ./.github/actions/downstream-test
         with:
-          package_name: jupyter_client
+          package_name: jupyter_core
 
   downstream_overrides:
     runs-on: ubuntu-latest
@@ -230,3 +229,24 @@ jobs:
       - uses: actions/checkout@v2
       - uses: ./.github/actions/base-setup
       - uses: ./.github/actions/test-sdist
+
+  tests_check: # This job does nothing and is only used for the branch protection
+    if: always()
+    needs:
+      - base_setup
+      - pre-commit
+      - check_links
+      - binder_link
+      - pr_script
+      - install_minimums
+      - downstream_defaults
+      - downstream_overrides
+      - update_snapshots-manual-server
+      - update_snapshots
+      - test_sdist
+    runs-on: ubuntu-latest
+    steps:
+      - name: Decide whether the needed jobs succeeded or failed
+        uses: re-actors/alls-green@release/v1
+        with:
+          jobs: ${{ toJSON(needs) }}
