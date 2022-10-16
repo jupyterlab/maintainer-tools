@@ -234,7 +234,7 @@ jobs:
     if: always()
     needs:
       - base_setup
-      - pre-commit
+      - pre_commit
       - check_links
       - binder_link
       - pr_script
