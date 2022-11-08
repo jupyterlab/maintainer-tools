@@ -13,7 +13,7 @@ jobs:
         os: [ubuntu-latest, windows-latest, macos-latest]
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Base Setup
         uses: ./.github/actions/base-setup
         with:
@@ -25,14 +25,14 @@ jobs:
   pre_commit:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: ./.github/actions/base-setup
       - uses: ./.github/actions/pre-commit
 
   check_links:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: ./.github/actions/base-setup
       - uses: ./.github/actions/check-links
 
@@ -40,7 +40,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Base Setup
         uses: ./.github/actions/base-setup
       - name: Create a mock python package
@@ -54,7 +54,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Base Setup
         uses: ./.github/actions/base-setup
       - name: Create a mock python package
@@ -72,7 +72,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Base Setup
         uses: ./.github/actions/base-setup
       - name: Check Binder Link
@@ -85,7 +85,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Base Setup
         uses: ./.github/actions/base-setup
       - name: Check PR Script All Options
@@ -114,7 +114,7 @@ jobs:
         python-version: ["3.7"] # Test against minimum Python version as well
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Base Setup
         uses: ./.github/actions/base-setup
       - name: Clone a repo
@@ -133,7 +133,7 @@ jobs:
       TEST_FOLDER: mock-playwright
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Base Setup
         uses: ./.github/actions/base-setup
       - name: Create a mock playwright test package
@@ -175,7 +175,7 @@ jobs:
       TEST_FOLDER: mock-playwright
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Base Setup
         uses: ./.github/actions/base-setup
       - name: Create a mock playwright test package
@@ -216,7 +216,7 @@ jobs:
     runs-on: windows-latest
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: ./.github/actions/base-setup
       - uses: ./.github/actions/make-sdist
 
@@ -226,7 +226,7 @@ jobs:
     name: Install from SDist and Test
     timeout-minutes: 20
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: ./.github/actions/base-setup
       - uses: ./.github/actions/test-sdist
 
