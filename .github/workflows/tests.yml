@@ -64,6 +64,7 @@ jobs:
         with:
           package_name: nbclient
           package_spec: "nbclient[test] ipykernel"
+          package_download_extra_args: "--use-pep517"
           test_command: "echo 'hello'"
           extra_test: "pytest --pyargs nbclient"
           env_values: IPYKERNEL_CELL_NAME=\<IPY-INPUT\>

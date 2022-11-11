@@ -8,6 +8,10 @@ inputs:
     description: "The package spec to install"
     default: '."[test]"'
     required: true
+  package_download_extra_args:
+    description: "The arguments used to download the package"
+    required: true
+    default: ""
   test_command:
     description: "The test command"
     default: "pytest -vv -raXxs --durations 10 --color=yes"
@@ -28,6 +32,7 @@ runs:
         package_name=${{inputs.package_name}}
         package_spec="${{inputs.package_spec}}"
         test_command="${{inputs.test_command}}"
+        package_download_extra_args="${{inputs.package_download_args}}"
         root=$(pwd)
         eval "${{inputs.env_values}}"
         echo "::endgroup::"
@@ -43,7 +48,7 @@ runs:
         echo "::group::Download and extract the sdist"
         mkdir downstream_test
         cd downstream_test
-        pip download --no-deps --no-binary ${package_name} ${package_name}
+        pip download ${package_download_extra_args} --no-deps --no-binary ${package_name} ${package_name}
         mkdir ${package_name}
         tar xfz *.tar.gz -C ${package_name} --strip-components 1
         cd ${package_name}

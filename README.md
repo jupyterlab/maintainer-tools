@@ -148,6 +148,8 @@ jobs:
         env_values: "FIZZ=buzz NAME=snuffy"
 ```
 
+To test against a prerelease use `package_download_extra_args: "--pre"`.
+
 ## Test Against Dependency Minimum Version
 
 Use this action to test that your minimum dependency version constraints are vaild. Note: you may want to also use the minimum supported version of Python
