@@ -2,6 +2,30 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.17.0
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...b0f93e83d64cea38f3d14ab3015e022e2e176dc3))
+
+### Enhancements made
+
+- Add package download args option for downstream action [#146](https://github.com/jupyterlab/maintainer-tools/pull/146) ([@blink1073](https://github.com/blink1073))
+
+### Maintenance and upkeep improvements
+
+- Bump jupyter-server/jupyter_releaser from 1 to 2 [#145](https://github.com/jupyterlab/maintainer-tools/pull/145) ([@dependabot](https://github.com/dependabot))
+- Bump actions/checkout from 2 to 3 [#144](https://github.com/jupyterlab/maintainer-tools/pull/144) ([@dependabot](https://github.com/dependabot))
+- Add dependabot [#143](https://github.com/jupyterlab/maintainer-tools/pull/143) ([@blink1073](https://github.com/blink1073))
+- Remove flake8 file [#140](https://github.com/jupyterlab/maintainer-tools/pull/140) ([@blink1073](https://github.com/blink1073))
+- Speed up ci and add branch protection [#139](https://github.com/jupyterlab/maintainer-tools/pull/139) ([@blink1073](https://github.com/blink1073))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2022-10-16&to=2022-11-11&type=c))
+
+[@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2022-10-16..2022-11-11&type=Issues) | [@dependabot](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Adependabot+updated%3A2022-10-16..2022-11-11&type=Issues) | [@pre-commit-ci](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Apre-commit-ci+updated%3A2022-10-16..2022-11-11&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.16.2
 
 ([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...8cdd6f2d6a03806393c076b78adbec3b2b32294e))
@@ -20,8 +44,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2022-10-11&to=2022-10-16&type=c))
 
 [@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2022-10-11..2022-10-16&type=Issues) | [@gabalafou](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Agabalafou+updated%3A2022-10-11..2022-10-16&type=Issues) | [@welcome](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Awelcome+updated%3A2022-10-11..2022-10-16&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.16.1
 
