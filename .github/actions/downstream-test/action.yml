@@ -10,8 +10,6 @@ inputs:
     required: true
   package_download_extra_args:
     description: "The arguments used to download the package"
-    required: true
-    default: ""
   test_command:
     description: "The test command"
     default: "pytest -vv -raXxs --durations 10 --color=yes"
