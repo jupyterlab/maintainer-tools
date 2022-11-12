@@ -5,7 +5,7 @@ runs:
   using: "composite"
   steps:
     - name: Run pre-commit
-      uses: pre-commit/action@v2.0.0
+      uses: pre-commit/action@v3
       with:
         extra_args: --all-files --hook-stage=manual
     - name: Help message if pre-commit fail
