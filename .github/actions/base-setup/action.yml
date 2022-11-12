@@ -16,7 +16,7 @@ runs:
         echo "CACHE_PREFIX=${{ runner.os }}-${{ github.workflow}}-${{ github.job }}" >> $GITHUB_ENV
 
     - name: Install Python
-      uses: actions/setup-python@v3
+      uses: actions/setup-python@v4
       with:
         python-version: ${{ env.PYTHON_VERSION }}
         architecture: "x64"
