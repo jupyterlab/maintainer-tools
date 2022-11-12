@@ -22,7 +22,7 @@ runs:
         architecture: "x64"
 
     - name: Install node
-      uses: actions/setup-node@v4
+      uses: actions/setup-node@v3
       with:
         node-version: ${{ env.NODE_VERSION }}
 
