@@ -51,7 +51,7 @@ repos:
           ["flake8-bugbear==22.6.22", "flake8-implicit-str-concat==0.2.0"]
 
   - repo: https://github.com/sirosen/check-jsonschema
-    rev: 0.18.4
+    rev: 0.19.1
     hooks:
       - id: check-jsonschema
         name: "Check GitHub Workflows"
