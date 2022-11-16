@@ -179,6 +179,37 @@ jobs:
         run: pytest -vv -W default
 ```
 
+If you use virtual environments for testing as as with `hatch`, you can
+create the constraints file and then use it in the env like this:
+
+```yaml
+name: Minimum Dependencies
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+
+jobs:
+  test_minimums:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Base Setup
+        uses: jupyterlab/maintainer-tools/.github/actions/base-setup@v1
+        with:
+          python_version: "3.7" # Test against minimum Python version as well
+      - name: Install minimum versions
+        uses: jupyterlab/maintainer-tools/.github/actions/install-minimums@v1
+        with:
+          only_create_file: 1
+      - name: Run the unit tests
+        run: |
+          export PIP_CONSTRAINT="./contraints_file.txt"
+          hatch run test:test
+```
+
 ## Test SDist
 
 Use this pair of actions to build an sdist for your package, and then test it
