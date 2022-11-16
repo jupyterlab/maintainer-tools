@@ -2,6 +2,24 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.18.0
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...75e5e571c10155efc824beb4f21e5c467e7b42b7))
+
+### Enhancements made
+
+- Add ability to only create constraints file [#150](https://github.com/jupyterlab/maintainer-tools/pull/150) ([@blink1073](https://github.com/blink1073))
+
+### Maintenance and upkeep improvements
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2022-11-14&to=2022-11-16&type=c))
+
+[@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2022-11-14..2022-11-16&type=Issues) | [@pre-commit-ci](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Apre-commit-ci+updated%3A2022-11-14..2022-11-16&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.17.2
 
 ([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...9176bbe7008b92108160c33b9909766ed354082a))
@@ -15,8 +33,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2022-11-11&to=2022-11-14&type=c))
 
 [@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2022-11-11..2022-11-14&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.17.1
 
