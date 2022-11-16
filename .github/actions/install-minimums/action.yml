@@ -31,7 +31,7 @@ runs:
         cat ${{inputs.constraints_file_path}}
         echo "::endgroup::"
 
-        if [ -z $${{inputs.only_create_file}} ]; then
+        if [ -z ${{inputs.only_create_file}} ]; then
           echo "::group::Install from Constraints file"
           pip install -e ".[${{ inputs.extras }}]" -c $CONSTRAINTS_FILE
           rm $CONSTRAINTS_FILE
