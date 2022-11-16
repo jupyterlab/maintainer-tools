@@ -127,6 +127,13 @@ jobs:
       - name: Run the unit tests
         working-directory: jupyter-packaging
         run: pytest -vv
+      - name: Only create file
+        uses: ./.github/actions/install-minimums
+        with:
+          only_create_file: 1
+          constraints_file_path: './constraints-test.txt'
+      - name: Ensure constraints file
+        run: cat ./constraints-test.txt
 
   update_snapshots-manual-server:
     runs-on: ubuntu-latest

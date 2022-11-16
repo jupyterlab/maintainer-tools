@@ -4,11 +4,15 @@ inputs:
   extras:
     description: The Extras to Install (comma separated)
     default: test
-    required: false
   working-directory:
     description: The working directory
     default: .
-    required: false
+  constraints_file_path:
+    description: The path to the constraints file
+    default: ./contraints_file.txt
+  only_create_file:
+    description: Whether to only create the constraints file
+    default: ""
 
 runs:
   using: "composite"
@@ -22,14 +26,16 @@ runs:
         python -m pip install -U pip build pkginfo packaging
         cd ${{ inputs.working-directory }}
         python -m build --wheel .
-        python ${{ github.action_path }}/create_constraints_file.py dist/*.whl
-        cat contraints_file.txt
+        python ${{ github.action_path }}/create_constraints_file.py ${{inputs.constraints_file_path}} dist/*.whl
+        cat ${{inputs.constraints_file_path}}
         echo "::endgroup::"
 
-        echo "::group::Install from Constraints file"
-        pip install -e ".[${{ inputs.extras }}]" -c contraints_file.txt
-        rm contraints_file.txt
-        echo "::endgroup::"
+        if [ -z $${{only_create_file}} ]; then
+          echo "::group::Install from Constraints file"
+          pip install -e ".[${{ inputs.extras }}]" -c ${{inputs.constraints_file_path}}
+          rm contraints_file.txt
+          echo "::endgroup::"
+        fi
 
         # Show installed packages
         pip check

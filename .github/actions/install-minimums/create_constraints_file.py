@@ -3,6 +3,7 @@ import sys
 from packaging.requirements import Requirement
 from pkginfo import Wheel
 
+output_file = sys.argv[-2]
 fname = sys.argv[-1]
 constraints = set()
 
@@ -18,5 +19,5 @@ for req in w.requires_dist:
             constraints.add(f"{r.name}{spec}\n")
 
 # Write the constraints to to a pip constraints file.
-with open("contraints_file.txt", "w") as fid:
+with open(output_file, "w") as fid:
     fid.writelines(constraints)
