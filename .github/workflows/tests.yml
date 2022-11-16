@@ -4,6 +4,11 @@ on:
     branches: ["main"]
   pull_request:
 
+defaults:
+  run:
+    shell:
+      bash -eux {0}
+
 jobs:
   base_setup:
     runs-on: ${{ matrix.os }}
@@ -119,14 +124,21 @@ jobs:
       - name: Base Setup
         uses: ./.github/actions/base-setup
       - name: Clone a repo
-        run: git clone --depth=1 https://github.com/jupyter/jupyter-packaging.git
+        run: git clone --depth=1 https://github.com/jupyter/nbformat.git
       - name: Install minimum versions
         uses: ./.github/actions/install-minimums
         with:
-          working-directory: jupyter-packaging
+          working-directory: nbformat
       - name: Run the unit tests
-        working-directory: jupyter-packaging
+        working-directory: nbformat
         run: pytest -vv
+      - name: Only create file
+        uses: ./.github/actions/install-minimums
+        with:
+          only_create_file: 1
+          constraints_file_path: './constraints-test.txt'
+      - name: Ensure constraints file
+        run: cat ./constraints-test.txt
 
   update_snapshots-manual-server:
     runs-on: ubuntu-latest
