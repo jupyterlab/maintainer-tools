@@ -41,5 +41,5 @@ runs:
           pip list
           echo "::endgroup::"
         else
-          echo "PIP_CONSTRAINT={{inputs.constraints_file_path}}" >> $GITHUB_ENV
+          echo "PIP_CONSTRAINT=${{inputs.constraints_file_path}}" >> $GITHUB_ENV
         fi
