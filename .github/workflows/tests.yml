@@ -138,7 +138,9 @@ jobs:
           only_create_file: 1
           constraints_file_path: './constraints-test.txt'
       - name: Ensure constraints file
-        run: cat ./constraints-test.txt
+        run: |
+          cat ./constraints-test.txt
+          echo $PIP_CONSTRAINT | grep "constraints-test.txt"
 
   update_snapshots-manual-server:
     runs-on: ubuntu-latest

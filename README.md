@@ -206,8 +206,32 @@ jobs:
           only_create_file: 1
       - name: Run the unit tests
         run: |
-          export PIP_CONSTRAINT="./contraints_file.txt"
           hatch run test:test
+```
+
+Note that you can run a test against prereleases like the following:
+
+```yaml
+name: Prerelease Dependencies
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+
+jobs:
+  test_prereleases:
+    name: Test Prereleases
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v3
+      - uses: jupyterlab/maintainer-tools/.github/actions/base-setup@v1
+        with:
+          python_version: "3.11"
+      - name: Run the tests
+        run: |
+          PIP_PRE=1 hatch run test:nowarn || hatch run test:nowarn --lf
 ```
 
 ## Test SDist
