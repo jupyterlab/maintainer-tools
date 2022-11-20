@@ -206,7 +206,6 @@ jobs:
           only_create_file: 1
       - name: Run the unit tests
         run: |
-          export PIP_CONSTRAINT="./contraints_file.txt"
           hatch run test:test
 ```
 
