@@ -17,6 +17,10 @@ hooks.after-populate-release = ["bash ./.github/scripts/bump_tag.sh"]
 [tool.hatch.version]
 source = "nodejs"
 
+[tool.hatch.envs.test.scripts]
+check_minimim = "python -c 'from jupyter_core import __version__; assert __version__ == \"4.10.0\"'"
+check_pre = "python -c 'import os; assert os.environ[\"PIP_PRE\"] == \"1\"'"
+
 [tool.pytest.ini_options]
 testpaths = ["foobar.py"]
 
