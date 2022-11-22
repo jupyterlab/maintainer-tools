@@ -14,7 +14,7 @@ runs:
     - name: Set up environment
       shell: bash
       run: |
-        PYTHON_VERSION=${{ inputs.python_version || matrix.python-version }}
+        PYTHON_VERSION="${{ inputs.python_version || matrix.python-version }}"
         NODE_VERSION=${{ inputs.node_version || matrix.node-version || '16.x' }}
         DEPENDENCY_TYPE=${{ inputs.dependency_type }}
 
@@ -26,6 +26,7 @@ runs:
         else:
           DEFAULT_PYTHON="3.10"
         fi
+        echo "DEFAULT_PYTHON is $DEFAULT_PYTHON"
         PYTHON_VERSION=${PYTHON_VERSION:-$DEFAULT_PYTHON}
 
         echo "PYTHON_VERSION=$PYTHON_VERSION" >> $GITHUB_ENV

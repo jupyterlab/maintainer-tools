@@ -37,6 +37,7 @@ jobs:
       - run: |
           pip install -e ".[test]"
           # TODO: keep this in sync with README
+          python --version
           python --version | grep "3.8"
           cat $PIP_CONSTRAINT | grep "packaging=="
 
@@ -50,6 +51,7 @@ jobs:
       - run: |
           pip install -e ".[test]"
           # TODO: keep this in sync with README
+          python --version
           python --version | grep "3.11"
 
   pre_commit:
