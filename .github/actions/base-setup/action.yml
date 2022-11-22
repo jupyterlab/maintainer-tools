@@ -26,6 +26,7 @@ runs:
         else
           DEFAULT_PYTHON="3.10"
         fi
+
         echo "DEFAULT_PYTHON is $DEFAULT_PYTHON"
         PYTHON_VERSION="${PYTHON_VERSION:-$DEFAULT_PYTHON}"
 
@@ -98,9 +99,9 @@ runs:
     - name: Handle dependency type
       shell: bash
       run: |
-        if [ $DEPENDENCY_TYPE == 'pre'}} ]; then
+        if [ $DEPENDENCY_TYPE == 'pre' ]; then
           echo "PIP_PRE=1" >> $GITHUB_ENV
-        else if [ $DEPENDENCY_TYPE == 'minimum'}} ]; then
+        else if [ $DEPENDENCY_TYPE == 'minimum' ]; then
           source ${{ github.action_path }}/setup_constraints.sh
         fi
 
