@@ -39,6 +39,7 @@ jobs:
           # NOTE: keep this version in sync with README
           python --version
           python --version | grep "3.8"
+          cat $PIP_CONSTRAINT
           cat $PIP_CONSTRAINT | grep "jupyter_core=="
 
   base_setup_pre:
@@ -53,6 +54,7 @@ jobs:
           # NOTE: keep this version in sync with README
           python --version
           python --version | grep "3.11"
+          env | grep "PIP_PRE"
 
   pre_commit:
     runs-on: ubuntu-latest
