@@ -38,6 +38,7 @@ jobs:
           pip install -e ".[test]"
           # TODO: keep this in sync with README
           python --version | grep "3.8"
+          cat $PIP_CONSTRAINT | grep "packaging=="
 
   base_setup_pre:
     runs-on: ubuntu-latest
