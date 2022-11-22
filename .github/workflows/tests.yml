@@ -41,6 +41,9 @@ jobs:
           python --version | grep "3.8"
           cat $PIP_CONSTRAINT
           cat $PIP_CONSTRAINT | grep "jupyter-core=="
+          pip list | grep "jupyter-core" | grep "4.10.0"
+          hatch run check_minimum
+
 
   base_setup_pre:
     runs-on: ubuntu-latest
@@ -54,7 +57,7 @@ jobs:
           # NOTE: keep this version in sync with README
           python --version
           python --version | grep "3.11"
-          env | grep "PIP_PRE"
+          hatch run check_pre
 
   pre_commit:
     runs-on: ubuntu-latest
