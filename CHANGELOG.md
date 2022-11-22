@@ -2,6 +2,26 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.19.0
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...f9140915d6b1d6d1a52191fe6c556ae7d1ab1299))
+
+### Enhancements made
+
+- Clean up handling of minimum and prerelease versions [#153](https://github.com/jupyterlab/maintainer-tools/pull/153) ([@blink1073](https://github.com/blink1073))
+
+### Maintenance and upkeep improvements
+
+- Add more dependency verification [#154](https://github.com/jupyterlab/maintainer-tools/pull/154) ([@blink1073](https://github.com/blink1073))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2022-11-20&to=2022-11-22&type=c))
+
+[@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2022-11-20..2022-11-22&type=Issues) | [@pre-commit-ci](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Apre-commit-ci+updated%3A2022-11-20..2022-11-22&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.18.1
 
 ([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...0875056b07b486f596063ef5f2753569c9626982))
@@ -15,8 +35,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2022-11-16&to=2022-11-20&type=c))
 
 [@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2022-11-16..2022-11-20&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.18.0
 
