@@ -55,7 +55,7 @@ jobs:
           # NOTE: keep this version in sync with README
           python --version
           python --version | grep "3.11"
-          pip list | grep "jupyter_core" | grep "4.10.0"
+          pip list | grep "jupyter-core" | grep "4.10.0"
           hatch run check_minimum
 
   pre_commit:
