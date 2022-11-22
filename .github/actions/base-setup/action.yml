@@ -18,9 +18,9 @@ runs:
         DEPENDENCY_TYPE=${{ inputs.dependency_type }}
 
         if [ $DEPENDENCY_TYPE == "pre" ]; then
-          DEFAULT_PYTHON=3.11
+          DEFAULT_PYTHON="3.11"
         else if [ $DEPENDENCY_TYPE == "minimum" ]; then
-          DEFAULT_PYTHON=3.8
+          DEFAULT_PYTHON="3.8"
         fi
 
         echo "PYTHON_VERSION=${{ inputs.python_version || matrix.python-version || $DEFAULT_PYTHON }}" >> $GITHUB_ENV
