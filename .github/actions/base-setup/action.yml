@@ -23,6 +23,9 @@ runs:
           DEFAULT_PYTHON="3.11"
         elif [ $DEPENDENCY_TYPE == "minimum" ]; then
           DEFAULT_PYTHON="3.8"
+        elif [ $DEPENDENCY_TYPE != "standard" ]; then
+          echo "Unrecognized dependency type $DEPENDENCY_TYPE"
+          exit 1
         else
           DEFAULT_PYTHON="3.10"
         fi
