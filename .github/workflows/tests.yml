@@ -36,10 +36,10 @@ jobs:
           dependency_type: minimum
       - run: |
           pip install -e ".[test]"
-          # TODO: keep this in sync with README
+          # NOTE: keep this version in sync with README
           python --version
           python --version | grep "3.8"
-          cat $PIP_CONSTRAINT | grep "packaging=="
+          cat $PIP_CONSTRAINT | grep "jupyter_core=="
 
   base_setup_pre:
     runs-on: ubuntu-latest
@@ -50,7 +50,7 @@ jobs:
           dependency_type: pre
       - run: |
           pip install -e ".[test]"
-          # TODO: keep this in sync with README
+          # NOTE: keep this version in sync with README
           python --version
           python --version | grep "3.11"
 
