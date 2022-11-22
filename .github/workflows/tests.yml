@@ -31,7 +31,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: ./.github/actions/base-setup@v1
+      - uses: ./.github/actions/base-setup
         with:
           dependency_type: minimum
       - run: |
@@ -45,7 +45,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: ./.github/actions/base-setup@v1
+      - uses: ./.github/actions/base-setup
         with:
           dependency_type: pre
       - run: |

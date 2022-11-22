@@ -101,7 +101,7 @@ runs:
       run: |
         if [ $DEPENDENCY_TYPE == 'pre' ]; then
           echo "PIP_PRE=1" >> $GITHUB_ENV
-        else if [ $DEPENDENCY_TYPE == 'minimum' ]; then
+        elif [ $DEPENDENCY_TYPE == 'minimum' ]; then
           source ${{ github.action_path }}/setup_constraints.sh
         fi
 
