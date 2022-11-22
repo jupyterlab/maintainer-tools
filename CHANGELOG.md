@@ -2,6 +2,22 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.19.1
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...f737832fcbc079ede30703bfdf161794a5a0abc0))
+
+### Bugs fixed
+
+- Add mispell guard and fix pip cache [#155](https://github.com/jupyterlab/maintainer-tools/pull/155) ([@blink1073](https://github.com/blink1073))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2022-11-22&to=2022-11-22&type=c))
+
+[@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2022-11-22..2022-11-22&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.19.0
 
 ([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...f9140915d6b1d6d1a52191fe6c556ae7d1ab1299))
@@ -19,8 +35,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2022-11-20&to=2022-11-22&type=c))
 
 [@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2022-11-20..2022-11-22&type=Issues) | [@pre-commit-ci](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Apre-commit-ci+updated%3A2022-11-20..2022-11-22&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.18.1
 
