@@ -5,40 +5,45 @@ inputs:
     description: "The python version"
   node_version:
     description: "The node version"
+  dependency_type:
+    default: "standard"
+    description: "The dependency installation type: standard, pre, minimum"
 runs:
   using: "composite"
   steps:
-    - name: Set Versions
+    - name: Set up environment
       shell: bash
       run: |
-        echo "PYTHON_VERSION=${{ inputs.python_version || matrix.python-version || '3.10' }}" >> $GITHUB_ENV
+        DEFAULT_PYTHON="3.10"
+        DEPENDENCY_TYPE=${{ inputs.dependency_type }}
+
+        if [ $DEPENDENCY_TYPE == "pre" ]; then
+          DEFAULT_PYTHON=3.11
+        else if [ $DEPENDENCY_TYPE == "minimum" ]; then
+          DEFAULT_PYTHON=3.8
+        fi
+
+        echo "PYTHON_VERSION=${{ inputs.python_version || matrix.python-version || $DEFAULT_PYTHON }}" >> $GITHUB_ENV
         echo "NODE_VERSION=${{ inputs.node_version || matrix.node-version || '16.x' }}" >> $GITHUB_ENV
         echo "CACHE_PREFIX=${{ runner.os }}-${{ github.workflow}}-${{ github.job }}" >> $GITHUB_ENV
+        echo "DEPENDENCY_TYPE=$DEPENDENCY_TYPE" >> $GITHUB_ENV
 
     - name: Install Python
       uses: actions/setup-python@v4
       with:
         python-version: ${{ env.PYTHON_VERSION }}
-        architecture: "x64"
+        cache: 'pip'
+        cache-dependency-path: |
+          **/setup.cfg
+          **/setup.py
+          **/pyproject.toml
+          **/requirements*.txt
 
     - name: Install node
       uses: actions/setup-node@v3
       with:
         node-version: ${{ env.NODE_VERSION }}
-
-    - name: Get pip cache dir
-      id: pip-cache
-      shell: bash
-      run: |
-        echo "dir=$(pip cache dir)" >> $GITHUB_OUTPUT
-
-    - name: Cache pip
-      uses: actions/cache@v3
-      with:
-        path: ${{ steps.pip-cache.outputs.dir }}
-        key: ${{ env.CACHE_PREFIX }}-pip-${{ env.PYTHON_VERSION }}-${{ hashFiles('setup.cfg', 'setup.py', '**/requirements.txt') }}
-        restore-keys: |
-          ${{ env.CACHE_PREFIX }}-pip-${{ env.PYTHON_VERSION }}
+        cache: 'yarn'
 
     - name: Cache checked links
       if: ${{ matrix.group == 'link_check' }}
@@ -58,20 +63,6 @@ runs:
         restore-keys: |
           ${{ env.CACHE_PREFIX }}-conda-
 
-    # Cache yarn
-    - name: Get yarn cache directory path
-      id: yarn-cache-dir-path
-      shell: bash
-      run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
-    - name: Cache yarn
-      uses: actions/cache@v3
-      id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
-      with:
-        path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-        key: ${{ env.CACHE_PREFIX }}-yarn-${{ env.NODE_VERSION }}-${{ hashFiles('**/yarn.lock') }}
-        restore-keys: |
-          ${{ env.CACHE_PREFIX }}-yarn-${{ env.NODE_VERSION }}
-
     - name: Enable long paths on Windows
       if: startsWith(runner.os, 'Windows')
       run: Set-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem -Name LongPathsEnabled -Value 1
@@ -84,6 +75,15 @@ runs:
         python -m pip install --upgrade pip setuptools wheel pytest-github-actions-annotate-failures
         pipx install hatch
         echo "::endgroup::"
+
+    - name: Handle dependency type
+      shell: bash
+      run: |
+        if [ $DEPENDENCY_TYPE == 'pre'}} ]; then
+          echo "PIP_PRE=1" >> $GITHUB_ENV
+        else if [ $DEPENDENCY_TYPE == 'minimum'}} ]; then
+          source ${{ github.action_path }}/setup_constraints.sh
+        fi
 
     - name: Print Diagnostics
       shell: bash

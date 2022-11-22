@@ -1,0 +1,8 @@
+#!/bin/bash
+python -m venv $HOME/.venv
+source $HOME/.venv/bin/activate
+pip install build packaging pkginfo
+mkdir $HOME/dist
+python -m build --outdir ~/dist --wheel .
+python $PWD/../install-minimums/create_constraints_file.py $HOME/constraints.txt $HOME/dist/*.whl
+echo "PIP_CONSTRAINT=$HOME/constraints.txt" >> $GITHUB_ENV
