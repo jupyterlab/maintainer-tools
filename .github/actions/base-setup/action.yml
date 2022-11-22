@@ -102,7 +102,7 @@ runs:
         if [ $DEPENDENCY_TYPE == 'pre' ]; then
           echo "PIP_PRE=1" >> $GITHUB_ENV
         elif [ $DEPENDENCY_TYPE == 'minimum' ]; then
-          cd ${{ github.action_path }
+          cd ${{ github.action_path }}
           source ./setup_constraints.sh
         fi
 
