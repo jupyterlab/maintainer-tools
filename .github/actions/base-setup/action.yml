@@ -49,7 +49,20 @@ runs:
       uses: actions/setup-node@v3
       with:
         node-version: ${{ env.NODE_VERSION }}
-        cache: 'yarn'
+
+    # Cache yarn
+    - name: Get yarn cache directory path
+      id: yarn-cache-dir-path
+      shell: bash
+      run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
+    - name: Cache yarn
+      uses: actions/cache@v3
+      id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+      with:
+        path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+        key: ${{ env.CACHE_PREFIX }}-yarn-${{ env.NODE_VERSION }}-${{ hashFiles('**/yarn.lock') }}
+        restore-keys: |
+          ${{ env.CACHE_PREFIX }}-yarn-${{ env.NODE_VERSION }}
 
     - name: Cache checked links
       if: ${{ matrix.group == 'link_check' }}
