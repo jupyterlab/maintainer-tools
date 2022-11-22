@@ -18,16 +18,16 @@ runs:
         NODE_VERSION=${{ inputs.node_version || matrix.node-version || '16.x' }}
         DEPENDENCY_TYPE=${{ inputs.dependency_type }}
 
-        # Handle default python value based on dependency type.
-        if [ $DEPENDENCY_TYPE == "pre" ]; then
-          DEFAULT_PYTHON="3.11"
-        else if [ $DEPENDENCY_TYPE == "minimum" ]; then
-          DEFAULT_PYTHON="3.8"
-        else:
-          DEFAULT_PYTHON="3.10"
-        fi
-        echo "DEFAULT_PYTHON is $DEFAULT_PYTHON"
-        PYTHON_VERSION="${PYTHON_VERSION:-$DEFAULT_PYTHON}"
+        # # Handle default python value based on dependency type.
+        # if [ $DEPENDENCY_TYPE == "pre" ]; then
+        #   DEFAULT_PYTHON="3.11"
+        # else if [ $DEPENDENCY_TYPE == "minimum" ]; then
+        #   DEFAULT_PYTHON="3.8"
+        # else:
+        #   DEFAULT_PYTHON="3.10"
+        # fi
+        # echo "DEFAULT_PYTHON is $DEFAULT_PYTHON"
+        # PYTHON_VERSION="${PYTHON_VERSION:-$DEFAULT_PYTHON}"
 
         echo "PYTHON_VERSION=$PYTHON_VERSION" >> $GITHUB_ENV
         echo "NODE_VERSION=$NODE_VERSION" >> $GITHUB_ENV
