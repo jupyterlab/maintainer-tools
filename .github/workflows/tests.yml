@@ -40,7 +40,7 @@ jobs:
           python --version
           python --version | grep "3.8"
           cat $PIP_CONSTRAINT
-          cat $PIP_CONSTRAINT | grep "jupyter_core=="
+          cat $PIP_CONSTRAINT | grep "jupyter-core=="
 
   base_setup_pre:
     runs-on: ubuntu-latest
