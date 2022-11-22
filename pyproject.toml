@@ -7,15 +7,12 @@ name = "foobar"
 authors = [{name = "Sir Robin", email = "robin@camelot.uk"}]
 dynamic = ["description", "version"]
 readme = "README.md"
-
-[tool.jupyter-packaging.builder]
-factory = "jupyter_packaging.npm_builder"
+dependencies = ["jupyter_core>=4.10.0"]
+optional-dependencies.test = ["pytest"]
 
 [tool.jupyter-releaser]
 skip = ["check-links", "publish-assets"]
-
-[tool.jupyter-releaser.hooks]
-after-populate-release = ["bash ./.github/scripts/bump_tag.sh"]
+hooks.after-populate-release = ["bash ./.github/scripts/bump_tag.sh"]
 
 [tool.hatch.version]
 source = "nodejs"

@@ -45,6 +45,49 @@ jobs:
         run: pytest
 ```
 
+If you want to use your minimum dependencies, you can use the following
+option, which will create a constraints file and set the `PIP_CONSTRAINT`
+environment variable, so that installations will use that file.
+By default the Python version will be "3.8", which can be overridden with
+`python_version`.  Note that the environment variable also works if
+you use virtual environments like `hatch`.
+
+```yaml
+  minimum_version:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Base Setup
+        uses: jupyterlab/maintainer-tools/.github/actions/base-setup@v1
+        with:
+          dependency_type: minimum
+      - name: Install
+        run: pip install -e ".[test]"
+      - name: Test
+        run: pytest
+```
+
+If you want to run against prereleases and the latest stable Python,
+use the following, which will install Python 3.11 and set the
+`PIP_PRE` environment variable::
+
+```yaml
+  prereleases:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Base Setup
+        uses: jupyterlab/maintainer-tools/.github/actions/base-setup@v1
+        with:
+          dependency_type: pre
+      - name: Install
+        run: pip install -e ".[test]"
+      - name: Test
+        run: pytest
+```
+
 ## Check Links
 
 Use this action to check the links in your repo using `pytest-check-links`.
@@ -152,6 +195,9 @@ To test against a prerelease use `package_download_extra_args: "--pre"`.
 
 ## Test Against Dependency Minimum Version
 
+**DEPRECATED**.  Use `dependency_type: minimum` in the `base-setup` action
+instead.
+
 Use this action to test that your minimum dependency version constraints are vaild. Note: you may want to also use the minimum supported version of Python
 since the minimum versions might not have wheels on newer Pythons. Note that you should use `pytest -W default` if you are using `filterwarnings` and relying on newer versions of the library to have removed warnings.
 
@@ -177,61 +223,6 @@ jobs:
         uses: jupyterlab/maintainer-tools/.github/actions/install-minimums@v1
       - name: Run the unit tests
         run: pytest -vv -W default
-```
-
-If you use virtual environments for testing as as with `hatch`, you can
-create the constraints file and then use it in the env like this:
-
-```yaml
-name: Minimum Dependencies
-
-on:
-  push:
-    branches: ["main"]
-  pull_request:
-
-jobs:
-  test_minimums:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Base Setup
-        uses: jupyterlab/maintainer-tools/.github/actions/base-setup@v1
-        with:
-          python_version: "3.7" # Test against minimum Python version as well
-      - name: Install minimum versions
-        uses: jupyterlab/maintainer-tools/.github/actions/install-minimums@v1
-        with:
-          only_create_file: 1
-      - name: Run the unit tests
-        run: |
-          hatch run test:test
-```
-
-Note that you can run a test against prereleases like the following:
-
-```yaml
-name: Prerelease Dependencies
-
-on:
-  push:
-    branches: ["main"]
-  pull_request:
-
-jobs:
-  test_prereleases:
-    name: Test Prereleases
-    runs-on: ubuntu-latest
-    timeout-minutes: 20
-    steps:
-      - uses: actions/checkout@v3
-      - uses: jupyterlab/maintainer-tools/.github/actions/base-setup@v1
-        with:
-          python_version: "3.11"
-      - name: Run the tests
-        run: |
-          PIP_PRE=1 hatch run test:nowarn || hatch run test:nowarn --lf
 ```
 
 ## Test SDist
