@@ -42,12 +42,22 @@ runs:
       uses: actions/setup-python@v4
       with:
         python-version: ${{ env.PYTHON_VERSION }}
-        cache: 'pip'
-        cache-dependency-path: |
-          **/setup.cfg
-          **/setup.py
-          **/pyproject.toml
-          **/requirements*.txt
+
+    # Cache pip
+    # We cannot use the builtin cache because it errors out with the files
+    # are not present.
+    - name: Get pip cache dir
+      id: pip-cache
+      shell: bash
+      run: |
+        echo "dir=$(pip cache dir)" >> $GITHUB_OUTPUT
+    - name: Cache pip
+      uses: actions/cache@v3
+      with:
+        path: ${{ steps.pip-cache.outputs.dir }}
+        key: ${{ env.CACHE_PREFIX }}-pip-${{ env.PYTHON_VERSION }}-${{ hashFiles('setup.cfg', 'setup.py', '**/requirements.txt') }}
+        restore-keys: |
+          ${{ env.CACHE_PREFIX }}-pip-${{ env.PYTHON_VERSION }}
 
     - name: Install node
       uses: actions/setup-node@v3
@@ -55,6 +65,8 @@ runs:
         node-version: ${{ env.NODE_VERSION }}
 
     # Cache yarn
+    # We cannot use the builtin cache because it errors out with the files
+    # are not present.
     - name: Get yarn cache directory path
       id: yarn-cache-dir-path
       shell: bash
