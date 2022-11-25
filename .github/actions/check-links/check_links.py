@@ -65,7 +65,8 @@ def check_links(ignore_glob, ignore_links, links_expire):
                 try:
                     log(f"\n{f} (second attempt)...\n")
                     subprocess.check_output(file_cmd + ["--lf"], shell=False)
-                except Exception:
+                except Exception as e:
+                    log(e)
                     fails += 1
                     if fails == 3:
                         raise RuntimeError("Found three failed links, bailing")
