@@ -24,7 +24,7 @@ runs:
 
         echo "::group::Create Constraints file"
         CONSTRAINTS_FILE=${{inputs.constraints_file_path}}
-        python -m pip install -U pip build pkginfo packaging
+        python -m pip install -U pip build packaging
         cd ${{ inputs.working-directory }}
         python -m build --wheel .
         python ${{ github.action_path }}/create_constraints_file.py $CONSTRAINTS_FILE dist/*.whl
