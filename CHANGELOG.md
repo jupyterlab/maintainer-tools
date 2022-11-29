@@ -2,6 +2,22 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.19.6
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...f40a788172974100cf9f6e9dbad00ff2876a0650))
+
+### Bugs fixed
+
+- Decode check links output on failure [#162](https://github.com/jupyterlab/maintainer-tools/pull/162) ([@jtpio](https://github.com/jtpio))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2022-11-29&to=2022-11-29&type=c))
+
+[@jtpio](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ajtpio+updated%3A2022-11-29..2022-11-29&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.19.5
 
 ([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...a3658c36c926a0184d143a372ba0540cd488d8b6))
@@ -15,8 +31,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2022-11-29&to=2022-11-29&type=c))
 
 [@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2022-11-29..2022-11-29&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.19.4
 
