@@ -41,6 +41,7 @@ jobs:
           python --version | grep "3.8"
           cat $PIP_CONSTRAINT
           cat $PIP_CONSTRAINT | grep "jupyter-core=="
+          pip list
           pip list | grep "jupyter-core" | grep "4.12"
           hatch run check_minimum
 
