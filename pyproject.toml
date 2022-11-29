@@ -7,7 +7,7 @@ name = "foobar"
 authors = [{name = "Sir Robin", email = "robin@camelot.uk"}]
 dynamic = ["description", "version"]
 readme = "README.md"
-dependencies = ["jupyter_core>=4.12,!~=5.0"]
+dependencies = ["jupyter_core>=4.12,!=~5.0"]
 optional-dependencies.test = ["pytest"]
 
 [tool.jupyter-releaser]
