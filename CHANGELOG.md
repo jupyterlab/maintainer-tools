@@ -2,6 +2,27 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.19.7
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...052401dcb6419739093b27aa61ac58f98abbaa5c))
+
+### Bugs fixed
+
+- Fix specifier handling for constraints file [#166](https://github.com/jupyterlab/maintainer-tools/pull/166) ([@blink1073](https://github.com/blink1073))
+- Fix jupyter_core pinning [#164](https://github.com/jupyterlab/maintainer-tools/pull/164) ([@ophie200](https://github.com/ophie200))
+
+### Maintenance and upkeep improvements
+
+- Adopt ruff and address lint [#165](https://github.com/jupyterlab/maintainer-tools/pull/165) ([@blink1073](https://github.com/blink1073))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2022-11-29&to=2022-12-07&type=c))
+
+[@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2022-11-29..2022-12-07&type=Issues) | [@ophie200](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Aophie200+updated%3A2022-11-29..2022-12-07&type=Issues) | [@pre-commit-ci](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Apre-commit-ci+updated%3A2022-11-29..2022-12-07&type=Issues) | [@welcome](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Awelcome+updated%3A2022-11-29..2022-12-07&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.19.6
 
 ([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...f40a788172974100cf9f6e9dbad00ff2876a0650))
@@ -15,8 +36,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2022-11-29&to=2022-11-29&type=c))
 
 [@jtpio](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ajtpio+updated%3A2022-11-29..2022-11-29&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.19.5
 
