@@ -19,7 +19,7 @@ archive.close()
 for req in reqs:
     r = Requirement(req)
     for specifier in r.specifier:
-        if "!" in specifier:
+        if "!" in specifier.operator:
             continue
         if "~" in specifier.operator or ">" in specifier.operator:
             spec = str(specifier).replace("~", "=")
