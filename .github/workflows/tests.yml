@@ -65,7 +65,7 @@ jobs:
          run: |
           hatch run typing:test
           hatch run lint:style
-          pipx run 'validate-pyproject[all]' pyproject.toml
+          pipx run interrogate -v .
 
   check_links:
     runs-on: ubuntu-latest
