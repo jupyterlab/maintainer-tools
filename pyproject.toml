@@ -11,7 +11,7 @@ dependencies = ["jupyter_core>=4.12,!=5.0.*"]
 
 [project.optional-dependencies]
 test = ["pytest>=7.0"]
-lint = ["black>=22.6.0", "mdformat>0.7", "ruff>=0.0.156"]
+lint = ["black==22.10.0", "mdformat>0.7", "ruff==0.0.189"]
 typing = ["mypy>=0.990"]
 
 [tool.jupyter-releaser]
@@ -91,7 +91,7 @@ ignore = [
   # Line too long
   "E501",
   # Relative imports are banned
-  "I252",
+  "TID252",
   # Boolean ... in function definition
   "FBT001", "FBT002",
   # Module level import not at top of file
