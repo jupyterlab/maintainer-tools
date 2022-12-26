@@ -24,7 +24,7 @@ check_minimum = "python -c 'from jupyter_core import __version__; assert __versi
 check_pre = "python -c 'import os; assert os.environ[\"PIP_PRE\"] == \"1\"'"
 
 [tool.hatch.envs.typing]
-features = ["typing"]
+features = ["test"]
 dependencies = ["mypy>=0.990"]
 [tool.hatch.envs.typing.scripts]
 test = "mypy --install-types --non-interactive {args:.}"
