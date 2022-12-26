@@ -69,9 +69,11 @@ def check_links(ignore_glob, ignore_links, links_expire):
                     log(e.output.decode("utf-8"))
                     fails += 1
                     if fails == 3:
-                        raise RuntimeError("Found three failed links, bailing") from e
+                        msg = "Found three failed links, bailing"
+                        raise RuntimeError(msg) from e
     if fails:
-        raise RuntimeError(f"Encountered failures in {fails} file(s)")
+        msg = f"Encountered failures in {fails} file(s)"
+        raise RuntimeError(msg)
 
 
 if __name__ == "__main__":
