@@ -11,7 +11,7 @@ dependencies = ["jupyter_core>=4.12,!=5.0.*"]
 
 [project.optional-dependencies]
 test = ["pytest>=7.0"]
-lint = ["black==22.10.0", "mdformat>0.7", "ruff==0.0.194"]
+lint = ["black==22.12.0", "mdformat>0.7", "ruff==0.0.194"]
 typing = ["mypy>=0.990"]
 
 [tool.jupyter-releaser]
