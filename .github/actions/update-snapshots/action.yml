@@ -72,6 +72,8 @@ runs:
         timeout: 360000
 
     - name: Generate new snapshots
+      # Get as much update as possible
+      continue-on-error: true
       shell: bash -l {0}
       working-directory: ${{ inputs.test_folder }}
       run: yarn run ${{ inputs.update_script }}
