@@ -27,6 +27,10 @@ inputs:
     description: The playwright browser to install (one of [`chromium`, `firefox`, `webkit`])
     required: false
     default: chromium
+  continue_on_error:
+    description: Whether to continue on error when updating snapshots or not.
+    required: false
+    default: true
   dry_run:
     description: Whether this is a dry run (one of [`yes`, `no`])
     required: false
@@ -72,6 +76,8 @@ runs:
         timeout: 360000
 
     - name: Generate new snapshots
+      # Get as much update as possible
+      continue-on-error: ${{ inputs.continue_on_error }}
       shell: bash -l {0}
       working-directory: ${{ inputs.test_folder }}
       run: yarn run ${{ inputs.update_script }}
