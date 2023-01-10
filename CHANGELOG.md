@@ -2,6 +2,30 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.19.8
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...6a7248ac96dab9da508e3bba6e458d2f3d07f0b7))
+
+### Enhancements made
+
+- Don't fail if errors occurred when updating snapshots [#175](https://github.com/jupyterlab/maintainer-tools/pull/175) ([@fcollonval](https://github.com/fcollonval))
+
+### Maintenance and upkeep improvements
+
+- Sync lint deps [#173](https://github.com/jupyterlab/maintainer-tools/pull/173) ([@blink1073](https://github.com/blink1073))
+- Clean up lint [#171](https://github.com/jupyterlab/maintainer-tools/pull/171) ([@blink1073](https://github.com/blink1073))
+- Bump ruff from 0.0.189 to 0.0.194 [#169](https://github.com/jupyterlab/maintainer-tools/pull/169) ([@dependabot](https://github.com/dependabot))
+- Update linters [#168](https://github.com/jupyterlab/maintainer-tools/pull/168) ([@blink1073](https://github.com/blink1073))
+- Allow releasing from repo [#167](https://github.com/jupyterlab/maintainer-tools/pull/167) ([@blink1073](https://github.com/blink1073))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2022-12-07&to=2023-01-10&type=c))
+
+[@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2022-12-07..2023-01-10&type=Issues) | [@dependabot](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Adependabot+updated%3A2022-12-07..2023-01-10&type=Issues) | [@fcollonval](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Afcollonval+updated%3A2022-12-07..2023-01-10&type=Issues) | [@pre-commit-ci](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Apre-commit-ci+updated%3A2022-12-07..2023-01-10&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.19.7
 
 ([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...052401dcb6419739093b27aa61ac58f98abbaa5c))
@@ -20,8 +44,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2022-11-29&to=2022-12-07&type=c))
 
 [@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2022-11-29..2022-12-07&type=Issues) | [@ophie200](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Aophie200+updated%3A2022-11-29..2022-12-07&type=Issues) | [@pre-commit-ci](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Apre-commit-ci+updated%3A2022-11-29..2022-12-07&type=Issues) | [@welcome](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Awelcome+updated%3A2022-11-29..2022-12-07&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.19.6
 
