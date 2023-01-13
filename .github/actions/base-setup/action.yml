@@ -15,7 +15,7 @@ runs:
       shell: bash
       run: |
         PYTHON_VERSION="${{ inputs.python_version || matrix.python-version }}"
-        NODE_VERSION=${{ inputs.node_version || matrix.node-version || '16.x' }}
+        NODE_VERSION=${{ inputs.node_version || matrix.node-version || '18.x' }}
         DEPENDENCY_TYPE=${{ inputs.dependency_type }}
 
         # Handle default python value based on dependency type.
