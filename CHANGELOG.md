@@ -2,6 +2,22 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.19.9
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...8478a3ae23f989e25e3332461fa4f09c254a5a81))
+
+### Maintenance and upkeep improvements
+
+- Updates default minimum node version from 16 to 18 [#174](https://github.com/jupyterlab/maintainer-tools/pull/174) ([@JasonWeill](https://github.com/JasonWeill))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2023-01-10&to=2023-01-16&type=c))
+
+[@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2023-01-10..2023-01-16&type=Issues) | [@JasonWeill](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3AJasonWeill+updated%3A2023-01-10..2023-01-16&type=Issues) | [@welcome](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Awelcome+updated%3A2023-01-10..2023-01-16&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.19.8
 
 ([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...6a7248ac96dab9da508e3bba6e458d2f3d07f0b7))
@@ -23,8 +39,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2022-12-07&to=2023-01-10&type=c))
 
 [@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2022-12-07..2023-01-10&type=Issues) | [@dependabot](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Adependabot+updated%3A2022-12-07..2023-01-10&type=Issues) | [@fcollonval](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Afcollonval+updated%3A2022-12-07..2023-01-10&type=Issues) | [@pre-commit-ci](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Apre-commit-ci+updated%3A2022-12-07..2023-01-10&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.19.7
 
