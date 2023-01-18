@@ -28,9 +28,9 @@ inputs:
     required: false
     default: chromium
   continue_on_error:
-    description: Whether to continue on error when updating snapshots or not.
+    description: Whether to continue on error when updating snapshots or not (one of [`yes`, `no`]).
     required: false
-    default: true
+    default: yes
   dry_run:
     description: Whether this is a dry run (one of [`yes`, `no`])
     required: false
@@ -77,7 +77,7 @@ runs:
 
     - name: Generate new snapshots
       # Get as much update as possible
-      continue-on-error: ${{ inputs.continue_on_error }}
+      continue-on-error: ${{ inputs.continue_on_error == 'yes' }}
       shell: bash -l {0}
       working-directory: ${{ inputs.test_folder }}
       run: yarn run ${{ inputs.update_script }}
