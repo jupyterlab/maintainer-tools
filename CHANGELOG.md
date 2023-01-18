@@ -2,6 +2,26 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.19.10
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...ca49609edf159317162bd6ef63e208b650cf16d4))
+
+### Bugs fixed
+
+- Fix `continue-on-error` configuration [#178](https://github.com/jupyterlab/maintainer-tools/pull/178) ([@fcollonval](https://github.com/fcollonval))
+
+### Maintenance and upkeep improvements
+
+- Add releaser workflows [#177](https://github.com/jupyterlab/maintainer-tools/pull/177) ([@blink1073](https://github.com/blink1073))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2023-01-16&to=2023-01-18&type=c))
+
+[@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2023-01-16..2023-01-18&type=Issues) | [@fcollonval](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Afcollonval+updated%3A2023-01-16..2023-01-18&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.19.9
 
 ([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...8478a3ae23f989e25e3332461fa4f09c254a5a81))
@@ -15,8 +35,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2023-01-10&to=2023-01-16&type=c))
 
 [@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2023-01-10..2023-01-16&type=Issues) | [@JasonWeill](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3AJasonWeill+updated%3A2023-01-10..2023-01-16&type=Issues) | [@welcome](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Awelcome+updated%3A2023-01-10..2023-01-16&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.19.8
 
