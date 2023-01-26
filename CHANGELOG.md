@@ -2,6 +2,22 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.20.0
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...f5bc554192d0d5bc19ba05e65d03f0ad03072edf))
+
+### Enhancements made
+
+- Update command to get cache directory with yarn3 [#179](https://github.com/jupyterlab/maintainer-tools/pull/179) ([@brichet](https://github.com/brichet))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2023-01-18&to=2023-01-26&type=c))
+
+[@brichet](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Abrichet+updated%3A2023-01-18..2023-01-26&type=Issues) | [@welcome](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Awelcome+updated%3A2023-01-18..2023-01-26&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.19.10
 
 ([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...ca49609edf159317162bd6ef63e208b650cf16d4))
@@ -19,8 +35,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2023-01-16&to=2023-01-18&type=c))
 
 [@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2023-01-16..2023-01-18&type=Issues) | [@fcollonval](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Afcollonval+updated%3A2023-01-16..2023-01-18&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.19.9
 
