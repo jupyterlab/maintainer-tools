@@ -2,6 +2,22 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.21.0
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...765cf7655a254572c56634c428e57df3810ed825))
+
+### Bugs fixed
+
+- Yarn cache dir action working for every version of yarn [#180](https://github.com/jupyterlab/maintainer-tools/pull/180) ([@brichet](https://github.com/brichet))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2023-01-26&to=2023-01-27&type=c))
+
+[@brichet](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Abrichet+updated%3A2023-01-26..2023-01-27&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.20.0
 
 ([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...f5bc554192d0d5bc19ba05e65d03f0ad03072edf))
@@ -15,8 +31,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2023-01-18&to=2023-01-26&type=c))
 
 [@brichet](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Abrichet+updated%3A2023-01-18..2023-01-26&type=Issues) | [@welcome](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Awelcome+updated%3A2023-01-18..2023-01-26&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.19.10
 
