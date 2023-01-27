@@ -70,7 +70,10 @@ runs:
     - name: Get yarn cache directory path
       id: yarn-cache-dir-path
       shell: bash
-      run: echo "dir=$(yarn config get cacheFolder)" >> $GITHUB_OUTPUT
+      run: |
+        CACHE_DIR=$(yarn config get cacheFolder)
+        [[ "$CACHE_DIR" == "undefined" ]] && CACHE_DIR=$(yarn cache dir)
+        echo "dir=$CACHE_DIR" >> $GITHUB_OUTPUT
     - name: Cache yarn
       uses: actions/cache@v3
       id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
