@@ -12,7 +12,7 @@ def log(*outputs, **kwargs):
     print(*outputs, **kwargs)
 
 
-def check_links(ignore_glob, ignore_links, links_expire):
+def check_links(ignore_glob, ignore_links, links_expire):  # noqa
     """Check URLs for HTML-containing files."""
     python = sys.executable.replace(os.sep, "/")
     cmd = f"{python} -m pytest --noconftest --check-links --check-links-cache "
@@ -29,7 +29,8 @@ def check_links(ignore_glob, ignore_links, links_expire):
         cmd += f' --ignore-glob "{spec}"'
         ignored.extend(glob(spec, recursive=True))
 
-    ignore_links = list(ignore_links) + [
+    ignore_links = [
+        *list(ignore_links),
         "https://github.com/.*/(pull|issues)/.*",
         "https://github.com/search?",
         "http://localhost.*",
@@ -61,14 +62,14 @@ def check_links(ignore_glob, ignore_links, links_expire):
             subprocess.check_output(file_cmd, shell=False)
         except Exception as e:
             # Return code 5 means no tests were run (no links found)
-            if e.returncode != 5:  # type:ignore[attr-defined]
+            if e.returncode != 5:  # type:ignore[attr-defined]  # noqa
                 try:
                     log(f"\n{f} (second attempt)...\n")
-                    subprocess.check_output(file_cmd + ["--lf"], shell=False)
+                    subprocess.check_output([*file_cmd, "--lf"], shell=False)
                 except subprocess.CalledProcessError as e:
                     log(e.output.decode("utf-8"))
                     fails += 1
-                    if fails == 3:
+                    if fails == 3:  # noqa
                         msg = "Found three failed links, bailing"
                         raise RuntimeError(msg) from e
     if fails:

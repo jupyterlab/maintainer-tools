@@ -36,7 +36,7 @@ def run(cmd, **kwargs):
         raise e
 
 
-def run_script():
+def run_script():  # noqa
     """Run a script on the target pull request URL"""
     # e.g. https://github.com/foo/bar/pull/81
 
@@ -51,7 +51,7 @@ def run_script():
     try:
         script = json.loads(script)
     except Exception:
-        pass
+        pass  # noqa
     if not isinstance(script, list):
         script = [script]
     if os.environ.get("PRE_COMMIT") == "true":
