@@ -12,7 +12,7 @@ def log(*outputs, **kwargs):
     print(*outputs, **kwargs)
 
 
-def check_links(ignore_glob, ignore_links, links_expire):  # noqa
+def check_links(ignore_glob, ignore_links, links_expire):
     """Check URLs for HTML-containing files."""
     python = sys.executable.replace(os.sep, "/")
     cmd = f"{python} -m pytest --noconftest --check-links --check-links-cache "
