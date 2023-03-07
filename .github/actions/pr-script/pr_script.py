@@ -50,8 +50,8 @@ def run_script():  # noqa
         script = "[]"
     try:
         script = json.loads(script)
-    except Exception:
-        pass  # noqa
+    except Exception:  # noqa S110
+        pass
     if not isinstance(script, list):
         script = [script]
     if os.environ.get("PRE_COMMIT") == "true":
@@ -101,7 +101,7 @@ def run_script():  # noqa
     for cmd in script:
         try:
             run(cmd)
-        except Exception:
+        except Exception:  # noqa S110
             continue
 
     # Use GitHub Actions bot user and email by default.
