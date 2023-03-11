@@ -131,5 +131,8 @@ runs:
         env
         echo "::endgroup::"
         pip debug
+        echo "::group::piplist"
+        pip list
+        echo "::endgroup::"
         yarn --version
         node --version
