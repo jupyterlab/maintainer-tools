@@ -2,6 +2,25 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.21.1
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...c47eba1d99983d24b2ebb7a4ffc9679d558b0dc4))
+
+### Maintenance and upkeep improvements
+
+- Print the constraints file to terminal [#187](https://github.com/jupyterlab/maintainer-tools/pull/187) ([@blink1073](https://github.com/blink1073))
+- Print the pip list in base setup [#186](https://github.com/jupyterlab/maintainer-tools/pull/186) ([@blink1073](https://github.com/blink1073))
+- Bump actions/checkout from 2 to 3 [#184](https://github.com/jupyterlab/maintainer-tools/pull/184) ([@dependabot](https://github.com/dependabot))
+- Add more linting [#181](https://github.com/jupyterlab/maintainer-tools/pull/181) ([@blink1073](https://github.com/blink1073))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2023-01-27&to=2023-03-13&type=c))
+
+[@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2023-01-27..2023-03-13&type=Issues) | [@dependabot](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Adependabot+updated%3A2023-01-27..2023-03-13&type=Issues) | [@pre-commit-ci](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Apre-commit-ci+updated%3A2023-01-27..2023-03-13&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.21.0
 
 ([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...765cf7655a254572c56634c428e57df3810ed825))
@@ -15,8 +34,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2023-01-26&to=2023-01-27&type=c))
 
 [@brichet](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Abrichet+updated%3A2023-01-26..2023-01-27&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.20.0
 
