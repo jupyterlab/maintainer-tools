@@ -358,6 +358,46 @@ jobs:
           association: ${{ github.event.comment.author_association }}
 ```
 
+## Upload Coverage and Report Coverage
+
+These actions are meant to be used together, to combine and enforce coverage.
+A coverage snapshot will be included in the workflow summary.  If coverage
+is below threshold, the `report-coverage` action will fail and upload the
+html report.
+
+```yaml
+name: Tests
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: jupyterlab/maintainer-tools/.github/actions/base-setup@v1
+      - run: |
+          pip install -e ".[test]"
+          python -m coverage run -m pytest
+      - uses: jupyterlab/maintainer-tools/.github/actions/upload-coverage@v1
+  coverage_report:
+    name: Combine & check coverage
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: jupyterlab/maintainer-tools/.github/actions/report-coverage@v1
+        with:
+          fail_under: 90
+```
+
 ## Update snapshots
 
 You can use _update snapshots_ action to commit on a branch
