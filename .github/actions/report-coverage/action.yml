@@ -24,7 +24,7 @@ runs:
       - name: Combine coverage & fail if it's <${{inputs.fail_under}}.
         shell: bash
         run: |
-          python -Im coverage combine
+          python -Im coverage combine || true
           python -Im coverage html --skip-covered --skip-empty
 
           # Report and write to summary.
