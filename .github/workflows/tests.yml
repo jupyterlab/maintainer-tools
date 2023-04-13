@@ -286,7 +286,7 @@ jobs:
       - uses: ./.github/actions/base-setup
       - run: |
           pip install coverage pytest
-          python -m coverage run pytest
+          python -m coverage run pytest foobar.py
       - uses: ./.github/actions/upload-coverage
 
   coverage_report:
