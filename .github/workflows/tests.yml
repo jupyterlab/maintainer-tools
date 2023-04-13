@@ -298,7 +298,6 @@ jobs:
     needs: coverage_test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
       - uses: ./.github/actions/report-coverage
 
   tests_check: # This job does nothing and is only used for the branch protection
