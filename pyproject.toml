@@ -97,3 +97,7 @@ unfixable = [
   # Don't touch noqa lines
   "RUF100",
 ]
+
+[tool.coverage.run]
+relative_files = true
+source = "foobar.py"
