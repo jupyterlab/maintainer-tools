@@ -287,6 +287,7 @@ jobs:
       - run: |
           pip install coverage pytest
           python -m coverage run -m pytest foobar.py
+          ls -a
       - uses: ./.github/actions/upload-coverage
 
   coverage_report:
@@ -295,7 +296,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - run: ls -a
       - uses: ./.github/actions/report-coverage
 
   tests_check: # This job does nothing and is only used for the branch protection
