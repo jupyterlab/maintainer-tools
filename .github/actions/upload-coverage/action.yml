@@ -1,0 +1,16 @@
+name: "Upload Coverage"
+description: "Upload the coverage report(s) for this job"
+inputs:
+  file_pattern:
+    description: "The coverage file pattern"
+    default: ".coverage"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Upload coverage data
+      uses: actions/upload-artifact@v3
+      with:
+        name: coverage-data
+        path: ${{inputs.file_pattern}}
+        if-no-files-found: ignore
