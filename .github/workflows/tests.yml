@@ -278,6 +278,24 @@ jobs:
       - uses: ./.github/actions/base-setup
       - uses: ./.github/actions/test-sdist
 
+  coverage_test:
+    name: Test coverage
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/base-setup
+      - run: |
+          pip install coverage pytest
+          python -m coverage run pytest
+      - uses: ./.github/actions/upload-coverage
+
+  coverage_report:
+    name: Combine & check coverage
+    needs: coverage_test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: ./.github/actions/report-coverage
+
   tests_check: # This job does nothing and is only used for the branch protection
     if: always()
     needs:
@@ -292,6 +310,7 @@ jobs:
       - update_snapshots-manual-server
       - update_snapshots
       - test_sdist
+      - coverage_report
     runs-on: ubuntu-latest
     steps:
       - name: Decide whether the needed jobs succeeded or failed
