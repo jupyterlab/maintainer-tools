@@ -100,4 +100,4 @@ unfixable = [
 
 [tool.coverage.run]
 relative_files = true
-source = ["foobar.py"]
+source = ["foobar"]
