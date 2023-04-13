@@ -280,7 +280,10 @@ jobs:
 
   coverage_test:
     name: Test coverage
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
     steps:
       - uses: actions/checkout@v3
       - uses: ./.github/actions/base-setup
