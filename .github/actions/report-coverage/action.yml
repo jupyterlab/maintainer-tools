@@ -8,7 +8,6 @@ inputs:
 runs:
   using: "composite"
   steps:
-      - uses: actions/checkout@v3
       - uses: actions/setup-python@v4
         with:
           # Use latest Python, so it understands all syntax.
