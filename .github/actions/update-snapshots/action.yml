@@ -20,9 +20,13 @@ inputs:
     required: false
     default: http-get://localhost:8888
   artifact_name:
-    description: The uploaded artifact name
+    description: The uploaded snapshots artifact name
     required: false
     default: playwright-snapshots
+  report_name:
+    description: The uploaded report artifact name
+    required: false
+    default: playwright-report
   browser:
     description: The playwright browser to install (one of [`chromium`, `firefox`, `webkit`])
     required: false
@@ -94,11 +98,17 @@ runs:
         git ls-files --exclude-standard -om | grep -e "\.png$" | xargs optipng
         echo "::endgroup::"
 
-    - name: Upload snapshots as artifacts
+    - name: Upload snapshots as artifact
       uses: actions/upload-artifact@v3
       with:
         name: ${{ inputs.artifact_name }}
         path: ${{ inputs.test_folder }}/**/*-snapshots/*.*
+
+    - name: Upload report as artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: ${{ inputs.report_name }}
+        path: ${{ inputs.test_folder }}/playwright-report
 
     - name: Commit new snapshots
       shell: bash -l {0}
