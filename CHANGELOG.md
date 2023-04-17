@@ -2,6 +2,22 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.23.0
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...91d1deb06f85c09906f44ddcfa60ce660a929569))
+
+### Enhancements made
+
+- Add report upload [#193](https://github.com/jupyterlab/maintainer-tools/pull/193) ([@krassowski](https://github.com/krassowski))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2023-04-13&to=2023-04-17&type=c))
+
+[@krassowski](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Akrassowski+updated%3A2023-04-13..2023-04-17&type=Issues) | [@welcome](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Awelcome+updated%3A2023-04-13..2023-04-17&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.22.1
 
 ([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...88d35b89a69f72832e3e1748bc926419b30bd86c))
@@ -15,8 +31,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2023-04-13&to=2023-04-13&type=c))
 
 [@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2023-04-13..2023-04-13&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.22.0
 
