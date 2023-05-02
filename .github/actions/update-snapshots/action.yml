@@ -26,7 +26,7 @@ inputs:
   browser:
     description: The playwright browser to install (one of [`chromium`, `firefox`, `webkit`])
     required: false
-    default: ''
+    default: chromium
   continue_on_error:
     description: Whether to continue on error when updating snapshots or not (one of [`yes`, `no`]).
     required: false
@@ -80,7 +80,7 @@ runs:
       continue-on-error: ${{ inputs.continue_on_error == 'yes' }}
       shell: bash -l {0}
       working-directory: ${{ inputs.test_folder }}
-      run: yarn run ${{ inputs.update_script }} --browser ${{ inputs.browser }}
+      run: yarn run ${{ inputs.update_script }} --browser '${{ inputs.browser }}'
 
     - name: Compress snapshots
       if: ${{ runner.os == 'Linux' }}
