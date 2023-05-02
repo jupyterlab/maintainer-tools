@@ -59,13 +59,13 @@ def check_links(ignore_glob, ignore_links, links_expire):
         file_cmd = shlex.split(file_cmd)
         try:
             log(f"{separator}{f}...")
-            subprocess.check_output(file_cmd, shell=False)
+            subprocess.check_output(file_cmd, shell=False)  # noqa S603
         except Exception as e:
             # Return code 5 means no tests were run (no links found)
             if e.returncode != 5:  # type:ignore[attr-defined]  # noqa
                 try:
                     log(f"\n{f} (second attempt)...\n")
-                    subprocess.check_output([*file_cmd, "--lf"], shell=False)
+                    subprocess.check_output([*file_cmd, "--lf"], shell=False)  # noqa S603
                 except subprocess.CalledProcessError as e:
                     log(e.output.decode("utf-8"))
                     fails += 1

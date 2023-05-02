@@ -28,7 +28,7 @@ def run(cmd, **kwargs):
         parts[0] = executable
 
     try:
-        return check_output(parts, **kwargs).decode("utf-8").strip()
+        return check_output(parts, **kwargs).decode("utf-8").strip()  # noqa S603
     except CalledProcessError as e:
         print("output:", e.output.decode("utf-8").strip())
         if e.stderr:
