@@ -407,7 +407,7 @@ The requirements and constrains are:
 
 - You must be on the branch to which the snapshots will be committed
 - You must installed your project before calling the action
-- The action is using `yarn` package manager
+- The action is using `yarn` package manager by default but can be configured with `yarn_cmd`
 - The Playwright tests must be in TypeScript or JavaScript
 
 An example of workflow that get triggered when a PR comment contains
