@@ -15,6 +15,10 @@ inputs:
     required: true
 
   # Optional inputs
+  yarn_cmd:
+    description: The yarn command to use to execute the scripts
+    required: false
+    default: yarn
   server_url:
     description: The server URL to wait for (see https://github.com/iFaxity/wait-on-action `resource`)
     required: false
