@@ -15,7 +15,7 @@ inputs:
     required: true
 
   # Optional inputs
-  yarn_cmd:
+  npm_client:
     description: The yarn command to use to execute the scripts
     required: false
     default: yarn
@@ -67,14 +67,14 @@ runs:
       if: ${{ inputs.start_server_script != 'null' }}
       working-directory: ${{ inputs.test_folder }}
       shell: bash -l {0}
-      run: (${{ inputs.yarn_cmd }} run ${{ inputs.start_server_script }} 1>/tmp/snapshots-update-server.log 2>&1) &
+      run: (${{ inputs.npm_client }} run ${{ inputs.start_server_script }} 1>/tmp/snapshots-update-server.log 2>&1) &
 
     - name: Setup integration tests
       shell: bash -l {0}
       working-directory: ${{ inputs.test_folder }}
       run: |
-        ${{ inputs.yarn_cmd }} install
-        ${{ inputs.yarn_cmd }} run playwright install ${{ inputs.chromium }}
+        ${{ inputs.npm_client }} install
+        ${{ inputs.npm_client }} run playwright install ${{ inputs.chromium }}
 
     - name: Wait for the server
       if: ${{ inputs.start_server_script != 'null' }}
@@ -88,7 +88,7 @@ runs:
       continue-on-error: ${{ inputs.continue_on_error == 'yes' }}
       shell: bash -l {0}
       working-directory: ${{ inputs.test_folder }}
-      run: ${{ inputs.yarn_cmd }} run ${{ inputs.update_script }}
+      run: ${{ inputs.npm_client }} run ${{ inputs.update_script }}
 
     - name: Compress snapshots
       if: ${{ runner.os == 'Linux' }}
