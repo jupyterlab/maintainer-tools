@@ -16,7 +16,7 @@ inputs:
 
   # Optional inputs
   npm_client:
-    description: The yarn command to use to execute the scripts
+    description: The command to execute the scripts (yarn, npm, jlpm)
     required: false
     default: yarn
   server_url:
@@ -52,11 +52,11 @@ inputs:
     required: false
     default: github-actions[bot]@users.noreply.github.com
   start_server_script:
-    description: The yarn script to execute to start the server; set it to `null` if Playwright is handling it.
+    description: The script to execute to start the server; set it to `null` if Playwright is handling it.
     required: false
     default: start
   update_script:
-    description: The yarn script to execute to update the snapshots
+    description: The script to execute to update the snapshots
     required: false
     default: test:update
 
