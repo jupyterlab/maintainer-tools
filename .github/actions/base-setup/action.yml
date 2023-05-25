@@ -14,6 +14,7 @@ runs:
     - name: Set up environment
       shell: bash
       run: |
+        set -eux
         PYTHON_VERSION="${{ inputs.python_version || matrix.python-version }}"
         NODE_VERSION=${{ inputs.node_version || matrix.node-version || '18.x' }}
         DEPENDENCY_TYPE=${{ inputs.dependency_type }}
@@ -109,6 +110,7 @@ runs:
     - name: Upgrade packaging dependencies
       shell: bash
       run: |
+        set -eux
         echo "::group::Upgrade packaging dependencies"
         python -m pip install --upgrade pip
         pipx install hatch
@@ -117,6 +119,7 @@ runs:
     - name: Handle dependency type
       shell: bash
       run: |
+        set -eux
         if [ $DEPENDENCY_TYPE == 'pre' ]; then
           echo "PIP_PRE=1" >> $GITHUB_ENV
         elif [ $DEPENDENCY_TYPE == 'minimum' ]; then
@@ -126,11 +129,11 @@ runs:
     - name: Print Diagnostics
       shell: bash
       run: |
-        set -x
+        set -eux
         echo "::group::env"
         env
         echo "::endgroup::"
-        pip debug
+        pip debug || true
         echo "::group::piplist"
         pip list || true
         echo "::endgroup::"
