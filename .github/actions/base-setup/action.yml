@@ -132,7 +132,7 @@ runs:
         echo "::endgroup::"
         pip debug
         echo "::group::piplist"
-        pip list
+        pip list || true
         echo "::endgroup::"
         yarn --version
         node --version
