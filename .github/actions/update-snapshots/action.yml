@@ -15,6 +15,10 @@ inputs:
     required: true
 
   # Optional inputs
+  npm_client:
+    description: The command to execute the scripts (yarn, npm, jlpm)
+    required: false
+    default: yarn
   server_url:
     description: The server URL to wait for (see https://github.com/iFaxity/wait-on-action `resource`)
     required: false
@@ -48,11 +52,11 @@ inputs:
     required: false
     default: github-actions[bot]@users.noreply.github.com
   start_server_script:
-    description: The yarn script to execute to start the server; set it to `null` if Playwright is handling it.
+    description: The script to execute to start the server; set it to `null` if Playwright is handling it.
     required: false
     default: start
   update_script:
-    description: The yarn script to execute to update the snapshots
+    description: The script to execute to update the snapshots
     required: false
     default: test:update
 
@@ -63,14 +67,14 @@ runs:
       if: ${{ inputs.start_server_script != 'null' }}
       working-directory: ${{ inputs.test_folder }}
       shell: bash -l {0}
-      run: (yarn run ${{ inputs.start_server_script }} 1>/tmp/snapshots-update-server.log 2>&1) &
+      run: (${{ inputs.npm_client }} run ${{ inputs.start_server_script }} 1>/tmp/snapshots-update-server.log 2>&1) &
 
     - name: Setup integration tests
       shell: bash -l {0}
       working-directory: ${{ inputs.test_folder }}
       run: |
-        yarn install
-        yarn run playwright install ${{ inputs.chromium }}
+        ${{ inputs.npm_client }} install
+        ${{ inputs.npm_client }} run playwright install ${{ inputs.chromium }}
 
     - name: Wait for the server
       if: ${{ inputs.start_server_script != 'null' }}
@@ -84,7 +88,7 @@ runs:
       continue-on-error: ${{ inputs.continue_on_error == 'yes' }}
       shell: bash -l {0}
       working-directory: ${{ inputs.test_folder }}
-      run: yarn run ${{ inputs.update_script }}
+      run: ${{ inputs.npm_client }} run ${{ inputs.update_script }}
 
     - name: Compress snapshots
       if: ${{ runner.os == 'Linux' }}
