@@ -2,6 +2,24 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.23.1
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...043b8763749e2b8111598361771a9223a9ae5724))
+
+### Enhancements made
+
+- Add input to configure the yarn command via `npm_client` [#196](https://github.com/jupyterlab/maintainer-tools/pull/196) ([@jtpio](https://github.com/jtpio))
+
+### Maintenance and upkeep improvements
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2023-04-17&to=2023-05-25&type=c))
+
+[@jtpio](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ajtpio+updated%3A2023-04-17..2023-05-25&type=Issues) | [@pre-commit-ci](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Apre-commit-ci+updated%3A2023-04-17..2023-05-25&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.23.0
 
 ([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...91d1deb06f85c09906f44ddcfa60ce660a929569))
@@ -15,8 +33,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2023-04-13&to=2023-04-17&type=c))
 
 [@krassowski](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Akrassowski+updated%3A2023-04-13..2023-04-17&type=Issues) | [@welcome](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Awelcome+updated%3A2023-04-13..2023-04-17&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.22.1
 
