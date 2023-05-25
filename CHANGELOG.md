@@ -2,6 +2,22 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.23.2
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...b780ea92159db44b7393497c8994362fe36c17c5))
+
+### Maintenance and upkeep improvements
+
+- Allow pip list to fail [#197](https://github.com/jupyterlab/maintainer-tools/pull/197) ([@blink1073](https://github.com/blink1073))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2023-05-25&to=2023-05-25&type=c))
+
+[@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2023-05-25..2023-05-25&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.23.1
 
 ([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...043b8763749e2b8111598361771a9223a9ae5724))
@@ -17,8 +33,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2023-04-17&to=2023-05-25&type=c))
 
 [@jtpio](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ajtpio+updated%3A2023-04-17..2023-05-25&type=Issues) | [@pre-commit-ci](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Apre-commit-ci+updated%3A2023-04-17..2023-05-25&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.23.0
 
