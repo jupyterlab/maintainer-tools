@@ -28,7 +28,7 @@ runs:
           echo "Unrecognized dependency type $DEPENDENCY_TYPE"
           exit 1
         else
-          DEFAULT_PYTHON="3.10"
+          DEFAULT_PYTHON="3.11"
         fi
 
         echo "DEFAULT_PYTHON is $DEFAULT_PYTHON"
@@ -43,6 +43,7 @@ runs:
       uses: actions/setup-python@v4
       with:
         python-version: ${{ env.PYTHON_VERSION }}
+        allow-prereleases: true
 
     # Cache pip
     # We cannot use the builtin cache because it errors out with the files
