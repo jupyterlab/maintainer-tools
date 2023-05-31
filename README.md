@@ -48,7 +48,7 @@ jobs:
 If you want to use your minimum dependencies, you can use the following
 option, which will create a constraints file and set the `PIP_CONSTRAINT`
 environment variable, so that installations will use that file.
-By default the Python version will be "3.8", which can be overridden with
+By default the Python version will be "3.11", which can be overridden with
 `python_version`.  Note that the environment variable also works if
 you use virtual environments like `hatch`.
 
@@ -218,7 +218,7 @@ jobs:
       - name: Base Setup
         uses: jupyterlab/maintainer-tools/.github/actions/base-setup@v1
         with:
-          python_version: "3.7" # Test against minimum Python version as well
+          python_version: "3.8" # Test against minimum Python version as well
       - name: Install minimum versions
         uses: jupyterlab/maintainer-tools/.github/actions/install-minimums@v1
       - name: Run the unit tests
