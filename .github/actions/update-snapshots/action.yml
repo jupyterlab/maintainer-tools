@@ -97,7 +97,7 @@ runs:
     - name: Upload snapshots as artifacts
       uses: actions/upload-artifact@v3
       with:
-        name: ${{ inputs.artifact_name }}
+        name: ${{ inputs.artifact_name }}-${{ inputs.browser }}
         path: ${{ inputs.test_folder }}/**/*-snapshots/*.*
 
     - name: Commit new snapshots
