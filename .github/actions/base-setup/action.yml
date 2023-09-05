@@ -14,6 +14,7 @@ runs:
     - name: Set up environment
       shell: bash
       run: |
+        set -eux
         PYTHON_VERSION="${{ inputs.python_version || matrix.python-version }}"
         NODE_VERSION=${{ inputs.node_version || matrix.node-version || '18.x' }}
         DEPENDENCY_TYPE=${{ inputs.dependency_type }}
@@ -27,7 +28,7 @@ runs:
           echo "Unrecognized dependency type $DEPENDENCY_TYPE"
           exit 1
         else
-          DEFAULT_PYTHON="3.10"
+          DEFAULT_PYTHON="3.11"
         fi
 
         echo "DEFAULT_PYTHON is $DEFAULT_PYTHON"
@@ -42,6 +43,7 @@ runs:
       uses: actions/setup-python@v4
       with:
         python-version: ${{ env.PYTHON_VERSION }}
+        allow-prereleases: true
 
     # Cache pip
     # We cannot use the builtin cache because it errors out with the files
@@ -109,6 +111,7 @@ runs:
     - name: Upgrade packaging dependencies
       shell: bash
       run: |
+        set -eux
         echo "::group::Upgrade packaging dependencies"
         python -m pip install --upgrade pip
         pipx install hatch
@@ -117,6 +120,7 @@ runs:
     - name: Handle dependency type
       shell: bash
       run: |
+        set -eux
         if [ $DEPENDENCY_TYPE == 'pre' ]; then
           echo "PIP_PRE=1" >> $GITHUB_ENV
         elif [ $DEPENDENCY_TYPE == 'minimum' ]; then
@@ -126,10 +130,13 @@ runs:
     - name: Print Diagnostics
       shell: bash
       run: |
-        set -x
+        set -eux
         echo "::group::env"
         env
         echo "::endgroup::"
-        pip debug
+        pip debug || true
+        echo "::group::piplist"
+        pip list || true
+        echo "::endgroup::"
         yarn --version
         node --version

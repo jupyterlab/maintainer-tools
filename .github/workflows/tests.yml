@@ -16,13 +16,16 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
+        python-version: ["3.8", "3.11"]
+        include:
+          - os: ubuntu-latest
+            python-version: "3.12"
     steps:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Base Setup
         uses: ./.github/actions/base-setup
         with:
-          python_version: 3.7
           node_version: 15.0
       - name: Check Hatch Version
         run: hatch --version
@@ -30,7 +33,7 @@ jobs:
   base_setup_minimum:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: ./.github/actions/base-setup
         with:
           dependency_type: minimum
@@ -44,7 +47,7 @@ jobs:
   base_setup_pre:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: ./.github/actions/base-setup
         with:
           dependency_type: pre
@@ -150,7 +153,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ["3.7"] # Test against minimum Python version as well
+        python-version: ["3.8"] # Test against minimum Python version as well
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -278,6 +281,29 @@ jobs:
       - uses: ./.github/actions/base-setup
       - uses: ./.github/actions/test-sdist
 
+  coverage_test:
+    name: Test coverage
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/base-setup
+      - run: |
+          pip install coverage[toml] pytest
+          python -m coverage run -m pytest foobar.py
+          ls -a
+      - uses: ./.github/actions/upload-coverage
+
+  coverage_report:
+    name: Combine & check coverage
+    needs: coverage_test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/report-coverage
+
   tests_check: # This job does nothing and is only used for the branch protection
     if: always()
     needs:
@@ -292,6 +318,7 @@ jobs:
       - update_snapshots-manual-server
       - update_snapshots
       - test_sdist
+      - coverage_report
     runs-on: ubuntu-latest
     steps:
       - name: Decide whether the needed jobs succeeded or failed
