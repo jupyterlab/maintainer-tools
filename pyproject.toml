@@ -25,9 +25,9 @@ check_pre = "python -c 'import os; assert os.environ[\"PIP_PRE\"] == \"1\"'"
 
 [tool.hatch.envs.typing]
 features = ["test"]
-dependencies = ["mypy>=0.990"]
+dependencies = ["mypy>=1.5.1"]
 [tool.hatch.envs.typing.scripts]
-test = "mypy --install-types --non-interactive {args:.}"
+test = "mypy --install-types --non-interactive {args}"
 
 [tool.hatch.envs.lint]
 dependencies = ["black==23.1.0", "mdformat>0.7", "ruff==0.0.270"]
@@ -45,26 +45,23 @@ fmt = [
 ]
 
 [tool.pytest.ini_options]
+minversion = "6.0"
+xfail_strict = true
+log_cli_level = "info"
+addopts = [
+  "-raXs", "--durations=10", "--color=yes", "--doctest-modules",
+   "--showlocals", "--strict-markers", "--strict-config"
+]
+filterwarnings = ["error"]
 testpaths = ["foobar.py"]
 
 [tool.mypy]
-check_untyped_defs = true
-disallow_any_generics = true
-disallow_incomplete_defs = true
-disallow_untyped_decorators = true
-explicit_package_bases = true
-namespace_packages = true
-no_implicit_optional = true
-no_implicit_reexport = true
-pretty = true
-show_error_context = true
+files = "foobar.py"
+python_version = "3.8"
+strict = true
 show_error_codes = true
-strict_equality = true
-strict_optional = true
-warn_unused_configs = true
-warn_redundant_casts = true
-warn_return_any = true
-warn_unused_ignores = true
+enable_error_code = ["ignore-without-code", "redundant-expr", "truthy-bool"]
+warn_unreachable = true
 
 [tool.black]
 line-length = 100
@@ -101,3 +98,6 @@ unfixable = [
 [tool.coverage.run]
 relative_files = true
 source = ["foobar"]
+
+[tool.repo-review]
+ignore = ["PY004", "PY007", "PP308", "GH102", "PC140", "RTD100"]
