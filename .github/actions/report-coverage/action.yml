@@ -8,33 +8,33 @@ inputs:
 runs:
   using: "composite"
   steps:
-      - uses: actions/setup-python@v4
-        with:
-          # Use latest Python, so it understands all syntax.
-          python-version: "3.11"
+    - uses: actions/setup-python@v4
+      with:
+        # Use latest Python, so it understands all syntax.
+        python-version: "3.11"
 
-      - run: python -Im pip install --upgrade coverage[toml]
-        shell: bash
+    - run: python -Im pip install --upgrade coverage[toml]
+      shell: bash
 
-      - uses: actions/download-artifact@v3
-        with:
-          name: coverage-data
+    - uses: actions/download-artifact@v3
+      with:
+        name: coverage-data
 
-      - name: Combine coverage & fail if it's <${{inputs.fail_under}}.
-        shell: bash
-        run: |
-          python -Im coverage combine || true
-          python -Im coverage html --skip-covered --skip-empty
+    - name: Combine coverage & fail if it's <${{inputs.fail_under}}.
+      shell: bash
+      run: |
+        python -Im coverage combine || true
+        python -Im coverage html --skip-covered --skip-empty
 
-          # Report and write to summary.
-          python -Im coverage report | sed 's/^/    /' >> $GITHUB_STEP_SUMMARY
+        # Report and write to summary.
+        python -Im coverage report | sed 's/^/    /' >> $GITHUB_STEP_SUMMARY
 
-          # Report again and fail if under threshold
-          python -Im coverage report --fail-under=${{inputs.fail_under}}
+        # Report again and fail if under threshold
+        python -Im coverage report --fail-under=${{inputs.fail_under}}
 
-      - name: Upload HTML report if check failed.
-        uses: actions/upload-artifact@v3
-        with:
-          name: html-report
-          path: htmlcov
-        if: ${{ failure() }}
+    - name: Upload HTML report if check failed.
+      uses: actions/upload-artifact@v3
+      with:
+        name: html-report
+        path: htmlcov
+      if: ${{ failure() }}

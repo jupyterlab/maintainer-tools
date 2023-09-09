@@ -198,7 +198,7 @@ To test against a prerelease use `package_download_extra_args: "--pre"`.
 **DEPRECATED**.  Use `dependency_type: minimum` in the `base-setup` action
 instead.
 
-Use this action to test that your minimum dependency version constraints are vaild. Note: you may want to also use the minimum supported version of Python
+Use this action to test that your minimum dependency version constraints are valid. Note: you may want to also use the minimum supported version of Python
 since the minimum versions might not have wheels on newer Pythons. Note that you should use `pytest -W default` if you are using `filterwarnings` and relying on newer versions of the library to have removed warnings.
 
 ```yaml
@@ -289,7 +289,7 @@ Note that the resulting commit will _not_ trigger the
 workflows to run again. You will have to close/reopen the PR, or push another
 commit for the workflows to run again. If this behavior is not desirable,
 you can use a personal access token instead of the default GitHub token provided
-to the workflow. Make sure the token used is of as limited scope as possible (preferrably a bot account token with access to the `public_repo` scope only).
+to the workflow. Make sure the token used is of as limited scope as possible (preferably a bot account token with access to the `public_repo` scope only).
 
 This first example allows maintainers to run `pre-commit` by commenting
 "auto run pre-commit" on a Pull Request.

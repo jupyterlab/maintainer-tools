@@ -302,7 +302,7 @@
 
 ### Bugs fixed
 
-- Add mispell guard and fix pip cache [#155](https://github.com/jupyterlab/maintainer-tools/pull/155) ([@blink1073](https://github.com/blink1073))
+- Add misspell guard and fix pip cache [#155](https://github.com/jupyterlab/maintainer-tools/pull/155) ([@blink1073](https://github.com/blink1073))
 
 ### Contributors to this release
 
@@ -617,7 +617,7 @@
 
 ### Bugs fixed
 
-- Fix auto maintainence label for bots [#95](https://github.com/jupyterlab/maintainer-tools/pull/95) ([@blink1073](https://github.com/blink1073))
+- Fix auto maintenance label for bots [#95](https://github.com/jupyterlab/maintainer-tools/pull/95) ([@blink1073](https://github.com/blink1073))
 
 ### Maintenance and upkeep improvements
 
@@ -676,7 +676,7 @@
 
 ### Enhancements made
 
-- Automatically add maintainence label for known bots [#83](https://github.com/jupyterlab/maintainer-tools/pull/83) ([@blink1073](https://github.com/blink1073))
+- Automatically add maintenance label for known bots [#83](https://github.com/jupyterlab/maintainer-tools/pull/83) ([@blink1073](https://github.com/blink1073))
 
 ### Bugs fixed
 
