@@ -6,8 +6,7 @@ on:
 
 defaults:
   run:
-    shell:
-      bash -eux {0}
+    shell: bash -eux {0}
 
 jobs:
   base_setup:
@@ -64,8 +63,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: jupyterlab/maintainer-tools/.github/actions/base-setup@v1
-      -  name: Run Linters
-         run: |
+      - name: Run Linters
+        run: |
           hatch run typing:test
           hatch run lint:style
           pipx run interrogate -v .
@@ -172,7 +171,7 @@ jobs:
         uses: ./.github/actions/install-minimums
         with:
           only_create_file: 1
-          constraints_file_path: './constraints-test.txt'
+          constraints_file_path: "./constraints-test.txt"
       - name: Ensure constraints file
         run: |
           cat ./constraints-test.txt
