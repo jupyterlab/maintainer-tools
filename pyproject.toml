@@ -100,4 +100,4 @@ relative_files = true
 source = ["foobar"]
 
 [tool.repo-review]
-ignore = ["PY004", "PY007", "PP308", "GH102", "PC140", "RTD100"]
+ignore = ["PY004", "PY005", "PY007", "PP308", "GH102", "PC140", "RTD100"]
