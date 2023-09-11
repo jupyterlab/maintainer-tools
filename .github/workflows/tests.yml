@@ -21,7 +21,7 @@ jobs:
             python-version: "3.12"
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Base Setup
         uses: ./.github/actions/base-setup
         with:
@@ -32,7 +32,7 @@ jobs:
   base_setup_minimum:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ./.github/actions/base-setup
         with:
           dependency_type: minimum
@@ -46,7 +46,7 @@ jobs:
   base_setup_pre:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ./.github/actions/base-setup
         with:
           dependency_type: pre
@@ -61,7 +61,7 @@ jobs:
     name: Test Lint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: jupyterlab/maintainer-tools/.github/actions/base-setup@v1
       - name: Run Linters
         run: |
@@ -72,7 +72,7 @@ jobs:
   check_links:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ./.github/actions/base-setup
       - uses: ./.github/actions/check-links
 
@@ -80,7 +80,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Base Setup
         uses: ./.github/actions/base-setup
       - name: Create a mock python package
@@ -94,7 +94,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Base Setup
         uses: ./.github/actions/base-setup
       - name: Create a mock python package
@@ -113,7 +113,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Base Setup
         uses: ./.github/actions/base-setup
       - name: Check Binder Link
@@ -126,7 +126,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Base Setup
         uses: ./.github/actions/base-setup
       - name: Check PR Script All Options
@@ -155,7 +155,7 @@ jobs:
         python-version: ["3.8"] # Test against minimum Python version as well
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Base Setup
         uses: ./.github/actions/base-setup
       - name: Clone a repo
@@ -183,7 +183,7 @@ jobs:
       TEST_FOLDER: mock-playwright
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Base Setup
         uses: ./.github/actions/base-setup
       - name: Create a mock playwright test package
@@ -225,7 +225,7 @@ jobs:
       TEST_FOLDER: mock-playwright
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Base Setup
         uses: ./.github/actions/base-setup
       - name: Create a mock playwright test package
@@ -266,7 +266,7 @@ jobs:
     runs-on: windows-latest
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ./.github/actions/base-setup
       - uses: ./.github/actions/make-sdist
 
@@ -276,7 +276,7 @@ jobs:
     name: Install from SDist and Test
     timeout-minutes: 20
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ./.github/actions/base-setup
       - uses: ./.github/actions/test-sdist
 
@@ -287,7 +287,7 @@ jobs:
       matrix:
         os: [ubuntu-latest, windows-latest]
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ./.github/actions/base-setup
       - run: |
           pip install coverage[toml] pytest
@@ -300,7 +300,7 @@ jobs:
     needs: coverage_test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ./.github/actions/report-coverage
 
   tests_check: # This job does nothing and is only used for the branch protection
