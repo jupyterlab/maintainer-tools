@@ -426,7 +426,7 @@ permissions:
 
 jobs:
   update-snapshots:
-    if: ${{ github.event.issue.pull_request && contains(github.event.comment.body, 'please update playwright snapshots') }}
+    if: ${{ github.event.issue.pull_request && contains(github.event.comment.body, 'update playwright snapshots') }}
     runs-on: ubuntu-latest
 
     steps:
