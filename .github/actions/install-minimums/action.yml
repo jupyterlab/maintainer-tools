@@ -1,5 +1,5 @@
 name: Install Minimums
-description: "Install the mininum versions of dependencies"
+description: "Install the minimum versions of dependencies"
 inputs:
   extras:
     description: The Extras to Install (comma separated)
