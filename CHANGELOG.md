@@ -2,6 +2,32 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.24.1
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...afb8d5118eb0d8d81d4df718129c1a7311179cd1))
+
+### Bugs fixed
+
+- Ignore coverage combine errors [#210](https://github.com/jupyterlab/maintainer-tools/pull/210) ([@blink1073](https://github.com/blink1073))
+
+### Maintenance and upkeep improvements
+
+- chore: update pre-commit hooks [#209](https://github.com/jupyterlab/maintainer-tools/pull/209) ([@pre-commit-ci](https://github.com/pre-commit-ci))
+- Bump actions/checkout from 3 to 4 [#207](https://github.com/jupyterlab/maintainer-tools/pull/207) ([@dependabot](https://github.com/dependabot))
+- Adopt sp-repo-review [#206](https://github.com/jupyterlab/maintainer-tools/pull/206) ([@blink1073](https://github.com/blink1073))
+
+### Documentation improvements
+
+- Update example workflow to include comment reaction (:+1:) [#208](https://github.com/jupyterlab/maintainer-tools/pull/208) ([@jtpio](https://github.com/jtpio))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2023-05-31&to=2023-10-16&type=c))
+
+[@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2023-05-31..2023-10-16&type=Issues) | [@dependabot](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Adependabot+updated%3A2023-05-31..2023-10-16&type=Issues) | [@jtpio](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ajtpio+updated%3A2023-05-31..2023-10-16&type=Issues) | [@pre-commit-ci](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Apre-commit-ci+updated%3A2023-05-31..2023-10-16&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.24.0
 
 ([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...22867a7f8cc22ed01c29e764274af9dfce3482ac))
@@ -15,8 +41,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2023-05-25&to=2023-05-31&type=c))
 
 [@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2023-05-25..2023-05-31&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.23.3
 
