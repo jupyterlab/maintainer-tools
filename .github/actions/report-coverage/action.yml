@@ -23,14 +23,15 @@ runs:
     - name: Combine coverage & fail if it's <${{inputs.fail_under}}.
       shell: bash
       run: |
+        set -eux
         python -Iim coverage combine || true
-        python -Im coverage html --skip-covered --skip-empty
+        python -Iim coverage html --skip-covered --skip-empty
 
         # Report and write to summary.
-        python -Im coverage report | sed 's/^/    /' >> $GITHUB_STEP_SUMMARY
+        python -Iim coverage report | sed 's/^/    /' >> $GITHUB_STEP_SUMMARY
 
         # Report again and fail if under threshold
-        python -Im coverage report --fail-under=${{inputs.fail_under}}
+        python -Iim coverage report --fail-under=${{inputs.fail_under}}
 
     - name: Upload HTML report if check failed.
       uses: actions/upload-artifact@v3
