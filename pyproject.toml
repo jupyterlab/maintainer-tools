@@ -8,6 +8,7 @@ authors = [{name = "Sir Robin", email = "robin@camelot.uk"}]
 dynamic = ["description", "version"]
 readme = "README.md"
 dependencies = ["jupyter_core>=4.12,!=5.0.*"]
+requires-python = ">=3.8"
 
 [project.optional-dependencies]
 test = ["pytest>=7.0"]
