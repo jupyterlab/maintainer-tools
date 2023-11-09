@@ -66,7 +66,7 @@ jobs:
       - name: Run Linters
         run: |
           hatch run typing:test
-          hatch run lint:style
+          hatch run lint:build
           pipx run interrogate -v .
 
   check_links:
