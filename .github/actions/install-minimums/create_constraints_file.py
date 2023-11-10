@@ -27,8 +27,8 @@ for req in reqs:
             spec = spec.replace(">", "==")
             constraints[r.name] = spec
 
-constraints = [f"{key}{value}\n" for (key, value) in constraints.items()]
+constraints_list = [f"{key}{value}\n" for (key, value) in constraints.items()]
 
 # Write the constraints to to a pip constraints file.
 with open(output_file, "w") as fid:
-    fid.writelines(constraints)
+    fid.writelines(constraints_list)
