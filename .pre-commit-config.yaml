@@ -48,6 +48,7 @@ repos:
       - id: mypy
         stages: [manual]
         args: ["--install-types", "--non-interactive"]
+        additional_dependencies: ["packaging"]
 
   - repo: https://github.com/codespell-project/codespell
     rev: "v2.2.6"
