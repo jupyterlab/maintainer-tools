@@ -29,7 +29,7 @@ def check_links(ignore_glob: list[str], ignore_links: list[str], links_expire: s
     ignored = []
     for spec in ignore_glob:
         cmd += f' --ignore-glob "{spec}"'
-        ignored.extend(glob(spec, recursive=True))
+        ignored.extend(glob(spec, recursive=True))  # noqa: PTH207
 
     ignore_links = [
         *list(ignore_links),
@@ -48,7 +48,7 @@ def check_links(ignore_glob: list[str], ignore_links: list[str], links_expire: s
     # Gather all of the markdown, RST, and ipynb files
     files: list[str] = []
     for ext in [".md", ".rst", ".ipynb"]:
-        matched = glob(f"**/*{ext}", recursive=True)
+        matched = glob(f"**/*{ext}", recursive=True)  # noqa: PTH207
         files.extend(m for m in matched if m not in ignored and "node_modules" not in m)
 
     separator = f"\n\n{'-' * 80}\n"
@@ -61,17 +61,17 @@ def check_links(ignore_glob: list[str], ignore_links: list[str], links_expire: s
         file_cmd = shlex.split(file_cmd_str)
         try:
             log(f"{separator}{f}...")
-            subprocess.check_output(file_cmd, shell=False)  # noqa S603
+            subprocess.check_output(file_cmd, shell=False)  # noqa: S603
         except Exception as e:
             # Return code 5 means no tests were run (no links found)
-            if e.returncode != 5:  # type:ignore[attr-defined]  # noqa
+            if e.returncode != 5:  # type:ignore[attr-defined]
                 try:
                     log(f"\n{f} (second attempt)...\n")
-                    subprocess.check_output([*file_cmd, "--lf"], shell=False)  # noqa S603
+                    subprocess.check_output([*file_cmd, "--lf"], shell=False)  # noqa: S603
                 except subprocess.CalledProcessError as e:
                     log(e.output.decode("utf-8"))
                     fails += 1
-                    if fails == 3:  # noqa
+                    if fails == 3:
                         msg = "Found three failed links, bailing"
                         raise RuntimeError(msg) from e
     if fails:
