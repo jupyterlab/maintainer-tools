@@ -1,4 +1,5 @@
 import sys
+from pathlib import Path
 from zipfile import ZipFile
 
 from packaging.requirements import Requirement
@@ -30,5 +31,5 @@ for req in reqs:
 constraints_list = [f"{key}{value}\n" for (key, value) in constraints.items()]
 
 # Write the constraints to to a pip constraints file.
-with open(output_file, "w") as fid:
+with Path(output_file).open("w") as fid:
     fid.writelines(constraints_list)

@@ -29,7 +29,7 @@ def run(cmd: str, **kwargs: t.Any) -> str:
         parts[0] = executable
 
     try:
-        return str(check_output(parts, **kwargs).decode("utf-8").strip())  # noqa S603
+        return str(check_output(parts, **kwargs).decode("utf-8").strip())  # noqa: S603
     except CalledProcessError as e:
         print("output:", e.output.decode("utf-8").strip())
         if e.stderr:
@@ -37,7 +37,7 @@ def run(cmd: str, **kwargs: t.Any) -> str:
         raise e
 
 
-def run_script() -> None:  # noqa
+def run_script() -> None:
     """Run a script on the target pull request URL"""
     # e.g. https://github.com/foo/bar/pull/81
 
@@ -51,7 +51,7 @@ def run_script() -> None:  # noqa
         script = "[]"
     try:
         script_obj = json.loads(script)
-    except Exception:  # noqa S110
+    except Exception:  # noqa: S110
         pass
     if not isinstance(script_obj, list):
         script_obj = [script_obj]
@@ -95,14 +95,14 @@ def run_script() -> None:  # noqa
     url = f"https://empty:{auth}@github.com/{user_name}/{repo}"
     run(f"git clone {url} --filter=blob:none -b {branch} test")
     if dry_run:
-        os.mkdir("./test")
+        Path("./test").mkdir()
 
     os.chdir("test")
     run("pip install -e '.[test]'")
     for cmd in script:
         try:
             run(cmd)
-        except Exception:  # noqa S110
+        except Exception:  # noqa: S112
             continue
 
     # Use GitHub Actions bot user and email by default.
