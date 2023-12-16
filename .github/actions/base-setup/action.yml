@@ -114,7 +114,7 @@ runs:
         set -eux
         echo "::group::Upgrade packaging dependencies"
         python -m pip install --upgrade pip
-        pipx install hatch
+        pipx install hatch --python=$(which python)
         echo "::endgroup::"
 
     - name: Handle dependency type
