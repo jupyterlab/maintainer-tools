@@ -2,6 +2,27 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.24.3
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...512a51d1c9843762a0100ed9d7bb9ada14374ff0))
+
+### Bugs fixed
+
+- Install hatch with global python [#217](https://github.com/jupyterlab/maintainer-tools/pull/217) ([@blink1073](https://github.com/blink1073))
+
+### Maintenance and upkeep improvements
+
+- Update ruff and typing [#213](https://github.com/jupyterlab/maintainer-tools/pull/213) ([@blink1073](https://github.com/blink1073))
+- chore: update pre-commit hooks [#212](https://github.com/jupyterlab/maintainer-tools/pull/212) ([@pre-commit-ci](https://github.com/pre-commit-ci))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2023-10-16&to=2023-12-18&type=c))
+
+[@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2023-10-16..2023-12-18&type=Issues) | [@pre-commit-ci](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Apre-commit-ci+updated%3A2023-10-16..2023-12-18&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.24.2
 
 ([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...c454f13fc7a7746ccfc844b06f81856ead87b105))
@@ -15,8 +36,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2023-10-16&to=2023-10-16&type=c))
 
 [@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2023-10-16..2023-10-16&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.24.1
 
