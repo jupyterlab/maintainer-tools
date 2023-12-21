@@ -114,7 +114,7 @@ runs:
         set -eux
         echo "::group::Upgrade packaging dependencies"
         python -m pip install --upgrade pip
-        if [ "$RUNNER_OS" != "Windows"]; then
+        if [ "$RUNNER_OS" != "Windows" ]; then
           pipx install hatch --python $(which python)
         else
           pipx install hatch
