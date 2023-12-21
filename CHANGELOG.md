@@ -2,6 +2,22 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.24.4
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...ccd05630afa18952c92dd71d54bd2fc127376d95))
+
+### Bugs fixed
+
+- Fix base-setup bash syntax [#218](https://github.com/jupyterlab/maintainer-tools/pull/218) ([@blink1073](https://github.com/blink1073))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2023-12-18&to=2023-12-21&type=c))
+
+[@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2023-12-18..2023-12-21&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.24.3
 
 ([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...512a51d1c9843762a0100ed9d7bb9ada14374ff0))
@@ -20,8 +36,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2023-10-16&to=2023-12-18&type=c))
 
 [@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2023-10-16..2023-12-18&type=Issues) | [@pre-commit-ci](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Apre-commit-ci+updated%3A2023-10-16..2023-12-18&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.24.2
 
