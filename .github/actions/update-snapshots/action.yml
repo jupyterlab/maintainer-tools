@@ -74,7 +74,7 @@ runs:
       working-directory: ${{ inputs.test_folder }}
       run: |
         ${{ inputs.npm_client }} install
-        ${{ inputs.npm_client }} run playwright install ${{ inputs.chromium }}
+        ${{ inputs.npm_client }} run playwright install ${{ inputs.browser }}
 
     - name: Wait for the server
       if: ${{ inputs.start_server_script != 'null' }}
@@ -88,7 +88,7 @@ runs:
       continue-on-error: ${{ inputs.continue_on_error == 'yes' }}
       shell: bash -l {0}
       working-directory: ${{ inputs.test_folder }}
-      run: ${{ inputs.npm_client }} run ${{ inputs.update_script }}
+      run: ${{ inputs.npm_client }} run ${{ inputs.update_script }} --browser '${{ inputs.browser }}'
 
     - name: Compress snapshots
       if: ${{ runner.os == 'Linux' }}
@@ -105,7 +105,7 @@ runs:
     - name: Upload snapshots as artifact
       uses: actions/upload-artifact@v3
       with:
-        name: ${{ inputs.artifact_name }}
+        name: ${{ inputs.artifact_name }}-${{ inputs.browser }}
         path: ${{ inputs.test_folder }}/**/*-snapshots/*.*
 
     - name: Upload report as artifact
