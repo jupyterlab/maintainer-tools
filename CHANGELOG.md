@@ -2,6 +2,24 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.24.5
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...d7bf1c9178bc23b305b72ae08d596fd2d6fee37a))
+
+### Maintenance and upkeep improvements
+
+- Update Release Scripts [#223](https://github.com/jupyterlab/maintainer-tools/pull/223) ([@blink1073](https://github.com/blink1073))
+- chore: update pre-commit hooks [#220](https://github.com/jupyterlab/maintainer-tools/pull/220) ([@pre-commit-ci](https://github.com/pre-commit-ci))
+- chore: update pre-commit hooks [#219](https://github.com/jupyterlab/maintainer-tools/pull/219) ([@pre-commit-ci](https://github.com/pre-commit-ci))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2023-12-21&to=2024-03-12&type=c))
+
+[@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2023-12-21..2024-03-12&type=Issues) | [@pre-commit-ci](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Apre-commit-ci+updated%3A2023-12-21..2024-03-12&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.24.4
 
 ([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...ccd05630afa18952c92dd71d54bd2fc127376d95))
@@ -15,8 +33,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2023-12-18&to=2023-12-21&type=c))
 
 [@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2023-12-18..2023-12-21&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.24.3
 
