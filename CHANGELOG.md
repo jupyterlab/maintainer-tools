@@ -4,112 +4,17 @@
 
 ## 0.25.0
 
-([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v0.9.0...65217969bdcabf66d2387b4c65d78edaddb8a05c))
-
-### Enhancements made
-
-- Add input to configure the yarn command via `npm_client` [#196](https://github.com/jupyterlab/maintainer-tools/pull/196) ([@jtpio](https://github.com/jtpio))
-- Add report upload [#193](https://github.com/jupyterlab/maintainer-tools/pull/193) ([@krassowski](https://github.com/krassowski))
-- Add coverage report handling [#189](https://github.com/jupyterlab/maintainer-tools/pull/189) ([@blink1073](https://github.com/blink1073))
-- Update command to get cache directory with yarn3 [#179](https://github.com/jupyterlab/maintainer-tools/pull/179) ([@brichet](https://github.com/brichet))
-- Don't fail if errors occurred when updating snapshots [#175](https://github.com/jupyterlab/maintainer-tools/pull/175) ([@fcollonval](https://github.com/fcollonval))
-- Clean up handling of minimum and prerelease versions [#153](https://github.com/jupyterlab/maintainer-tools/pull/153) ([@blink1073](https://github.com/blink1073))
-- Add ability to only create constraints file [#150](https://github.com/jupyterlab/maintainer-tools/pull/150) ([@blink1073](https://github.com/blink1073))
-- Add package download args option for downstream action [#146](https://github.com/jupyterlab/maintainer-tools/pull/146) ([@blink1073](https://github.com/blink1073))
-- Add pre-commit check [#134](https://github.com/jupyterlab/maintainer-tools/pull/134) ([@blink1073](https://github.com/blink1073))
-- Install hatch globally [#126](https://github.com/jupyterlab/maintainer-tools/pull/126) ([@blink1073](https://github.com/blink1073))
-- Add check links action [#124](https://github.com/jupyterlab/maintainer-tools/pull/124) ([@blink1073](https://github.com/blink1073))
-- Upload snapshots as artifact [#86](https://github.com/jupyterlab/maintainer-tools/pull/86) ([@fcollonval](https://github.com/fcollonval))
-- Automatically add maintainence label for known bots [#83](https://github.com/jupyterlab/maintainer-tools/pull/83) ([@blink1073](https://github.com/blink1073))
-
-### Bugs fixed
-
-- Fix base-setup bash syntax [#218](https://github.com/jupyterlab/maintainer-tools/pull/218) ([@blink1073](https://github.com/blink1073))
-- Install hatch with global python [#217](https://github.com/jupyterlab/maintainer-tools/pull/217) ([@blink1073](https://github.com/blink1073))
-- Handle more coverage errors [#211](https://github.com/jupyterlab/maintainer-tools/pull/211) ([@blink1073](https://github.com/blink1073))
-- Ignore coverage combine errors [#210](https://github.com/jupyterlab/maintainer-tools/pull/210) ([@blink1073](https://github.com/blink1073))
-- Fix handling of cov files [#190](https://github.com/jupyterlab/maintainer-tools/pull/190) ([@blink1073](https://github.com/blink1073))
-- Yarn cache dir action working for every version of yarn [#180](https://github.com/jupyterlab/maintainer-tools/pull/180) ([@brichet](https://github.com/brichet))
-- Fix `continue-on-error` configuration [#178](https://github.com/jupyterlab/maintainer-tools/pull/178) ([@fcollonval](https://github.com/fcollonval))
-- Fix specifier handling for constraints file [#166](https://github.com/jupyterlab/maintainer-tools/pull/166) ([@blink1073](https://github.com/blink1073))
-- Fix jupyter_core pinning [#164](https://github.com/jupyterlab/maintainer-tools/pull/164) ([@ophie200](https://github.com/ophie200))
-- Decode check links output on failure [#162](https://github.com/jupyterlab/maintainer-tools/pull/162) ([@jtpio](https://github.com/jtpio))
-- Log the output when a link check fails [#161](https://github.com/jupyterlab/maintainer-tools/pull/161) ([@blink1073](https://github.com/blink1073))
-- Clean up create constraints [#159](https://github.com/jupyterlab/maintainer-tools/pull/159) ([@blink1073](https://github.com/blink1073))
-- Disable warnings by default when running downstream tests [#157](https://github.com/jupyterlab/maintainer-tools/pull/157) ([@blink1073](https://github.com/blink1073))
-- Log link exceptions [#156](https://github.com/jupyterlab/maintainer-tools/pull/156) ([@blink1073](https://github.com/blink1073))
-- Add mispell guard and fix pip cache [#155](https://github.com/jupyterlab/maintainer-tools/pull/155) ([@blink1073](https://github.com/blink1073))
-- Fix package_download_extra_args [#147](https://github.com/jupyterlab/maintainer-tools/pull/147) ([@blink1073](https://github.com/blink1073))
-- Fix handling of base setup [#138](https://github.com/jupyterlab/maintainer-tools/pull/138) ([@blink1073](https://github.com/blink1073))
-- Install hatch with pipx [#135](https://github.com/jupyterlab/maintainer-tools/pull/135) ([@blink1073](https://github.com/blink1073))
-- Fix ignore links syntax [#132](https://github.com/jupyterlab/maintainer-tools/pull/132) ([@blink1073](https://github.com/blink1073))
-- Fix hook name [#130](https://github.com/jupyterlab/maintainer-tools/pull/130) ([@blink1073](https://github.com/blink1073))
-- Clean up packaging dependency update [#128](https://github.com/jupyterlab/maintainer-tools/pull/128) ([@blink1073](https://github.com/blink1073))
-- Ensure package is installed with test files in test-sdist [#114](https://github.com/jupyterlab/maintainer-tools/pull/114) ([@TiagodePAlves](https://github.com/TiagodePAlves))
-- Update workflows and base setup [#100](https://github.com/jupyterlab/maintainer-tools/pull/100) ([@blink1073](https://github.com/blink1073))
-- Fix auto maintainence label for bots [#95](https://github.com/jupyterlab/maintainer-tools/pull/95) ([@blink1073](https://github.com/blink1073))
-- Fix bot user names [#92](https://github.com/jupyterlab/maintainer-tools/pull/92) ([@blink1073](https://github.com/blink1073))
-- Fix default test command in test-sdist [#90](https://github.com/jupyterlab/maintainer-tools/pull/90) ([@blink1073](https://github.com/blink1073))
-- Fix typo [#88](https://github.com/jupyterlab/maintainer-tools/pull/88) ([@max-schaefer](https://github.com/max-schaefer))
-- Fix push error [#84](https://github.com/jupyterlab/maintainer-tools/pull/84) ([@fcollonval](https://github.com/fcollonval))
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v0.24.5...65217969bdcabf66d2387b4c65d78edaddb8a05c))
 
 ### Maintenance and upkeep improvements
 
-- Update Release Scripts [#223](https://github.com/jupyterlab/maintainer-tools/pull/223) ([@blink1073](https://github.com/blink1073))
 - Bump to Node.js 20 by default [#222](https://github.com/jupyterlab/maintainer-tools/pull/222) ([@jtpio](https://github.com/jtpio))
-- chore: update pre-commit hooks [#220](https://github.com/jupyterlab/maintainer-tools/pull/220) ([@pre-commit-ci](https://github.com/pre-commit-ci))
-- chore: update pre-commit hooks [#219](https://github.com/jupyterlab/maintainer-tools/pull/219) ([@pre-commit-ci](https://github.com/pre-commit-ci))
-- Update ruff and typing [#213](https://github.com/jupyterlab/maintainer-tools/pull/213) ([@blink1073](https://github.com/blink1073))
-- chore: update pre-commit hooks [#212](https://github.com/jupyterlab/maintainer-tools/pull/212) ([@pre-commit-ci](https://github.com/pre-commit-ci))
-- chore: update pre-commit hooks [#209](https://github.com/jupyterlab/maintainer-tools/pull/209) ([@pre-commit-ci](https://github.com/pre-commit-ci))
-- Bump actions/checkout from 3 to 4 [#207](https://github.com/jupyterlab/maintainer-tools/pull/207) ([@dependabot](https://github.com/dependabot))
-- Adopt sp-repo-review [#206](https://github.com/jupyterlab/maintainer-tools/pull/206) ([@blink1073](https://github.com/blink1073))
-- Support python 3.12 [#199](https://github.com/jupyterlab/maintainer-tools/pull/199) ([@blink1073](https://github.com/blink1073))
-- Allow pip debug to fail [#198](https://github.com/jupyterlab/maintainer-tools/pull/198) ([@blink1073](https://github.com/blink1073))
-- Allow pip list to fail [#197](https://github.com/jupyterlab/maintainer-tools/pull/197) ([@blink1073](https://github.com/blink1073))
-- Print the constraints file to terminal [#187](https://github.com/jupyterlab/maintainer-tools/pull/187) ([@blink1073](https://github.com/blink1073))
-- Print the pip list in base setup [#186](https://github.com/jupyterlab/maintainer-tools/pull/186) ([@blink1073](https://github.com/blink1073))
-- Bump actions/checkout from 2 to 3 [#184](https://github.com/jupyterlab/maintainer-tools/pull/184) ([@dependabot](https://github.com/dependabot))
-- Add more linting [#181](https://github.com/jupyterlab/maintainer-tools/pull/181) ([@blink1073](https://github.com/blink1073))
-- Add releaser workflows [#177](https://github.com/jupyterlab/maintainer-tools/pull/177) ([@blink1073](https://github.com/blink1073))
-- Updates default minimum node version from 16 to 18 [#174](https://github.com/jupyterlab/maintainer-tools/pull/174) ([@JasonWeill](https://github.com/JasonWeill))
-- Sync lint deps [#173](https://github.com/jupyterlab/maintainer-tools/pull/173) ([@blink1073](https://github.com/blink1073))
-- Clean up lint [#171](https://github.com/jupyterlab/maintainer-tools/pull/171) ([@blink1073](https://github.com/blink1073))
-- Bump ruff from 0.0.189 to 0.0.194 [#169](https://github.com/jupyterlab/maintainer-tools/pull/169) ([@dependabot](https://github.com/dependabot))
-- Update linters [#168](https://github.com/jupyterlab/maintainer-tools/pull/168) ([@blink1073](https://github.com/blink1073))
-- Allow releasing from repo [#167](https://github.com/jupyterlab/maintainer-tools/pull/167) ([@blink1073](https://github.com/blink1073))
-- Adopt ruff and address lint [#165](https://github.com/jupyterlab/maintainer-tools/pull/165) ([@blink1073](https://github.com/blink1073))
-- Add more dependency verification [#154](https://github.com/jupyterlab/maintainer-tools/pull/154) ([@blink1073](https://github.com/blink1073))
-- Write env variable for min version [#151](https://github.com/jupyterlab/maintainer-tools/pull/151) ([@blink1073](https://github.com/blink1073))
-- Update upstream actions [#148](https://github.com/jupyterlab/maintainer-tools/pull/148) ([@blink1073](https://github.com/blink1073))
-- Bump jupyter-server/jupyter_releaser from 1 to 2 [#145](https://github.com/jupyterlab/maintainer-tools/pull/145) ([@dependabot](https://github.com/dependabot))
-- Bump actions/checkout from 2 to 3 [#144](https://github.com/jupyterlab/maintainer-tools/pull/144) ([@dependabot](https://github.com/dependabot))
-- Add dependabot [#143](https://github.com/jupyterlab/maintainer-tools/pull/143) ([@blink1073](https://github.com/blink1073))
-- Remove flake8 file [#140](https://github.com/jupyterlab/maintainer-tools/pull/140) ([@blink1073](https://github.com/blink1073))
-- Speed up ci and add branch protection [#139](https://github.com/jupyterlab/maintainer-tools/pull/139) ([@blink1073](https://github.com/blink1073))
-- Update action.yml [#137](https://github.com/jupyterlab/maintainer-tools/pull/137) ([@gabalafou](https://github.com/gabalafou))
-- Fix package.json formatting [#136](https://github.com/jupyterlab/maintainer-tools/pull/136) ([@blink1073](https://github.com/blink1073))
-- Install hatch with pip [#129](https://github.com/jupyterlab/maintainer-tools/pull/129) ([@blink1073](https://github.com/blink1073))
-- Switch to using hatch version [#123](https://github.com/jupyterlab/maintainer-tools/pull/123) ([@blink1073](https://github.com/blink1073))
-- Upgraded python and node versions [#121](https://github.com/jupyterlab/maintainer-tools/pull/121) ([@3coins](https://github.com/3coins))
-- Fix update snapshots tests [#111](https://github.com/jupyterlab/maintainer-tools/pull/111) ([@fcollonval](https://github.com/fcollonval))
-- Fix flake8 v5 compat [#110](https://github.com/jupyterlab/maintainer-tools/pull/110) ([@blink1073](https://github.com/blink1073))
-- Switch to hatch backend [#99](https://github.com/jupyterlab/maintainer-tools/pull/99) ([@blink1073](https://github.com/blink1073))
-- Allow bot PRs to be automatically labeled [#98](https://github.com/jupyterlab/maintainer-tools/pull/98) ([@blink1073](https://github.com/blink1073))
-- Clean up log output and use boolean input value in pr_script workflow [#87](https://github.com/jupyterlab/maintainer-tools/pull/87) ([@blink1073](https://github.com/blink1073))
-- Update docs on test-sdist [#80](https://github.com/jupyterlab/maintainer-tools/pull/80) ([@blink1073](https://github.com/blink1073))
-
-### Documentation improvements
-
-- Update example workflow to include comment reaction (:+1:) [#208](https://github.com/jupyterlab/maintainer-tools/pull/208) ([@jtpio](https://github.com/jtpio))
-- Fix typo [#131](https://github.com/jupyterlab/maintainer-tools/pull/131) ([@jtpio](https://github.com/jtpio))
-- Add note about default warnings in minimum version test [#81](https://github.com/jupyterlab/maintainer-tools/pull/81) ([@blink1073](https://github.com/blink1073))
 
 ### Contributors to this release
 
-([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2022-03-31&to=2024-03-19&type=c))
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2024-03-12&to=2024-03-19&type=c))
 
-[@3coins](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3A3coins+updated%3A2022-03-31..2024-03-19&type=Issues) | [@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2022-03-31..2024-03-19&type=Issues) | [@brichet](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Abrichet+updated%3A2022-03-31..2024-03-19&type=Issues) | [@dependabot](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Adependabot+updated%3A2022-03-31..2024-03-19&type=Issues) | [@fcollonval](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Afcollonval+updated%3A2022-03-31..2024-03-19&type=Issues) | [@gabalafou](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Agabalafou+updated%3A2022-03-31..2024-03-19&type=Issues) | [@JasonWeill](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3AJasonWeill+updated%3A2022-03-31..2024-03-19&type=Issues) | [@jtpio](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ajtpio+updated%3A2022-03-31..2024-03-19&type=Issues) | [@krassowski](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Akrassowski+updated%3A2022-03-31..2024-03-19&type=Issues) | [@max-schaefer](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Amax-schaefer+updated%3A2022-03-31..2024-03-19&type=Issues) | [@ophie200](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Aophie200+updated%3A2022-03-31..2024-03-19&type=Issues) | [@pre-commit-ci](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Apre-commit-ci+updated%3A2022-03-31..2024-03-19&type=Issues) | [@TiagodePAlves](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3ATiagodePAlves+updated%3A2022-03-31..2024-03-19&type=Issues) | [@welcome](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Awelcome+updated%3A2022-03-31..2024-03-19&type=Issues)
+[@jtpio](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ajtpio+updated%3A2024-03-12..2024-03-19&type=Issues)
 
 <!-- <END NEW CHANGELOG ENTRY> -->
 
