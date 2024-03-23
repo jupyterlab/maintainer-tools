@@ -54,7 +54,7 @@ jobs:
           pip install -e ".[test]"
           # NOTE: keep this version in sync with README
           python --version
-          python --version | grep "3.11"
+          python --version | grep "3.12"
           hatch run check_pre
 
   test_lint:
