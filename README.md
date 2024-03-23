@@ -193,38 +193,6 @@ jobs:
 
 To test against a prerelease use `package_download_extra_args: "--pre"`.
 
-## Test Against Dependency Minimum Version
-
-**DEPRECATED**.  Use `dependency_type: minimum` in the `base-setup` action
-instead.
-
-Use this action to test that your minimum dependency version constraints are valid. Note: you may want to also use the minimum supported version of Python
-since the minimum versions might not have wheels on newer Pythons. Note that you should use `pytest -W default` if you are using `filterwarnings` and relying on newer versions of the library to have removed warnings.
-
-```yaml
-name: Minimum Dependencies
-
-on:
-  push:
-    branches: ["main"]
-  pull_request:
-
-jobs:
-  test_minimums:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Base Setup
-        uses: jupyterlab/maintainer-tools/.github/actions/base-setup@v1
-        with:
-          python_version: "3.8" # Test against minimum Python version as well
-      - name: Install minimum versions
-        uses: jupyterlab/maintainer-tools/.github/actions/install-minimums@v1
-      - name: Run the unit tests
-        run: pytest -vv -W default
-```
-
 ## Test SDist
 
 Use this pair of actions to build an sdist for your package, and then test it
