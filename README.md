@@ -48,7 +48,7 @@ jobs:
 If you want to use your minimum dependencies, you can use the following
 option, which will create a constraints file and set the `PIP_CONSTRAINT`
 environment variable, so that installations will use that file.
-By default the Python version will be "3.11", which can be overridden with
+By default the Python version will be "3.7", which can be overridden with
 `python_version`.  Note that the environment variable also works if
 you use virtual environments like `hatch`.
 
@@ -68,9 +68,12 @@ you use virtual environments like `hatch`.
         run: pytest
 ```
 
-If you want to run against prereleases and the latest stable Python,
-use the following, which will install Python 3.11 and set the
-`PIP_PRE` environment variable::
+If you want to use your minimum dependencies, you can use the following
+option, which will create a constraints file and set the `PIP_CONSTRAINT`
+environment variable, so that installations will use that file.
+By default the Python version will be "3.12", which can be overridden with
+`python_version`.  Note that the environment variable also works if
+you use virtual environments like `hatch`.
 
 ```yaml
   prereleases:
