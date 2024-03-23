@@ -132,7 +132,7 @@ runs:
         elif [ $DEPENDENCY_TYPE == 'minimum' ]; then
           FLAGS="--resolution=lowest-direct"
         fi
-        uv pip compile $FLAGS pyproject.toml -o constraints.txt
+        uv pip compile $FLAGS pyproject.toml -o $HOME/constraints.txt
         echo "PIP_CONSTRAINT=$HOME/constraints.txt" >> $GITHUB_ENV
 
     - name: Print Diagnostics
