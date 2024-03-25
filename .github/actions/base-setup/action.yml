@@ -21,7 +21,7 @@ runs:
 
         # Handle default python value based on dependency type.
         if [ $DEPENDENCY_TYPE == "pre" ]; then
-          DEFAULT_PYTHON="3.11"
+          DEFAULT_PYTHON="3.12"
         elif [ $DEPENDENCY_TYPE == "minimum" ]; then
           DEFAULT_PYTHON="3.8"
         elif [ $DEPENDENCY_TYPE != "standard" ]; then
@@ -114,6 +114,7 @@ runs:
         set -eux
         echo "::group::Upgrade packaging dependencies"
         python -m pip install --upgrade pip
+        pipx install uv
         if [ "$RUNNER_OS" != "Windows" ]; then
           pipx install hatch --python $(which python)
         else
@@ -125,11 +126,14 @@ runs:
       shell: bash
       run: |
         set -eux
+        FLAGS=""
         if [ $DEPENDENCY_TYPE == 'pre' ]; then
-          echo "PIP_PRE=1" >> $GITHUB_ENV
+          FLAGS="--prerelease=allow"
         elif [ $DEPENDENCY_TYPE == 'minimum' ]; then
-          source ${{ github.action_path }}/setup_constraints.sh
+          FLAGS="--resolution=lowest-direct"
         fi
+        uv pip compile $FLAGS pyproject.toml -o $HOME/constraints.txt
+        echo "PIP_CONSTRAINT=$HOME/constraints.txt" >> $GITHUB_ENV
 
     - name: Print Diagnostics
       shell: bash

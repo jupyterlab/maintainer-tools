@@ -54,7 +54,7 @@ jobs:
           pip install -e ".[test]"
           # NOTE: keep this version in sync with README
           python --version
-          python --version | grep "3.11"
+          python --version | grep "3.12"
           hatch run check_pre
 
   test_lint:
@@ -147,35 +147,6 @@ jobs:
           dry_run: true
           pre_commit: true
           target: "https://github.com/jupyterlab/maintainer-tools/pull/39"
-
-  install_minimums:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: ["3.8"] # Test against minimum Python version as well
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Base Setup
-        uses: ./.github/actions/base-setup
-      - name: Clone a repo
-        run: git clone --depth=1 https://github.com/jupyter/nbformat.git
-      - name: Install minimum versions
-        uses: ./.github/actions/install-minimums
-        with:
-          working-directory: nbformat
-      - name: Run the unit tests
-        working-directory: nbformat
-        run: pytest -vv
-      - name: Only create file
-        uses: ./.github/actions/install-minimums
-        with:
-          only_create_file: 1
-          constraints_file_path: "./constraints-test.txt"
-      - name: Ensure constraints file
-        run: |
-          cat ./constraints-test.txt
-          echo $PIP_CONSTRAINT | grep "constraints-test.txt"
 
   update_snapshots-manual-server:
     runs-on: ubuntu-latest
@@ -311,7 +282,6 @@ jobs:
       - check_links
       - binder_link
       - pr_script
-      - install_minimums
       - downstream_defaults
       - downstream_overrides
       - update_snapshots-manual-server
