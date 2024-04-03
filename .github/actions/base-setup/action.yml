@@ -124,10 +124,12 @@ runs:
 
     - name: Handle dependency type
       shell: bash
-      if: ${{ !startsWith(runner.os, "Windows") }}
       run: |
         set -eux}
         FLAGS=""
+        if [ "$RUNNER_OS" != "Windows" ]; then
+          exit 0
+        fi
         if [ $DEPENDENCY_TYPE == 'pre' ]; then
           FLAGS="--prerelease=allow"
         elif [ $DEPENDENCY_TYPE == 'minimum' ]; then
