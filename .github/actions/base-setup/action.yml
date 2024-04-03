@@ -132,7 +132,7 @@ runs:
         elif [ $DEPENDENCY_TYPE == 'minimum' ]; then
           FLAGS="--resolution=lowest-direct"
         fi
-        if [ "$RUNNER_OS" != "Windows" ]; then
+        if [ "$RUNNER_OS" == "Windows" ]; then
           if [ -n "$FLAGS" ]; then
             echo "dependency_type not supported on Windows"
             exit 1
