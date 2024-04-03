@@ -51,6 +51,7 @@ environment variable, so that installations will use that file.
 By default the Python version will be "3.7", which can be overridden with
 `python_version`.  Note that the environment variable also works if
 you use virtual environments like `hatch`.
+Note: this does not work on Windows, and will error.
 
 ```yaml
   minimum_version:
@@ -68,12 +69,13 @@ you use virtual environments like `hatch`.
         run: pytest
 ```
 
-If you want to use your minimum dependencies, you can use the following
+If you want to use your pending dependencies, you can use the following
 option, which will create a constraints file and set the `PIP_CONSTRAINT`
 environment variable, so that installations will use that file.
 By default the Python version will be "3.12", which can be overridden with
 `python_version`.  Note that the environment variable also works if
 you use virtual environments like `hatch`.
+Note: this does not work on Windows, and will error.
 
 ```yaml
   prereleases:
