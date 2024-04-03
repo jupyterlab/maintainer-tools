@@ -2,6 +2,30 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.25.1
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...e3d421997a2f6526351a0f889b05f185781575b9))
+
+### Enhancements made
+
+- Use uv for Package Constraints [#225](https://github.com/jupyterlab/maintainer-tools/pull/225) ([@blink1073](https://github.com/blink1073))
+
+### Bugs fixed
+
+- Skip github usernames in link check [#226](https://github.com/jupyterlab/maintainer-tools/pull/226) ([@blink1073](https://github.com/blink1073))
+
+### Documentation improvements
+
+- Fix `0.25.0` changelog [#224](https://github.com/jupyterlab/maintainer-tools/pull/224) ([@jtpio](https://github.com/jtpio))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2024-03-19&to=2024-04-03&type=c))
+
+[@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2024-03-19..2024-04-03&type=Issues) | [@jtpio](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ajtpio+updated%3A2024-03-19..2024-04-03&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.25.0
 
 ([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v0.24.5...65217969bdcabf66d2387b4c65d78edaddb8a05c))
@@ -15,8 +39,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2024-03-12&to=2024-03-19&type=c))
 
 [@jtpio](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ajtpio+updated%3A2024-03-12..2024-03-19&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.24.5
 
