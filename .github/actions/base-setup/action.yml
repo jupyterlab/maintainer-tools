@@ -134,7 +134,7 @@ runs:
         fi
         if [ "$RUNNER_OS" != "Windows" ]; then
           if [ -n "$FLAGS" ]; then
-            echo "dependency_type not supported on "Windows"
+            echo "dependency_type not supported on Windows"
             exit 1
           else
             exit 0
