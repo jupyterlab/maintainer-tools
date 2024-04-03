@@ -124,7 +124,7 @@ runs:
 
     - name: Handle dependency type
       shell: bash
-      if: ${{ runner.os != "Windows" }}
+      if: ${{ !startsWith(runner.os, "Windows") }}
       run: |
         set -eux}
         FLAGS=""
