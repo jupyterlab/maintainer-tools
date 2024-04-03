@@ -124,8 +124,9 @@ runs:
 
     - name: Handle dependency type
       shell: bash
+      if: ${{ runner.os != "Windows" }}
       run: |
-        set -eux
+        set -eux}
         FLAGS=""
         if [ $DEPENDENCY_TYPE == 'pre' ]; then
           FLAGS="--prerelease=allow"
