@@ -1,5 +1,5 @@
 {
-  "name": "@jupyterlab/maintainer-tools",
-  "version": "0.25.2",
-  "private": true
+    "name": "@jupyterlab/maintainer-tools",
+    "version": "0.25.3",
+    "private": true
 }

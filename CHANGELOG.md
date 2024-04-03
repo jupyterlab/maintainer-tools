@@ -2,6 +2,22 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.25.3
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...1a96514539154d427119253baa7d544ab8ca159b))
+
+### Bugs fixed
+
+- Do not try and handle deps on Windows [#229](https://github.com/jupyterlab/maintainer-tools/pull/229) ([@blink1073](https://github.com/blink1073))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2024-04-03&to=2024-04-03&type=c))
+
+[@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2024-04-03..2024-04-03&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.25.1
 
 ([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...e3d421997a2f6526351a0f889b05f185781575b9))
@@ -23,8 +39,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2024-03-19&to=2024-04-03&type=c))
 
 [@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2024-03-19..2024-04-03&type=Issues) | [@jtpio](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ajtpio+updated%3A2024-03-19..2024-04-03&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.25.0
 
