@@ -132,8 +132,12 @@ runs:
         elif [ $DEPENDENCY_TYPE == 'minimum' ]; then
           FLAGS="--resolution=lowest-direct"
         fi
-        uv pip compile $FLAGS pyproject.toml -o $HOME/constraints.txt
-        echo "PIP_CONSTRAINT=$HOME/constraints.txt" >> $GITHUB_ENV
+        if [ -f pyproject.toml ]; then
+          uv pip compile $FLAGS pyproject.toml -o $HOME/constraints.txt
+          echo "PIP_CONSTRAINT=$HOME/constraints.txt" >> $GITHUB_ENV
+        elif [ -n "$FLAGS" ]; then
+          echo "Missing pyproject.toml needed for DEPENDENCY_TYPE: $DEPENDENCY_TYPE"
+        fi
 
     - name: Print Diagnostics
       shell: bash
