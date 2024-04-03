@@ -35,6 +35,7 @@ def check_links(ignore_glob: list[str], ignore_links: list[str], links_expire: s
         *list(ignore_links),
         "https://github.com/.*/(pull|issues)/.*",
         "https://github.com/search?",
+        "https://github.com/[^/]*$",
         "http://localhost.*",
         # https://github.com/github/feedback/discussions/14773
         "https://docs.github.com/.*",
