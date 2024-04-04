@@ -26,6 +26,9 @@ runs:
       run: |
         set -x
 
+        # Do not use previous constraints file.
+        unset PIP_CONSTRAINT
+
         echo "::group::Set up env values"
         package_name=${{inputs.package_name}}
         package_spec="${{inputs.package_spec}}"
