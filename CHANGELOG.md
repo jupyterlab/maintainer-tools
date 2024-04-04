@@ -2,6 +2,23 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.25.5
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...1b81acbb9ee60e99df37262f6f893ae3a81e21fe))
+
+### Bugs fixed
+
+- Fix preinstall check [#234](https://github.com/jupyterlab/maintainer-tools/pull/234) ([@blink1073](https://github.com/blink1073))
+- Do not use constraints file for downstream test [#233](https://github.com/jupyterlab/maintainer-tools/pull/233) ([@blink1073](https://github.com/blink1073))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2024-04-04&to=2024-04-04&type=c))
+
+[@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2024-04-04..2024-04-04&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.25.4
 
 ([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...1da9e608cc0895c22d36dbc059f8936d5aad9c03))
@@ -19,8 +36,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2024-04-03&to=2024-04-04&type=c))
 
 [@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2024-04-03..2024-04-04&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.25.3
 
