@@ -21,7 +21,7 @@ runs:
 
         # Handle default python value based on dependency type.
         if [ $DEPENDENCY_TYPE == "pre" ]; then
-          DEFAULT_PYTHON="3.12"
+          DEFAULT_PYTHON="3.11"
         elif [ $DEPENDENCY_TYPE == "minimum" ]; then
           DEFAULT_PYTHON="3.8"
         elif [ $DEPENDENCY_TYPE != "standard" ]; then
@@ -114,7 +114,6 @@ runs:
         set -eux
         echo "::group::Upgrade packaging dependencies"
         python -m pip install --upgrade pip
-        pipx install uv
         if [ "$RUNNER_OS" != "Windows" ]; then
           pipx install hatch --python $(which python)
         else
@@ -126,25 +125,10 @@ runs:
       shell: bash
       run: |
         set -eux
-        FLAGS=""
         if [ $DEPENDENCY_TYPE == 'pre' ]; then
-          FLAGS="--prerelease=allow"
+          echo "PIP_PRE=1" >> $GITHUB_ENV
         elif [ $DEPENDENCY_TYPE == 'minimum' ]; then
-          FLAGS="--resolution=lowest-direct"
-        fi
-        if [ "$RUNNER_OS" == "Windows" ]; then
-          if [ -n "$FLAGS" ]; then
-            echo "dependency_type not supported on Windows"
-            exit 1
-          else
-            exit 0
-          fi
-        fi
-        if [ -f pyproject.toml ]; then
-          uv pip compile $FLAGS --extra test pyproject.toml -o $HOME/constraints.txt
-          echo "PIP_CONSTRAINT=$HOME/constraints.txt" >> $GITHUB_ENV
-        elif [ -n "$FLAGS" ]; then
-          echo "Missing pyproject.toml needed for DEPENDENCY_TYPE: $DEPENDENCY_TYPE"
+          source ${{ github.action_path }}/setup_constraints.sh
         fi
 
     - name: Print Diagnostics
