@@ -2,6 +2,26 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.25.4
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...1da9e608cc0895c22d36dbc059f8936d5aad9c03))
+
+### Bugs fixed
+
+- Do not use constraints file for downstream test [#232](https://github.com/jupyterlab/maintainer-tools/pull/232) ([@blink1073](https://github.com/blink1073))
+
+### Maintenance and upkeep improvements
+
+- Use test extra in resolution [#231](https://github.com/jupyterlab/maintainer-tools/pull/231) ([@blink1073](https://github.com/blink1073))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2024-04-03&to=2024-04-04&type=c))
+
+[@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2024-04-03..2024-04-04&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.25.3
 
 ([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...1a96514539154d427119253baa7d544ab8ca159b))
@@ -15,8 +35,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2024-04-03&to=2024-04-03&type=c))
 
 [@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2024-04-03..2024-04-03&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.25.1
 
