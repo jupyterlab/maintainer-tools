@@ -40,7 +40,7 @@ runs:
         echo "DEPENDENCY_TYPE=$DEPENDENCY_TYPE" >> $GITHUB_ENV
 
     - name: Install Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
         python-version: ${{ env.PYTHON_VERSION }}
         allow-prereleases: true
@@ -54,7 +54,7 @@ runs:
       run: |
         echo "dir=$(pip cache dir)" >> $GITHUB_OUTPUT
     - name: Cache pip
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: ${{ steps.pip-cache.outputs.dir }}
         key: ${{ env.CACHE_PREFIX }}-pip-${{ env.PYTHON_VERSION }}-${{ hashFiles('setup.cfg', 'setup.py', '**/requirements.txt') }}
@@ -62,7 +62,7 @@ runs:
           ${{ env.CACHE_PREFIX }}-pip-${{ env.PYTHON_VERSION }}
 
     - name: Install node
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
         node-version: ${{ env.NODE_VERSION }}
 
@@ -77,7 +77,7 @@ runs:
         [[ "$CACHE_DIR" == "undefined" ]] && CACHE_DIR=$(yarn cache dir)
         echo "dir=$CACHE_DIR" >> $GITHUB_OUTPUT
     - name: Cache yarn
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
       with:
         path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
@@ -87,7 +87,7 @@ runs:
 
     - name: Cache checked links
       if: ${{ matrix.group == 'link_check' }}
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: ~/.cache/pytest-link-check
         key: ${{ env.CACHE_PREFIX }}-linkcheck-${{ hashFiles('**/*.md', '**/*.rst') }}-links
@@ -95,7 +95,7 @@ runs:
           ${{ env.CACHE_PREFIX }}-linkcheck-
 
     - name: Cache conda
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: ~/conda_pkgs_dir
         key: ${{ env.CACHE_PREFIX  }}-conda-${{ env.CACHE_NUMBER }}-${{
