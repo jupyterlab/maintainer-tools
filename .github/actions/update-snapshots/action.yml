@@ -103,13 +103,13 @@ runs:
         echo "::endgroup::"
 
     - name: Upload snapshots as artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: ${{ inputs.artifact_name }}
         path: ${{ inputs.test_folder }}/**/*-snapshots/*.*
 
     - name: Upload report as artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: ${{ inputs.report_name }}
         path: ${{ inputs.test_folder }}/playwright-report
