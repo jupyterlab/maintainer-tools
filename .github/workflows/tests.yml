@@ -25,7 +25,7 @@ jobs:
       - name: Base Setup
         uses: ./.github/actions/base-setup
         with:
-          node_version: 15.0
+          node_version: 18.0
       - name: Check Hatch Version
         run: hatch --version
 
@@ -189,6 +189,7 @@ jobs:
           test_folder: ${{ env.TEST_FOLDER }}
           server_url: https-get://playwright.dev
           dry_run: yes
+          artifact_name: playwright-manual-snapshots
 
   update_snapshots:
     runs-on: ubuntu-latest
