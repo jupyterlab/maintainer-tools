@@ -74,6 +74,8 @@ runs:
       working-directory: ${{ inputs.test_folder }}
       run: |
         ${{ inputs.npm_client }} install
+        # Force installing the dependencies
+        npx playwright install-deps || true
         ${{ inputs.npm_client }} run playwright install ${{ inputs.chromium }}
 
     - name: Wait for the server

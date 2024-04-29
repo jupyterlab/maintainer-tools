@@ -4,6 +4,10 @@ inputs:
   fail_under:
     description: "The coverage amount to fail under"
     default: 80
+  artifact_pattern:
+    description: ""
+    required: false
+    default: coverage-data*
 
 runs:
   using: "composite"
@@ -11,14 +15,17 @@ runs:
     - uses: actions/setup-python@v5
       with:
         # Use latest Python, so it understands all syntax.
-        python-version: "3.11"
+        python-version: "3.12"
 
     - run: python -Im pip install --upgrade coverage[toml]
       shell: bash
 
-    - uses: actions/download-artifact@v4
+    - name: Merge Artifacts
+      uses: actions/upload-artifact/merge@v4
       with:
         name: coverage-data
+        pattern: ${{ inputs.artifact_pattern }}
+        delete-merged: true
 
     - name: Combine coverage & fail if it's <${{inputs.fail_under}}.
       shell: bash

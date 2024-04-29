@@ -265,6 +265,8 @@ jobs:
           python -m coverage run -m pytest foobar.py
           ls -a
       - uses: ./.github/actions/upload-coverage
+        with:
+          artifact_name: coverage-data-${{ matrix.os }}
 
   coverage_report:
     name: Combine & check coverage
