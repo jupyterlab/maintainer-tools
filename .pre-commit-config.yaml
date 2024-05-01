@@ -35,6 +35,8 @@ repos:
     hooks:
       - id: prettier
         types_or: [yaml, html, json]
+        # Ignore package.json because its indentation is switched to 4 when upgrading the version
+        exclude: ^package.json$
 
   - repo: https://github.com/adamchainz/blacken-docs
     rev: "1.16.0"

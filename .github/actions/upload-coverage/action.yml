@@ -1,6 +1,13 @@
 name: "Upload Coverage"
 description: "Upload the coverage report(s) for this job"
 
+inputs:
+  # Optional inputs
+  artifact_name:
+    description: The artifact name - useful if multiple artifacts are created
+    required: false
+    default: coverage-data
+
 runs:
   using: "composite"
   steps:
@@ -11,8 +18,8 @@ runs:
           mv .coverage ".coverage.-$$-$RANDOM"
         fi
     - name: Upload coverage data
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
-        name: coverage-data
+        name: ${{ inputs.artifact_name }}
         path: ".coverage.*"
         if-no-files-found: ignore
