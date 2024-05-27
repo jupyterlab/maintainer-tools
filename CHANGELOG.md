@@ -2,6 +2,23 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.25.6
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...4c96ea39533bc6610e314fb90479dece766a9139))
+
+### Maintenance and upkeep improvements
+
+- Use hatch install action [#236](https://github.com/jupyterlab/maintainer-tools/pull/236) ([@blink1073](https://github.com/blink1073))
+- Upgrade actions [#235](https://github.com/jupyterlab/maintainer-tools/pull/235) ([@fcollonval](https://github.com/fcollonval))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2024-04-04&to=2024-05-27&type=c))
+
+[@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2024-04-04..2024-05-27&type=Issues) | [@fcollonval](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Afcollonval+updated%3A2024-04-04..2024-05-27&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.25.5
 
 ([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...1b81acbb9ee60e99df37262f6f893ae3a81e21fe))
@@ -16,8 +33,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2024-04-04&to=2024-04-04&type=c))
 
 [@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2024-04-04..2024-04-04&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.25.4
 
