@@ -108,17 +108,15 @@ runs:
       run: Set-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem -Name LongPathsEnabled -Value 1
       shell: pwsh
 
-    - name: Upgrade packaging dependencies
+    - name: Install Hatch
+      uses: pypa/hatch@install
+
+    - name: Upgrade pip
       shell: bash
       run: |
         set -eux
-        echo "::group::Upgrade packaging dependencies"
+        echo "::group::Upgrade pip"
         python -m pip install --upgrade pip
-        if [ "$RUNNER_OS" != "Windows" ]; then
-          pipx install hatch --python $(which python)
-        else
-          pipx install hatch
-        fi
         echo "::endgroup::"
 
     - name: Handle dependency type
