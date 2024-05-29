@@ -6,7 +6,7 @@ inputs:
   artifact_name:
     description: The artifact name - useful if multiple artifacts are created
     required: false
-    default: coverage-data
+    default: ""
 
 runs:
   using: "composite"
@@ -17,9 +17,17 @@ runs:
         if [ -f ".coverage" ]; then
           mv .coverage ".coverage.-$$-$RANDOM"
         fi
+    - name: Handle artifact name
+      shell: bash
+      run: |
+        name=${{ inputs.artifact_name }}
+        if [ -z "$name" ]; then
+          name="coverage-$RANDOM"
+        fi
+        echo "ARTIFACT_NAME=$ARTIFACT_NAME" >> $GITHUB_ENV
     - name: Upload coverage data
       uses: actions/upload-artifact@v4
       with:
-        name: ${{ inputs.artifact_name }}
+        name: ${{ env.ARTIFACT_NAME }}
         path: ".coverage.*"
         if-no-files-found: ignore
