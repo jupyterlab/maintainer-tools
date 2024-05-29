@@ -18,16 +18,17 @@ runs:
           mv .coverage ".coverage.-$$-$RANDOM"
         fi
     - name: Handle artifact name
+      id: artifact-name
       shell: bash
       run: |
         export name=${{ inputs.artifact_name }}
         if [ -z "$name" ]; then
           export name="coverage-$RANDOM"
         fi
-        echo "ARTIFACT_NAME=$ARTIFACT_NAME" >> $GITHUB_ENV
+        echo "artifact_name=$ARTIFACT_NAME" >> "$GITHUB_OUTPUT"
     - name: Upload coverage data
       uses: actions/upload-artifact@v4
       with:
-        name: ${{ env.ARTIFACT_NAME }}
+        name: ${{ steps.artifact-name.outputs.artifact_name }}
         path: ".coverage.*"
         if-no-files-found: ignore
