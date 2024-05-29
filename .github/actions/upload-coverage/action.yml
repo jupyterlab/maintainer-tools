@@ -20,9 +20,9 @@ runs:
     - name: Handle artifact name
       shell: bash
       run: |
-        name=${{ inputs.artifact_name }}
+        export name=${{ inputs.artifact_name }}
         if [ -z "$name" ]; then
-          name="coverage-$RANDOM"
+          export name="coverage-$RANDOM"
         fi
         echo "ARTIFACT_NAME=$ARTIFACT_NAME" >> $GITHUB_ENV
     - name: Upload coverage data
