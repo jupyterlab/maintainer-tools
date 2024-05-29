@@ -3,7 +3,7 @@ description: "Combine Coverage and Report"
 inputs:
   fail_under:
     description: "The coverage amount to fail under"
-    default: 80
+    default: "80"
   artifact_pattern:
     description: ""
     required: false
