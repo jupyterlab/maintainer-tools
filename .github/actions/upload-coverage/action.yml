@@ -21,9 +21,9 @@ runs:
       id: artifact-name
       shell: bash
       run: |
-        export name=${{ inputs.artifact_name }}
-        if [ -z "$name" ]; then
-          export name="coverage-$RANDOM"
+        export ARTIFACT_NAME=${{ inputs.artifact_name }}
+        if [ -z "$ARTIFACT_NAME" ]; then
+          export ARTIFACT_NAME="coverage-$RANDOM"
         fi
         echo "artifact_name=$ARTIFACT_NAME" >> "$GITHUB_OUTPUT"
     - name: Upload coverage data
