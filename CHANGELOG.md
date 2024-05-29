@@ -2,6 +2,22 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.25.7
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...7c6c120d97b33da4bb29b605a37720055821244e))
+
+### Bugs fixed
+
+- Use a random coverage artifact name if none is given [#237](https://github.com/jupyterlab/maintainer-tools/pull/237) ([@blink1073](https://github.com/blink1073))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2024-05-27&to=2024-05-29&type=c))
+
+[@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2024-05-27..2024-05-29&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.25.6
 
 ([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...4c96ea39533bc6610e314fb90479dece766a9139))
@@ -16,8 +32,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2024-04-04&to=2024-05-27&type=c))
 
 [@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2024-04-04..2024-05-27&type=Issues) | [@fcollonval](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Afcollonval+updated%3A2024-04-04..2024-05-27&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.25.5
 
