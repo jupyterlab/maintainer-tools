@@ -7,7 +7,7 @@ inputs:
   artifact_pattern:
     description: ""
     required: false
-    default: coverage-data*
+    default: coverage-*
 
 runs:
   using: "composite"
