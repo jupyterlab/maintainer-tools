@@ -2,6 +2,22 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.25.8
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...a5a04cdd16f19c4f3c86e299b188293e7923a2b4))
+
+### Bugs fixed
+
+- Fix coverage report handling [#238](https://github.com/jupyterlab/maintainer-tools/pull/238) ([@blink1073](https://github.com/blink1073))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2024-05-29&to=2024-05-30&type=c))
+
+[@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2024-05-29..2024-05-30&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.25.7
 
 ([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...7c6c120d97b33da4bb29b605a37720055821244e))
@@ -15,8 +31,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2024-05-27&to=2024-05-29&type=c))
 
 [@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2024-05-27..2024-05-29&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.25.6
 
