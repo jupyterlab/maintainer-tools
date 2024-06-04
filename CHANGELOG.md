@@ -2,6 +2,22 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.25.9
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...9b3f54587c1aeeb20e3fb5806dd1472317c9828f))
+
+### Bugs fixed
+
+- Revert "Use hatch install action" [#239](https://github.com/jupyterlab/maintainer-tools/pull/239) ([@blink1073](https://github.com/blink1073))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2024-05-30&to=2024-06-04&type=c))
+
+[@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2024-05-30..2024-06-04&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.25.8
 
 ([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...a5a04cdd16f19c4f3c86e299b188293e7923a2b4))
@@ -15,8 +31,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2024-05-29&to=2024-05-30&type=c))
 
 [@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2024-05-29..2024-05-30&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.25.7
 
