@@ -2,6 +2,22 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.25.10
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...e255a87c7a0f12f975ff4ca546ab063960dce9bb))
+
+### Bugs fixed
+
+- Enable corepack if `packageManager` is defined [#241](https://github.com/jupyterlab/maintainer-tools/pull/241) ([@fcollonval](https://github.com/fcollonval))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2024-06-04&to=2024-06-18&type=c))
+
+[@fcollonval](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Afcollonval+updated%3A2024-06-04..2024-06-18&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.25.9
 
 ([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...9b3f54587c1aeeb20e3fb5806dd1472317c9828f))
@@ -15,8 +31,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2024-05-30&to=2024-06-04&type=c))
 
 [@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2024-05-30..2024-06-04&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.25.8
 
