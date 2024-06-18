@@ -73,6 +73,11 @@ runs:
       id: yarn-cache-dir-path
       shell: bash
       run: |
+        # Enable corepack if the project defines packageManager
+        if [ -f package.json ]; then
+          export HAS_PKG_MANAGER=$(grep -e \"packageManager\"\: package.json)
+          if [ ! -z "$HAS_PKG_MANAGER" ]; then corepack enable; fi
+        fi
         CACHE_DIR=$(yarn config get cacheFolder)
         [[ "$CACHE_DIR" == "undefined" ]] && CACHE_DIR=$(yarn cache dir)
         echo "dir=$CACHE_DIR" >> $GITHUB_OUTPUT
