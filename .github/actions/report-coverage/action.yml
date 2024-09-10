@@ -26,6 +26,7 @@ runs:
         name: coverage-data
         pattern: ${{ inputs.artifact_pattern }}
         delete-merged: true
+        include-hidden-files: true
 
     - name: Combine coverage & fail if it's <${{inputs.fail_under}}.
       shell: bash
