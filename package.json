@@ -1,6 +1,6 @@
 {
     "name": "@jupyterlab/maintainer-tools",
-    "version": "0.25.10",
+    "version": "0.25.11",
     "private": true,
     "packageManager": "yarn@3.5.0"
 }

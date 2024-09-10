@@ -2,6 +2,24 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.25.11
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...d14b6d20a2941b51e65eab627946816117f6760b))
+
+### Bugs fixed
+
+- Add `include-hidden-files: true` to `report-coverage` action [#246](https://github.com/jupyterlab/maintainer-tools/pull/246) ([@jtpio](https://github.com/jtpio))
+- Enable `include-hidden-files` for `actions/upload-artifact@v4` [#245](https://github.com/jupyterlab/maintainer-tools/pull/245) ([@jtpio](https://github.com/jtpio))
+- Include (potentially nested) `pyproject.toml` files in the pip hash key [#244](https://github.com/jupyterlab/maintainer-tools/pull/244) ([@krassowski](https://github.com/krassowski))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2024-06-18&to=2024-09-10&type=c))
+
+[@jtpio](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ajtpio+updated%3A2024-06-18..2024-09-10&type=Issues) | [@krassowski](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Akrassowski+updated%3A2024-06-18..2024-09-10&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.25.10
 
 ([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...e255a87c7a0f12f975ff4ca546ab063960dce9bb))
@@ -15,8 +33,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2024-06-04&to=2024-06-18&type=c))
 
 [@fcollonval](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Afcollonval+updated%3A2024-06-04..2024-06-18&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.25.9
 
