@@ -32,3 +32,4 @@ runs:
         name: ${{ steps.artifact-name.outputs.artifact_name }}
         path: ".coverage.*"
         if-no-files-found: ignore
+        include-hidden-files: true
