@@ -21,14 +21,14 @@ runs:
 
         # Handle default python value based on dependency type.
         if [ $DEPENDENCY_TYPE == "pre" ]; then
-          DEFAULT_PYTHON="3.12"
+          DEFAULT_PYTHON="3.13"
         elif [ $DEPENDENCY_TYPE == "minimum" ]; then
           DEFAULT_PYTHON="3.8"
         elif [ $DEPENDENCY_TYPE != "standard" ]; then
           echo "Unrecognized dependency type $DEPENDENCY_TYPE"
           exit 1
         else
-          DEFAULT_PYTHON="3.11"
+          DEFAULT_PYTHON="3.12"
         fi
 
         echo "DEFAULT_PYTHON is $DEFAULT_PYTHON"
