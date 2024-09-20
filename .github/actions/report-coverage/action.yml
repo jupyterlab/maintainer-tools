@@ -15,7 +15,8 @@ runs:
     - uses: actions/setup-python@v5
       with:
         # Use latest Python, so it understands all syntax.
-        python-version: "3.12"
+        python-version: "3.13"
+        allow-prereleases: true
 
     - run: python -Im pip install --upgrade coverage[toml]
       shell: bash
