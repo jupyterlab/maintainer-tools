@@ -1,17 +1,21 @@
 import sys
-from importlib.metadata import PackageMetadata
 from pathlib import Path
-from typing import List, cast
+from typing import List, cast, TYPE_CHECKING
 
-from build.util import project_wheel_metadata
+from build.util import project_wheel_metadata    # type:ignore[import-not-found]
 from packaging.requirements import Requirement
+
+if TYPE_CHECKING:
+    # not importing this at runtime as it is only exposed in Python 3.10+
+    # (although the interface was already followed in earlier versions)
+    from importlib.metadata import PackageMetadata    # type:ignore[attr-defined]
 
 output_file = sys.argv[-2]
 top_level_project_dir = sys.argv[-1]
 constraints = {}
 
 
-def extract_dependencies(project_dir):
+def extract_dependencies(project_dir: str) -> List[str]:
     reqs = []
     print(f"Extracting metadata from wheel for {project_dir}...")
     metadata = project_wheel_metadata(source_dir=project_dir)
