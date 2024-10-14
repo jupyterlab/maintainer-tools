@@ -1,14 +1,14 @@
 import sys
 from pathlib import Path
-from typing import List, cast, TYPE_CHECKING
+from typing import TYPE_CHECKING, List, cast
 
-from build.util import project_wheel_metadata    # type:ignore[import-not-found]
+from build.util import project_wheel_metadata  # type:ignore[import-not-found]
 from packaging.requirements import Requirement
 
 if TYPE_CHECKING:
     # not importing this at runtime as it is only exposed in Python 3.10+
     # (although the interface was already followed in earlier versions)
-    from importlib.metadata import PackageMetadata    # type:ignore[attr-defined]
+    from importlib.metadata import PackageMetadata  # type:ignore[attr-defined]
 
 output_file = sys.argv[-2]
 top_level_project_dir = sys.argv[-1]
