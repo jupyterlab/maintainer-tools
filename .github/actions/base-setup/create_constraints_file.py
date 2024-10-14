@@ -1,21 +1,50 @@
 import sys
+from importlib.metadata import PackageMetadata
 from pathlib import Path
-from zipfile import ZipFile
+from typing import List, cast
 
+from build.util import project_wheel_metadata
 from packaging.requirements import Requirement
 
 output_file = sys.argv[-2]
-fname = sys.argv[-1]
+top_level_project_dir = sys.argv[-1]
 constraints = {}
 
-archive = ZipFile(fname)
-reqs = []
-for f in archive.namelist():
-    if f.endswith("METADATA"):
-        for li in archive.open(f).read().decode("utf-8").split("\n"):
-            if li.startswith("Requires-Dist"):
-                reqs.append(li.replace("Requires-Dist: ", ""))
-archive.close()
+
+def extract_dependencies(project_dir):
+    reqs = []
+    print(f"Extracting metadata from wheel for {project_dir}...")
+    metadata = project_wheel_metadata(source_dir=project_dir)
+    reqs.extend(get_requires_dist(metadata))
+
+    # extract requirements from local dependencies specified with file: protocol
+    # to support the mono-repo usecase
+    local_projects = {}
+    for req in reqs:
+        r = Requirement(req)
+        if r.url and r.url.startswith("file://"):
+            path = r.url.replace("file://", "")
+            local_projects[r.name] = path
+
+    reqs_from_local_dependencies = []
+    for dependency_name, path in local_projects.items():
+        print(f"Discovering constraints in local {dependency_name} package under {path}")
+        sub_dependencies = extract_dependencies(path)
+        # filter out dependencies between local packages (e.g. jupyter-ai depends on
+        # a fixed minimum version of `jupyter-ai-magics`, but here we want to test
+        # the latest version against its third-party dependencies - not the old one).
+        sub_dependencies = [
+            req for req in sub_dependencies if Requirement(req).name not in local_projects
+        ]
+        reqs_from_local_dependencies.extend(sub_dependencies)
+    return reqs + reqs_from_local_dependencies
+
+
+def get_requires_dist(metadata: PackageMetadata) -> List[str]:
+    return cast(List[str], metadata.get_all("Requires-Dist")) or []
+
+
+reqs = extract_dependencies(top_level_project_dir)
 
 for req in reqs:
     r = Requirement(req)
