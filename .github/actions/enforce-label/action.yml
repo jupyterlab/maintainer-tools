@@ -8,7 +8,7 @@ runs:
       if: ${{ github.event.action == 'opened' }}
       run: sleep 60
     - name: enforce-triage-label
-      uses: actions/github-script@v3
+      uses: actions/github-script@v7
       with:
         script: |
           const required = ['bug', 'enhancement', 'feature', 'maintenance', 'documentation'];
