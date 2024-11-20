@@ -8,13 +8,13 @@ runs:
       if: ${{ github.event.action == 'opened' }}
       run: sleep 60
     - name: enforce-triage-label
-      uses: actions/github-script@v3
+      uses: actions/github-script@v7
       with:
         script: |
           const required = ['bug', 'enhancement', 'feature', 'maintenance', 'documentation'];
           const botUsers =['pre-commit-ci[bot]', 'dependabot[bot]'];
           // https://docs.github.com/en/rest/reference/issues#get-an-issue
-          const response = await github.issues.get({
+          const response = await github.rest.issues.get({
             owner: context.repo.owner,
             repo: context.repo.repo,
             issue_number: context.issue.number,
@@ -31,7 +31,7 @@ runs:
             try {
               if (botUsers.indexOf(response.data.user.login) !== -1) {
                 // https://docs.github.com/en/rest/reference/issues#add-labels-to-an-issue
-                await github.issues.addLabels({
+                await github.rest.issues.addLabels({
                   owner: context.repo.owner,
                   repo: context.repo.repo,
                   issue_number: context.issue.number,
