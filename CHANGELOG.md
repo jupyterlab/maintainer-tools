@@ -2,6 +2,23 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.26.0
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...8caed5bdf3df5993f9bea9a078ae001ddb7600b1))
+
+### Maintenance and upkeep improvements
+
+- Bump to `actions/github-script@v7` [#252](https://github.com/jupyterlab/maintainer-tools/pull/252) ([@jtpio](https://github.com/jtpio))
+- CI: Bump pre to Python 3.13, standard to 3.12 [#248](https://github.com/jupyterlab/maintainer-tools/pull/248) ([@EwoutH](https://github.com/EwoutH))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2024-09-10&to=2024-11-20&type=c))
+
+[@EwoutH](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3AEwoutH+updated%3A2024-09-10..2024-11-20&type=Issues) | [@jtpio](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ajtpio+updated%3A2024-09-10..2024-11-20&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.25.11
 
 ([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...d14b6d20a2941b51e65eab627946816117f6760b))
@@ -17,8 +34,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2024-06-18&to=2024-09-10&type=c))
 
 [@jtpio](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ajtpio+updated%3A2024-06-18..2024-09-10&type=Issues) | [@krassowski](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Akrassowski+updated%3A2024-06-18..2024-09-10&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.25.10
 
