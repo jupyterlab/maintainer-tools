@@ -15,7 +15,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
-        python-version: ["3.8", "3.12"]
+        python-version: ["3.9", "3.12"]
         include:
           - os: ubuntu-latest
             python-version: "3.13"
@@ -40,7 +40,7 @@ jobs:
           pip install -e ".[test]"
           # NOTE: keep the python version in sync with README
           python --version
-          python --version | grep "3.8"
+          python --version | grep "3.9"
           hatch run check_minimum
 
   base_setup_pre:
