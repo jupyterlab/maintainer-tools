@@ -2,6 +2,22 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.27.0
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...7b3ab8eea942a1b297ba40bc1d0bc659a54fb81c))
+
+### Maintenance and upkeep improvements
+
+- Bump min Python to 3.9 [#253](https://github.com/jupyterlab/maintainer-tools/pull/253) ([@Carreau](https://github.com/Carreau))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2024-11-20&to=2024-12-17&type=c))
+
+[@Carreau](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3ACarreau+updated%3A2024-11-20..2024-12-17&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.26.0
 
 ([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...8caed5bdf3df5993f9bea9a078ae001ddb7600b1))
@@ -16,8 +32,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2024-09-10&to=2024-11-20&type=c))
 
 [@EwoutH](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3AEwoutH+updated%3A2024-09-10..2024-11-20&type=Issues) | [@jtpio](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ajtpio+updated%3A2024-09-10..2024-11-20&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.25.11
 
