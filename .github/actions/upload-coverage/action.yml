@@ -1,6 +1,13 @@
 name: "Upload Coverage"
 description: "Upload the coverage report(s) for this job"
 
+inputs:
+  # Optional inputs
+  artifact_name:
+    description: The artifact name - useful if multiple artifacts are created
+    required: false
+    default: ""
+
 runs:
   using: "composite"
   steps:
@@ -10,9 +17,19 @@ runs:
         if [ -f ".coverage" ]; then
           mv .coverage ".coverage.-$$-$RANDOM"
         fi
+    - name: Handle artifact name
+      id: artifact-name
+      shell: bash
+      run: |
+        export ARTIFACT_NAME=${{ inputs.artifact_name }}
+        if [ -z "$ARTIFACT_NAME" ]; then
+          export ARTIFACT_NAME="coverage-$RANDOM"
+        fi
+        echo "artifact_name=$ARTIFACT_NAME" >> "$GITHUB_OUTPUT"
     - name: Upload coverage data
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
-        name: coverage-data
+        name: ${{ steps.artifact-name.outputs.artifact_name }}
         path: ".coverage.*"
         if-no-files-found: ignore
+        include-hidden-files: true

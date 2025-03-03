@@ -74,6 +74,8 @@ runs:
       working-directory: ${{ inputs.test_folder }}
       run: |
         ${{ inputs.npm_client }} install
+        # Force installing the dependencies
+        npx playwright install-deps || true
         ${{ inputs.npm_client }} run playwright install ${{ inputs.browser }}
 
     - name: Wait for the server
@@ -103,13 +105,13 @@ runs:
         echo "::endgroup::"
 
     - name: Upload snapshots as artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: ${{ inputs.artifact_name }}-${{ inputs.browser }}
         path: ${{ inputs.test_folder }}/**/*-snapshots/*.*
 
     - name: Upload report as artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: ${{ inputs.report_name }}
         path: ${{ inputs.test_folder }}/playwright-report

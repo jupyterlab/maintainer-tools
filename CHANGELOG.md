@@ -2,6 +2,294 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.27.0
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...7b3ab8eea942a1b297ba40bc1d0bc659a54fb81c))
+
+### Maintenance and upkeep improvements
+
+- Bump min Python to 3.9 [#253](https://github.com/jupyterlab/maintainer-tools/pull/253) ([@Carreau](https://github.com/Carreau))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2024-11-20&to=2024-12-17&type=c))
+
+[@Carreau](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3ACarreau+updated%3A2024-11-20..2024-12-17&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
+## 0.26.0
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...8caed5bdf3df5993f9bea9a078ae001ddb7600b1))
+
+### Maintenance and upkeep improvements
+
+- Bump to `actions/github-script@v7` [#252](https://github.com/jupyterlab/maintainer-tools/pull/252) ([@jtpio](https://github.com/jtpio))
+- CI: Bump pre to Python 3.13, standard to 3.12 [#248](https://github.com/jupyterlab/maintainer-tools/pull/248) ([@EwoutH](https://github.com/EwoutH))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2024-09-10&to=2024-11-20&type=c))
+
+[@EwoutH](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3AEwoutH+updated%3A2024-09-10..2024-11-20&type=Issues) | [@jtpio](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ajtpio+updated%3A2024-09-10..2024-11-20&type=Issues)
+
+## 0.25.11
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...d14b6d20a2941b51e65eab627946816117f6760b))
+
+### Bugs fixed
+
+- Add `include-hidden-files: true` to `report-coverage` action [#246](https://github.com/jupyterlab/maintainer-tools/pull/246) ([@jtpio](https://github.com/jtpio))
+- Enable `include-hidden-files` for `actions/upload-artifact@v4` [#245](https://github.com/jupyterlab/maintainer-tools/pull/245) ([@jtpio](https://github.com/jtpio))
+- Include (potentially nested) `pyproject.toml` files in the pip hash key [#244](https://github.com/jupyterlab/maintainer-tools/pull/244) ([@krassowski](https://github.com/krassowski))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2024-06-18&to=2024-09-10&type=c))
+
+[@jtpio](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ajtpio+updated%3A2024-06-18..2024-09-10&type=Issues) | [@krassowski](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Akrassowski+updated%3A2024-06-18..2024-09-10&type=Issues)
+
+## 0.25.10
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...e255a87c7a0f12f975ff4ca546ab063960dce9bb))
+
+### Bugs fixed
+
+- Enable corepack if `packageManager` is defined [#241](https://github.com/jupyterlab/maintainer-tools/pull/241) ([@fcollonval](https://github.com/fcollonval))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2024-06-04&to=2024-06-18&type=c))
+
+[@fcollonval](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Afcollonval+updated%3A2024-06-04..2024-06-18&type=Issues)
+
+## 0.25.9
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...9b3f54587c1aeeb20e3fb5806dd1472317c9828f))
+
+### Bugs fixed
+
+- Revert "Use hatch install action" [#239](https://github.com/jupyterlab/maintainer-tools/pull/239) ([@blink1073](https://github.com/blink1073))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2024-05-30&to=2024-06-04&type=c))
+
+[@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2024-05-30..2024-06-04&type=Issues)
+
+## 0.25.8
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...a5a04cdd16f19c4f3c86e299b188293e7923a2b4))
+
+### Bugs fixed
+
+- Fix coverage report handling [#238](https://github.com/jupyterlab/maintainer-tools/pull/238) ([@blink1073](https://github.com/blink1073))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2024-05-29&to=2024-05-30&type=c))
+
+[@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2024-05-29..2024-05-30&type=Issues)
+
+## 0.25.7
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...7c6c120d97b33da4bb29b605a37720055821244e))
+
+### Bugs fixed
+
+- Use a random coverage artifact name if none is given [#237](https://github.com/jupyterlab/maintainer-tools/pull/237) ([@blink1073](https://github.com/blink1073))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2024-05-27&to=2024-05-29&type=c))
+
+[@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2024-05-27..2024-05-29&type=Issues)
+
+## 0.25.6
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...4c96ea39533bc6610e314fb90479dece766a9139))
+
+### Maintenance and upkeep improvements
+
+- Use hatch install action [#236](https://github.com/jupyterlab/maintainer-tools/pull/236) ([@blink1073](https://github.com/blink1073))
+- Upgrade actions [#235](https://github.com/jupyterlab/maintainer-tools/pull/235) ([@fcollonval](https://github.com/fcollonval))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2024-04-04&to=2024-05-27&type=c))
+
+[@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2024-04-04..2024-05-27&type=Issues) | [@fcollonval](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Afcollonval+updated%3A2024-04-04..2024-05-27&type=Issues)
+
+## 0.25.5
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...1b81acbb9ee60e99df37262f6f893ae3a81e21fe))
+
+### Bugs fixed
+
+- Fix preinstall check [#234](https://github.com/jupyterlab/maintainer-tools/pull/234) ([@blink1073](https://github.com/blink1073))
+- Do not use constraints file for downstream test [#233](https://github.com/jupyterlab/maintainer-tools/pull/233) ([@blink1073](https://github.com/blink1073))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2024-04-04&to=2024-04-04&type=c))
+
+[@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2024-04-04..2024-04-04&type=Issues)
+
+## 0.25.4
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...1da9e608cc0895c22d36dbc059f8936d5aad9c03))
+
+### Bugs fixed
+
+- Do not use constraints file for downstream test [#232](https://github.com/jupyterlab/maintainer-tools/pull/232) ([@blink1073](https://github.com/blink1073))
+
+### Maintenance and upkeep improvements
+
+- Use test extra in resolution [#231](https://github.com/jupyterlab/maintainer-tools/pull/231) ([@blink1073](https://github.com/blink1073))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2024-04-03&to=2024-04-04&type=c))
+
+[@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2024-04-03..2024-04-04&type=Issues)
+
+## 0.25.3
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...1a96514539154d427119253baa7d544ab8ca159b))
+
+### Bugs fixed
+
+- Do not try and handle deps on Windows [#229](https://github.com/jupyterlab/maintainer-tools/pull/229) ([@blink1073](https://github.com/blink1073))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2024-04-03&to=2024-04-03&type=c))
+
+[@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2024-04-03..2024-04-03&type=Issues)
+
+## 0.25.1
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...e3d421997a2f6526351a0f889b05f185781575b9))
+
+### Enhancements made
+
+- Use uv for Package Constraints [#225](https://github.com/jupyterlab/maintainer-tools/pull/225) ([@blink1073](https://github.com/blink1073))
+
+### Bugs fixed
+
+- Skip github usernames in link check [#226](https://github.com/jupyterlab/maintainer-tools/pull/226) ([@blink1073](https://github.com/blink1073))
+
+### Documentation improvements
+
+- Fix `0.25.0` changelog [#224](https://github.com/jupyterlab/maintainer-tools/pull/224) ([@jtpio](https://github.com/jtpio))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2024-03-19&to=2024-04-03&type=c))
+
+[@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2024-03-19..2024-04-03&type=Issues) | [@jtpio](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ajtpio+updated%3A2024-03-19..2024-04-03&type=Issues)
+
+## 0.25.0
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v0.24.5...65217969bdcabf66d2387b4c65d78edaddb8a05c))
+
+### Maintenance and upkeep improvements
+
+- Bump to Node.js 20 by default [#222](https://github.com/jupyterlab/maintainer-tools/pull/222) ([@jtpio](https://github.com/jtpio))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2024-03-12&to=2024-03-19&type=c))
+
+[@jtpio](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ajtpio+updated%3A2024-03-12..2024-03-19&type=Issues)
+
+## 0.24.5
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...d7bf1c9178bc23b305b72ae08d596fd2d6fee37a))
+
+### Maintenance and upkeep improvements
+
+- Update Release Scripts [#223](https://github.com/jupyterlab/maintainer-tools/pull/223) ([@blink1073](https://github.com/blink1073))
+- chore: update pre-commit hooks [#220](https://github.com/jupyterlab/maintainer-tools/pull/220) ([@pre-commit-ci](https://github.com/pre-commit-ci))
+- chore: update pre-commit hooks [#219](https://github.com/jupyterlab/maintainer-tools/pull/219) ([@pre-commit-ci](https://github.com/pre-commit-ci))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2023-12-21&to=2024-03-12&type=c))
+
+[@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2023-12-21..2024-03-12&type=Issues) | [@pre-commit-ci](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Apre-commit-ci+updated%3A2023-12-21..2024-03-12&type=Issues)
+
+## 0.24.4
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...ccd05630afa18952c92dd71d54bd2fc127376d95))
+
+### Bugs fixed
+
+- Fix base-setup bash syntax [#218](https://github.com/jupyterlab/maintainer-tools/pull/218) ([@blink1073](https://github.com/blink1073))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2023-12-18&to=2023-12-21&type=c))
+
+[@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2023-12-18..2023-12-21&type=Issues)
+
+## 0.24.3
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...512a51d1c9843762a0100ed9d7bb9ada14374ff0))
+
+### Bugs fixed
+
+- Install hatch with global python [#217](https://github.com/jupyterlab/maintainer-tools/pull/217) ([@blink1073](https://github.com/blink1073))
+
+### Maintenance and upkeep improvements
+
+- Update ruff and typing [#213](https://github.com/jupyterlab/maintainer-tools/pull/213) ([@blink1073](https://github.com/blink1073))
+- chore: update pre-commit hooks [#212](https://github.com/jupyterlab/maintainer-tools/pull/212) ([@pre-commit-ci](https://github.com/pre-commit-ci))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2023-10-16&to=2023-12-18&type=c))
+
+[@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2023-10-16..2023-12-18&type=Issues) | [@pre-commit-ci](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Apre-commit-ci+updated%3A2023-10-16..2023-12-18&type=Issues)
+
+## 0.24.2
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...c454f13fc7a7746ccfc844b06f81856ead87b105))
+
+### Bugs fixed
+
+- Handle more coverage errors [#211](https://github.com/jupyterlab/maintainer-tools/pull/211) ([@blink1073](https://github.com/blink1073))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2023-10-16&to=2023-10-16&type=c))
+
+[@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2023-10-16..2023-10-16&type=Issues)
+
+## 0.24.1
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...afb8d5118eb0d8d81d4df718129c1a7311179cd1))
+
+### Bugs fixed
+
+- Ignore coverage combine errors [#210](https://github.com/jupyterlab/maintainer-tools/pull/210) ([@blink1073](https://github.com/blink1073))
+
+### Maintenance and upkeep improvements
+
+- chore: update pre-commit hooks [#209](https://github.com/jupyterlab/maintainer-tools/pull/209) ([@pre-commit-ci](https://github.com/pre-commit-ci))
+- Bump actions/checkout from 3 to 4 [#207](https://github.com/jupyterlab/maintainer-tools/pull/207) ([@dependabot](https://github.com/dependabot))
+- Adopt sp-repo-review [#206](https://github.com/jupyterlab/maintainer-tools/pull/206) ([@blink1073](https://github.com/blink1073))
+
+### Documentation improvements
+
+- Update example workflow to include comment reaction (:+1:) [#208](https://github.com/jupyterlab/maintainer-tools/pull/208) ([@jtpio](https://github.com/jtpio))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2023-05-31&to=2023-10-16&type=c))
+
+[@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2023-05-31..2023-10-16&type=Issues) | [@dependabot](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Adependabot+updated%3A2023-05-31..2023-10-16&type=Issues) | [@jtpio](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ajtpio+updated%3A2023-05-31..2023-10-16&type=Issues) | [@pre-commit-ci](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Apre-commit-ci+updated%3A2023-05-31..2023-10-16&type=Issues)
+
 ## 0.24.0
 
 ([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...22867a7f8cc22ed01c29e764274af9dfce3482ac))
@@ -15,8 +303,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2023-05-25&to=2023-05-31&type=c))
 
 [@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2023-05-25..2023-05-31&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.23.3
 
@@ -302,7 +588,7 @@
 
 ### Bugs fixed
 
-- Add mispell guard and fix pip cache [#155](https://github.com/jupyterlab/maintainer-tools/pull/155) ([@blink1073](https://github.com/blink1073))
+- Add misspell guard and fix pip cache [#155](https://github.com/jupyterlab/maintainer-tools/pull/155) ([@blink1073](https://github.com/blink1073))
 
 ### Contributors to this release
 
@@ -617,7 +903,7 @@
 
 ### Bugs fixed
 
-- Fix auto maintainence label for bots [#95](https://github.com/jupyterlab/maintainer-tools/pull/95) ([@blink1073](https://github.com/blink1073))
+- Fix auto maintenance label for bots [#95](https://github.com/jupyterlab/maintainer-tools/pull/95) ([@blink1073](https://github.com/blink1073))
 
 ### Maintenance and upkeep improvements
 
@@ -676,7 +962,7 @@
 
 ### Enhancements made
 
-- Automatically add maintainence label for known bots [#83](https://github.com/jupyterlab/maintainer-tools/pull/83) ([@blink1073](https://github.com/blink1073))
+- Automatically add maintenance label for known bots [#83](https://github.com/jupyterlab/maintainer-tools/pull/83) ([@blink1073](https://github.com/blink1073))
 
 ### Bugs fixed
 

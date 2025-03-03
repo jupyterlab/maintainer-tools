@@ -6,8 +6,7 @@ on:
 
 defaults:
   run:
-    shell:
-      bash -eux {0}
+    shell: bash -eux {0}
 
 jobs:
   base_setup:
@@ -16,24 +15,24 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
-        python-version: ["3.8", "3.11"]
+        python-version: ["3.9", "3.12"]
         include:
           - os: ubuntu-latest
-            python-version: "3.12"
+            python-version: "3.13"
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Base Setup
         uses: ./.github/actions/base-setup
         with:
-          node_version: 15.0
+          node_version: 18.0
       - name: Check Hatch Version
         run: hatch --version
 
   base_setup_minimum:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ./.github/actions/base-setup
         with:
           dependency_type: minimum
@@ -41,13 +40,13 @@ jobs:
           pip install -e ".[test]"
           # NOTE: keep the python version in sync with README
           python --version
-          python --version | grep "3.8"
+          python --version | grep "3.9"
           hatch run check_minimum
 
   base_setup_pre:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ./.github/actions/base-setup
         with:
           dependency_type: pre
@@ -55,25 +54,25 @@ jobs:
           pip install -e ".[test]"
           # NOTE: keep this version in sync with README
           python --version
-          python --version | grep "3.11"
+          python --version | grep "3.13"
           hatch run check_pre
 
   test_lint:
     name: Test Lint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: jupyterlab/maintainer-tools/.github/actions/base-setup@v1
-      -  name: Run Linters
-         run: |
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/base-setup
+      - name: Run Linters
+        run: |
           hatch run typing:test
-          hatch run lint:style
+          hatch run lint:build
           pipx run interrogate -v .
 
   check_links:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ./.github/actions/base-setup
       - uses: ./.github/actions/check-links
 
@@ -81,7 +80,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Base Setup
         uses: ./.github/actions/base-setup
       - name: Create a mock python package
@@ -95,7 +94,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Base Setup
         uses: ./.github/actions/base-setup
       - name: Create a mock python package
@@ -107,14 +106,14 @@ jobs:
           package_spec: "nbclient[test] ipykernel"
           package_download_extra_args: "--use-pep517"
           test_command: "echo 'hello'"
-          extra_test: "pytest --pyargs nbclient"
+          extra_test: "pytest"
           env_values: IPYKERNEL_CELL_NAME=\<IPY-INPUT\>
 
   binder_link:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Base Setup
         uses: ./.github/actions/base-setup
       - name: Check Binder Link
@@ -127,7 +126,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Base Setup
         uses: ./.github/actions/base-setup
       - name: Check PR Script All Options
@@ -149,42 +148,13 @@ jobs:
           pre_commit: true
           target: "https://github.com/jupyterlab/maintainer-tools/pull/39"
 
-  install_minimums:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: ["3.8"] # Test against minimum Python version as well
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Base Setup
-        uses: ./.github/actions/base-setup
-      - name: Clone a repo
-        run: git clone --depth=1 https://github.com/jupyter/nbformat.git
-      - name: Install minimum versions
-        uses: ./.github/actions/install-minimums
-        with:
-          working-directory: nbformat
-      - name: Run the unit tests
-        working-directory: nbformat
-        run: pytest -vv
-      - name: Only create file
-        uses: ./.github/actions/install-minimums
-        with:
-          only_create_file: 1
-          constraints_file_path: './constraints-test.txt'
-      - name: Ensure constraints file
-        run: |
-          cat ./constraints-test.txt
-          echo $PIP_CONSTRAINT | grep "constraints-test.txt"
-
   update_snapshots-manual-server:
     runs-on: ubuntu-latest
     env:
       TEST_FOLDER: mock-playwright
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Base Setup
         uses: ./.github/actions/base-setup
       - name: Create a mock playwright test package
@@ -192,6 +162,9 @@ jobs:
         run: |
           mkdir -p ${TEST_FOLDER}/tests/example.spec.ts-snapshots
           pushd ${TEST_FOLDER}
+
+          # Prevent yarn to look up in the folder hierarchy
+          touch yarn.lock
           yarn init -yp
           yarn add -D @playwright/test
           cat package.json | jq '. += {"scripts": {"start": "echo starting...", "test:update": "yarn playwright test -u"}}' > new_package.json
@@ -219,6 +192,7 @@ jobs:
           test_folder: ${{ env.TEST_FOLDER }}
           server_url: https-get://playwright.dev
           dry_run: yes
+          artifact_name: playwright-manual-snapshots
 
   update_snapshots:
     runs-on: ubuntu-latest
@@ -226,7 +200,7 @@ jobs:
       TEST_FOLDER: mock-playwright
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Base Setup
         uses: ./.github/actions/base-setup
       - name: Create a mock playwright test package
@@ -234,6 +208,9 @@ jobs:
         run: |
           mkdir -p ${TEST_FOLDER}/tests/example.spec.ts-snapshots
           pushd ${TEST_FOLDER}
+
+          # Prevent yarn to look up in the folder hierarchy
+          touch yarn.lock
           yarn init -yp
           yarn add -D @playwright/test
           cat package.json | jq '. += {"scripts": {"test:update": "yarn playwright test -u"}}' > new_package.json
@@ -267,7 +244,7 @@ jobs:
     runs-on: windows-latest
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ./.github/actions/base-setup
       - uses: ./.github/actions/make-sdist
 
@@ -277,7 +254,7 @@ jobs:
     name: Install from SDist and Test
     timeout-minutes: 20
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ./.github/actions/base-setup
       - uses: ./.github/actions/test-sdist
 
@@ -288,31 +265,34 @@ jobs:
       matrix:
         os: [ubuntu-latest, windows-latest]
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ./.github/actions/base-setup
       - run: |
           pip install coverage[toml] pytest
           python -m coverage run -m pytest foobar.py
           ls -a
       - uses: ./.github/actions/upload-coverage
+        with:
+          artifact_name: coverage-data-${{ matrix.os }}
 
   coverage_report:
     name: Combine & check coverage
     needs: coverage_test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ./.github/actions/report-coverage
 
   tests_check: # This job does nothing and is only used for the branch protection
     if: always()
     needs:
       - base_setup
+      - base_setup_minimum
+      - base_setup_pre
       - test_lint
       - check_links
       - binder_link
       - pr_script
-      - install_minimums
       - downstream_defaults
       - downstream_overrides
       - update_snapshots-manual-server

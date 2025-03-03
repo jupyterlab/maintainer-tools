@@ -2,13 +2,14 @@ import json
 import os
 import shlex
 import shutil
+import typing as t
 from pathlib import Path
 from subprocess import PIPE, CalledProcessError, check_output
 
-from ghapi.core import GhApi
+from ghapi.core import GhApi  # type:ignore[import-not-found]
 
 
-def run(cmd, **kwargs):
+def run(cmd: str, **kwargs: t.Any) -> str:
     """Run a command as a subprocess and get the output as a string"""
     if not kwargs.pop("quiet", False):
         print(f"+ {cmd}")
@@ -17,7 +18,7 @@ def run(cmd, **kwargs):
 
     dry_run = os.environ.get("DRY_RUN", "").lower() == "true"
     if dry_run:
-        return
+        return ""
 
     parts = shlex.split(cmd)
     if "/" not in parts[0]:
@@ -28,7 +29,7 @@ def run(cmd, **kwargs):
         parts[0] = executable
 
     try:
-        return check_output(parts, **kwargs).decode("utf-8").strip()  # noqa S603
+        return str(check_output(parts, **kwargs).decode("utf-8").strip())  # noqa: S603
     except CalledProcessError as e:
         print("output:", e.output.decode("utf-8").strip())
         if e.stderr:
@@ -36,7 +37,7 @@ def run(cmd, **kwargs):
         raise e
 
 
-def run_script():  # noqa
+def run_script() -> None:
     """Run a script on the target pull request URL"""
     # e.g. https://github.com/foo/bar/pull/81
 
@@ -49,15 +50,15 @@ def run_script():  # noqa
     if not script:
         script = "[]"
     try:
-        script = json.loads(script)
-    except Exception:  # noqa S110
+        script_obj = json.loads(script)
+    except Exception:  # noqa: S110
         pass
-    if not isinstance(script, list):
-        script = [script]
+    if not isinstance(script_obj, list):
+        script_obj = [script_obj]
     if os.environ.get("PRE_COMMIT") == "true":
-        script += ["pre-commit run --all-files"]
+        script_obj += ["pre-commit run --all-files"]
     print(f"Running script on {target}:")
-    print(f"   {script}")
+    print(f"   {script_obj}")
 
     print(f"Finding owner and repo for {target}")
     owner, repo = target.replace("https://github.com/", "").split("/")[:2]
@@ -79,7 +80,7 @@ def run_script():  # noqa
         print(f"User is authorized as {association}")
 
     # Give a confirmation message
-    msg = f'Running script "{script}" on behalf of "{maintainer}"'
+    msg = f'Running script "{script_obj}" on behalf of "{maintainer}"'
     print(msg)
     if not dry_run:
         gh.issues.create_comment(number, msg)
@@ -94,14 +95,14 @@ def run_script():  # noqa
     url = f"https://empty:{auth}@github.com/{user_name}/{repo}"
     run(f"git clone {url} --filter=blob:none -b {branch} test")
     if dry_run:
-        os.mkdir("./test")
+        Path("./test").mkdir()
 
     os.chdir("test")
     run("pip install -e '.[test]'")
     for cmd in script:
         try:
             run(cmd)
-        except Exception:  # noqa S110
+        except Exception:  # noqa: S112
             continue
 
     # Use GitHub Actions bot user and email by default.

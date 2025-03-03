@@ -16,19 +16,19 @@ runs:
       run: |
         set -eux
         PYTHON_VERSION="${{ inputs.python_version || matrix.python-version }}"
-        NODE_VERSION=${{ inputs.node_version || matrix.node-version || '18.x' }}
+        NODE_VERSION=${{ inputs.node_version || matrix.node-version || '20.x' }}
         DEPENDENCY_TYPE=${{ inputs.dependency_type }}
 
         # Handle default python value based on dependency type.
         if [ $DEPENDENCY_TYPE == "pre" ]; then
-          DEFAULT_PYTHON="3.11"
+          DEFAULT_PYTHON="3.13"
         elif [ $DEPENDENCY_TYPE == "minimum" ]; then
-          DEFAULT_PYTHON="3.8"
+          DEFAULT_PYTHON="3.9"
         elif [ $DEPENDENCY_TYPE != "standard" ]; then
           echo "Unrecognized dependency type $DEPENDENCY_TYPE"
           exit 1
         else
-          DEFAULT_PYTHON="3.11"
+          DEFAULT_PYTHON="3.12"
         fi
 
         echo "DEFAULT_PYTHON is $DEFAULT_PYTHON"
@@ -40,7 +40,7 @@ runs:
         echo "DEPENDENCY_TYPE=$DEPENDENCY_TYPE" >> $GITHUB_ENV
 
     - name: Install Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
         python-version: ${{ env.PYTHON_VERSION }}
         allow-prereleases: true
@@ -54,15 +54,15 @@ runs:
       run: |
         echo "dir=$(pip cache dir)" >> $GITHUB_OUTPUT
     - name: Cache pip
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: ${{ steps.pip-cache.outputs.dir }}
-        key: ${{ env.CACHE_PREFIX }}-pip-${{ env.PYTHON_VERSION }}-${{ hashFiles('setup.cfg', 'setup.py', '**/requirements.txt') }}
+        key: ${{ env.CACHE_PREFIX }}-pip-${{ env.PYTHON_VERSION }}-${{ hashFiles('setup.cfg', 'setup.py', '**/requirements.txt', '**/pyproject.toml') }}
         restore-keys: |
           ${{ env.CACHE_PREFIX }}-pip-${{ env.PYTHON_VERSION }}
 
     - name: Install node
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
         node-version: ${{ env.NODE_VERSION }}
 
@@ -73,11 +73,16 @@ runs:
       id: yarn-cache-dir-path
       shell: bash
       run: |
+        # Enable corepack if the project defines packageManager
+        if [ -f package.json ]; then
+          export HAS_PKG_MANAGER=$(grep -e \"packageManager\"\: package.json)
+          if [ ! -z "$HAS_PKG_MANAGER" ]; then corepack enable; fi
+        fi
         CACHE_DIR=$(yarn config get cacheFolder)
         [[ "$CACHE_DIR" == "undefined" ]] && CACHE_DIR=$(yarn cache dir)
         echo "dir=$CACHE_DIR" >> $GITHUB_OUTPUT
     - name: Cache yarn
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
       with:
         path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
@@ -87,7 +92,7 @@ runs:
 
     - name: Cache checked links
       if: ${{ matrix.group == 'link_check' }}
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: ~/.cache/pytest-link-check
         key: ${{ env.CACHE_PREFIX }}-linkcheck-${{ hashFiles('**/*.md', '**/*.rst') }}-links
@@ -95,7 +100,7 @@ runs:
           ${{ env.CACHE_PREFIX }}-linkcheck-
 
     - name: Cache conda
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: ~/conda_pkgs_dir
         key: ${{ env.CACHE_PREFIX  }}-conda-${{ env.CACHE_NUMBER }}-${{
@@ -114,7 +119,11 @@ runs:
         set -eux
         echo "::group::Upgrade packaging dependencies"
         python -m pip install --upgrade pip
-        pipx install hatch
+        if [ "$RUNNER_OS" != "Windows" ]; then
+          pipx install hatch --python $(which python)
+        else
+          pipx install hatch
+        fi
         echo "::endgroup::"
 
     - name: Handle dependency type

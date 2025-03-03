@@ -3,38 +3,48 @@ description: "Combine Coverage and Report"
 inputs:
   fail_under:
     description: "The coverage amount to fail under"
-    default: 80
+    default: "80"
+  artifact_pattern:
+    description: ""
+    required: false
+    default: coverage-*
 
 runs:
   using: "composite"
   steps:
-      - uses: actions/setup-python@v4
-        with:
-          # Use latest Python, so it understands all syntax.
-          python-version: "3.11"
+    - uses: actions/setup-python@v5
+      with:
+        # Use latest Python, so it understands all syntax.
+        python-version: "3.13"
+        allow-prereleases: true
 
-      - run: python -Im pip install --upgrade coverage[toml]
-        shell: bash
+    - run: python -Im pip install --upgrade coverage[toml]
+      shell: bash
 
-      - uses: actions/download-artifact@v3
-        with:
-          name: coverage-data
+    - name: Merge Artifacts
+      uses: actions/upload-artifact/merge@v4
+      with:
+        name: coverage-data
+        pattern: ${{ inputs.artifact_pattern }}
+        delete-merged: true
+        include-hidden-files: true
 
-      - name: Combine coverage & fail if it's <${{inputs.fail_under}}.
-        shell: bash
-        run: |
-          python -Im coverage combine || true
-          python -Im coverage html --skip-covered --skip-empty
+    - name: Combine coverage & fail if it's <${{inputs.fail_under}}.
+      shell: bash
+      run: |
+        set -eux
+        python -Iim coverage combine || true
+        python -Iim coverage html --skip-covered --skip-empty
 
-          # Report and write to summary.
-          python -Im coverage report | sed 's/^/    /' >> $GITHUB_STEP_SUMMARY
+        # Report and write to summary.
+        python -Iim coverage report | sed 's/^/    /' >> $GITHUB_STEP_SUMMARY
 
-          # Report again and fail if under threshold
-          python -Im coverage report --fail-under=${{inputs.fail_under}}
+        # Report again and fail if under threshold
+        python -Iim coverage report --fail-under=${{inputs.fail_under}}
 
-      - name: Upload HTML report if check failed.
-        uses: actions/upload-artifact@v3
-        with:
-          name: html-report
-          path: htmlcov
-        if: ${{ failure() }}
+    - name: Upload HTML report if check failed.
+      uses: actions/upload-artifact@v4
+      with:
+        name: html-report
+        path: htmlcov
+      if: ${{ failure() }}

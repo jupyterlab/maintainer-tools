@@ -48,9 +48,10 @@ jobs:
 If you want to use your minimum dependencies, you can use the following
 option, which will create a constraints file and set the `PIP_CONSTRAINT`
 environment variable, so that installations will use that file.
-By default the Python version will be "3.11", which can be overridden with
+By default the Python version will be "3.9", which can be overridden with
 `python_version`.  Note that the environment variable also works if
 you use virtual environments like `hatch`.
+Note: this does not work on Windows, and will error.
 
 ```yaml
   minimum_version:
@@ -68,9 +69,13 @@ you use virtual environments like `hatch`.
         run: pytest
 ```
 
-If you want to run against prereleases and the latest stable Python,
-use the following, which will install Python 3.11 and set the
-`PIP_PRE` environment variable::
+If you want to use your pending dependencies, you can use the following
+option, which will create a constraints file and set the `PIP_CONSTRAINT`
+environment variable, so that installations will use that file.
+By default the Python version will be "3.13", which can be overridden with
+`python_version`.  Note that the environment variable also works if
+you use virtual environments like `hatch`.
+Note: this does not work on Windows, and will error.
 
 ```yaml
   prereleases:
@@ -193,38 +198,6 @@ jobs:
 
 To test against a prerelease use `package_download_extra_args: "--pre"`.
 
-## Test Against Dependency Minimum Version
-
-**DEPRECATED**.  Use `dependency_type: minimum` in the `base-setup` action
-instead.
-
-Use this action to test that your minimum dependency version constraints are vaild. Note: you may want to also use the minimum supported version of Python
-since the minimum versions might not have wheels on newer Pythons. Note that you should use `pytest -W default` if you are using `filterwarnings` and relying on newer versions of the library to have removed warnings.
-
-```yaml
-name: Minimum Dependencies
-
-on:
-  push:
-    branches: ["main"]
-  pull_request:
-
-jobs:
-  test_minimums:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Base Setup
-        uses: jupyterlab/maintainer-tools/.github/actions/base-setup@v1
-        with:
-          python_version: "3.8" # Test against minimum Python version as well
-      - name: Install minimum versions
-        uses: jupyterlab/maintainer-tools/.github/actions/install-minimums@v1
-      - name: Run the unit tests
-        run: pytest -vv -W default
-```
-
 ## Test SDist
 
 Use this pair of actions to build an sdist for your package, and then test it
@@ -289,7 +262,7 @@ Note that the resulting commit will _not_ trigger the
 workflows to run again. You will have to close/reopen the PR, or push another
 commit for the workflows to run again. If this behavior is not desirable,
 you can use a personal access token instead of the default GitHub token provided
-to the workflow. Make sure the token used is of as limited scope as possible (preferrably a bot account token with access to the `public_repo` scope only).
+to the workflow. Make sure the token used is of as limited scope as possible (preferably a bot account token with access to the `public_repo` scope only).
 
 This first example allows maintainers to run `pre-commit` by commenting
 "auto run pre-commit" on a Pull Request.
@@ -430,6 +403,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: React to the triggering comment
+        run: |
+          hub api repos/${{ github.repository }}/issues/comments/${{ github.event.comment.id }}/reactions --raw-field 'content=+1'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Checkout
         uses: actions/checkout@v2
 
