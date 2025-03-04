@@ -16,7 +16,7 @@ runs:
         github-token: ${{ inputs.github_token }}
         script: |
           var PR_HEAD_USERREPO = process.env.PR_HEAD_USERREPO;
-          var PR_HEAD_REF = process.env.PR_HEAD_REF;
+          var PR_HEAD_REF = encodeURIComponent(process.env.PR_HEAD_REF);
           var URL_PATH = process.env.URL_PATH;
           var BODY = `[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/${PR_HEAD_USERREPO}/${PR_HEAD_REF}?urlpath=${URL_PATH}) :point_left: Launch a Binder on branch _${PR_HEAD_USERREPO}/${PR_HEAD_REF}_`;
           var CONTENT = {
