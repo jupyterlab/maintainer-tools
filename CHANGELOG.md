@@ -2,6 +2,30 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.28.0
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...6eea29856108263b3eb948ed3d1e4d9476667233))
+
+### Enhancements made
+
+- Support extracting minimum constraints for monorepo [#250](https://github.com/jupyterlab/maintainer-tools/pull/250) ([@krassowski](https://github.com/krassowski))
+
+### Bugs fixed
+
+- Encode branch name [#254](https://github.com/jupyterlab/maintainer-tools/pull/254) ([@fcollonval](https://github.com/fcollonval))
+
+### Maintenance and upkeep improvements
+
+- Update Snapshot Action: fix handling of the `browser` option [#183](https://github.com/jupyterlab/maintainer-tools/pull/183) ([@jtpio](https://github.com/jtpio))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2024-12-17&to=2025-03-04&type=c))
+
+[@fcollonval](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Afcollonval+updated%3A2024-12-17..2025-03-04&type=Issues) | [@jtpio](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ajtpio+updated%3A2024-12-17..2025-03-04&type=Issues) | [@krassowski](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Akrassowski+updated%3A2024-12-17..2025-03-04&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.27.0
 
 ([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...7b3ab8eea942a1b297ba40bc1d0bc659a54fb81c))
@@ -15,8 +39,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2024-11-20&to=2024-12-17&type=c))
 
 [@Carreau](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3ACarreau+updated%3A2024-11-20..2024-12-17&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.26.0
 
