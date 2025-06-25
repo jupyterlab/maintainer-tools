@@ -2,6 +2,23 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.28.1
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...9f67d26b24df41f6a04b778bd2e09ce17b481e2b))
+
+### Bugs fixed
+
+- Handle the case when the Playwright config defines projects [#256](https://github.com/jupyterlab/maintainer-tools/pull/256) ([@jtpio](https://github.com/jtpio))
+- make sure pipx is installed, up-to-date [#255](https://github.com/jupyterlab/maintainer-tools/pull/255) ([@minrk](https://github.com/minrk))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2025-03-04&to=2025-06-25&type=c))
+
+[@jtpio](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ajtpio+updated%3A2025-03-04..2025-06-25&type=Issues) | [@minrk](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Aminrk+updated%3A2025-03-04..2025-06-25&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.28.0
 
 ([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...6eea29856108263b3eb948ed3d1e4d9476667233))
@@ -23,8 +40,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2024-12-17&to=2025-03-04&type=c))
 
 [@fcollonval](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Afcollonval+updated%3A2024-12-17..2025-03-04&type=Issues) | [@jtpio](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ajtpio+updated%3A2024-12-17..2025-03-04&type=Issues) | [@krassowski](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Akrassowski+updated%3A2024-12-17..2025-03-04&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.27.0
 
