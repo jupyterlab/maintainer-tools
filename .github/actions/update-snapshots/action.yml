@@ -34,7 +34,7 @@ inputs:
   browser:
     description: The playwright browser to install (one of [`chromium`, `firefox`, `webkit`])
     required: false
-    default: chromium
+    default: ""
   continue_on_error:
     description: Whether to continue on error when updating snapshots or not (one of [`yes`, `no`]).
     required: false
@@ -76,7 +76,7 @@ runs:
         ${{ inputs.npm_client }} install
         # Force installing the dependencies
         npx playwright install-deps || true
-        ${{ inputs.npm_client }} run playwright install ${{ inputs.browser }}
+        ${{ inputs.npm_client }} run playwright install ${{ inputs.browser || 'chromium' }}
 
     - name: Wait for the server
       if: ${{ inputs.start_server_script != 'null' }}
@@ -85,12 +85,22 @@ runs:
         resource: ${{ inputs.server_url }}
         timeout: 360000
 
-    - name: Generate new snapshots
+    - name: Generate new snapshots (no browser specified)
+      # To handle the case when the configuration file defines projects
+      if: ${{ inputs.browser == '' }}
       # Get as much update as possible
       continue-on-error: ${{ inputs.continue_on_error == 'yes' }}
       shell: bash -l {0}
       working-directory: ${{ inputs.test_folder }}
-      run: ${{ inputs.npm_client }} run ${{ inputs.update_script }} --browser '${{ inputs.browser }}'
+      run: ${{ inputs.npm_client }} run ${{ inputs.update_script }}
+
+    - name: Generate new snapshots (with browser)
+      if: ${{ inputs.browser != '' }}
+      # Get as much update as possible
+      continue-on-error: ${{ inputs.continue_on_error == 'yes' }}
+      shell: bash -l {0}
+      working-directory: ${{ inputs.test_folder }}
+      run: ${{ inputs.npm_client }} run ${{ inputs.update_script }} --browser ${{ inputs.browser }}
 
     - name: Compress snapshots
       if: ${{ runner.os == 'Linux' }}
