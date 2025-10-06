@@ -1,0 +1,342 @@
+name: Update Snapshots on PR
+description: |
+  Workflow for updating snapshots triggered by PR comments.
+  Supports: "please update snapshots" or "please update galata snapshots"/"please update documentation snapshots".
+  
+  For galata updates, configure: galata_test_folder, galata_server_url, etc.
+  For docs updates, configure: docs_test_folder, docs_server_url, etc.
+inputs:
+  # Required inputs
+  github_token:
+    description: "The GitHub token to use, must have pull_request:write access"
+    required: true
+
+  galata_test_folder:
+    description: The folder for galata tests
+    required: false
+    default: ui-tests
+  docs_test_folder:
+    description: The folder for documentation tests
+    required: false
+    default: ui-tests
+
+  # Galata-specific inputs
+  galata_npm_client:
+    description: The command to execute the scripts for galata tests (yarn, npm, jlpm)
+    required: false
+    default: yarn
+  galata_server_url:
+    description: The server URL to wait for for galata tests
+    required: false
+    default: http-get://localhost:8888/lab
+  galata_artifact_name:
+    description: The uploaded snapshots artifact name for galata tests
+    required: false
+    default: updated-galata-snapshots
+  galata_report_name:
+    description: The uploaded report artifact name for galata tests
+    required: false
+    default: update-galata-report
+  galata_browser:
+    description: The playwright browser to install for galata tests
+    required: false
+    default: ""
+  galata_start_server_script:
+    description: The script to execute to start the server for galata tests
+    required: false
+    default: start
+  galata_update_script:
+    description: The script to execute to update galata snapshots
+    required: false
+    default: test:update
+
+  # Documentation-specific inputs
+  docs_npm_client:
+    description: The command to execute the scripts for documentation tests (yarn, npm, jlpm)
+    required: false
+    default: yarn
+  docs_server_url:
+    description: The server URL to wait for for documentation tests
+    required: false
+    default: http-get://localhost:8888/lab
+  docs_artifact_name:
+    description: The uploaded snapshots artifact name for documentation tests
+    required: false
+    default: updated-documentation-snapshots
+  docs_report_name:
+    description: The uploaded report artifact name for documentation tests
+    required: false
+    default: update-documentation-report
+  docs_browser:
+    description: The playwright browser to install for documentation tests
+    required: false
+    default: ""
+  docs_start_server_script:
+    description: The script to execute to start the server for documentation tests
+    required: false
+    default: start
+  docs_update_script:
+    description: The script to execute to update documentation snapshots
+    required: false
+    default: test:update
+
+  # Common inputs
+  continue_on_error:
+    description: Whether to continue on error when updating snapshots or not (one of [`yes`, `no`]).
+    required: false
+    default: "yes"
+  dry_run:
+    description: Whether this is a dry run (one of [`yes`, `no`])
+    required: false
+    default: "no"
+  git_username:
+    description: The Git Username to Use for the Commit
+    required: false
+    default: github-actions[bot]
+  git_email:
+    description: The Git Email to Use for the Commit
+    required: false
+    default: github-actions[bot]@users.noreply.github.com
+runs:
+  using: "composite"
+  steps:
+    - name: Check author associations and validate permissions
+      id: auth_check
+      shell: bash
+      run: |
+        pr_author_association="$(gh api /repos/${{ github.repository }}/pulls/${{ github.event.issue.number }} | jq -r .author_association)"
+        comment_author_association="${{ github.event.comment.author_association }}"
+
+        if [[ "$pr_author_association" == "null" || "$comment_author_association" == "null" ]]; then
+          echo "❌ Error: Unable to determine author associations"
+          exit 1
+        fi
+
+        pr_author="${{ github.event.issue.user.login }}"
+        comment_author="${{ github.event.comment.user.login }}"
+
+        if [[ "$pr_author" == "$comment_author" ]]; then
+          authorized_association="$pr_author_association"
+        else
+          authorized_association="$comment_author_association"
+        fi
+
+        if [[ "$authorized_association" == "OWNER" || "$authorized_association" == "COLLABORATOR" || "$authorized_association" == "MEMBER" ]]; then
+          echo "✅ Authorization check passed"
+          echo "authorized=true" >> $GITHUB_OUTPUT
+        else
+          echo "❌ Authorization check failed"
+          echo "authorized=false" >> $GITHUB_OUTPUT
+          echo "Insufficient permissions to trigger snapshot updates."
+          exit 1
+        fi
+      env:
+        GITHUB_TOKEN: ${{ inputs.github_token }}
+
+    - name: React to the triggering comment
+      run: |
+        gh api repos/${{ github.repository }}/issues/comments/${{ github.event.comment.id }}/reactions --raw-field 'content=+1'
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Parse comment to determine which snapshots to update
+      id: parse_comment
+      run: |
+        echo "Processing comment request"
+        if contains("${{ github.event.comment.body }}", "please update galata snapshots"); then
+          echo "update_galata=true" >> $GITHUB_OUTPUT
+          echo "update_documentation=false" >> $GITHUB_OUTPUT
+        elif contains("${{ github.event.comment.body }}", "please update documentation snapshots"); then
+          echo "update_galata=false" >> $GITHUB_OUTPUT
+          echo "update_documentation=true" >> $GITHUB_OUTPUT
+        elif contains("${{ github.event.comment.body }}", "please update snapshots"); then
+          echo "update_galata=true" >> $GITHUB_OUTPUT
+          echo "update_documentation=true" >> $GITHUB_OUTPUT
+        else
+          echo "No valid update request found in comment"
+          exit 1
+        fi
+
+    - name: Log galata configuration
+      if: ${{ steps.parse_comment.outputs.update_galata == 'true' }}
+      run: |
+        echo "Galata update settings:"
+        echo "  Test folder: ${{ inputs.galata_test_folder }}"
+        echo "  Server: ${{ inputs.galata_server_url }}"
+        echo "  NPM: ${{ inputs.galata_npm_client }}"
+
+    - name: Log documentation configuration
+      if: ${{ steps.parse_comment.outputs.update_documentation == 'true' }}
+      run: |
+        echo "Documentation update settings:"
+        echo "  Test folder: ${{ inputs.docs_test_folder }}"
+        echo "  Server: ${{ inputs.docs_server_url }}"
+        echo "  NPM: ${{ inputs.docs_npm_client }}"
+
+    - name: Get PR Info
+      id: pr
+      env:
+        PR_NUMBER: ${{ github.event.issue.number }}
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GH_REPO: ${{ github.repository }}
+        COMMENT_AT: ${{ github.event.comment.created_at }}
+      run: |
+        pr="$(gh api /repos/${GH_REPO}/pulls/${PR_NUMBER})"
+        head_sha="$(echo "$pr" | jq -r .head.sha)"
+        pushed_at="$(echo "$pr" | jq -r .pushed_at)"
+
+        if [[ $(date -d "$pushed_at" +%s) -gt $(date -d "$COMMENT_AT" +%s) ]]; then
+            echo "Updating is not allowed because the PR was pushed to (at $pushed_at) after the triggering comment was issued (at $COMMENT_AT)"
+            exit 1
+        fi
+
+        echo "head_sha=$head_sha" >> $GITHUB_OUTPUT
+
+    # Galata
+    - name: Checkout for galata
+      if: ${{ steps.parse_comment.outputs.update_galata == 'true' }}
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Configure git to use https
+      run: git config --global hub.protocol https
+
+    - name: Checkout the branch from the PR for galata
+      if: ${{ steps.parse_comment.outputs.update_galata == 'true' }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: gh pr checkout ${{ github.event.issue.number }}
+
+    - name: Validate the fetched branch HEAD revision for galata
+      if: ${{ steps.parse_comment.outputs.update_galata == 'true' }}
+      env:
+        EXPECTED_SHA: ${{ steps.pr.outputs.head_sha }}
+      run: |
+        actual_sha="$(git rev-parse HEAD)"
+
+        if [[ "$actual_sha" != "$EXPECTED_SHA" ]]; then
+            echo "The HEAD of the checked out branch ($actual_sha) differs from the HEAD commit available at the time when trigger comment was submitted ($EXPECTED_SHA)"
+            exit 1
+        fi
+
+    # Documentation
+    - name: Checkout JupyterLab for documentation
+      if: ${{ steps.parse_comment.outputs.update_documentation == 'true' }}
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        path: core
+
+    - name: Checkout the branch from the PR for documentation
+      if: ${{ steps.parse_comment.outputs.update_documentation == 'true' }}
+      working-directory: core
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: gh pr checkout ${{ github.event.issue.number }}
+
+    - name: Validate the fetched branch HEAD revision for documentation
+      if: ${{ steps.parse_comment.outputs.update_documentation == 'true' }}
+      working-directory: core
+      env:
+        EXPECTED_SHA: ${{ steps.pr.outputs.head_sha }}
+      run: |
+        actual_sha="$(git rev-parse HEAD)"
+
+        if [[ "$actual_sha" != "$EXPECTED_SHA" ]]; then
+            echo "The HEAD of the checked out branch ($actual_sha) differs from the HEAD commit available at the time when trigger comment was submitted ($EXPECTED_SHA)"
+            exit 1
+        fi
+
+    - name: Base Setup
+      uses: .github/actions/base-setup
+
+    - name: Install dependencies
+      run: |
+        bash ./scripts/ci_install.sh
+        # Build dev-mode
+        jlpm run build
+
+    # Galata snapshots
+    - name: Update galata snapshots
+      if: ${{ steps.auth_check.outputs.authorized == 'true' && steps.parse_comment.outputs.update_galata == 'true' }}
+      uses: .github/actions/update-snapshots
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        test_folder: ${{ inputs.galata_test_folder }}
+        server_url: ${{ inputs.galata_server_url }}
+        npm_client: ${{ inputs.galata_npm_client }}
+        artifact_name: ${{ inputs.galata_artifact_name }}
+        report_name: ${{ inputs.galata_report_name }}
+        browser: ${{ inputs.galata_browser }}
+        continue_on_error: ${{ inputs.continue_on_error }}
+        dry_run: ${{ inputs.dry_run }}
+        git_username: ${{ inputs.git_username }}
+        git_email: ${{ inputs.git_email }}
+        start_server_script: ${{ inputs.galata_start_server_script }}
+        update_script: ${{ inputs.galata_update_script }}
+
+    # Documentation snapshots
+    - name: Checkout demo project
+      if: ${{ steps.parse_comment.outputs.update_documentation == 'true' }}
+      uses: actions/checkout@v4
+      with:
+        repository: jupyterlab/jupyterlab-demo
+        ref: master
+        path: demo
+
+    - name: Get demo folder
+      if: ${{ steps.parse_comment.outputs.update_documentation == 'true' }}
+      run: |
+        echo "JUPYTERLAB_GALATA_ROOT_DIR=$PWD" >> $GITHUB_ENV
+      working-directory: demo
+
+    - name: Install documentation dependencies
+      if: ${{ steps.parse_comment.outputs.update_documentation == 'true' }}
+      run: |
+        set -ex
+        # Install chinese font
+        sudo apt-get update
+        sudo apt-get install fonts-dejavu fonts-noto
+
+        # Freeze the packages to ensure consistent look and feel
+        # IPython is frozen because its version is displayed in
+        # the console header
+        pip install .[docs-screenshots]
+        bash ./scripts/ci_install.sh
+
+        # Build dev-mode
+        jlpm run build
+
+    - name: Update documentation snapshots
+      if: ${{ steps.auth_check.outputs.authorized == 'true' && steps.parse_comment.outputs.update_documentation == 'true' }}
+      uses: .github/actions/update-snapshots
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        test_folder: ${{ inputs.docs_test_folder }}
+        server_url: ${{ inputs.docs_server_url }}
+        npm_client: ${{ inputs.docs_npm_client }}
+        artifact_name: ${{ inputs.docs_artifact_name }}
+        report_name: ${{ inputs.docs_report_name }}
+        browser: ${{ inputs.docs_browser }}
+        continue_on_error: ${{ inputs.continue_on_error }}
+        dry_run: ${{ inputs.dry_run }}
+        git_username: ${{ inputs.git_username }}
+        git_email: ${{ inputs.git_email }}
+        start_server_script: ${{ inputs.docs_start_server_script }}
+        update_script: ${{ inputs.docs_update_script }}
+
+    # Finalize status with PR comment
+    - name: Comment back on the PR
+      run: |
+        if [[ "${{ steps.parse_comment.outputs.update_galata }}" == "true" && "${{ steps.parse_comment.outputs.update_documentation }}" == "true" ]]; then
+          message="Both galata and documentation snapshots updated."
+        elif [[ "${{ steps.parse_comment.outputs.update_galata }}" == "true" ]]; then
+          message="Galata snapshots updated."
+        elif [[ "${{ steps.parse_comment.outputs.update_documentation }}" == "true" ]]; then
+          message="Documentation snapshots updated."
+        fi
+
+        gh api repos/${{ github.repository }}/issues/${{ github.event.issue.number }}/comments --raw-field "body=$message"
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
