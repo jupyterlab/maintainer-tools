@@ -2,7 +2,7 @@ name: Update Snapshots on PR
 description: |
   Workflow for updating snapshots triggered by PR comments.
   Supports: "please update snapshots" or "please update galata snapshots"/"please update documentation snapshots".
-  
+
   For galata updates, configure: galata_test_folder, galata_server_url, etc.
   For docs updates, configure: docs_test_folder, docs_server_url, etc.
 inputs:
