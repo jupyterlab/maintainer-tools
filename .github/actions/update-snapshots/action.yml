@@ -76,7 +76,7 @@ runs:
         ${{ inputs.npm_client }} install
         # Force installing the dependencies
         npx playwright install-deps || true
-        ${{ inputs.npm_client }} run playwright install ${{ inputs.browser || 'chromium' }}
+        ${{ inputs.npm_client }} playwright install ${{ inputs.browser || 'chromium' }}
 
     - name: Wait for the server
       if: ${{ inputs.start_server_script != 'null' }}
