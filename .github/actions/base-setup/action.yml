@@ -16,7 +16,7 @@ runs:
       run: |
         set -eux
         PYTHON_VERSION="${{ inputs.python_version || matrix.python-version }}"
-        NODE_VERSION=${{ inputs.node_version || matrix.node-version || '20.x' }}
+        NODE_VERSION=${{ inputs.node_version || matrix.node-version || '24.x' }}
         DEPENDENCY_TYPE=${{ inputs.dependency_type }}
 
         # Handle default python value based on dependency type.
