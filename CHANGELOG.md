@@ -2,6 +2,22 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.29.1
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...f1835ba2af2da2c7e0e9c3c13861c9aa18140766))
+
+### Maintenance and upkeep improvements
+
+- Revert "Update default Node.js version to 24.x" [#262](https://github.com/jupyterlab/maintainer-tools/pull/262) ([@jtpio](https://github.com/jtpio))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2025-10-16&to=2025-10-16&type=c))
+
+[@jtpio](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ajtpio+updated%3A2025-10-16..2025-10-16&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.29.0
 
 ([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...23ec8afcd93f969e7d6c5137a9972776d6f53ef0))
@@ -16,8 +32,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2025-06-25&to=2025-10-16&type=c))
 
 [@jtpio](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ajtpio+updated%3A2025-06-25..2025-10-16&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.28.1
 
