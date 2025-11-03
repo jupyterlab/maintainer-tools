@@ -39,7 +39,7 @@ def check_links(ignore_glob: list[str], ignore_links: list[str], links_expire: s
         "http://localhost.*",
         # https://github.com/github/feedback/discussions/14773
         "https://docs.github.com/.*",
-        "https://npmjs.com(/.*)?",
+        "https://(www\.)?npmjs.com(/.*)?",
     ]
 
     for spec in ignore_links:
