@@ -2,6 +2,22 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.29.2
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...38801a6dfb6ac731a8420b015251a724de749156))
+
+### Maintenance and upkeep improvements
+
+- ignore npmjs.com from link check [#263](https://github.com/jupyterlab/maintainer-tools/pull/263) ([@minrk](https://github.com/minrk))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2025-10-16&to=2025-11-17&type=c))
+
+[@minrk](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Aminrk+updated%3A2025-10-16..2025-11-17&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.29.1
 
 ([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...f1835ba2af2da2c7e0e9c3c13861c9aa18140766))
@@ -15,8 +31,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2025-10-16&to=2025-10-16&type=c))
 
 [@jtpio](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ajtpio+updated%3A2025-10-16..2025-10-16&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.29.0
 
