@@ -2,6 +2,22 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.30.0
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...c54b87143e0d4f4a5d1b655f460bf98d88d6ce70))
+
+### Maintenance and upkeep improvements
+
+- Update default Node.js version to 24.x [#264](https://github.com/jupyterlab/maintainer-tools/pull/264) ([@jtpio](https://github.com/jtpio))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2025-11-17&to=2025-12-01&type=c))
+
+[@jtpio](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ajtpio+updated%3A2025-11-17..2025-12-01&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.29.2
 
 ([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...38801a6dfb6ac731a8420b015251a724de749156))
@@ -15,8 +31,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2025-10-16&to=2025-11-17&type=c))
 
 [@minrk](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Aminrk+updated%3A2025-10-16..2025-11-17&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.29.1
 
