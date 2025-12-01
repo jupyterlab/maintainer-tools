@@ -24,8 +24,6 @@ jobs:
         uses: actions/checkout@v4
       - name: Base Setup
         uses: ./.github/actions/base-setup
-        with:
-          node_version: 18.0
       - name: Check Hatch Version
         run: hatch --version
 
