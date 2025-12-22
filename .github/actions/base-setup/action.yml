@@ -67,16 +67,24 @@ runs:
       run: |
         if [ -f pnpm-lock.yaml ]; then
           echo "manager=pnpm" >> $GITHUB_OUTPUT
-          corepack enable
         elif [ -f yarn.lock ]; then
           echo "manager=yarn" >> $GITHUB_OUTPUT
-          # Enable corepack if the project defines packageManager
-          if [ -f package.json ]; then
-            HAS_PKG_MANAGER=$(grep -e \"packageManager\"\: package.json || true)
-            if [ ! -z "$HAS_PKG_MANAGER" ]; then corepack enable; fi
-          fi
         elif [ -f package-lock.json ]; then
           echo "manager=npm" >> $GITHUB_OUTPUT
+        fi
+
+    - name: Install pnpm
+      if: steps.detect-pm.outputs.manager == 'pnpm'
+      uses: pnpm/action-setup@v4
+
+    - name: Enable corepack
+      if: steps.detect-pm.outputs.manager == 'yarn'
+      shell: bash
+      run: |
+        # Enable corepack if the project defines packageManager
+        if [ -f package.json ]; then
+          HAS_PKG_MANAGER=$(grep -e \"packageManager\"\: package.json || true)
+          if [ ! -z "$HAS_PKG_MANAGER" ]; then corepack enable; fi
         fi
 
     - name: Install node
@@ -84,6 +92,10 @@ runs:
       with:
         node-version: ${{ env.NODE_VERSION }}
         cache: ${{ steps.detect-pm.outputs.manager }}
+        cache-dependency-path: |
+          **/package-lock.json
+          **/yarn.lock
+          **/pnpm-lock.yaml
 
     - name: Cache checked links
       if: ${{ matrix.group == 'link_check' }}
