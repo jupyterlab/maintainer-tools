@@ -61,34 +61,47 @@ runs:
         restore-keys: |
           ${{ env.CACHE_PREFIX }}-pip-${{ env.PYTHON_VERSION }}
 
-    - name: Install node
-      uses: actions/setup-node@v6
-      with:
-        node-version: ${{ env.NODE_VERSION }}
+    - name: Detect package manager
+      id: detect-pm
+      shell: bash
+      run: |
+        if [ -n "$PNPM_HASH" ]; then
+          echo "manager=pnpm" >> $GITHUB_OUTPUT
+          echo "lockfile=**/pnpm-lock.yaml" >> $GITHUB_OUTPUT
+        elif [ -n "$YARN_HASH" ]; then
+          echo "manager=yarn" >> $GITHUB_OUTPUT
+          echo "lockfile=**/yarn.lock" >> $GITHUB_OUTPUT
+        elif [ -n "$NPM_HASH" ]; then
+          echo "manager=npm" >> $GITHUB_OUTPUT
+          echo "lockfile=**/package-lock.json" >> $GITHUB_OUTPUT
+        else
+          echo "manager=" >> $GITHUB_OUTPUT
+          echo "lockfile=" >> $GITHUB_OUTPUT
+        fi
+      env:
+        PNPM_HASH: ${{ hashFiles('**/pnpm-lock.yaml') }}
+        YARN_HASH: ${{ hashFiles('**/yarn.lock') }}
+        NPM_HASH: ${{ hashFiles('**/package-lock.json') }}
 
-    # Cache yarn
-    # We cannot use the builtin cache because it errors out with the files
-    # are not present.
-    - name: Get yarn cache directory path
-      id: yarn-cache-dir-path
+    - name: Install pnpm
+      if: steps.detect-pm.outputs.manager == 'pnpm'
+      uses: pnpm/action-setup@v4
+
+    - name: Enable corepack
       shell: bash
       run: |
         # Enable corepack if the project defines packageManager
         if [ -f package.json ]; then
-          export HAS_PKG_MANAGER=$(grep -e \"packageManager\"\: package.json)
+          HAS_PKG_MANAGER=$(grep -e \"packageManager\"\: package.json)
           if [ ! -z "$HAS_PKG_MANAGER" ]; then corepack enable; fi
         fi
-        CACHE_DIR=$(yarn config get cacheFolder)
-        [[ "$CACHE_DIR" == "undefined" ]] && CACHE_DIR=$(yarn cache dir)
-        echo "dir=$CACHE_DIR" >> $GITHUB_OUTPUT
-    - name: Cache yarn
-      uses: actions/cache@v4
-      id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+
+    - name: Install node
+      uses: actions/setup-node@v6
       with:
-        path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-        key: ${{ env.CACHE_PREFIX }}-yarn-${{ env.NODE_VERSION }}-${{ hashFiles('**/yarn.lock') }}
-        restore-keys: |
-          ${{ env.CACHE_PREFIX }}-yarn-${{ env.NODE_VERSION }}
+        node-version: ${{ env.NODE_VERSION }}
+        cache: ${{ steps.detect-pm.outputs.manager }}
+        cache-dependency-path: ${{ steps.detect-pm.outputs.lockfile }}
 
     - name: Cache checked links
       if: ${{ matrix.group == 'link_check' }}
@@ -147,5 +160,7 @@ runs:
         echo "::group::piplist"
         pip list || true
         echo "::endgroup::"
-        yarn --version
         node --version
+        npm --version || true
+        yarn --version || true
+        pnpm --version || true
