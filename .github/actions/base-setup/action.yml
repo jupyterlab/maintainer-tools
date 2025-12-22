@@ -82,7 +82,7 @@ runs:
       run: |
         # Enable corepack if the project defines packageManager
         if [ -f package.json ]; then
-          HAS_PKG_MANAGER=$(grep -e \"packageManager\"\: package.json || true)
+          HAS_PKG_MANAGER=$(grep -e \"packageManager\"\: package.json)
           if [ ! -z "$HAS_PKG_MANAGER" ]; then corepack enable; fi
         fi
 
