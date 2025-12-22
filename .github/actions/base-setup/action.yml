@@ -90,6 +90,32 @@ runs:
         restore-keys: |
           ${{ env.CACHE_PREFIX }}-yarn-${{ env.NODE_VERSION }}
 
+    # Cache pnpm
+    # We cannot use the builtin cache because it errors out when the files
+    # are not present.
+    - name: Get pnpm cache directory path
+      id: pnpm-cache-dir-path
+      shell: bash
+      run: |
+        # Enable corepack if the project defines packageManager
+        if [ -f package.json ]; then
+          export HAS_PKG_MANAGER=$(grep -e \"packageManager\"\: package.json)
+          if [ ! -z "$HAS_PKG_MANAGER" ]; then corepack enable; fi
+        fi
+        # Only get cache dir if pnpm-lock.yaml exists
+        if [ -f pnpm-lock.yaml ]; then
+          echo "dir=$(pnpm store path)" >> $GITHUB_OUTPUT
+        fi
+    - name: Cache pnpm
+      if: steps.pnpm-cache-dir-path.outputs.dir != ''
+      uses: actions/cache@v4
+      id: pnpm-cache
+      with:
+        path: ${{ steps.pnpm-cache-dir-path.outputs.dir }}
+        key: ${{ env.CACHE_PREFIX }}-pnpm-${{ env.NODE_VERSION }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+        restore-keys: |
+          ${{ env.CACHE_PREFIX }}-pnpm-${{ env.NODE_VERSION }}
+
     - name: Cache checked links
       if: ${{ matrix.group == 'link_check' }}
       uses: actions/cache@v4
@@ -147,5 +173,6 @@ runs:
         echo "::group::piplist"
         pip list || true
         echo "::endgroup::"
-        yarn --version
+        yarn --version || true
+        pnpm --version || true
         node --version
