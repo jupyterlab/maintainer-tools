@@ -78,7 +78,6 @@ runs:
       uses: pnpm/action-setup@v4
 
     - name: Enable corepack
-      if: steps.detect-pm.outputs.manager == 'yarn'
       shell: bash
       run: |
         # Enable corepack if the project defines packageManager
