@@ -6,7 +6,7 @@ description: |
 inputs:
   # Mandatory inputs
   github_token:
-    description: "The GitHub token to use, must have pull_request:write access"
+    description: "The GitHub token to use"
     required: true
 
 runs:
