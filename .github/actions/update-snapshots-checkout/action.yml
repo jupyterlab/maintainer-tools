@@ -48,10 +48,12 @@ runs:
         token: ${{ inputs.github_token }}
 
     - name: Configure git to use https
+      shell: bash -l {0}
       run: git config --global hub.protocol https
 
     - name: Get PR Info
       id: pr
+      shell: bash -l {0}
       env:
         PR_NUMBER: ${{ github.event.issue.number }}
         GH_TOKEN: ${{ inputs.github_token }}
@@ -70,11 +72,13 @@ runs:
         echo "head_sha=$head_sha" >> $GITHUB_OUTPUT
 
     - name: Checkout the branch from the PR that triggered the job
+      shell: bash -l {0}
       env:
         GITHUB_TOKEN: ${{ inputs.github_token }}
       run: gh pr checkout ${{ github.event.issue.number }}
 
     - name: Validate the fetched branch HEAD revision
+      shell: bash -l {0}
       env:
         EXPECTED_SHA: ${{ steps.pr.outputs.head_sha }}
       run: |
