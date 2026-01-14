@@ -403,22 +403,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: React to the triggering comment
-        run: |
-          hub api repos/${{ github.repository }}/issues/comments/${{ github.event.comment.id }}/reactions --raw-field 'content=+1'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      - name: Checkout the branch from the PR that triggered the job
-        run: |
-          # PR branch remote must be checked out using https URL
-          git config --global hub.protocol https
-          hub pr checkout ${{ github.event.issue.number }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: jupyterlab/maintainer-tools/.github/actions/update-snapshots-checkout@main
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Install your project
         run: |
