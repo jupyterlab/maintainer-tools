@@ -1,0 +1,129 @@
+name: Update Snapshots on PR
+description: |
+  Workflow for updating snapshots triggered by PR comments.
+  Supports: "please update snapshots" or "please update galata snapshots"/"please update documentation snapshots".
+
+  For galata updates, configure: galata_test_folder, galata_server_url, etc.
+  For docs updates, configure: docs_test_folder, docs_server_url, etc.
+inputs:
+  # Required inputs
+  github_token:
+    description: "The GitHub token to use, must have pull_request:write access"
+    required: true
+  checkout_branch:
+    description: The branch to checkout
+    required: true
+    default: false
+  # Optional inputs
+  working-directory:
+    description: The working directory for the snapshots
+    required: false
+    default: ""
+
+outputs:
+  authorized:
+    description: Whether the user is authorized to update the snapshots
+    required: true
+  update_galata:
+    description: Whether to update the galata snapshots
+    required: ${{ steps.parse_comment.outputs.update_galata }}
+  update_documentation:
+    description: Whether to update the documentation snapshots
+    required: ${{ steps.parse_comment.outputs.update_documentation }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Check author associations and validate permissions
+      id: auth_check
+      shell: bash
+      run: |
+        pr_author_association="$(gh api /repos/${{ github.repository }}/pulls/${{ github.event.issue.number }} | jq -r .author_association)"
+        comment_author_association="${{ github.event.comment.author_association }}"
+
+        if [[ "$pr_author_association" == "null" || "$comment_author_association" == "null" ]]; then
+          echo "❌ Error: Unable to determine author associations"
+          exit 1
+        fi
+
+        pr_author="${{ github.event.issue.user.login }}"
+        comment_author="${{ github.event.comment.user.login }}"
+
+        if [[ "$pr_author" == "$comment_author" ]]; then
+          authorized_association="$pr_author_association"
+        else
+          authorized_association="$comment_author_association"
+        fi
+
+        if [[ "$authorized_association" == "OWNER" || "$authorized_association" == "COLLABORATOR" || "$authorized_association" == "MEMBER" ]]; then
+          echo "✅ Authorization check passed"
+          echo "authorized=true" >> $GITHUB_OUTPUT
+        else
+          echo "❌ Authorization check failed"
+          echo "authorized=false" >> $GITHUB_OUTPUT
+          echo "Insufficient permissions to trigger snapshot updates."
+          exit 1
+        fi
+      env:
+        GITHUB_TOKEN: ${{ inputs.github_token }}
+
+    - name: React to the triggering comment
+      run: |
+        gh api repos/${{ github.repository }}/issues/comments/${{ github.event.comment.id }}/reactions --raw-field 'content=+1'
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Parse comment to determine which snapshots to update
+      id: parse_comment
+      run: |
+        echo "Processing comment request"
+        if contains("${{ github.event.comment.body }}", "please update galata snapshots"); then
+          echo "update_galata=true" >> $GITHUB_OUTPUT
+          echo "update_documentation=false" >> $GITHUB_OUTPUT
+        elif contains("${{ github.event.comment.body }}", "please update documentation snapshots"); then
+          echo "update_galata=false" >> $GITHUB_OUTPUT
+          echo "update_documentation=true" >> $GITHUB_OUTPUT
+        elif contains("${{ github.event.comment.body }}", "please update snapshots"); then
+          echo "update_galata=true" >> $GITHUB_OUTPUT
+          echo "update_documentation=true" >> $GITHUB_OUTPUT
+        else
+          echo "No valid update request found in comment"
+          exit 1
+        fi
+
+    - name: Get PR Info
+      id: pr
+      env:
+        PR_NUMBER: ${{ github.event.issue.number }}
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GH_REPO: ${{ github.repository }}
+        COMMENT_AT: ${{ github.event.comment.created_at }}
+      run: |
+        pr="$(gh api /repos/${GH_REPO}/pulls/${PR_NUMBER})"
+        head_sha="$(echo "$pr" | jq -r .head.sha)"
+        pushed_at="$(echo "$pr" | jq -r .pushed_at)"
+
+        if [[ $(date -d "$pushed_at" +%s) -gt $(date -d "$COMMENT_AT" +%s) ]]; then
+            echo "Updating is not allowed because the PR was pushed to (at $pushed_at) after the triggering comment was issued (at $COMMENT_AT)"
+            exit 1
+        fi
+
+        echo "head_sha=$head_sha" >> $GITHUB_OUTPUT
+
+    - name: Checkout the branch from the PR that triggered the job
+      working-directory: ${{ inputs.working_directory }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: gh pr checkout ${{ github.event.issue.number }}
+
+    - name: Validate the fetched branch HEAD revision
+      working-directory: ${{ inputs.working_directory }}
+      env:
+        EXPECTED_SHA: ${{ steps.pr.outputs.head_sha }}
+      run: |
+        actual_sha="$(git rev-parse HEAD)"
+
+        if [[ "$actual_sha" != "$EXPECTED_SHA" ]]; then
+            echo "The HEAD of the checked out branch ($actual_sha) differs from the HEAD commit available at the time when trigger comment was submitted ($EXPECTED_SHA)"
+            exit 1
+        fi
