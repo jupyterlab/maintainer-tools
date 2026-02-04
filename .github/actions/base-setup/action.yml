@@ -65,13 +65,16 @@ runs:
       id: detect-pm
       shell: bash
       run: |
-        if [ -f pnpm-lock.yaml ]; then
+        if [ -n "$PNPM_HASH" ]; then
           echo "manager=pnpm" >> $GITHUB_OUTPUT
-        elif [ -f yarn.lock ]; then
+        elif [ -n "$YARN_HASH" ]; then
           echo "manager=yarn" >> $GITHUB_OUTPUT
-        elif [ -f package-lock.json ]; then
+        else
           echo "manager=npm" >> $GITHUB_OUTPUT
         fi
+      env:
+        PNPM_HASH: ${{ hashFiles('**/pnpm-lock.yaml') }}
+        YARN_HASH: ${{ hashFiles('**/yarn.lock') }}
 
     - name: Install pnpm
       if: steps.detect-pm.outputs.manager == 'pnpm'
