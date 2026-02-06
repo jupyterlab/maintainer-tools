@@ -2,6 +2,25 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.31.1
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...37fe114b3671d848bf06702a79a10b0e6dec42ab))
+
+### Maintenance and upkeep improvements
+
+- Revert "base-setup: simplify caching and support pnpm" [#272](https://github.com/jupyterlab/maintainer-tools/pull/272) ([@jtpio](https://github.com/jtpio))
+
+### Contributors to this release
+
+The following people contributed discussions, new ideas, code and documentation contributions, and review.
+See [our definition of contributors](https://github-activity.readthedocs.io/en/latest/use/#how-does-this-tool-define-contributions-in-the-reports).
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2026-02-06&to=2026-02-06&type=c))
+
+@jtpio ([activity](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ajtpio+updated%3A2026-02-06..2026-02-06&type=Issues))
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.31.0
 
 ([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...c0c2ec8952ef046d11b52b7b24d08612f3899641))
@@ -25,8 +44,6 @@ See [our definition of contributors](https://github-activity.readthedocs.io/en/l
 ([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2025-12-01&to=2026-02-06&type=c))
 
 @brichet ([activity](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Abrichet+updated%3A2025-12-01..2026-02-06&type=Issues)) | @fcollonval ([activity](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Afcollonval+updated%3A2025-12-01..2026-02-06&type=Issues)) | @jtpio ([activity](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ajtpio+updated%3A2025-12-01..2026-02-06&type=Issues)) | @krassowski ([activity](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Akrassowski+updated%3A2025-12-01..2026-02-06&type=Issues)) | @martinRenou ([activity](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3AmartinRenou+updated%3A2025-12-01..2026-02-06&type=Issues)) | @mfisher87 ([activity](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Amfisher87+updated%3A2025-12-01..2026-02-06&type=Issues))
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.30.0
 
