@@ -2,6 +2,32 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.31.0
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...c0c2ec8952ef046d11b52b7b24d08612f3899641))
+
+### Enhancements made
+
+- Add composite workflow action for checking user permissions prior to updating snapshots [#268](https://github.com/jupyterlab/maintainer-tools/pull/268) ([@martinRenou](https://github.com/martinRenou), [@brichet](https://github.com/brichet), [@mfisher87](https://github.com/mfisher87))
+- base-setup: simplify caching and support pnpm [#266](https://github.com/jupyterlab/maintainer-tools/pull/266) ([@jtpio](https://github.com/jtpio), [@fcollonval](https://github.com/fcollonval), [@krassowski](https://github.com/krassowski))
+
+### Maintenance and upkeep improvements
+
+- Fix parsing of `pushed_at` [#270](https://github.com/jupyterlab/maintainer-tools/pull/270) ([@krassowski](https://github.com/krassowski), [@martinRenou](https://github.com/martinRenou))
+- Update README according to the new update-snapshots-checkout action [#269](https://github.com/jupyterlab/maintainer-tools/pull/269) ([@martinRenou](https://github.com/martinRenou), [@brichet](https://github.com/brichet), [@krassowski](https://github.com/krassowski))
+- Drop Python 3.9, bump versions [#267](https://github.com/jupyterlab/maintainer-tools/pull/267) ([@jtpio](https://github.com/jtpio), [@krassowski](https://github.com/krassowski))
+
+### Contributors to this release
+
+The following people contributed discussions, new ideas, code and documentation contributions, and review.
+See [our definition of contributors](https://github-activity.readthedocs.io/en/latest/use/#how-does-this-tool-define-contributions-in-the-reports).
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2025-12-01&to=2026-02-06&type=c))
+
+@brichet ([activity](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Abrichet+updated%3A2025-12-01..2026-02-06&type=Issues)) | @fcollonval ([activity](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Afcollonval+updated%3A2025-12-01..2026-02-06&type=Issues)) | @jtpio ([activity](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ajtpio+updated%3A2025-12-01..2026-02-06&type=Issues)) | @krassowski ([activity](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Akrassowski+updated%3A2025-12-01..2026-02-06&type=Issues)) | @martinRenou ([activity](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3AmartinRenou+updated%3A2025-12-01..2026-02-06&type=Issues)) | @mfisher87 ([activity](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Amfisher87+updated%3A2025-12-01..2026-02-06&type=Issues))
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.30.0
 
 ([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...c54b87143e0d4f4a5d1b655f460bf98d88d6ce70))
@@ -15,8 +41,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2025-11-17&to=2025-12-01&type=c))
 
 [@jtpio](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ajtpio+updated%3A2025-11-17..2025-12-01&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.29.2
 
