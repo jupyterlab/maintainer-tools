@@ -49,7 +49,7 @@ If you want to use your minimum dependencies, you can use the following
 option, which will create a constraints file and set the `PIP_CONSTRAINT`
 environment variable, so that installations will use that file.
 By default the Python version will be "3.10", which can be overridden with
-`python_version`.  Note that the environment variable also works if
+`python_version`. Note that the environment variable also works if
 you use virtual environments like `hatch`.
 Note: this does not work on Windows, and will error.
 
@@ -73,7 +73,7 @@ If you want to use your pending dependencies, you can use the following
 option, which will create a constraints file and set the `PIP_CONSTRAINT`
 environment variable, so that installations will use that file.
 By default the Python version will be "3.15", which can be overridden with
-`python_version`.  Note that the environment variable also works if
+`python_version`. Note that the environment variable also works if
 you use virtual environments like `hatch`.
 Note: this does not work on Windows, and will error.
 
@@ -334,7 +334,7 @@ jobs:
 ## Upload Coverage and Report Coverage
 
 These actions are meant to be used together, to combine and enforce coverage.
-A coverage snapshot will be included in the workflow summary.  If coverage
+A coverage snapshot will be included in the workflow summary. If coverage
 is below threshold, the `report-coverage` action will fail and upload the
 html report.
 
