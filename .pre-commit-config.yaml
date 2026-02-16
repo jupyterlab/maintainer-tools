@@ -4,7 +4,7 @@ ci:
 
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.5.0
+    rev: 3e8a8703264a2f4a69428a0aa4dcb512790b2c8c # frozen: v6.0.0
     hooks:
       - id: check-case-conflict
       - id: check-ast
@@ -21,17 +21,17 @@ repos:
       - id: trailing-whitespace
 
   - repo: https://github.com/python-jsonschema/check-jsonschema
-    rev: 0.27.4
+    rev: f761d025eb06bcd6a45bf152ba3593c9b8ad9a9b # frozen: 0.36.2
     hooks:
       - id: check-github-workflows
 
   - repo: https://github.com/executablebooks/mdformat
-    rev: 0.7.17
+    rev: 82912cdaea4fb830f751504486a7879c70526547 # frozen: 1.0.0
     hooks:
       - id: mdformat
 
   - repo: https://github.com/pre-commit/mirrors-prettier
-    rev: "v4.0.0-alpha.8"
+    rev: f12edd9c7be1c20cfa42420fd0e6df71e42b51ea # frozen: v4.0.0-alpha.8
     hooks:
       - id: prettier
         types_or: [yaml, html, json]
@@ -39,13 +39,13 @@ repos:
         exclude: ^package.json$
 
   - repo: https://github.com/adamchainz/blacken-docs
-    rev: "1.16.0"
+    rev: fda77690955e9b63c6687d8806bafd56a526e45f # frozen: 1.20.0
     hooks:
       - id: blacken-docs
         additional_dependencies: [black==23.7.0]
 
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: "v1.8.0"
+    rev: a66e98df7b4aeeb3724184b332785976d062b92e # frozen: v1.19.1
     hooks:
       - id: mypy
         stages: [manual]
@@ -53,20 +53,20 @@ repos:
         additional_dependencies: ["packaging"]
 
   - repo: https://github.com/codespell-project/codespell
-    rev: "v2.2.6"
+    rev: 63c8f8312b7559622c0d82815639671ae42132ac # frozen: v2.4.1
     hooks:
       - id: codespell
         args: ["-L", "sur,nd"]
 
   - repo: https://github.com/pre-commit/pygrep-hooks
-    rev: "v1.10.0"
+    rev: 3a6eb0fadf60b3cccfd80bad9dbb6fae7e47b316 # frozen: v1.10.0
     hooks:
       - id: rst-backticks
       - id: rst-directive-colons
       - id: rst-inline-touching-normal
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.2.0
+    rev: fa93bc3224c614a0e9786d3e2d3d48edcca246eb # frozen: v0.15.1
     hooks:
       - id: ruff
         types_or: [python, jupyter]
@@ -75,7 +75,7 @@ repos:
         types_or: [python, jupyter]
 
   - repo: https://github.com/scientific-python/cookie
-    rev: "2024.01.24"
+    rev: 61489a7c52bc75d47a8b25fb633e0d7836b197ce # frozen: 2025.11.21
     hooks:
       - id: sp-repo-review
         additional_dependencies: ["repo-review[cli]"]
