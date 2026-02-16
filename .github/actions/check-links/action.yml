@@ -18,7 +18,11 @@ runs:
       shell: bash
       run: |
         pip install pytest-check-links[cache]
-        export IGNORE_GLOB="${{inputs.ignore_glob}}"
-        export IGNORE_LINKS="${{inputs.ignore_links}}"
-        export LINKS_EXPIRE=${{inputs.links_expire}}
+        export IGNORE_GLOB="${INPUTS_IGNORE_GLOB}"
+        export IGNORE_LINKS="${INPUTS_IGNORE_LINKS}"
+        export LINKS_EXPIRE=${INPUTS_LINKS_EXPIRE}
         python ${{ github.action_path }}/check_links.py
+      env:
+        INPUTS_IGNORE_GLOB: ${{inputs.ignore_glob}}
+        INPUTS_IGNORE_LINKS: ${{inputs.ignore_links}}
+        INPUTS_LINKS_EXPIRE: ${{inputs.links_expire}}

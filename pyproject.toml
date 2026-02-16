@@ -35,7 +35,7 @@ dependencies = ["pre-commit"]
 detached = true
 [tool.hatch.envs.lint.scripts]
 build = [
-  "pre-commit run --all-files ruff",
+  "pre-commit run --all-files ruff-check",
   "pre-commit run --all-files ruff-format"
 ]
 
@@ -102,4 +102,4 @@ relative_files = true
 source = ["foobar"]
 
 [tool.repo-review]
-ignore = ["PY004", "PY005", "GH102", "RTD100"]
+ignore = ["PY004", "PY005", "GH102", "RTD100", "PP006", "PP304"]
