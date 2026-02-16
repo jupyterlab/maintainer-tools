@@ -6,7 +6,7 @@ inputs:
     required: true
   package_spec:
     description: "The package spec to install"
-    default: '."[test]"'
+    default: '.[test]'
     required: true
   package_download_extra_args:
     description: "The arguments used to download the package"
