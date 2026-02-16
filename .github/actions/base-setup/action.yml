@@ -8,6 +8,9 @@ inputs:
   dependency_type:
     default: "standard"
     description: "The dependency installation type: standard, pre, minimum"
+  pnpm_version:
+    default: "latest"
+    description: "The pnpm version to use when no pnpm packageManager is pinned"
 runs:
   using: "composite"
   steps:
@@ -65,19 +68,60 @@ runs:
       id: detect-pm
       shell: bash
       run: |
-        if [ -n "$PNPM_HASH" ]; then
-          echo "manager=pnpm" >> $GITHUB_OUTPUT
-          echo "lockfile=**/pnpm-lock.yaml" >> $GITHUB_OUTPUT
-        elif [ -n "$YARN_HASH" ]; then
-          echo "manager=yarn" >> $GITHUB_OUTPUT
-          echo "lockfile=**/yarn.lock" >> $GITHUB_OUTPUT
-        elif [ -n "$NPM_HASH" ]; then
-          echo "manager=npm" >> $GITHUB_OUTPUT
-          echo "lockfile=**/package-lock.json" >> $GITHUB_OUTPUT
-        else
-          echo "manager=" >> $GITHUB_OUTPUT
-          echo "lockfile=" >> $GITHUB_OUTPUT
+        MANAGER=""
+        LOCKFILE=""
+        ROOT_PM=""
+        PNPM_VERSION=""
+
+        if [ -f package.json ]; then
+          if grep -q "\"packageManager\"[[:space:]]*:[[:space:]]*\"pnpm@" package.json; then
+            ROOT_PM="pnpm"
+          elif grep -q "\"packageManager\"[[:space:]]*:[[:space:]]*\"yarn@" package.json; then
+            ROOT_PM="yarn"
+          elif grep -q "\"packageManager\"[[:space:]]*:[[:space:]]*\"npm@" package.json; then
+            ROOT_PM="npm"
+          fi
         fi
+
+        # If root packageManager is declared, only honor the matching lockfile for cache setup.
+        # Otherwise, fall back to lockfile presence.
+        if [ "$ROOT_PM" = "pnpm" ]; then
+          if [ -n "$PNPM_HASH" ]; then
+            MANAGER="pnpm"
+            LOCKFILE="**/pnpm-lock.yaml"
+          fi
+        elif [ "$ROOT_PM" = "yarn" ]; then
+          if [ -n "$YARN_HASH" ]; then
+            MANAGER="yarn"
+            LOCKFILE="**/yarn.lock"
+          fi
+        elif [ "$ROOT_PM" = "npm" ]; then
+          if [ -n "$NPM_HASH" ]; then
+            MANAGER="npm"
+            LOCKFILE="**/package-lock.json"
+          fi
+        elif [ -n "$PNPM_HASH" ]; then
+          MANAGER="pnpm"
+          LOCKFILE="**/pnpm-lock.yaml"
+        elif [ -n "$YARN_HASH" ]; then
+          MANAGER="yarn"
+          LOCKFILE="**/yarn.lock"
+        elif [ -n "$NPM_HASH" ]; then
+          MANAGER="npm"
+          LOCKFILE="**/package-lock.json"
+        fi
+
+        if [ "$MANAGER" = "pnpm" ]; then
+          if [ "$ROOT_PM" = "pnpm" ] && [ -f package.json ]; then
+            # Extract declared pnpm version (strip optional integrity suffix like +sha512...).
+            PNPM_VERSION=$(grep -oE "\"packageManager\"[[:space:]]*:[[:space:]]*\"pnpm@[^\"]+\"" package.json | sed -E 's/.*\"pnpm@([^\"]+)\"/\1/' | sed -E 's/\+.*$//' || true)
+          fi
+          PNPM_VERSION="${PNPM_VERSION:-${{ inputs.pnpm_version }}}"
+        fi
+
+        echo "manager=$MANAGER" >> $GITHUB_OUTPUT
+        echo "lockfile=$LOCKFILE" >> $GITHUB_OUTPUT
+        echo "pnpm-version=$PNPM_VERSION" >> $GITHUB_OUTPUT
       env:
         PNPM_HASH: ${{ hashFiles('**/pnpm-lock.yaml') }}
         YARN_HASH: ${{ hashFiles('**/yarn.lock') }}
@@ -86,22 +130,46 @@ runs:
     - name: Install pnpm
       if: steps.detect-pm.outputs.manager == 'pnpm'
       uses: pnpm/action-setup@v4
+      with:
+        version: ${{ steps.detect-pm.outputs.pnpm-version }}
 
-    - name: Enable corepack
-      shell: bash
-      run: |
-        # Enable corepack if the project defines packageManager
-        if [ -f package.json ]; then
-          HAS_PKG_MANAGER=$(grep -e \"packageManager\"\: package.json)
-          if [ ! -z "$HAS_PKG_MANAGER" ]; then corepack enable; fi
-        fi
-
-    - name: Install node
+    - name: Install node (with cache)
+      if: steps.detect-pm.outputs.manager != ''
       uses: actions/setup-node@v6
       with:
         node-version: ${{ env.NODE_VERSION }}
         cache: ${{ steps.detect-pm.outputs.manager }}
         cache-dependency-path: ${{ steps.detect-pm.outputs.lockfile }}
+        # Disable setup-node's implicit npm caching. We always set caching explicitly.
+        package-manager-cache: false
+
+    - name: Install node (without cache)
+      if: steps.detect-pm.outputs.manager == ''
+      uses: actions/setup-node@v6
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+        package-manager-cache: false
+
+    - name: Enable corepack
+      shell: bash
+      run: |
+        if ! command -v corepack >/dev/null 2>&1; then
+          echo "corepack is not available, skipping"
+          exit 0
+        fi
+
+        # Enable corepack if any package.json defines packageManager.
+        ENABLE_COREPACK=0
+        while IFS= read -r -d '' package_json; do
+          if grep -q "\"packageManager\"[[:space:]]*:" "$package_json"; then
+            ENABLE_COREPACK=1
+            break
+          fi
+        done < <(find . -name package.json -type f -print0)
+
+        if [ "$ENABLE_COREPACK" -eq 1 ]; then
+          corepack enable
+        fi
 
     - name: Cache checked links
       if: ${{ matrix.group == 'link_check' }}
