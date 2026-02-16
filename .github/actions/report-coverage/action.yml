@@ -12,7 +12,7 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - uses: actions/setup-python@v5
+    - uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
       with:
         # Use latest Python, so it understands all syntax.
         python-version: "3.13"
@@ -22,7 +22,7 @@ runs:
       shell: bash
 
     - name: Merge Artifacts
-      uses: actions/upload-artifact/merge@v4
+      uses: actions/upload-artifact/merge@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
       with:
         name: coverage-data
         pattern: ${{ inputs.artifact_pattern }}
@@ -40,10 +40,12 @@ runs:
         python -Iim coverage report | sed 's/^/    /' >> $GITHUB_STEP_SUMMARY
 
         # Report again and fail if under threshold
-        python -Iim coverage report --fail-under=${{inputs.fail_under}}
+        python -Iim coverage report --fail-under=${INPUTS_FAIL_UNDER}
+      env:
+        INPUTS_FAIL_UNDER: ${{inputs.fail_under}}
 
     - name: Upload HTML report if check failed.
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
       with:
         name: html-report
         path: htmlcov

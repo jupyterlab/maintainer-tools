@@ -30,12 +30,12 @@ runs:
         unset PIP_CONSTRAINT
 
         echo "::group::Set up env values"
-        package_name=${{inputs.package_name}}
-        package_spec="${{inputs.package_spec}}"
-        test_command="${{inputs.test_command}}"
-        package_download_extra_args="${{inputs.package_download_extra_args}}"
+        package_name=${INPUTS_PACKAGE_NAME}
+        package_spec="${INPUTS_PACKAGE_SPEC}"
+        test_command="${INPUTS_TEST_COMMAND}"
+        package_download_extra_args="${INPUTS_PACKAGE_DOWNLOAD_EXTRA_ARGS}"
         root=$(pwd)
-        eval "${{inputs.env_values}}"
+        eval "${INPUTS_ENV_VALUES}"
         echo "::endgroup::"
 
         echo "::group::Set up venv"
@@ -62,10 +62,17 @@ runs:
 
         echo "::group::Test the downstream package"
         eval ${test_command}
-        eval "${{inputs.extra_test}}"
+        eval "${INPUTS_EXTRA_TEST}"
         echo "::endgroup::"
 
         echo "::group::Cleanup"
         cd $HOME
         rm -rf ./test_venv
         echo "::endgroup::"
+      env:
+        INPUTS_PACKAGE_NAME: ${{inputs.package_name}}
+        INPUTS_PACKAGE_SPEC: ${{inputs.package_spec}}
+        INPUTS_TEST_COMMAND: ${{inputs.test_command}}
+        INPUTS_PACKAGE_DOWNLOAD_EXTRA_ARGS: ${{inputs.package_download_extra_args}}
+        INPUTS_ENV_VALUES: ${{inputs.env_values}}
+        INPUTS_EXTRA_TEST: ${{inputs.extra_test}}

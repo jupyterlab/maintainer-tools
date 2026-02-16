@@ -17,7 +17,7 @@ runs:
   using: "composite"
   steps:
     - name: Download sdist
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
     - name: Install From SDist
       shell: bash
       run: |
@@ -27,15 +27,21 @@ runs:
         mkdir test
         tar --strip-components=1 -zxvf *.tar.gz -C ./test
         cd test
-        python -m pip install ${{inputs.package_spec}}
+        python -m pip install ${INPUTS_PACKAGE_SPEC}
         echo "::endgroup::"
+      env:
+        INPUTS_PACKAGE_SPEC: ${{inputs.package_spec}}
     - name: Run Test
       shell: bash
       run: |
         echo "::group::Run test"
         set -ex
         cd sdist/test
-        eval "${{inputs.env_values}}"
-        eval "${{inputs.test_command}}"
-        eval "${{inputs.extra_test}}"
+        eval "${INPUTS_ENV_VALUES}"
+        eval "${INPUTS_TEST_COMMAND}"
+        eval "${INPUTS_EXTRA_TEST}"
         echo "::endgroup::"
+      env:
+        INPUTS_ENV_VALUES: ${{inputs.env_values}}
+        INPUTS_TEST_COMMAND: ${{inputs.test_command}}
+        INPUTS_EXTRA_TEST: ${{inputs.extra_test}}
