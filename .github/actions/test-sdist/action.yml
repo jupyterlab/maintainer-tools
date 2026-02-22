@@ -3,7 +3,7 @@ description: "Test a built sdist"
 inputs:
   package_spec:
     description: "The package spec to install"
-    default: '--editable ."[test]"'
+    default: '--editable .[test]'
     required: true
   test_command:
     description: "The test command"
