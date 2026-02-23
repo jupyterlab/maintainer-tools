@@ -158,6 +158,13 @@ runs:
           exit 0
         fi
 
+        # When pnpm is the detected manager, pnpm/action-setup already installed it.
+        # Skip corepack to avoid conflicting shims.
+        if [ "$DETECTED_MANAGER" = "pnpm" ]; then
+          echo "pnpm is managed by pnpm/action-setup, skipping corepack"
+          exit 0
+        fi
+
         # Enable corepack if any package.json defines packageManager.
         ENABLE_COREPACK=0
         while IFS= read -r -d '' package_json; do
@@ -170,6 +177,8 @@ runs:
         if [ "$ENABLE_COREPACK" -eq 1 ]; then
           corepack enable
         fi
+      env:
+        DETECTED_MANAGER: ${{ steps.detect-pm.outputs.manager }}
 
     - name: Cache checked links
       if: ${{ matrix.group == 'link_check' }}
