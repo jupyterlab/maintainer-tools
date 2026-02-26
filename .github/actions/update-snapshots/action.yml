@@ -67,20 +67,25 @@ runs:
       if: ${{ inputs.start_server_script != 'null' }}
       working-directory: ${{ inputs.test_folder }}
       shell: bash -l {0}
-      run: (${{ inputs.npm_client }} run ${{ inputs.start_server_script }} 1>/tmp/snapshots-update-server.log 2>&1) &
+      run: (${INPUTS_NPM_CLIENT} run ${INPUTS_START_SERVER_SCRIPT} 1>/tmp/snapshots-update-server.log 2>&1) &
+      env:
+        INPUTS_NPM_CLIENT: ${{ inputs.npm_client }}
+        INPUTS_START_SERVER_SCRIPT: ${{ inputs.start_server_script }}
 
     - name: Setup integration tests
       shell: bash -l {0}
       working-directory: ${{ inputs.test_folder }}
       run: |
-        ${{ inputs.npm_client }} install
+        ${INPUTS_NPM_CLIENT} install
         # Force installing the dependencies
         npx playwright install-deps || true
         npx playwright install ${{ inputs.browser || 'chromium' }}
+      env:
+        INPUTS_NPM_CLIENT: ${{ inputs.npm_client }}
 
     - name: Wait for the server
       if: ${{ inputs.start_server_script != 'null' }}
-      uses: ifaxity/wait-on-action@v1
+      uses: ifaxity/wait-on-action@a7d13170ec542bdca4ef8ac4b15e9c6aa00a6866 # v1.2.1
       with:
         resource: ${{ inputs.server_url }}
         timeout: 360000
@@ -92,7 +97,10 @@ runs:
       continue-on-error: ${{ inputs.continue_on_error == 'yes' }}
       shell: bash -l {0}
       working-directory: ${{ inputs.test_folder }}
-      run: ${{ inputs.npm_client }} run ${{ inputs.update_script }}
+      run: ${INPUTS_NPM_CLIENT} run ${INPUTS_UPDATE_SCRIPT}
+      env:
+        INPUTS_NPM_CLIENT: ${{ inputs.npm_client }}
+        INPUTS_UPDATE_SCRIPT: ${{ inputs.update_script }}
 
     - name: Generate new snapshots (with browser)
       if: ${{ inputs.browser != '' }}
@@ -100,7 +108,11 @@ runs:
       continue-on-error: ${{ inputs.continue_on_error == 'yes' }}
       shell: bash -l {0}
       working-directory: ${{ inputs.test_folder }}
-      run: ${{ inputs.npm_client }} run ${{ inputs.update_script }} --browser ${{ inputs.browser }}
+      run: ${INPUTS_NPM_CLIENT} run ${INPUTS_UPDATE_SCRIPT} --browser ${INPUTS_BROWSER}
+      env:
+        INPUTS_NPM_CLIENT: ${{ inputs.npm_client }}
+        INPUTS_UPDATE_SCRIPT: ${{ inputs.update_script }}
+        INPUTS_BROWSER: ${{ inputs.browser }}
 
     - name: Compress snapshots
       if: ${{ runner.os == 'Linux' }}
@@ -115,13 +127,13 @@ runs:
         echo "::endgroup::"
 
     - name: Upload snapshots as artifact
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
       with:
         name: ${{ inputs.artifact_name }}-${{ inputs.browser }}
         path: ${{ inputs.test_folder }}/**/*-snapshots/*.*
 
     - name: Upload report as artifact
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
       with:
         name: ${{ inputs.report_name }}
         path: ${{ inputs.test_folder }}/playwright-report
@@ -130,14 +142,16 @@ runs:
       shell: bash -l {0}
       working-directory: ${{ inputs.test_folder }}
       run: |
-        git config user.name '${{ inputs.git_username }}'
-        git config user.email '${{ inputs.git_email }}'
+        git config user.name '${INPUTS_GIT_USERNAME}'
+        git config user.email '${INPUTS_GIT_EMAIL}'
 
         git pull --no-tags
         git add ./*-snapshots/*.*
         git commit -m "Update Playwright Snapshots"
       env:
         GITHUB_TOKEN: ${{ inputs.github_token }}
+        INPUTS_GIT_USERNAME: ${{ inputs.git_username }}
+        INPUTS_GIT_EMAIL: ${{ inputs.git_email }}
 
     - name: Push new snapshots
       if: ${{ inputs.dry_run != 'yes' }}

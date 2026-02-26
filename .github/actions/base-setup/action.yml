@@ -17,7 +17,7 @@ runs:
         set -eux
         PYTHON_VERSION="${{ inputs.python_version || matrix.python-version }}"
         NODE_VERSION=${{ inputs.node_version || matrix.node-version || '24.x' }}
-        DEPENDENCY_TYPE=${{ inputs.dependency_type }}
+        DEPENDENCY_TYPE=${INPUTS_DEPENDENCY_TYPE}
 
         # Handle default python value based on dependency type.
         if [ $DEPENDENCY_TYPE == "pre" ]; then
@@ -36,11 +36,13 @@ runs:
 
         echo "PYTHON_VERSION=$PYTHON_VERSION" >> $GITHUB_ENV
         echo "NODE_VERSION=$NODE_VERSION" >> $GITHUB_ENV
-        echo "CACHE_PREFIX=${{ runner.os }}-${{ github.workflow}}-${{ github.job }}" >> $GITHUB_ENV
+        echo "CACHE_PREFIX=${{ runner.os }}-${GITHUB_WORKFLOW}-${{ github.job }}" >> $GITHUB_ENV
         echo "DEPENDENCY_TYPE=$DEPENDENCY_TYPE" >> $GITHUB_ENV
+      env:
+        INPUTS_DEPENDENCY_TYPE: ${{ inputs.dependency_type }}
 
     - name: Install Python
-      uses: actions/setup-python@v5
+      uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
       with:
         python-version: ${{ env.PYTHON_VERSION }}
         allow-prereleases: true
@@ -54,7 +56,7 @@ runs:
       run: |
         echo "dir=$(pip cache dir)" >> $GITHUB_OUTPUT
     - name: Cache pip
-      uses: actions/cache@v4
+      uses: actions/cache@cdf6c1fa76f9f475f3d7449005a359c84ca0f306 # v5.0.3
       with:
         path: ${{ steps.pip-cache.outputs.dir }}
         key: ${{ env.CACHE_PREFIX }}-pip-${{ env.PYTHON_VERSION }}-${{ hashFiles('setup.cfg', 'setup.py', '**/requirements.txt', '**/pyproject.toml') }}
@@ -62,7 +64,7 @@ runs:
           ${{ env.CACHE_PREFIX }}-pip-${{ env.PYTHON_VERSION }}
 
     - name: Install node
-      uses: actions/setup-node@v6
+      uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238 # v6.2.0
       with:
         node-version: ${{ env.NODE_VERSION }}
 
@@ -82,7 +84,7 @@ runs:
         [[ "$CACHE_DIR" == "undefined" ]] && CACHE_DIR=$(yarn cache dir)
         echo "dir=$CACHE_DIR" >> $GITHUB_OUTPUT
     - name: Cache yarn
-      uses: actions/cache@v4
+      uses: actions/cache@cdf6c1fa76f9f475f3d7449005a359c84ca0f306 # v5.0.3
       id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
       with:
         path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
@@ -92,7 +94,7 @@ runs:
 
     - name: Cache checked links
       if: ${{ matrix.group == 'link_check' }}
-      uses: actions/cache@v4
+      uses: actions/cache@cdf6c1fa76f9f475f3d7449005a359c84ca0f306 # v5.0.3
       with:
         path: ~/.cache/pytest-link-check
         key: ${{ env.CACHE_PREFIX }}-linkcheck-${{ hashFiles('**/*.md', '**/*.rst') }}-links
@@ -100,7 +102,7 @@ runs:
           ${{ env.CACHE_PREFIX }}-linkcheck-
 
     - name: Cache conda
-      uses: actions/cache@v4
+      uses: actions/cache@cdf6c1fa76f9f475f3d7449005a359c84ca0f306 # v5.0.3
       with:
         path: ~/conda_pkgs_dir
         key: ${{ env.CACHE_PREFIX  }}-conda-${{ env.CACHE_NUMBER }}-${{
