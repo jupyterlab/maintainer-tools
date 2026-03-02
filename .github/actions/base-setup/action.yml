@@ -70,60 +70,18 @@ runs:
       id: detect-pm
       shell: bash
       run: |
-        MANAGER=""
-        LOCKFILE=""
-        ROOT_PM=""
-        PNPM_VERSION=""
-
-        if [ -f package.json ]; then
-          if grep -q "\"packageManager\"[[:space:]]*:[[:space:]]*\"pnpm@" package.json; then
-            ROOT_PM="pnpm"
-          elif grep -q "\"packageManager\"[[:space:]]*:[[:space:]]*\"yarn@" package.json; then
-            ROOT_PM="yarn"
-          elif grep -q "\"packageManager\"[[:space:]]*:[[:space:]]*\"npm@" package.json; then
-            ROOT_PM="npm"
+        if [ -n "$PNPM_HASH" ]; then
+          echo "manager=pnpm" >> $GITHUB_OUTPUT
+          # Extract pnpm version from packageManager field, fall back to input
+          if [ -f package.json ]; then
+            PKG_VERSION=$(sed -n 's/.*"packageManager"[[:space:]]*:[[:space:]]*"pnpm@\([^"+]*\).*/\1/p' package.json)
           fi
-        fi
-
-        # If root packageManager is declared, only honor the matching lockfile for cache setup.
-        # Otherwise, fall back to lockfile presence.
-        if [ "$ROOT_PM" = "pnpm" ]; then
-          if [ -n "$PNPM_HASH" ]; then
-            MANAGER="pnpm"
-            LOCKFILE="**/pnpm-lock.yaml"
-          fi
-        elif [ "$ROOT_PM" = "yarn" ]; then
-          if [ -n "$YARN_HASH" ]; then
-            MANAGER="yarn"
-            LOCKFILE="**/yarn.lock"
-          fi
-        elif [ "$ROOT_PM" = "npm" ]; then
-          if [ -n "$NPM_HASH" ]; then
-            MANAGER="npm"
-            LOCKFILE="**/package-lock.json"
-          fi
-        elif [ -n "$PNPM_HASH" ]; then
-          MANAGER="pnpm"
-          LOCKFILE="**/pnpm-lock.yaml"
+          echo "pnpm-version=${PKG_VERSION:-${{ inputs.pnpm_version }}}" >> $GITHUB_OUTPUT
         elif [ -n "$YARN_HASH" ]; then
-          MANAGER="yarn"
-          LOCKFILE="**/yarn.lock"
+          echo "manager=yarn" >> $GITHUB_OUTPUT
         elif [ -n "$NPM_HASH" ]; then
-          MANAGER="npm"
-          LOCKFILE="**/package-lock.json"
+          echo "manager=npm" >> $GITHUB_OUTPUT
         fi
-
-        if [ "$MANAGER" = "pnpm" ]; then
-          if [ "$ROOT_PM" = "pnpm" ] && [ -f package.json ]; then
-            # Extract declared pnpm version (strip optional integrity suffix like +sha512...).
-            PNPM_VERSION=$(grep -oE "\"packageManager\"[[:space:]]*:[[:space:]]*\"pnpm@[^\"]+\"" package.json | sed -E 's/.*\"pnpm@([^\"]+)\"/\1/' | sed -E 's/\+.*$//' || true)
-          fi
-          PNPM_VERSION="${PNPM_VERSION:-${{ inputs.pnpm_version }}}"
-        fi
-
-        echo "manager=$MANAGER" >> $GITHUB_OUTPUT
-        echo "lockfile=$LOCKFILE" >> $GITHUB_OUTPUT
-        echo "pnpm-version=$PNPM_VERSION" >> $GITHUB_OUTPUT
       env:
         PNPM_HASH: ${{ hashFiles('**/pnpm-lock.yaml') }}
         YARN_HASH: ${{ hashFiles('**/yarn.lock') }}
@@ -135,52 +93,27 @@ runs:
       with:
         version: ${{ steps.detect-pm.outputs.pnpm-version }}
 
-    - name: Install node (with cache)
-      if: steps.detect-pm.outputs.manager != ''
+    # Ensure the pnpm store directory exists so that setup-node's
+    # cache post-step does not fail in jobs that don't run pnpm install.
+    - name: Initialize pnpm store
+      if: steps.detect-pm.outputs.manager == 'pnpm'
+      shell: bash
+      run: mkdir -p "$(pnpm store path)"
+
+    - name: Install node
       uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238 # v6.2.0
       with:
         node-version: ${{ env.NODE_VERSION }}
         cache: ${{ steps.detect-pm.outputs.manager }}
-        cache-dependency-path: ${{ steps.detect-pm.outputs.lockfile }}
-        # Disable setup-node's implicit npm caching. We always set caching explicitly.
-        package-manager-cache: false
-
-    - name: Install node (without cache)
-      if: steps.detect-pm.outputs.manager == ''
-      uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238 # v6.2.0
-      with:
-        node-version: ${{ env.NODE_VERSION }}
         package-manager-cache: false
 
     - name: Enable corepack
+      if: steps.detect-pm.outputs.manager != 'pnpm'
       shell: bash
       run: |
-        if ! command -v corepack >/dev/null 2>&1; then
-          echo "corepack is not available, skipping"
-          exit 0
-        fi
-
-        # When pnpm is the detected manager, pnpm/action-setup already installed it.
-        # Skip corepack to avoid conflicting shims.
-        if [ "$DETECTED_MANAGER" = "pnpm" ]; then
-          echo "pnpm is managed by pnpm/action-setup, skipping corepack"
-          exit 0
-        fi
-
-        # Enable corepack if any package.json defines packageManager.
-        ENABLE_COREPACK=0
-        while IFS= read -r -d '' package_json; do
-          if grep -q "\"packageManager\"[[:space:]]*:" "$package_json"; then
-            ENABLE_COREPACK=1
-            break
-          fi
-        done < <(find . -name package.json -type f -print0)
-
-        if [ "$ENABLE_COREPACK" -eq 1 ]; then
+        if [ -f package.json ] && grep -q '"packageManager"' package.json; then
           corepack enable
         fi
-      env:
-        DETECTED_MANAGER: ${{ steps.detect-pm.outputs.manager }}
 
     - name: Cache checked links
       if: ${{ matrix.group == 'link_check' }}
