@@ -84,6 +84,9 @@ runs:
         elif [ -n "$NPM_HASH" ]; then
           echo "manager=npm" >> $GITHUB_OUTPUT
           echo "lock-hash=$NPM_HASH" >> $GITHUB_OUTPUT
+        elif [ -f package.json ]; then
+          # Fall back to yarn when no lock file is found but package.json exists
+          echo "manager=yarn" >> $GITHUB_OUTPUT
         fi
       env:
         PNPM_HASH: ${{ hashFiles('**/pnpm-lock.yaml') }}
@@ -92,7 +95,7 @@ runs:
 
     - name: Install pnpm
       if: steps.detect-pm.outputs.manager == 'pnpm'
-      uses: pnpm/action-setup@v4
+      uses: pnpm/action-setup@41ff72655975bd51cab0327fa583b6e92b6d3061 # v4.2.0
       with:
         version: ${{ steps.detect-pm.outputs.pnpm-version }}
 
