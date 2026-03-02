@@ -72,7 +72,7 @@ runs:
       run: |
         if [ -n "$PNPM_HASH" ]; then
           echo "manager=pnpm" >> $GITHUB_OUTPUT
-          echo "lock-file=**/pnpm-lock.yaml" >> $GITHUB_OUTPUT
+          echo "lock-hash=$PNPM_HASH" >> $GITHUB_OUTPUT
           # Extract pnpm version from packageManager field, fall back to input
           if [ -f package.json ]; then
             PKG_VERSION=$(sed -n 's/.*"packageManager"[[:space:]]*:[[:space:]]*"pnpm@\([^"+]*\).*/\1/p' package.json)
@@ -80,10 +80,10 @@ runs:
           echo "pnpm-version=${PKG_VERSION:-${{ inputs.pnpm_version }}}" >> $GITHUB_OUTPUT
         elif [ -n "$YARN_HASH" ]; then
           echo "manager=yarn" >> $GITHUB_OUTPUT
-          echo "lock-file=**/yarn.lock" >> $GITHUB_OUTPUT
+          echo "lock-hash=$YARN_HASH" >> $GITHUB_OUTPUT
         elif [ -n "$NPM_HASH" ]; then
           echo "manager=npm" >> $GITHUB_OUTPUT
-          echo "lock-file=**/package-lock.json" >> $GITHUB_OUTPUT
+          echo "lock-hash=$NPM_HASH" >> $GITHUB_OUTPUT
         fi
       env:
         PNPM_HASH: ${{ hashFiles('**/pnpm-lock.yaml') }}
@@ -96,20 +96,10 @@ runs:
       with:
         version: ${{ steps.detect-pm.outputs.pnpm-version }}
 
-    # Ensure the pnpm store directory exists so that setup-node's
-    # cache post-step does not fail in jobs that don't run pnpm install.
-    - name: Initialize pnpm store
-      if: steps.detect-pm.outputs.manager == 'pnpm'
-      shell: bash
-      run: mkdir -p "$(pnpm store path)"
-
     - name: Install node
       uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238 # v6.2.0
       with:
         node-version: ${{ env.NODE_VERSION }}
-        cache: ${{ steps.detect-pm.outputs.manager }}
-        cache-dependency-path: ${{ steps.detect-pm.outputs.lock-file }}
-        package-manager-cache: false
 
     - name: Enable corepack
       if: steps.detect-pm.outputs.manager != 'pnpm'
@@ -118,6 +108,33 @@ runs:
         if [ -f package.json ] && grep -q '"packageManager"' package.json; then
           corepack enable
         fi
+
+    # Cache package manager
+    - name: Get package manager cache dir
+      id: pm-cache
+      if: steps.detect-pm.outputs.manager != ''
+      shell: bash
+      run: |
+        if [ "$MANAGER" == "pnpm" ]; then
+          echo "dir=$(pnpm store path)" >> $GITHUB_OUTPUT
+        elif [ "$MANAGER" == "yarn" ]; then
+          CACHE_DIR=$(yarn config get cacheFolder 2>/dev/null)
+          [[ "$CACHE_DIR" == "undefined" ]] && CACHE_DIR=$(yarn cache dir 2>/dev/null)
+          echo "dir=$CACHE_DIR" >> $GITHUB_OUTPUT
+        elif [ "$MANAGER" == "npm" ]; then
+          echo "dir=$(npm config get cache)" >> $GITHUB_OUTPUT
+        fi
+      env:
+        MANAGER: ${{ steps.detect-pm.outputs.manager }}
+
+    - name: Cache package manager
+      if: steps.detect-pm.outputs.manager != ''
+      uses: actions/cache@cdf6c1fa76f9f475f3d7449005a359c84ca0f306 # v5.0.3
+      with:
+        path: ${{ steps.pm-cache.outputs.dir }}
+        key: ${{ env.CACHE_PREFIX }}-${{ steps.detect-pm.outputs.manager }}-${{ env.NODE_VERSION }}-${{ steps.detect-pm.outputs.lock-hash }}
+        restore-keys: |
+          ${{ env.CACHE_PREFIX }}-${{ steps.detect-pm.outputs.manager }}-${{ env.NODE_VERSION }}
 
     - name: Cache checked links
       if: ${{ matrix.group == 'link_check' }}
