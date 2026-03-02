@@ -72,6 +72,7 @@ runs:
       run: |
         if [ -n "$PNPM_HASH" ]; then
           echo "manager=pnpm" >> $GITHUB_OUTPUT
+          echo "lock-file=**/pnpm-lock.yaml" >> $GITHUB_OUTPUT
           # Extract pnpm version from packageManager field, fall back to input
           if [ -f package.json ]; then
             PKG_VERSION=$(sed -n 's/.*"packageManager"[[:space:]]*:[[:space:]]*"pnpm@\([^"+]*\).*/\1/p' package.json)
@@ -79,8 +80,10 @@ runs:
           echo "pnpm-version=${PKG_VERSION:-${{ inputs.pnpm_version }}}" >> $GITHUB_OUTPUT
         elif [ -n "$YARN_HASH" ]; then
           echo "manager=yarn" >> $GITHUB_OUTPUT
+          echo "lock-file=**/yarn.lock" >> $GITHUB_OUTPUT
         elif [ -n "$NPM_HASH" ]; then
           echo "manager=npm" >> $GITHUB_OUTPUT
+          echo "lock-file=**/package-lock.json" >> $GITHUB_OUTPUT
         fi
       env:
         PNPM_HASH: ${{ hashFiles('**/pnpm-lock.yaml') }}
@@ -105,6 +108,7 @@ runs:
       with:
         node-version: ${{ env.NODE_VERSION }}
         cache: ${{ steps.detect-pm.outputs.manager }}
+        cache-dependency-path: ${{ steps.detect-pm.outputs.lock-file }}
         package-manager-cache: false
 
     - name: Enable corepack
