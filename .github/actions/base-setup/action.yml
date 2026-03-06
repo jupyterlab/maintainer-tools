@@ -122,9 +122,9 @@ runs:
         echo "::group::Upgrade packaging dependencies"
         python -m pip install --upgrade pip pipx
         if [ "$RUNNER_OS" != "Windows" ]; then
-          pipx install hatch --python $(which python)
+          pipx install hatch>=1.16.5 --python $(which python)
         else
-          pipx install hatch
+          pipx install hatch>=1.16.5
         fi
         echo "::endgroup::"
 
