@@ -371,6 +371,55 @@ jobs:
           fail_under: 90
 ```
 
+## Inline Playwright Report
+
+Use this action to inline image and video assets referenced by a Playwright HTML report into a single HTML file. This is useful for uploading and sharing one self-contained report artifact.
+
+Inputs:
+
+- `path` (required): path to the Playwright report directory containing `index.html`
+- `output` (optional): output HTML path (defaults to `output.html` in the report directory)
+- `verbose` (optional): whether to print matched media references (`yes`/`no`, default: `yes`)
+- `max_output_mb` (optional): maximum output HTML size in MB (default: `200`); images are always inlined first, then videos are inlined until the limit is reached.
+
+Example workflow usage:
+
+```yaml
+name: Publish Playwright Report
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+
+jobs:
+  inline-report:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: jupyterlab/maintainer-tools/.github/actions/base-setup@v1
+
+      - name: Generate Playwright HTML report
+        run: |
+          npm ci
+          npx playwright test || true
+
+      - name: Inline report assets
+        uses: jupyterlab/maintainer-tools/.github/actions/inline-playwright-report@v1
+        with:
+          path: playwright-report
+          output: playwright-report/report.html
+          max_output_mb: 200
+
+      - name: Upload inlined report
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          archive: false
+          name: playwright-report-inlined
+          path: playwright-report/report.html
+```
+
 ## Update snapshots
 
 You can use _update snapshots_ action to commit on a branch
