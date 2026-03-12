@@ -397,7 +397,7 @@ jobs:
         uses: ./.github/actions/inline-playwright-report
         with:
           path: ${{ env.TEST_FOLDER }}/blob-html-report
-          output: blob-html-report/blob-output.html
+          output: mock-playwright-inline/blob-html-report/blob-output.html
 
       - name: Upload inlined blob-merged HTML report
         if: always()
