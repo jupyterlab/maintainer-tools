@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 from __future__ import annotations
 
 import argparse
@@ -92,21 +90,25 @@ def parse_args() -> argparse.Namespace:
 def extract_data_uri_from_html(html: str) -> tuple[str, str]:
     match = BASE64_ASSIGNMENT_PATTERN.search(html)
     if not match:
-        raise ValueError("Could not find window.playwrightReportBase64 assignment in HTML")
+        message = "Could not find window.playwrightReportBase64 assignment in HTML"
+        raise ValueError(message)
     return match.group(0), match.group(3)
 
 
 def split_data_uri(data_uri: str) -> bytes:
     if not data_uri.startswith("data:"):
-        raise ValueError("playwrightReportBase64 value is not a data URI")
+        message = "Expected data URI for window.playwrightReportBase64 value"
+        raise ValueError(message)
 
     try:
         header, b64_data = data_uri.split(",", 1)
     except ValueError as exc:
-        raise ValueError("Malformed data URI") from exc
+        message = "Malformed data URI"
+        raise ValueError(message) from exc
 
     if ";base64" not in header:
-        raise ValueError("Expected base64 data URI")
+        message = "Expected base64 data URI"
+        raise ValueError(message)
 
     return base64.b64decode(b64_data)
 
