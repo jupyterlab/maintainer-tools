@@ -366,7 +366,7 @@ jobs:
 
           popd
 
-      - name: Create blob report and merge into HTML (window.playwrightReportBase64 format)
+      - name: Create blob report and merge into HTML
         shell: bash
         run: |
           pushd ${TEST_FOLDER}
