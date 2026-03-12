@@ -316,7 +316,7 @@ jobs:
 
       - name: Upload raw HTML report
         if: always()
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
         with:
           name: html-report-raw
           path: ${{ env.TEST_FOLDER }}/playwright-report
@@ -328,7 +328,7 @@ jobs:
 
       - name: Upload inlined HTML report
         if: always()
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
         with:
           name: html-report-inlined
           path: ${{ env.TEST_FOLDER }}/playwright-report/output.html
@@ -388,7 +388,7 @@ jobs:
 
       - name: Upload raw blob-merged HTML report
         if: always()
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
         with:
           name: blob-html-report-raw
           path: ${{ env.TEST_FOLDER }}/blob-html-report
@@ -401,7 +401,7 @@ jobs:
 
       - name: Upload inlined blob-merged HTML report
         if: always()
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
         with:
           name: blob-html-report-inlined
           path: ${{ env.TEST_FOLDER }}/blob-html-report/blob-output.html
