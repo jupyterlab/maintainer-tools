@@ -15,7 +15,6 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
-
 BASE64_ASSIGNMENT_PATTERN = re.compile(
     r"(window\.playwrightReportBase64\s*=\s*)([\"'])(.*?)(\2\s*;)",
     re.DOTALL,
@@ -213,9 +212,7 @@ def inline_paths_in_json(
     if isinstance(obj, dict):
         for key, value in obj.items():
             if isinstance(value, str):
-                inlined = to_data_uri_for_reference(
-                    value, report_dir, cache, allowed_paths
-                )
+                inlined = to_data_uri_for_reference(value, report_dir, cache, allowed_paths)
                 if inlined and inlined != value:
                     obj[key] = inlined
                     replaced += 1
@@ -234,9 +231,7 @@ def inline_paths_in_json(
     if isinstance(obj, list):
         for idx, value in enumerate(obj):
             if isinstance(value, str):
-                inlined = to_data_uri_for_reference(
-                    value, report_dir, cache, allowed_paths
-                )
+                inlined = to_data_uri_for_reference(value, report_dir, cache, allowed_paths)
                 if inlined and inlined != value:
                     obj[idx] = inlined
                     replaced += 1
@@ -408,19 +403,14 @@ def process_zip_payload(
     current_entries = {**passthrough_entries, **current_json_entries}
     current_zip = build_zip_bytes(current_entries)
 
-    max_output_bytes = (
-        None if max_output_mb is None else int(max_output_mb * 1024 * 1024)
-    )
+    max_output_bytes = None if max_output_mb is None else int(max_output_mb * 1024 * 1024)
     included_videos = 0
 
     if max_output_bytes is not None:
-        size_after_images = projected_output_size(
-            html, full_assignment, current_zip
-        )
+        size_after_images = projected_output_size(html, full_assignment, current_zip)
         if size_after_images > max_output_bytes:
             print(
-                "Warning: image-only output already exceeds max size; "
-                "videos will be skipped.",
+                "Warning: image-only output already exceeds max size; videos will be skipped.",
                 file=sys.stderr,
             )
         else:
@@ -430,9 +420,7 @@ def process_zip_payload(
             for video_path in video_paths:
                 mime = media_paths[video_path]
                 ref_count = media_ref_counts.get(video_path, 1)
-                growth = estimated_replacement_growth_bytes(
-                    video_path, mime, report_dir, ref_count
-                )
+                growth = estimated_replacement_growth_bytes(video_path, mime, report_dir, ref_count)
                 if used_estimated_growth + growth <= headroom:
                     selected_video_paths.append(video_path)
                     used_estimated_growth += growth
@@ -454,9 +442,10 @@ def process_zip_payload(
 
                 current_zip, touched_json_files, total_replacements = _rebuild_for_selection()
 
-                while selected_video_paths and projected_output_size(
-                    html, full_assignment, current_zip
-                ) > max_output_bytes:
+                while (
+                    selected_video_paths
+                    and projected_output_size(html, full_assignment, current_zip) > max_output_bytes
+                ):
                     removed = selected_video_paths.pop()
                     selected_paths.remove(removed)
                     current_zip, touched_json_files, total_replacements = _rebuild_for_selection()
