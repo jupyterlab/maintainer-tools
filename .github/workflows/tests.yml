@@ -314,10 +314,25 @@ jobs:
 
           popd
 
+      - name: Upload raw HTML report
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: html-report-raw
+          path: ${{ env.TEST_FOLDER }}/playwright-report
+
       - name: Inline report assets
         uses: ./.github/actions/inline-playwright-report
         with:
           path: ${{ env.TEST_FOLDER }}/playwright-report
+
+      - name: Upload inlined HTML report
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: html-report-inlined
+          path: ${{ env.TEST_FOLDER }}/playwright-report/output.html
+          archive: false
 
       - name: Verify report renders inlined screenshots
         shell: bash
@@ -332,6 +347,78 @@ jobs:
             const browser = await chromium.launch();
             const page = await browser.newPage();
             const reportPath = path.resolve('playwright-report', 'output.html');
+            await page.goto(`file://${reportPath}`);
+            await page.getByText(/1 failed/i).first().waitFor({ timeout: 60000 });
+
+            await page.locator('text=/example\\.spec\\.ts/').first().click({ timeout: 10000 }).catch(() => {});
+
+            await page.waitForFunction(
+              () => Array.from(document.images).some((img) => (img.src || '').startsWith('data:image/png;base64,')),
+              { timeout: 60000 }
+            );
+
+            await browser.close();
+          })().catch((error) => {
+            console.error(error);
+            process.exit(1);
+          });
+          EOF
+
+          popd
+
+      - name: Create blob report and merge into HTML (window.playwrightReportBase64 format)
+        shell: bash
+        run: |
+          pushd ${TEST_FOLDER}
+
+          cat > playwright.blob.config.ts << EOF
+          import { defineConfig } from '@playwright/test';
+
+          export default defineConfig({
+            reporter: [['blob', { outputDir: 'blob-report' }]],
+            use: { browserName: 'chromium' },
+          });
+          EOF
+
+          npx playwright test --config=playwright.blob.config.ts || true
+          PLAYWRIGHT_HTML_OUTPUT_DIR=blob-html-report npx playwright merge-reports --reporter=html ./blob-report
+          test -f blob-html-report/index.html
+
+          popd
+
+      - name: Upload raw blob-merged HTML report
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: blob-html-report-raw
+          path: ${{ env.TEST_FOLDER }}/blob-html-report
+
+      - name: Inline blob-merged report assets
+        uses: ./.github/actions/inline-playwright-report
+        with:
+          path: ${{ env.TEST_FOLDER }}/blob-html-report
+
+      - name: Upload inlined blob-merged HTML report
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: blob-html-report-inlined
+          path: ${{ env.TEST_FOLDER }}/blob-html-report/output.html
+          archive: false
+
+      - name: Verify blob-merged report renders inlined screenshots
+        shell: bash
+        run: |
+          pushd ${TEST_FOLDER}
+
+          node << 'EOF'
+          const path = require('path');
+          const { chromium } = require('@playwright/test');
+
+          (async () => {
+            const browser = await chromium.launch();
+            const page = await browser.newPage();
+            const reportPath = path.resolve('blob-html-report', 'output.html');
             await page.goto(`file://${reportPath}`);
             await page.getByText(/1 failed/i).first().waitFor({ timeout: 60000 });
 

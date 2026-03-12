@@ -13,8 +13,16 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
+# Legacy format: window.playwrightReportBase64 = "data:..."; (Playwright <1.41)
 BASE64_ASSIGNMENT_PATTERN = re.compile(
     r"(window\.playwrightReportBase64\s*=\s*)([\"'])(.*?)(\2\s*;)",
+    re.DOTALL,
+)
+
+# Modern format: <script id="playwrightReportBase64" type="application/zip">data:...</script>
+# Used by Playwright 1.41+ (html.ts appends base64 data directly to a script element)
+SCRIPT_TAG_PATTERN = re.compile(
+    r'(<script\s[^>]*id=["\']playwrightReportBase64["\'][^>]*>)(.*?)(</script>)',
     re.DOTALL,
 )
 
@@ -88,11 +96,17 @@ def parse_args() -> argparse.Namespace:
 
 
 def extract_data_uri_from_html(html: str) -> tuple[str, str]:
+    """Return (full_matched_text, data_uri) for whichever format is present."""
+    # Try legacy JS variable assignment format first
     match = BASE64_ASSIGNMENT_PATTERN.search(html)
-    if not match:
-        message = "Could not find window.playwrightReportBase64 assignment in HTML"
-        raise ValueError(message)
-    return match.group(0), match.group(3)
+    if match:
+        return match.group(0), match.group(3)
+    # Try modern <script> element format (Playwright 1.41+)
+    match = SCRIPT_TAG_PATTERN.search(html)
+    if match:
+        return match.group(0), match.group(2)
+    message = "Could not find window.playwrightReportBase64 assignment in HTML"
+    raise ValueError(message)
 
 
 def split_data_uri(data_uri: str) -> bytes:
@@ -118,7 +132,13 @@ def encode_zip_data_uri(data: bytes) -> str:
 
 
 def build_report_assignment(data_uri: str) -> str:
+    """Build a legacy JS-assignment replacement string (used only for size estimation)."""
     return f"{ASSIGNMENT_PREFIX}{data_uri}{ASSIGNMENT_SUFFIX}"
+
+
+def build_report_replacement(full_old: str, old_data_uri: str, new_data_uri: str) -> str:
+    """Replace the data URI inside the matched block, regardless of format."""
+    return full_old.replace(old_data_uri, new_data_uri, 1)
 
 
 def media_mime_type(filename: str) -> str | None:
@@ -322,15 +342,15 @@ def build_zip_bytes(entries: dict[str, bytes]) -> bytes:
 
 def projected_output_size(
     html: str,
-    full_assignment: str,
+    old_data_uri: str,
     zip_bytes: bytes,
 ) -> int:
+    """Estimate output size after replacing the old data URI with new zip bytes."""
     new_value = encode_zip_data_uri(zip_bytes)
-    replacement_assignment = build_report_assignment(new_value)
     return (
         len(html.encode("utf-8"))
-        - len(full_assignment.encode("utf-8"))
-        + len(replacement_assignment.encode("utf-8"))
+        - len(old_data_uri.encode("utf-8"))
+        + len(new_value.encode("utf-8"))
     )
 
 
@@ -366,7 +386,7 @@ def process_zip_payload(
     zip_bytes: bytes,
     report_dir: Path,
     html: str,
-    full_assignment: str,
+    encoded_value: str,
     verbose: bool,
     max_output_mb: float | None,
 ) -> ProcessZipResult:
@@ -410,7 +430,7 @@ def process_zip_payload(
     included_videos = 0
 
     if max_output_bytes is not None:
-        size_after_images = projected_output_size(html, full_assignment, current_zip)
+        size_after_images = projected_output_size(html, encoded_value, current_zip)
         if size_after_images > max_output_bytes:
             print(
                 "Warning: image-only output already exceeds max size; videos will be skipped.",
@@ -447,7 +467,7 @@ def process_zip_payload(
 
                 while (
                     selected_video_paths
-                    and projected_output_size(html, full_assignment, current_zip) > max_output_bytes
+                    and projected_output_size(html, encoded_value, current_zip) > max_output_bytes
                 ):
                     removed = selected_video_paths.pop()
                     selected_paths.remove(removed)
@@ -504,13 +524,13 @@ def main() -> int:
         zip_bytes,
         input_path.parent,
         html,
-        full_assignment,
+        encoded_value,
         args.verbose,
         args.max_output_mb,
     )
 
     new_value = encode_zip_data_uri(result.zip_bytes)
-    replacement_assignment = build_report_assignment(new_value)
+    replacement_assignment = build_report_replacement(full_assignment, encoded_value, new_value)
     updated_html = html.replace(full_assignment, replacement_assignment, 1)
     output_path.write_text(updated_html, encoding="utf-8")
 
