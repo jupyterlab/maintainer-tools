@@ -170,11 +170,6 @@ def resolve_reference_path(base: str, report_dir: Path) -> Path:
     direct = Path(base)
     if not direct.is_absolute():
         direct = report_dir / direct
-    try:
-        if direct.exists() and direct.is_file():
-            return direct
-    except OSError:
-        return direct
     return direct
 
 
@@ -537,6 +532,7 @@ def main() -> int:
     print(f"Wrote: {output_path}")
     print(f"JSON files updated: {result.touched_json_files}")
     print(f"Media references inlined: {result.total_replacements}")
+    # We always inline all images first, so total_images == inlined_images
     print(f"Images inlined: {result.total_images}/{result.total_images}")
     print(f"Videos inlined: {result.inlined_videos}/{result.total_videos}")
     return 0

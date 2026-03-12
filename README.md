@@ -396,7 +396,7 @@ jobs:
   inline-report:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v6
       - uses: jupyterlab/maintainer-tools/.github/actions/base-setup@v1
 
       - name: Generate Playwright HTML report
