@@ -419,7 +419,7 @@ jobs:
           (async () => {
             const browser = await chromium.launch();
             const page = await browser.newPage();
-            const reportPath = path.resolve('blob-html-report', 'output.html');
+            const reportPath = path.resolve('blob-html-report', 'blob-output.html');
             await page.goto(`file://${reportPath}`);
 
             await page.locator('text=/snapshot test/').first().click({ timeout: 10000 });
