@@ -198,8 +198,9 @@ def to_data_uri_for_reference(
         return None
 
     payload = base64.b64encode(resolved.read_bytes()).decode("ascii")
-    cache[base] = f"data:{mime};base64,{payload}"
-    return cache[base] + suffix
+    data_uri = f"data:{mime};base64,{payload}"
+    cache[base] = data_uri
+    return data_uri + suffix
 
 
 def inline_paths_in_json(
