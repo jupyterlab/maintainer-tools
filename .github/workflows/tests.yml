@@ -259,6 +259,99 @@ jobs:
           start_server_script: "null"
           dry_run: yes
 
+  inline_playwright_report:
+    runs-on: ubuntu-latest
+    env:
+      TEST_FOLDER: mock-playwright-inline
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+      - uses: ./.github/actions/base-setup
+      - name: Create a mock playwright package with a failing snapshot
+        shell: bash
+        run: |
+          mkdir -p ${TEST_FOLDER}/tests
+          pushd ${TEST_FOLDER}
+
+          touch yarn.lock
+          yarn init -yp
+          yarn add -D @playwright/test@latest
+
+          cat > playwright.config.ts << EOF
+          import { defineConfig } from '@playwright/test';
+
+          export default defineConfig({
+            reporter: [['html', { open: 'never' }]],
+            use: { browserName: 'chromium' },
+          });
+          EOF
+
+          cat > tests/example.spec.ts << EOF
+          import { test, expect } from '@playwright/test';
+
+          test('snapshot test', async ({ page }) => {
+            await page.setViewportSize({ width: 320, height: 240 });
+            await page.setContent('<div style="width:320px;height:240px;background:#00aaff"></div>');
+            await expect(page).toHaveScreenshot('box.png');
+          });
+          EOF
+
+          npx playwright install --with-deps chromium
+          npx playwright test --update-snapshots
+
+          cat > tests/example.spec.ts << EOF
+          import { test, expect } from '@playwright/test';
+
+          test('snapshot test', async ({ page }) => {
+            await page.setViewportSize({ width: 320, height: 240 });
+            await page.setContent('<div style="width:320px;height:240px;background:#ff6600"></div>');
+            await expect(page).toHaveScreenshot('box.png');
+          });
+          EOF
+
+          npx playwright test || true
+          test -f playwright-report/index.html
+
+          popd
+
+      - name: Inline report assets
+        uses: ./.github/actions/inline-playwright-report
+        with:
+          report_dir: ${{ env.TEST_FOLDER }}/playwright-report
+
+      - name: Verify report renders inlined screenshots
+        shell: bash
+        run: |
+          pushd ${TEST_FOLDER}
+
+          node << 'EOF'
+          const path = require('path');
+          const { chromium } = require('@playwright/test');
+
+          (async () => {
+            const browser = await chromium.launch();
+            const page = await browser.newPage();
+            const reportPath = path.resolve('playwright-report', 'output.html');
+            await page.goto(`file://${reportPath}`);
+            await page.getByText(/1 failed/i).first().waitFor({ timeout: 60000 });
+
+            await page.locator('text=/example\\.spec\\.ts/').first().click({ timeout: 10000 }).catch(() => {});
+
+            await page.waitForFunction(
+              () => Array.from(document.images).some((img) => (img.src || '').startsWith('data:image/png;base64,')),
+              { timeout: 60000 }
+            );
+
+            await browser.close();
+          })().catch((error) => {
+            console.error(error);
+            process.exit(1);
+          });
+          EOF
+
+          popd
+
   make_sdist:
     name: Make SDist
     runs-on: windows-latest
@@ -325,6 +418,7 @@ jobs:
       - downstream_overrides
       - update_snapshots-manual-server
       - update_snapshots
+      - inline_playwright_report
       - test_sdist
       - coverage_report
     runs-on: ubuntu-latest

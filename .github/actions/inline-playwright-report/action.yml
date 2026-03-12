@@ -1,0 +1,41 @@
+name: Inline Playwright report assets
+description: Inline image and video assets referenced by a Playwright HTML report into output.html
+
+inputs:
+  report_dir:
+    description: Path to Playwright report directory containing index.html
+    required: true
+  output:
+    description: Output HTML path (defaults to output.html in report_dir)
+    required: false
+  verbose:
+    description: Whether to print matched media references (yes/no)
+    required: false
+    default: yes
+  max_output_mb:
+    description: Maximum output HTML size in MB
+    required: false
+    default: 200
+
+runs:
+  using: composite
+  steps:
+    - name: Inline report assets
+      shell: bash
+      env:
+        INPUT_REPORT_DIR: ${{ inputs.report_dir }}
+        INPUT_OUTPUT: ${{ inputs.output }}
+        INPUT_VERBOSE: ${{ inputs.verbose }}
+        INPUT_MAX_OUTPUT_MB: ${{ inputs.max_output_mb }}
+      run: |
+        args=("${{ github.action_path }}/inline_playwright_report_assets.py" "${INPUT_REPORT_DIR}")
+        if [[ -n "${INPUT_OUTPUT}" ]]; then
+          args+=("--output" "${INPUT_OUTPUT}")
+        fi
+        if [[ "${INPUT_VERBOSE}" == "yes" ]]; then
+          args+=("--verbose")
+        fi
+        if [[ -n "${INPUT_MAX_OUTPUT_MB}" ]]; then
+          args+=("--max-output-mb" "${INPUT_MAX_OUTPUT_MB}")
+        fi
+        python "${args[@]}"
