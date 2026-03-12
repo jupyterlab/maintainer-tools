@@ -2,11 +2,11 @@ name: Inline Playwright report assets
 description: Inline image and video assets referenced by a Playwright HTML report into output.html
 
 inputs:
-  report_dir:
+  path:
     description: Path to Playwright report directory containing index.html
     required: true
   output:
-    description: Output HTML path (defaults to output.html in report_dir)
+    description: Output HTML path (defaults to output.html in the report directory)
     required: false
   verbose:
     description: Whether to print matched media references (yes/no)
@@ -23,12 +23,12 @@ runs:
     - name: Inline report assets
       shell: bash
       env:
-        INPUT_REPORT_DIR: ${{ inputs.report_dir }}
+        INPUT_PATH: ${{ inputs.path }}
         INPUT_OUTPUT: ${{ inputs.output }}
         INPUT_VERBOSE: ${{ inputs.verbose }}
         INPUT_MAX_OUTPUT_MB: ${{ inputs.max_output_mb }}
       run: |
-        args=("${{ github.action_path }}/inline_playwright_report_assets.py" "${INPUT_REPORT_DIR}")
+        args=("${{ github.action_path }}/inline_playwright_report_assets.py" "${INPUT_PATH}")
         if [[ -n "${INPUT_OUTPUT}" ]]; then
           args+=("--output" "${INPUT_OUTPUT}")
         fi

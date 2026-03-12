@@ -318,7 +318,7 @@ jobs:
       - name: Inline report assets
         uses: ./.github/actions/inline-playwright-report
         with:
-          report_dir: ${{ env.TEST_FOLDER }}/playwright-report
+          path: ${{ env.TEST_FOLDER }}/playwright-report
 
       - name: Verify report renders inlined screenshots
         shell: bash
