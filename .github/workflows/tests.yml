@@ -297,8 +297,8 @@ jobs:
           });
           EOF
 
-          npx playwright install --with-deps chromium
-          npx playwright test --update-snapshots
+          yarn playwright install chromium --only-shell
+          yarn playwright test --update-snapshots
 
           cat > tests/example.spec.ts << EOF
           import { test, expect } from '@playwright/test';
@@ -310,7 +310,7 @@ jobs:
           });
           EOF
 
-          npx playwright test || true
+          yarn playwright test || true
           test -f playwright-report/index.html
 
           popd
