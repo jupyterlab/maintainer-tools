@@ -274,9 +274,8 @@ jobs:
           mkdir -p ${TEST_FOLDER}/tests
           pushd ${TEST_FOLDER}
 
-          touch yarn.lock
-          yarn init -yp
-          yarn add -D @playwright/test@latest
+          npm init -y
+          npm install --save-dev @playwright/test@latest
 
           cat > playwright.config.ts << EOF
           import { defineConfig } from '@playwright/test';
@@ -297,8 +296,8 @@ jobs:
           });
           EOF
 
-          yarn playwright install chromium --only-shell
-          yarn playwright test --update-snapshots
+          npx playwright install chromium --only-shell
+          npx playwright test --update-snapshots
 
           cat > tests/example.spec.ts << EOF
           import { test, expect } from '@playwright/test';
@@ -310,7 +309,7 @@ jobs:
           });
           EOF
 
-          yarn playwright test || true
+          npx playwright test || true
           test -f playwright-report/index.html
 
           popd
