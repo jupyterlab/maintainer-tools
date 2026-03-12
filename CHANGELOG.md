@@ -2,6 +2,25 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.32.1
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...05a7fa473d4343f7224dbac42c34a403d2e85014))
+
+### Bugs fixed
+
+- Fix syntax for `pipx install` command in base setup [#280](https://github.com/jupyterlab/maintainer-tools/pull/280) ([@krassowski](https://github.com/krassowski))
+
+### Contributors to this release
+
+The following people contributed discussions, new ideas, code and documentation contributions, and review.
+See [our definition of contributors](https://github-activity.readthedocs.io/en/latest/use/#how-does-this-tool-define-contributions-in-the-reports).
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2026-03-12&to=2026-03-12&type=c))
+
+@krassowski ([activity](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Akrassowski+updated%3A2026-03-12..2026-03-12&type=Issues))
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.32.0
 
 ([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...1a2310027566d48d622e122d1f22a4ef2c121008))
@@ -24,8 +43,6 @@ See [our definition of contributors](https://github-activity.readthedocs.io/en/l
 ([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2026-02-06&to=2026-03-12&type=c))
 
 @agriyakhetarpal ([activity](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Aagriyakhetarpal+updated%3A2026-02-06..2026-03-12&type=Issues)) | @blink1073 ([activity](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2026-02-06..2026-03-12&type=Issues)) | @jasongrout ([activity](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ajasongrout+updated%3A2026-02-06..2026-03-12&type=Issues)) | @jtpio ([activity](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ajtpio+updated%3A2026-02-06..2026-03-12&type=Issues)) | @krassowski ([activity](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Akrassowski+updated%3A2026-02-06..2026-03-12&type=Issues)) | @ojarjur ([activity](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Aojarjur+updated%3A2026-02-06..2026-03-12&type=Issues))
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.31.1
 
