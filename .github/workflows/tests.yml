@@ -397,13 +397,14 @@ jobs:
         uses: ./.github/actions/inline-playwright-report
         with:
           path: ${{ env.TEST_FOLDER }}/blob-html-report
+          output: blob-output.html
 
       - name: Upload inlined blob-merged HTML report
         if: always()
         uses: actions/upload-artifact@v7
         with:
           name: blob-html-report-inlined
-          path: ${{ env.TEST_FOLDER }}/blob-html-report/output.html
+          path: ${{ env.TEST_FOLDER }}/blob-html-report/blob-output.html
           archive: false
 
       - name: Verify blob-merged report renders inlined screenshots
