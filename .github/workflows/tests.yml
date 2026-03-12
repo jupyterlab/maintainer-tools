@@ -341,7 +341,7 @@ jobs:
 
           node << 'EOF'
           const path = require('path');
-          const { chromium } = require('@playwright/test');
+          const { chromium, expect } = require('@playwright/test');
 
           (async () => {
             const browser = await chromium.launch();
@@ -349,10 +349,11 @@ jobs:
             const reportPath = path.resolve('playwright-report', 'output.html');
             await page.goto(`file://${reportPath}`);
 
-            await page.locator('text=/example\\.spec\\.ts/').first().click({ timeout: 10000 });
+            await page.locator('text=/snapshot test/').first().click({ timeout: 10000 });
 
-            await page.waitForFunction(
-              () => Array.from(document.images).some((img) => (img.src || '').startsWith('data:image/png;base64,')),
+            await expect(page.locator('img[alt="Diff"]').first()).toHaveAttribute(
+              'src',
+              /^data:image\/png;base64,/,
               { timeout: 60000 }
             );
 
@@ -412,7 +413,7 @@ jobs:
 
           node << 'EOF'
           const path = require('path');
-          const { chromium } = require('@playwright/test');
+          const { chromium, expect } = require('@playwright/test');
 
           (async () => {
             const browser = await chromium.launch();
@@ -420,10 +421,11 @@ jobs:
             const reportPath = path.resolve('blob-html-report', 'output.html');
             await page.goto(`file://${reportPath}`);
 
-            await page.locator('text=/example\\.spec\\.ts/').first().click({ timeout: 10000 });
+            await page.locator('text=/snapshot test/').first().click({ timeout: 10000 });
 
-            await page.waitForFunction(
-              () => Array.from(document.images).some((img) => (img.src || '').startsWith('data:image/png;base64,')),
+            await expect(page.locator('img[alt="Diff"]').first()).toHaveAttribute(
+              'src',
+              /^data:image\/png;base64,/,
               { timeout: 60000 }
             );
 
