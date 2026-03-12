@@ -348,9 +348,8 @@ jobs:
             const page = await browser.newPage();
             const reportPath = path.resolve('playwright-report', 'output.html');
             await page.goto(`file://${reportPath}`);
-            await page.getByText(/1 failed/i).first().waitFor({ timeout: 60000 });
 
-            await page.locator('text=/example\\.spec\\.ts/').first().click({ timeout: 10000 }).catch(() => {});
+            await page.locator('text=/example\\.spec\\.ts/').first().click({ timeout: 10000 });
 
             await page.waitForFunction(
               () => Array.from(document.images).some((img) => (img.src || '').startsWith('data:image/png;base64,')),
@@ -420,9 +419,8 @@ jobs:
             const page = await browser.newPage();
             const reportPath = path.resolve('blob-html-report', 'output.html');
             await page.goto(`file://${reportPath}`);
-            await page.getByText(/1 failed/i).first().waitFor({ timeout: 60000 });
 
-            await page.locator('text=/example\\.spec\\.ts/').first().click({ timeout: 10000 }).catch(() => {});
+            await page.locator('text=/example\\.spec\\.ts/').first().click({ timeout: 10000 });
 
             await page.waitForFunction(
               () => Array.from(document.images).some((img) => (img.src || '').startsWith('data:image/png;base64,')),
