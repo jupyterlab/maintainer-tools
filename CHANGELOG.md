@@ -2,6 +2,31 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.32.0
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...1a2310027566d48d622e122d1f22a4ef2c121008))
+
+### Enhancements made
+
+- Add action to inline playwright reports [#279](https://github.com/jupyterlab/maintainer-tools/pull/279) ([@krassowski](https://github.com/krassowski), [@jtpio](https://github.com/jtpio))
+- enforce-label: add 'dependencies' as an approved triage label [#276](https://github.com/jupyterlab/maintainer-tools/pull/276) ([@blink1073](https://github.com/blink1073), [@jasongrout](https://github.com/jasongrout), [@krassowski](https://github.com/krassowski))
+
+### Maintenance and upkeep improvements
+
+- Require at least version 1.16.5 for hatch [#277](https://github.com/jupyterlab/maintainer-tools/pull/277) ([@ojarjur](https://github.com/ojarjur), [@krassowski](https://github.com/krassowski))
+- Bump and pin all GitHub Actions to their SHAs [#275](https://github.com/jupyterlab/maintainer-tools/pull/275) ([@agriyakhetarpal](https://github.com/agriyakhetarpal), [@krassowski](https://github.com/krassowski))
+
+### Contributors to this release
+
+The following people contributed discussions, new ideas, code and documentation contributions, and review.
+See [our definition of contributors](https://github-activity.readthedocs.io/en/latest/use/#how-does-this-tool-define-contributions-in-the-reports).
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2026-02-06&to=2026-03-12&type=c))
+
+@agriyakhetarpal ([activity](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Aagriyakhetarpal+updated%3A2026-02-06..2026-03-12&type=Issues)) | @blink1073 ([activity](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ablink1073+updated%3A2026-02-06..2026-03-12&type=Issues)) | @jasongrout ([activity](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ajasongrout+updated%3A2026-02-06..2026-03-12&type=Issues)) | @jtpio ([activity](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ajtpio+updated%3A2026-02-06..2026-03-12&type=Issues)) | @krassowski ([activity](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Akrassowski+updated%3A2026-02-06..2026-03-12&type=Issues)) | @ojarjur ([activity](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Aojarjur+updated%3A2026-02-06..2026-03-12&type=Issues))
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.31.1
 
 ([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...37fe114b3671d848bf06702a79a10b0e6dec42ab))
@@ -18,8 +43,6 @@ See [our definition of contributors](https://github-activity.readthedocs.io/en/l
 ([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2026-02-06&to=2026-02-06&type=c))
 
 @jtpio ([activity](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ajtpio+updated%3A2026-02-06..2026-02-06&type=Issues))
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.31.0
 
