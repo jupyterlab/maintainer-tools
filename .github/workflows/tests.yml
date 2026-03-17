@@ -80,9 +80,7 @@ jobs:
           # NOTE: keep the python version in sync with README
           python --version
           python --version | grep "3.10"
-          test "$UV_CONSTRAINT" = "$HOME/constraints.txt"
-          test "$UV_BUILD_CONSTRAINT" = "$HOME/constraints.txt"
-          python -c 'from jupyter_core import __version__; assert __version__ == "4.12.0"'
+          hatch run check_minimum
 
   base_setup_pre:
     runs-on: ubuntu-latest
@@ -116,8 +114,7 @@ jobs:
           # NOTE: keep this version in sync with README
           python --version
           python --version | grep "3.15"
-          test "$UV_PRERELEASE" = "allow"
-          python -c 'import os; assert os.environ["PIP_PRE"] == "1"'
+          hatch run check_pre
 
   test_lint:
     name: Test Lint
