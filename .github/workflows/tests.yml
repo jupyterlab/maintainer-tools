@@ -43,6 +43,7 @@ jobs:
       - name: Check uv pip setup
         run: |
           uv --version
+          hatch --version
           test -n "$(uv cache dir)"
           uv pip install --system -e ".[test]"
           python -c "import jupyter_core, pytest"
@@ -63,6 +64,26 @@ jobs:
           python --version | grep "3.10"
           hatch run check_minimum
 
+  base_setup_minimum_uv_pip:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+      - uses: ./.github/actions/base-setup
+        with:
+          dependency_type: minimum
+          python_package_manager: "uv pip"
+      - run: |
+          hatch --version
+          uv pip install --system -e ".[test]"
+          # NOTE: keep the python version in sync with README
+          python --version
+          python --version | grep "3.10"
+          test "$UV_CONSTRAINT" = "$HOME/constraints.txt"
+          test "$UV_BUILD_CONSTRAINT" = "$HOME/constraints.txt"
+          python -c 'from jupyter_core import __version__; assert __version__ == "4.12.0"'
+
   base_setup_pre:
     runs-on: ubuntu-latest
     steps:
@@ -78,6 +99,25 @@ jobs:
           python --version
           python --version | grep "3.15"
           hatch run check_pre
+
+  base_setup_pre_uv_pip:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+      - uses: ./.github/actions/base-setup
+        with:
+          dependency_type: pre
+          python_package_manager: "uv pip"
+      - run: |
+          hatch --version
+          uv pip install --system -e ".[test]"
+          # NOTE: keep this version in sync with README
+          python --version
+          python --version | grep "3.15"
+          test "$UV_PRERELEASE" = "allow"
+          python -c 'import os; assert os.environ["PIP_PRE"] == "1"'
 
   test_lint:
     name: Test Lint
@@ -515,7 +555,9 @@ jobs:
       - base_setup
       - base_setup_uv_pip
       - base_setup_minimum
+      - base_setup_minimum_uv_pip
       - base_setup_pre
+      - base_setup_pre_uv_pip
       - test_lint
       - check_links
       - binder_link
