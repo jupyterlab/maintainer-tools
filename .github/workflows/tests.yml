@@ -29,6 +29,25 @@ jobs:
       - name: Check Hatch Version
         run: hatch --version
 
+  base_setup_uv_pip:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+      - name: Base Setup
+        uses: ./.github/actions/base-setup
+        with:
+          python_package_manager: "uv pip"
+      - name: Check uv pip setup
+        run: |
+          uv --version
+          hatch --version
+          test -n "$(uv cache dir)"
+          uv pip install --system -e ".[test]"
+          python -c "import jupyter_core, pytest"
+
   base_setup_minimum:
     runs-on: ubuntu-latest
     steps:
@@ -45,6 +64,24 @@ jobs:
           python --version | grep "3.10"
           hatch run check_minimum
 
+  base_setup_minimum_uv_pip:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+      - uses: ./.github/actions/base-setup
+        with:
+          dependency_type: minimum
+          python_package_manager: "uv pip"
+      - run: |
+          hatch --version
+          uv pip install --system -e ".[test]"
+          # NOTE: keep the python version in sync with README
+          python --version
+          python --version | grep "3.10"
+          hatch run check_minimum
+
   base_setup_pre:
     runs-on: ubuntu-latest
     steps:
@@ -56,6 +93,24 @@ jobs:
           dependency_type: pre
       - run: |
           pip install -e ".[test]"
+          # NOTE: keep this version in sync with README
+          python --version
+          python --version | grep "3.15"
+          hatch run check_pre
+
+  base_setup_pre_uv_pip:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+      - uses: ./.github/actions/base-setup
+        with:
+          dependency_type: pre
+          python_package_manager: "uv pip"
+      - run: |
+          hatch --version
+          uv pip install --system -e ".[test]"
           # NOTE: keep this version in sync with README
           python --version
           python --version | grep "3.15"
@@ -495,8 +550,11 @@ jobs:
     if: always()
     needs:
       - base_setup
+      - base_setup_uv_pip
       - base_setup_minimum
+      - base_setup_minimum_uv_pip
       - base_setup_pre
+      - base_setup_pre_uv_pip
       - test_lint
       - check_links
       - binder_link
