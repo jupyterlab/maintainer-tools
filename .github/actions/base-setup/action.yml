@@ -188,10 +188,21 @@ runs:
         else
           python -m pip install --upgrade pip pipx
         fi
-        if [ "$RUNNER_OS" != "Windows" ]; then
-          pipx install "hatch>=1.16.5" --python $(which python)
+        # For https://github.com/pypa/hatch/issues/2193 to handle older Python versions
+        if python -c 'import sys; raise SystemExit(0 if sys.version_info[:2] <= (3, 9) else 1)'; then
+          HATCH_SPEC="hatch"
+          LEGACY_VIRTUALENV_SPEC="virtualenv<21"
         else
-          pipx install "hatch>=1.16.5"
+          HATCH_SPEC="hatch>=1.16.5"
+          LEGACY_VIRTUALENV_SPEC=""
+        fi
+        if [ "$RUNNER_OS" != "Windows" ]; then
+          pipx install "$HATCH_SPEC" --python "$(which python)"
+        else
+          pipx install "$HATCH_SPEC"
+        fi
+        if [ -n "$LEGACY_VIRTUALENV_SPEC" ]; then
+          pipx inject hatch "$LEGACY_VIRTUALENV_SPEC"
         fi
         echo "::endgroup::"
 
