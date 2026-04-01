@@ -19,10 +19,11 @@ BASE64_ASSIGNMENT_PATTERN = re.compile(
     re.DOTALL,
 )
 
-# Modern format: <script id="playwrightReportBase64" type="application/zip">data:...</script>
-# Used by Playwright 1.41+ (html.ts appends base64 data directly to a script element)
+# Modern format: an element with id="playwrightReportBase64" containing the data URI.
+# Playwright 1.41+ used a <script> tag; Playwright 1.59 switched to a <template> tag.
+# Matching on the id attribute (not the tag name) keeps this future-proof.
 SCRIPT_TAG_PATTERN = re.compile(
-    r'(<script\s[^>]*id=["\']playwrightReportBase64["\'][^>]*>)(.*?)(</script>)',
+    r'(<(\w+)\s[^>]*id=["\']playwrightReportBase64["\'][^>]*>)(.*?)(</\2>)',
     re.DOTALL,
 )
 
@@ -101,10 +102,10 @@ def extract_data_uri_from_html(html: str) -> tuple[str, str]:
     match = BASE64_ASSIGNMENT_PATTERN.search(html)
     if match:
         return match.group(0), match.group(3)
-    # Try modern <script> element format (Playwright 1.41+)
+    # Try modern element format (Playwright 1.41+: <script>, 1.59+: <template>)
     match = SCRIPT_TAG_PATTERN.search(html)
     if match:
-        return match.group(0), match.group(2)
+        return match.group(0), match.group(3)
     message = "Could not find window.playwrightReportBase64 assignment in HTML"
     raise ValueError(message)
 
