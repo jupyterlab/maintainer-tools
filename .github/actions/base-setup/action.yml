@@ -202,7 +202,7 @@ runs:
           pipx install "$HATCH_SPEC"
         fi
         if [ -n "$LEGACY_VIRTUALENV_SPEC" ]; then
-          pipx inject hatch "$LEGACY_VIRTUALENV_SPEC"
+          pipx inject hatch "$LEGACY_VIRTUALENV_SPEC" --force
         fi
         echo "::endgroup::"
 
