@@ -2,6 +2,25 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.33.1
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...6b251fb63b982c287d2f7f7777ccd5e5d9d3bc83))
+
+### Maintenance and upkeep improvements
+
+- Fix inlining for latest playwright version [#285](https://github.com/jupyterlab/maintainer-tools/pull/285) ([@krassowski](https://github.com/krassowski), [@jtpio](https://github.com/jtpio))
+
+### Contributors to this release
+
+The following people contributed discussions, new ideas, code and documentation contributions, and review.
+See [our definition of contributors](https://github-activity.readthedocs.io/en/latest/use/#how-does-this-tool-define-contributions-in-the-reports).
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2026-03-30&to=2026-04-01&type=c))
+
+@jtpio ([activity](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ajtpio+updated%3A2026-03-30..2026-04-01&type=Issues)) | @krassowski ([activity](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Akrassowski+updated%3A2026-03-30..2026-04-01&type=Issues))
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.33.0
 
 ([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...ce648f318d4d164df17e8d2f1fcc7a5654cf1f73))
@@ -23,8 +42,6 @@ See [our definition of contributors](https://github-activity.readthedocs.io/en/l
 ([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2026-03-12&to=2026-03-30&type=c))
 
 @Carreau ([activity](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3ACarreau+updated%3A2026-03-12..2026-03-30&type=Issues)) | @jtpio ([activity](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ajtpio+updated%3A2026-03-12..2026-03-30&type=Issues)) | @krassowski ([activity](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Akrassowski+updated%3A2026-03-12..2026-03-30&type=Issues))
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.32.1
 
