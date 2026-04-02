@@ -13,6 +13,9 @@ inputs:
   python_package_manager:
     default: "pip"
     description: "The Python package manager to use, either pip or uv pip"
+  python_cache_key_suffix:
+    default: ""
+    description: "Additional suffix for cache key. Useful, if installing extras (e.g. [test]) in following steps"
 runs:
   using: "composite"
   steps:
@@ -83,8 +86,10 @@ runs:
       uses: actions/cache@cdf6c1fa76f9f475f3d7449005a359c84ca0f306 # v5.0.3
       with:
         path: ${{ steps.python-pm-cache.outputs.dir }}
-        key: ${{ env.CACHE_PREFIX }}-${{ steps.python-pm-cache.outputs.cache-key }}-${{ env.PYTHON_VERSION }}-${{ hashFiles('setup.cfg', 'setup.py', '**/requirements.txt', '**/pyproject.toml') }}
+        key: ${{ env.CACHE_PREFIX }}-${{ steps.python-pm-cache.outputs.cache-key }}-${{ env.PYTHON_VERSION }}-${{ env.DEPENDENCY_TYPE }}${{ inputs.python_cache_key_suffix && format('-{0}', inputs.python_cache_key_suffix) || '' }}-${{ hashFiles('setup.cfg', 'setup.py', '**/requirements.txt', '**/pyproject.toml') }}
         restore-keys: |
+          ${{ env.CACHE_PREFIX }}-${{ steps.python-pm-cache.outputs.cache-key }}-${{ env.PYTHON_VERSION }}-${{ env.DEPENDENCY_TYPE }}${{ inputs.python_cache_key_suffix && format('-{0}', inputs.python_cache_key_suffix) || '' }}
+          ${{ env.CACHE_PREFIX }}-${{ steps.python-pm-cache.outputs.cache-key }}-${{ env.PYTHON_VERSION }}-${{ env.DEPENDENCY_TYPE }}
           ${{ env.CACHE_PREFIX }}-${{ steps.python-pm-cache.outputs.cache-key }}-${{ env.PYTHON_VERSION }}
 
     - name: Detect package manager
