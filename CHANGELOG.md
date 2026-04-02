@@ -2,6 +2,29 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.34.0
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...96aead14912dca7b17c7c7cde50eae49bdedd46e))
+
+### Enhancements made
+
+- Add `python_cache_key_suffix`, respect `depedency_type` [#287](https://github.com/jupyterlab/maintainer-tools/pull/287) ([@krassowski](https://github.com/krassowski), [@jtpio](https://github.com/jtpio))
+
+### Bugs fixed
+
+- Fix `base-setup` on Python 3.9 with old cache (force pin of `virtualenv` in `hatching`) [#288](https://github.com/jupyterlab/maintainer-tools/pull/288) ([@krassowski](https://github.com/krassowski), [@jtpio](https://github.com/jtpio))
+
+### Contributors to this release
+
+The following people contributed discussions, new ideas, code and documentation contributions, and review.
+See [our definition of contributors](https://github-activity.readthedocs.io/en/latest/use/#how-does-this-tool-define-contributions-in-the-reports).
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2026-04-01&to=2026-04-02&type=c))
+
+@jtpio ([activity](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ajtpio+updated%3A2026-04-01..2026-04-02&type=Issues)) | @krassowski ([activity](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Akrassowski+updated%3A2026-04-01..2026-04-02&type=Issues))
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.33.1
 
 ([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...6b251fb63b982c287d2f7f7777ccd5e5d9d3bc83))
@@ -18,8 +41,6 @@ See [our definition of contributors](https://github-activity.readthedocs.io/en/l
 ([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2026-03-30&to=2026-04-01&type=c))
 
 @jtpio ([activity](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ajtpio+updated%3A2026-03-30..2026-04-01&type=Issues)) | @krassowski ([activity](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Akrassowski+updated%3A2026-03-30..2026-04-01&type=Issues))
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.33.0
 
