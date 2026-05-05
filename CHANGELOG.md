@@ -2,6 +2,25 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.34.1
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...46e31540b3719158c13dc3ebeaff993e690bdf18))
+
+### Bugs fixed
+
+- Restore functionality to `update-snapshots-checkout` action [#290](https://github.com/jupyterlab/maintainer-tools/pull/290) ([@mfisher87](https://github.com/mfisher87), [@krassowski](https://github.com/krassowski))
+
+### Contributors to this release
+
+The following people contributed discussions, new ideas, code and documentation contributions, and review.
+See [our definition of contributors](https://github-activity.readthedocs.io/en/latest/use/#how-does-this-tool-define-contributions-in-the-reports).
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2026-04-02&to=2026-05-05&type=c))
+
+@krassowski ([activity](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Akrassowski+updated%3A2026-04-02..2026-05-05&type=Issues)) | @mfisher87 ([activity](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Amfisher87+updated%3A2026-04-02..2026-05-05&type=Issues))
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.34.0
 
 ([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...96aead14912dca7b17c7c7cde50eae49bdedd46e))
@@ -22,8 +41,6 @@ See [our definition of contributors](https://github-activity.readthedocs.io/en/l
 ([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2026-04-01&to=2026-04-02&type=c))
 
 @jtpio ([activity](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ajtpio+updated%3A2026-04-01..2026-04-02&type=Issues)) | @krassowski ([activity](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Akrassowski+updated%3A2026-04-01..2026-04-02&type=Issues))
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.33.1
 
