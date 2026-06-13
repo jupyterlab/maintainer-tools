@@ -6,7 +6,6 @@ from pathlib import Path
 
 import pytest
 
-
 ROOT = Path(__file__).parents[1]
 ACTION_PATH = ROOT / ".github" / "actions" / "check-links"
 

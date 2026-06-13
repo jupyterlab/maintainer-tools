@@ -9,7 +9,6 @@ from functools import wraps
 import pytest
 from requests import exceptions as requests_exceptions
 
-
 DEFAULT_REQUEST_TIMEOUT = "20"
 DEFAULT_TRANSIENT_STATUS_CODES = "408 429 500 502 503 504"
 CACHEABLE_STATUS_CODES = tuple(range(200, 400))
@@ -73,9 +72,7 @@ def get_runtime_settings() -> RuntimeSettings:
             os.environ.get("CHECK_LINKS_REQUEST_TIMEOUT", DEFAULT_REQUEST_TIMEOUT)
         ),
         transient_status_codes=parse_status_codes(
-            os.environ.get(
-                "CHECK_LINKS_TRANSIENT_STATUS_CODES", DEFAULT_TRANSIENT_STATUS_CODES
-            ),
+            os.environ.get("CHECK_LINKS_TRANSIENT_STATUS_CODES", DEFAULT_TRANSIENT_STATUS_CODES),
             parse_status_codes(DEFAULT_TRANSIENT_STATUS_CODES, ()),
         ),
         fail_on_transient=parse_bool(os.environ.get("CHECK_LINKS_FAIL_ON_TRANSIENT", "false")),
@@ -132,9 +129,7 @@ def purge_disallowed_cache(session: t.Any, cacheable_status_codes: t.Iterable[in
     return len(keys)
 
 
-def handle_transient_failure(
-    url: str, error: str, settings: RuntimeSettings
-) -> t.NoReturn:
+def handle_transient_failure(url: str, error: str, settings: RuntimeSettings) -> t.NoReturn:
     """Fail or skip a transient link check."""
     from pytest_check_links.plugin import BrokenLinkError
 
@@ -149,7 +144,7 @@ def fetch_with_retries(self: t.Any, url: str, retries: int = 3) -> t.Any:
     from pytest_check_links.plugin import BrokenLinkError
 
     settings = get_runtime_settings()
-    url_no_anchor = url.split("#")[0]
+    url_no_anchor = url.split("#", maxsplit=1)[0]
     session = self.parent.requests_session
     if session is None:
         msg = "No session!"
