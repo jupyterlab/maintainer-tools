@@ -1,7 +1,9 @@
+# ruff: noqa: S101
 from __future__ import annotations
 
 import importlib.util
 import sys
+import typing as t
 from pathlib import Path
 
 import pytest
@@ -10,7 +12,7 @@ ROOT = Path(__file__).parents[1]
 ACTION_PATH = ROOT / ".github" / "actions" / "check-links"
 
 
-def load_module(name: str, path: Path):
+def load_module(name: str, path: Path) -> t.Any:
     spec = importlib.util.spec_from_file_location(name, path)
     assert spec is not None
     module = importlib.util.module_from_spec(spec)
@@ -84,7 +86,7 @@ class Cache:
         ]
         self.deleted: list[str] = []
 
-    def filter(self):
+    def filter(self) -> t.Iterator[CachedResponse]:
         yield from self.responses
 
     def delete(self, *keys: str) -> None:
@@ -101,7 +103,7 @@ class Session:
         self.cache = Cache()
         self.request_kwargs: dict[str, object] = {}
 
-    def request(self, *args: object, **kwargs: object) -> dict[str, object]:
+    def request(self, *_args: object, **kwargs: object) -> dict[str, object]:
         self.request_kwargs = kwargs
         return kwargs
 

@@ -7,6 +7,8 @@ from dataclasses import dataclass
 from functools import wraps
 
 import pytest
+import pytest_check_links.plugin as plugin
+from pytest_check_links.plugin import BrokenLinkError
 from requests import exceptions as requests_exceptions
 
 DEFAULT_REQUEST_TIMEOUT = "20"
@@ -131,8 +133,6 @@ def purge_disallowed_cache(session: t.Any, cacheable_status_codes: t.Iterable[in
 
 def handle_transient_failure(url: str, error: str, settings: RuntimeSettings) -> t.NoReturn:
     """Fail or skip a transient link check."""
-    from pytest_check_links.plugin import BrokenLinkError
-
     message = f"transient link check failure: {error}"
     if settings.fail_on_transient:
         raise BrokenLinkError(url, message)
@@ -141,8 +141,6 @@ def handle_transient_failure(url: str, error: str, settings: RuntimeSettings) ->
 
 def fetch_with_retries(self: t.Any, url: str, retries: int = 3) -> t.Any:
     """Fetch a URL, treating configured transient failures separately."""
-    from pytest_check_links.plugin import BrokenLinkError
-
     settings = get_runtime_settings()
     url_no_anchor = url.split("#", maxsplit=1)[0]
     session = self.parent.requests_session
@@ -159,10 +157,10 @@ def fetch_with_retries(self: t.Any, url: str, retries: int = 3) -> t.Any:
             self.uncache_url(url_no_anchor)
             return self.fetch_with_retries(url, retries=retries - 1)
 
-        raise BrokenLinkError(url, "%s" % err) from err
+        raise BrokenLinkError(url, str(err)) from err
 
     if response.status_code >= 400:
-        if retries and self.sleep(response.headers):  # type:ignore[arg-type]
+        if retries and self.sleep(response.headers):
             self.uncache_url(url_no_anchor)
             return self.fetch_with_retries(url, retries=retries - 1)
 
@@ -177,12 +175,11 @@ def fetch_with_retries(self: t.Any, url: str, retries: int = 3) -> t.Any:
 
 def pytest_configure(config: pytest.Config) -> None:
     """Patch pytest-check-links for deterministic CI behavior."""
+    _ = config
     try:
         settings = get_runtime_settings()
     except ValueError as err:
         raise pytest.UsageError(str(err)) from err
-
-    import pytest_check_links.plugin as plugin
 
     original_ensure = getattr(
         plugin,
