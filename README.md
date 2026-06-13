@@ -97,6 +97,9 @@ Note: this does not work on Windows, and will error.
 
 Use this action to check the links in your repo using `pytest-check-links`.
 It will ignore links to GitHub and cache links to save time.
+Only successful HTTP responses are cached, and each external request has a
+timeout. Transient failures such as `429`, `500`, `502`, `503`, `504`, and
+timeouts are reported separately and do not fail the action by default.
 
 When adding this to a repo, you may need to skip some files or links.
 If the build fails, you can copy the "Checking files with command" used in the
@@ -119,6 +122,17 @@ jobs:
       - uses: actions/checkout@v2
       - uses: jupyterlab/maintainer-tools/.github/actions/base-setup@v1
       - uses: jupyterlab/maintainer-tools/.github/actions/check-links@v1
+```
+
+For scheduled external-link audits, use `fail_on_transient: true` if temporary
+third-party failures should fail the workflow:
+
+```yaml
+      - uses: jupyterlab/maintainer-tools/.github/actions/check-links@v1
+        with:
+          request_timeout: "20"
+          transient_status_codes: "408 429 500 502 503 504"
+          fail_on_transient: "true"
 ```
 
 ## Enforce Labels

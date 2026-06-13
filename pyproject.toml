@@ -11,7 +11,7 @@ dependencies = ["jupyter_core>=4.12,!=5.0.*"]
 requires-python = ">=3.10"
 
 [project.optional-dependencies]
-test = ["pytest>=7.0"]
+test = ["pytest>=7.0", "pytest-check-links[cache]>=0.10.1"]
 
 [tool.jupyter-releaser]
 skip = ["publish-assets"]
@@ -48,7 +48,7 @@ addopts = [
    "--showlocals", "--strict-markers", "--strict-config"
 ]
 filterwarnings = ["error"]
-testpaths = ["foobar.py"]
+testpaths = ["foobar.py", "tests"]
 
 [tool.mypy]
 files = "foobar.py"
