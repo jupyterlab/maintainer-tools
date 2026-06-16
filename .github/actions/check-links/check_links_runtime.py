@@ -12,7 +12,7 @@ from pytest_check_links.plugin import BrokenLinkError
 from requests import exceptions as requests_exceptions
 
 DEFAULT_REQUEST_TIMEOUT = "20"
-DEFAULT_TRANSIENT_STATUS_CODES = "408 429 500 502 503 504"
+DEFAULT_TRANSIENT_STATUS_CODES = "408 429 503 504"
 CACHEABLE_STATUS_CODES = tuple(range(200, 400))
 TRUE_VALUES = {"1", "true", "yes", "on"}
 

@@ -18,7 +18,7 @@ inputs:
   transient_status_codes:
     description: "HTTP status codes treated as transient failures (space/comma separated)"
     required: false
-    default: "408 429 500 502 503 504"
+    default: "408 429 503 504"
   fail_on_transient:
     description: "Fail when only transient external link failures are found"
     required: false
