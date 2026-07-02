@@ -529,8 +529,8 @@ jobs:
           persist-credentials: false
       - uses: ./.github/actions/base-setup
       - run: |
-          pip install coverage[toml] pytest
-          python -m coverage run -m pytest foobar.py
+          pip install -e ".[test]" coverage[toml]
+          python -m coverage run -m pytest
           ls -a
       - uses: ./.github/actions/upload-coverage
         with:
