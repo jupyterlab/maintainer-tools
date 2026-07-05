@@ -2,6 +2,30 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.34.2
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...1a971f775c35294fef231cdb2a803679c28a9e70))
+
+### Bugs fixed
+
+- Fixup bash string envvar string interpolation [#300](https://github.com/jupyterlab/maintainer-tools/pull/300) ([@mfisher87](https://github.com/mfisher87), [@krassowski](https://github.com/krassowski))
+
+### Maintenance and upkeep improvements
+
+- Stop testing Python 3.9 on CI [#295](https://github.com/jupyterlab/maintainer-tools/pull/295) ([@krassowski](https://github.com/krassowski), [@Yann-P](https://github.com/Yann-P))
+- Add zizmor security linter [#294](https://github.com/jupyterlab/maintainer-tools/pull/294) ([@krassowski](https://github.com/krassowski), [@Yann-P](https://github.com/Yann-P))
+
+### Contributors to this release
+
+The following people contributed discussions, new ideas, code and documentation contributions, and review.
+See [our definition of contributors](https://github-activity.readthedocs.io/en/latest/use/#how-does-this-tool-define-contributions-in-the-reports).
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2026-05-05&to=2026-07-02&type=c))
+
+@krassowski ([activity](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Akrassowski+updated%3A2026-05-05..2026-07-02&type=Issues)) | @mfisher87 ([activity](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Amfisher87+updated%3A2026-05-05..2026-07-02&type=Issues)) | @Yann-P ([activity](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3AYann-P+updated%3A2026-05-05..2026-07-02&type=Issues))
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.34.1
 
 ([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...46e31540b3719158c13dc3ebeaff993e690bdf18))
@@ -18,8 +42,6 @@ See [our definition of contributors](https://github-activity.readthedocs.io/en/l
 ([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2026-04-02&to=2026-05-05&type=c))
 
 @krassowski ([activity](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Akrassowski+updated%3A2026-04-02..2026-05-05&type=Issues)) | @mfisher87 ([activity](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Amfisher87+updated%3A2026-04-02..2026-05-05&type=Issues))
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.34.0
 

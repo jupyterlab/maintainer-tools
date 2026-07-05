@@ -142,8 +142,8 @@ runs:
       shell: bash -l {0}
       working-directory: ${{ inputs.test_folder }}
       run: |
-        git config user.name '${INPUTS_GIT_USERNAME}'
-        git config user.email '${INPUTS_GIT_EMAIL}'
+        git config user.name "${INPUTS_GIT_USERNAME}"
+        git config user.email "${INPUTS_GIT_EMAIL}"
 
         git pull --no-tags
         git add ./*-snapshots/*.*
