@@ -14,13 +14,6 @@ to check out the PR locally and push the change. The manual workflow takes as it
 and a comma-separated list of quoted commands to run. As a convenience, you can also type "True" for the
 option to run pre-commit against the PR to fix up any pre-commit errors.
 
-### UI Test Report Comment
-
-The UI Test Report Comment reusable workflow can update a PR preview comment with a badge linking
-to a browser-viewable Playwright or Galata HTML report. The UI test workflow must upload a
-`galata-pr-comment-data` artifact containing a `pr-comment-data.json` file, and the PR comment
-workflow calls this reusable workflow when the UI test workflow completes.
-
 ## Actions
 
 ## Base Setup
@@ -429,10 +422,10 @@ jobs:
 
 ## UI Test Report Comment
 
-Use this reusable workflow from a PR comment workflow to add or update a badge linking to an
-inlined UI test report that opens directly in the browser. If a Binder preview comment exists, the
-badge is added to that comment; otherwise the workflow creates a standalone report comment. It
-expects a completed UI test workflow run to upload a `galata-pr-comment-data` artifact containing
+Use this action from a PR comment workflow to add or update a badge linking to an inlined UI test
+report that opens directly in the browser. If a Binder preview comment exists, the badge is added
+to that comment; otherwise the action creates a standalone report comment. It expects a completed
+UI test workflow run to upload a `galata-pr-comment-data` artifact containing
 `pr-comment-data.json`:
 
 ```json
@@ -449,8 +442,8 @@ flaky, or passing status. If either value is missing or invalid, the workflow li
 with an unknown-status badge instead of showing all passing.
 
 The UI test workflow produces the report and uploads this JSON artifact. The PR comment workflow
-runs later with `workflow_run`, passes the completed UI test run id to this reusable workflow, and
-this workflow reads the JSON artifact from that run before updating the comment created by the
+runs later with `workflow_run`, passes the completed UI test run id to this action, and this action
+reads the JSON artifact from that run before updating the comment created by the
 `binder-link` action or creating a standalone report comment.
 
 Example caller workflow:
@@ -470,9 +463,12 @@ permissions:
 jobs:
   update-preview-comment:
     if: ${{ github.event.workflow_run.event == 'pull_request' }}
-    uses: jupyterlab/maintainer-tools/.github/workflows/galata-pr-comment.yml@v1
-    with:
-      run_id: ${{ github.event.workflow_run.id }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: jupyterlab/maintainer-tools/.github/actions/galata-pr-comment@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          run_id: ${{ github.event.workflow_run.id }}
 ```
 
 If the JSON file in the artifact uses a different name, pass `comment_data_file`.
