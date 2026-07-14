@@ -65,7 +65,9 @@ def run_script() -> None:
     number = target.split("/")[-1]
     auth = os.environ["GITHUB_ACCESS_TOKEN"]
     print(f"Extracting PR {number} from {owner}/{repo}")
-    gh = GhApi(owner=owner, repo=repo, token=auth)
+    # ghapi 2.0 defaults to an async client; request the sync client so calls
+    # return results directly rather than coroutines.
+    gh = GhApi(owner=owner, repo=repo, token=auth, sync=True)
 
     dry_run = os.environ.get("DRY_RUN", "").lower() == "true"
 
