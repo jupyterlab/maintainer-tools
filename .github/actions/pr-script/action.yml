@@ -32,7 +32,7 @@ runs:
     - name: Install dependencies
       shell: bash
       run: |
-        pip install ghapi pre-commit
+        pip install ghapi>=2.0 pre-commit
     - name: Run the script
       shell: bash
       env:
