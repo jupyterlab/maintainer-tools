@@ -6,6 +6,13 @@ import subprocess
 import sys
 import typing as t
 from glob import glob
+from pathlib import Path
+
+ACTION_PATH = Path(__file__).resolve().parent
+DEFAULT_LINKS_EXPIRE = "604800"
+DEFAULT_REQUEST_TIMEOUT = "20"
+DEFAULT_TRANSIENT_STATUS_CODES = "408 429 503 504"
+DEFAULT_FAIL_ON_TRANSIENT = "false"
 
 
 def log(*outputs: str, **kwargs: t.Any) -> None:
@@ -14,21 +21,59 @@ def log(*outputs: str, **kwargs: t.Any) -> None:
     print(*outputs, **kwargs)
 
 
-def check_links(ignore_glob: list[str], ignore_links: list[str], links_expire: str) -> None:
-    """Check URLs for HTML-containing files."""
+def build_pytest_env(
+    request_timeout: str,
+    transient_status_codes: str,
+    fail_on_transient: str,
+    *,
+    base_env: dict[str, str] | None = None,
+) -> dict[str, str]:
+    """Build the pytest subprocess environment."""
+    env = dict(base_env or os.environ)
+    pythonpath = env.get("PYTHONPATH")
+    env["PYTHONPATH"] = (
+        str(ACTION_PATH) if not pythonpath else f"{ACTION_PATH}{os.pathsep}{pythonpath}"
+    )
+    env["CHECK_LINKS_REQUEST_TIMEOUT"] = request_timeout
+    env["CHECK_LINKS_TRANSIENT_STATUS_CODES"] = transient_status_codes
+    env["CHECK_LINKS_FAIL_ON_TRANSIENT"] = fail_on_transient
+    return env
+
+
+def build_base_command(
+    ignore_glob: list[str],
+    ignore_links: list[str],
+    links_expire: str,
+) -> tuple[list[str], list[str]]:
+    """Build the base pytest command and return ignored files."""
     python = sys.executable.replace(os.sep, "/")
-    cmd = f"{python} -m pytest --noconftest --check-links --check-links-cache "
-    cmd += f"--check-links-cache-expire-after {links_expire} "
-    cmd += "-raXs --color yes --quiet "
-    # do not run doctests, since they might depend on other state.
-    cmd += "-p no:doctest "
-    # ignore package pytest configuration,
-    # since we aren't running their tests
-    cmd += "-c _IGNORE_CONFIG"
+    cmd = [
+        python,
+        "-m",
+        "pytest",
+        "--noconftest",
+        "--check-links",
+        "--check-links-cache",
+        "--check-links-cache-expire-after",
+        links_expire,
+        "-raXs",
+        "--color",
+        "yes",
+        "--quiet",
+        # do not run doctests, since they might depend on other state.
+        "-p",
+        "no:doctest",
+        "-p",
+        "check_links_runtime",
+        # ignore package pytest configuration,
+        # since we aren't running their tests
+        "-c",
+        "_IGNORE_CONFIG",
+    ]
 
     ignored = []
     for spec in ignore_glob:
-        cmd += f' --ignore-glob "{spec}"'
+        cmd.extend(["--ignore-glob", spec])
         ignored.extend(glob(spec, recursive=True))  # noqa: PTH207
 
     ignore_links = [
@@ -39,13 +84,27 @@ def check_links(ignore_glob: list[str], ignore_links: list[str], links_expire: s
         "http://localhost.*",
         # https://github.com/github/feedback/discussions/14773
         "https://docs.github.com/.*",
-        "https://(www\.)?npmjs.com(/.*)?",
+        "https://(www\\.)?npmjs.com(/.*)?",
     ]
 
     for spec in ignore_links:
-        cmd += f' --check-links-ignore "{spec}"'
+        cmd.extend(["--check-links-ignore", spec])
 
-    cmd += " --ignore-glob node_modules"
+    cmd.extend(["--ignore-glob", "node_modules"])
+    return cmd, ignored
+
+
+def check_links(
+    ignore_glob: list[str],
+    ignore_links: list[str],
+    links_expire: str,
+    request_timeout: str,
+    transient_status_codes: str,
+    fail_on_transient: str,
+) -> None:
+    """Check URLs for HTML-containing files."""
+    cmd, ignored = build_base_command(ignore_glob, ignore_links, links_expire)
+    env = build_pytest_env(request_timeout, transient_status_codes, fail_on_transient)
 
     # Gather all of the markdown, RST, and ipynb files
     files: list[str] = []
@@ -55,21 +114,20 @@ def check_links(ignore_glob: list[str], ignore_links: list[str], links_expire: s
 
     separator = f"\n\n{'-' * 80}\n"
     log(f"{separator}Checking files with command:")
-    log(cmd)
+    log(shlex.join(cmd))
 
     fails = 0
     for f in files:
-        file_cmd_str = cmd + f' "{f}"'
-        file_cmd = shlex.split(file_cmd_str)
+        file_cmd = [*cmd, f]
         try:
             log(f"{separator}{f}...")
-            subprocess.check_output(file_cmd, shell=False)  # noqa: S603
+            subprocess.check_output(file_cmd, shell=False, env=env)  # noqa: S603
         except Exception as e:
             # Return code 5 means no tests were run (no links found)
             if e.returncode != 5:  # type:ignore[attr-defined]
                 try:
                     log(f"\n{f} (second attempt)...\n")
-                    subprocess.check_output([*file_cmd, "--lf"], shell=False)  # noqa: S603
+                    subprocess.check_output([*file_cmd, "--lf"], shell=False, env=env)  # noqa: S603
                 except subprocess.CalledProcessError as e:
                     log(e.output.decode("utf-8"))
                     fails += 1
@@ -86,5 +144,17 @@ if __name__ == "__main__":
     ignore_glob = ignore_glob_str.strip().split(" ") if ignore_glob_str else []
     ignore_links_str = os.environ.get("IGNORE_LINKS", "")
     ignore_links = ignore_links_str.split(" ") if ignore_links_str else []
-    links_expire = os.environ.get("LINKS_EXPIRE") or "604800"
-    check_links(ignore_glob, ignore_links, links_expire)
+    links_expire = os.environ.get("LINKS_EXPIRE") or DEFAULT_LINKS_EXPIRE
+    request_timeout = os.environ.get("REQUEST_TIMEOUT") or DEFAULT_REQUEST_TIMEOUT
+    transient_status_codes = (
+        os.environ.get("TRANSIENT_STATUS_CODES") or DEFAULT_TRANSIENT_STATUS_CODES
+    )
+    fail_on_transient = os.environ.get("FAIL_ON_TRANSIENT") or DEFAULT_FAIL_ON_TRANSIENT
+    check_links(
+        ignore_glob,
+        ignore_links,
+        links_expire,
+        request_timeout,
+        transient_status_codes,
+        fail_on_transient,
+    )
