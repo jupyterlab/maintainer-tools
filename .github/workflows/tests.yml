@@ -82,6 +82,22 @@ jobs:
           python --version | grep "3.10"
           hatch run check_minimum
 
+  base_setup_no_node:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+      - uses: ./.github/actions/base-setup
+        with:
+          node_version: "none"
+      - run: |
+          hatch --version
+          # setup-node was skipped, so any node on PATH is the one baked into
+          # the runner image rather than one from the tool cache.
+          echo "node on PATH: $(command -v node || echo '<none>')"
+          [[ "$(command -v node || true)" != *hostedtoolcache* ]]
+
   base_setup_pre:
     runs-on: ubuntu-latest
     steps:
