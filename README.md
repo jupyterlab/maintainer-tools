@@ -420,6 +420,89 @@ jobs:
           path: playwright-report/report.html
 ```
 
+## UI Test Report Comment
+
+Use this action from a PR comment workflow to add or update a badge linking to an inlined UI test
+report that opens directly in the browser. If a Binder preview comment exists, the badge is added
+to that comment; otherwise the action creates a standalone report comment. It expects a completed
+UI test workflow run to upload a `galata-pr-comment-data` artifact containing
+`pr-comment-data.json`:
+
+```json
+{
+  "prNumber": 123,
+  "reportUrl": "https://github.com/OWNER/REPO/actions/runs/RUN_ID/artifacts/ARTIFACT_ID",
+  "failing": 0,
+  "flaky": 0
+}
+```
+
+The `failing` and `flaky` values should be included so the badge can accurately show failing,
+flaky, or passing status. If either value is missing or invalid, the workflow links to the report
+with an unknown-status badge instead of showing all passing.
+
+The UI test workflow produces the report and uploads this JSON artifact. The PR comment workflow
+runs later with `workflow_run`, passes the completed UI test run id to this action, and this action
+reads the JSON artifact from that run before updating the comment created by the
+`binder-link` action or creating a standalone report comment.
+
+Example caller workflow:
+
+```yaml
+name: Update PR comment with UI test report
+
+on: # zizmor: ignore[dangerous-triggers] required to post from workflow_run artifact to PR comment
+  workflow_run:
+    workflows: ["UI Tests"]
+    types: [completed]
+
+permissions:
+  actions: read
+  pull-requests: write
+
+jobs:
+  update-preview-comment:
+    if: ${{ github.event.workflow_run.event == 'pull_request' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: jupyterlab/maintainer-tools/.github/actions/galata-pr-comment@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          run_id: ${{ github.event.workflow_run.id }}
+```
+
+If the JSON file in the artifact uses a different name, pass `comment_data_file`.
+
+The UI test workflow can produce the comment data after uploading the inlined report:
+
+```yaml
+      - name: Save PR comment data
+        if: ${{ github.event_name == 'pull_request' }}
+        uses: actions/github-script@v8
+        env:
+          REPORT_URL: ${{ steps.upload-report.outputs.artifact-url }}
+          FAILING: ${{ steps.test-counts.outputs.failing }}
+          FLAKY: ${{ steps.test-counts.outputs.flaky }}
+        with:
+          script: |
+            const fs = require('fs');
+            const toCount = value => /^\d+$/.test(value || '') ? Number(value) : undefined;
+            fs.writeFileSync('pr-comment-data.json', JSON.stringify({
+              prNumber: context.payload.pull_request.number,
+              reportUrl: process.env.REPORT_URL,
+              failing: toCount(process.env.FAILING),
+              flaky: toCount(process.env.FLAKY),
+            }));
+
+      - name: Upload PR comment data
+        if: ${{ github.event_name == 'pull_request' }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: galata-pr-comment-data
+          path: pr-comment-data.json
+          retention-days: 1
+```
+
 ## Update snapshots
 
 You can use _update snapshots_ action to commit on a branch

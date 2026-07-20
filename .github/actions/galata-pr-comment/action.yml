@@ -1,0 +1,132 @@
+name: "Galata PR Comment"
+description: "Update a PR comment with a UI test report badge"
+inputs:
+  github_token:
+    description: "The GitHub token to use, must have actions: read and pull-requests: write access"
+    required: true
+  run_id:
+    description: "Completed UI test workflow run id containing the PR comment data artifact"
+    required: true
+  comment_data_file:
+    description: "File name inside the artifact with prNumber, reportUrl, failing, and flaky"
+    required: false
+    default: "pr-comment-data.json"
+runs:
+  using: "composite"
+  steps:
+    - name: Download PR comment data
+      uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7
+      with:
+        name: galata-pr-comment-data
+        github-token: ${{ inputs.github_token }}
+        run-id: ${{ inputs.run_id }}
+
+    - name: Update PR comment
+      uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
+      env:
+        COMMENT_DATA_FILE: ${{ inputs.comment_data_file }}
+      with:
+        github-token: ${{ inputs.github_token }}
+        script: |
+          const fs = require('fs');
+          const data = JSON.parse(
+            fs.readFileSync(process.env.COMMENT_DATA_FILE, 'utf8')
+          );
+
+          const prNumber = Number(data.prNumber);
+          const reportUrl = data.reportUrl;
+          const failing = data.failing;
+          const flaky = data.flaky;
+
+          if (!Number.isInteger(prNumber) || prNumber <= 0 || !reportUrl) {
+            console.warn('Missing PR number or report URL; skipping preview comment update.');
+            return;
+          }
+
+          const reportLinePrefix = 'View the integration tests report in the browser: ';
+          const isNonNegativeInteger = value =>
+            typeof value === 'number' && Number.isInteger(value) && value >= 0;
+          const hasValidCounts =
+            isNonNegativeInteger(failing) && isNonNegativeInteger(flaky);
+
+          if (!hasValidCounts) {
+            console.warn('Missing or invalid failing/flaky counts; report badge status will be unknown.');
+          }
+
+          let badgeStatus;
+          let badgeColor;
+          let badgeTitle;
+          if (!hasValidCounts) {
+            badgeStatus = 'Unknown';
+            badgeColor = 'lightgrey';
+            badgeTitle = 'UI test report status unavailable';
+          } else if (failing > 0) {
+            badgeStatus = `${failing}_failing`;
+            badgeColor = 'red';
+            badgeTitle = `${failing} failing UI tests`;
+          } else if (flaky > 0) {
+            badgeStatus = `${flaky}_flaky`;
+            badgeColor = 'orange';
+            badgeTitle = `${flaky} flaky UI tests`;
+          } else {
+            badgeStatus = 'All_passing';
+            badgeColor = 'success';
+            badgeTitle = 'All UI tests passed';
+          }
+
+          const reportUrlWithFilter = hasValidCounts && failing > 0
+            ? `${reportUrl}#?q=s%3Afailed`
+            : hasValidCounts && flaky > 0
+            ? `${reportUrl}#?q=s%3Aflaky`
+            : reportUrl;
+
+          const badgeUrl = `https://img.shields.io/badge/UI_tests-${badgeStatus}-${badgeColor}`;
+          const reportBadge = `[![UI tests report](${badgeUrl} '${badgeTitle}')](<${reportUrlWithFilter}>)`;
+          const reportLine = `${reportLinePrefix}${reportBadge}`;
+
+          const comments = await github.paginate(github.rest.issues.listComments, {
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: prNumber,
+            per_page: 100
+          });
+
+          const binderComment = comments
+            .slice()
+            .reverse()
+            .find(comment => (comment.body || '').includes("![Binder]("));
+
+          const reportComment = comments
+            .slice()
+            .reverse()
+            .find(comment => (comment.body || '')
+              .split('\n')
+              .some(line => line.startsWith(reportLinePrefix)));
+
+          const targetComment = binderComment || reportComment;
+          if (!targetComment) {
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: prNumber,
+              body: reportLine
+            });
+            return;
+          }
+
+          const existingReportLine = targetComment.body
+            .split('\n')
+            .find(line => line.startsWith(reportLinePrefix));
+          const updatedBody =
+            existingReportLine === undefined
+              ? `${targetComment.body.trimEnd()}\n\n${reportLine}`
+              : targetComment.body.replace(existingReportLine, reportLine);
+
+          if (targetComment.body.trim() !== updatedBody.trim()) {
+            await github.rest.issues.updateComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              comment_id: targetComment.id,
+              body: updatedBody
+            });
+          }
