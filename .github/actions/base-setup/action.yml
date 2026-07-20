@@ -4,7 +4,7 @@ inputs:
   python_version:
     description: "The python version"
   node_version:
-    description: "The node version"
+    description: 'The node version. Set to "none" to skip installing node entirely, for projects with no JavaScript.'
   dependency_type:
     default: "standard"
     description: "The dependency installation type: standard, pre, minimum"
@@ -47,6 +47,12 @@ runs:
 
         echo "DEFAULT_PYTHON is $DEFAULT_PYTHON"
         PYTHON_VERSION="${PYTHON_VERSION:-$DEFAULT_PYTHON}"
+
+        # A node_version of "none" skips node/package manager setup altogether,
+        # for projects with no JavaScript to build or test.
+        if [ "$(echo "$NODE_VERSION" | tr '[:upper:]' '[:lower:]')" == "none" ]; then
+          NODE_VERSION="none"
+        fi
 
         echo "PYTHON_VERSION=$PYTHON_VERSION" >> $GITHUB_ENV
         echo "NODE_VERSION=$NODE_VERSION" >> $GITHUB_ENV
@@ -94,6 +100,9 @@ runs:
 
     - name: Detect package manager
       id: detect-pm
+      # Leaving the manager output empty when node is disabled also skips the
+      # pnpm install and the package manager cache steps below.
+      if: env.NODE_VERSION != 'none'
       shell: bash
       run: |
         if [ -n "$PNPM_HASH" ]; then
@@ -121,12 +130,13 @@ runs:
         version: ${{ inputs.pnpm_version }}
 
     - name: Install node
+      if: env.NODE_VERSION != 'none'
       uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238 # v6.2.0
       with:
         node-version: ${{ env.NODE_VERSION }}
 
     - name: Enable corepack
-      if: steps.detect-pm.outputs.manager != 'pnpm'
+      if: env.NODE_VERSION != 'none' && steps.detect-pm.outputs.manager != 'pnpm'
       shell: bash
       run: |
         if [ -f package.json ] && grep -q '"packageManager"' package.json; then
@@ -224,7 +234,9 @@ runs:
         pip list || true
         echo "::endgroup::"
         uv --version || true
-        node --version
-        npm --version || true
-        yarn --version || true
-        pnpm --version || true
+        if [ "$NODE_VERSION" != "none" ]; then
+          node --version
+          npm --version || true
+          yarn --version || true
+          pnpm --version || true
+        fi
