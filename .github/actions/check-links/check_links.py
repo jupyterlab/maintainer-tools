@@ -7,6 +7,8 @@ import sys
 import typing as t
 from glob import glob
 
+FILE_EXTENSIONS = (".md", ".rst", ".ipynb")
+
 
 def log(*outputs: str, **kwargs: t.Any) -> None:
     """Log an output to stderr"""
@@ -14,7 +16,29 @@ def log(*outputs: str, **kwargs: t.Any) -> None:
     print(*outputs, **kwargs)
 
 
-def check_links(ignore_glob: list[str], ignore_links: list[str], links_expire: str) -> None:
+def changed_files() -> list[str] | None:
+    """List changed files when running in a pull request."""
+    base_sha = os.environ.get("PULL_REQUEST_BASE_SHA")
+    if not base_sha:
+        log("No pull request base SHA found; checking all files.")
+        return None
+    subprocess.check_call(  # noqa: S603
+        ["git", "fetch", "--depth=1", "origin", base_sha],  # noqa: S607
+        stdout=subprocess.DEVNULL,
+    )
+    output = subprocess.check_output(  # noqa: S603
+        ["git", "diff", "--name-only", "--diff-filter=ACMRT", base_sha, "HEAD"],  # noqa: S607
+        text=True,
+    )
+    return output.splitlines()
+
+
+def check_links(
+    ignore_glob: list[str],
+    ignore_links: list[str],
+    links_expire: str,
+    changed_files_only: bool = False,
+) -> None:
     """Check URLs for HTML-containing files."""
     python = sys.executable.replace(os.sep, "/")
     cmd = f"{python} -m pytest --noconftest --check-links --check-links-cache "
@@ -49,9 +73,17 @@ def check_links(ignore_glob: list[str], ignore_links: list[str], links_expire: s
 
     # Gather all of the markdown, RST, and ipynb files
     files: list[str] = []
-    for ext in [".md", ".rst", ".ipynb"]:
-        matched = glob(f"**/*{ext}", recursive=True)  # noqa: PTH207
-        files.extend(m for m in matched if m not in ignored and "node_modules" not in m)
+    candidates = changed_files() if changed_files_only else None
+    if candidates is None:
+        candidates = []
+        for ext in FILE_EXTENSIONS:
+            candidates.extend(glob(f"**/*{ext}", recursive=True))  # noqa: PTH207
+
+    files.extend(
+        m
+        for m in candidates
+        if m.endswith(FILE_EXTENSIONS) and m not in ignored and "node_modules" not in m
+    )
 
     separator = f"\n\n{'-' * 80}\n"
     log(f"{separator}Checking files with command:")
@@ -87,4 +119,5 @@ if __name__ == "__main__":
     ignore_links_str = os.environ.get("IGNORE_LINKS", "")
     ignore_links = ignore_links_str.split(" ") if ignore_links_str else []
     links_expire = os.environ.get("LINKS_EXPIRE") or "604800"
-    check_links(ignore_glob, ignore_links, links_expire)
+    changed_files_only = os.environ.get("CHANGED_FILES_ONLY", "").lower() == "true"
+    check_links(ignore_glob, ignore_links, links_expire, changed_files_only)
