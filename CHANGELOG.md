@@ -2,6 +2,31 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.35.0
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...4ada2338339f16282b883dad3a463bfa7dd69c66))
+
+### Enhancements made
+
+- Allow skipping node setup in base-setup [#303](https://github.com/jupyterlab/maintainer-tools/pull/303) ([@Carreau](https://github.com/Carreau), [@claude](https://github.com/claude), [@jtpio](https://github.com/jtpio), [@krassowski](https://github.com/krassowski))
+
+### Maintenance and upkeep improvements
+
+- Bump hash pins for jupyter-releaser [#306](https://github.com/jupyterlab/maintainer-tools/pull/306) ([@krassowski](https://github.com/krassowski), [@mfisher87](https://github.com/mfisher87))
+- Upgrade pnpm setup action to support modern `devEngines.packageManager` spec [#304](https://github.com/jupyterlab/maintainer-tools/pull/304) ([@mfisher87](https://github.com/mfisher87), [@krassowski](https://github.com/krassowski))
+- Fix CI failures following `ghapi` 2.0 release [#302](https://github.com/jupyterlab/maintainer-tools/pull/302) ([@krassowski](https://github.com/krassowski), [@MUFFANUJ](https://github.com/MUFFANUJ))
+
+### Contributors to this release
+
+The following people contributed discussions, new ideas, code and documentation contributions, and review.
+See [our definition of contributors](https://github-activity.readthedocs.io/en/latest/use/#how-does-this-tool-define-contributions-in-the-reports).
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2026-07-02&to=2026-07-24&type=c))
+
+@Carreau ([activity](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3ACarreau+updated%3A2026-07-02..2026-07-24&type=Issues)) | @claude ([activity](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Aclaude+updated%3A2026-07-02..2026-07-24&type=Issues)) | @jtpio ([activity](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ajtpio+updated%3A2026-07-02..2026-07-24&type=Issues)) | @krassowski ([activity](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Akrassowski+updated%3A2026-07-02..2026-07-24&type=Issues)) | @mfisher87 ([activity](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Amfisher87+updated%3A2026-07-02..2026-07-24&type=Issues)) | @MUFFANUJ ([activity](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3AMUFFANUJ+updated%3A2026-07-02..2026-07-24&type=Issues))
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.34.2
 
 ([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...1a971f775c35294fef231cdb2a803679c28a9e70))
@@ -23,8 +48,6 @@ See [our definition of contributors](https://github-activity.readthedocs.io/en/l
 ([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2026-05-05&to=2026-07-02&type=c))
 
 @krassowski ([activity](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Akrassowski+updated%3A2026-05-05..2026-07-02&type=Issues)) | @mfisher87 ([activity](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Amfisher87+updated%3A2026-05-05..2026-07-02&type=Issues)) | @Yann-P ([activity](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3AYann-P+updated%3A2026-05-05..2026-07-02&type=Issues))
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.34.1
 
