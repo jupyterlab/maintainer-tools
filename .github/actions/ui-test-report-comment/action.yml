@@ -1,4 +1,4 @@
-name: "Galata PR Comment"
+name: "UI Test Report Comment"
 description: "Update a PR comment with a UI test report badge"
 inputs:
   github_token:
@@ -17,7 +17,7 @@ runs:
     - name: Download PR comment data
       uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7
       with:
-        name: galata-pr-comment-data
+        name: ui-test-report-comment-data
         github-token: ${{ inputs.github_token }}
         run-id: ${{ inputs.run_id }}
 
@@ -43,7 +43,7 @@ runs:
             return;
           }
 
-          const reportLinePrefix = 'View the integration tests report in the browser: ';
+          const reportLinePrefix = 'View the UI test report in the browser: ';
           const isNonNegativeInteger = value =>
             typeof value === 'number' && Number.isInteger(value) && value >= 0;
           const hasValidCounts =

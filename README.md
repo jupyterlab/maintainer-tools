@@ -425,7 +425,7 @@ jobs:
 Use this action from a PR comment workflow to add or update a badge linking to an inlined UI test
 report that opens directly in the browser. If a Binder preview comment exists, the badge is added
 to that comment; otherwise the action creates a standalone report comment. It expects a completed
-UI test workflow run to upload a `galata-pr-comment-data` artifact containing
+UI test workflow run to upload a `ui-test-report-comment-data` artifact containing
 `pr-comment-data.json`:
 
 ```json
@@ -465,7 +465,7 @@ jobs:
     if: ${{ github.event.workflow_run.event == 'pull_request' }}
     runs-on: ubuntu-latest
     steps:
-      - uses: jupyterlab/maintainer-tools/.github/actions/galata-pr-comment@v1
+      - uses: jupyterlab/maintainer-tools/.github/actions/ui-test-report-comment@v1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           run_id: ${{ github.event.workflow_run.id }}
@@ -498,7 +498,7 @@ The UI test workflow can produce the comment data after uploading the inlined re
         if: ${{ github.event_name == 'pull_request' }}
         uses: actions/upload-artifact@v7
         with:
-          name: galata-pr-comment-data
+          name: ui-test-report-comment-data
           path: pr-comment-data.json
           retention-days: 1
 ```
