@@ -454,8 +454,8 @@ this action.
 
 For a pull request from a fork, the artifact is written by code the fork controls, so the action
 treats its contents as untrusted. It only comments when the run the artifact came from is the
-current head commit of the pull request it names, and it only accepts a report URL pointing at an
-artifact of that same run, which is where `upload-artifact` puts them.
+current head commit of the pull request it names, and it only accepts a report URL under that same
+run's artifact path, which is where `upload-artifact` puts them.
 
 The action only ever edits comments written by a bot.
 
