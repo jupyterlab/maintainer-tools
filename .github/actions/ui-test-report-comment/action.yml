@@ -177,14 +177,17 @@ runs:
           // line (as "Quote reply" does) would otherwise be picked as the comment to rewrite.
           const isBot = comment => comment.user?.type === 'Bot';
 
-          const binderComment = comments.findLast(
-            comment => isBot(comment) && (comment.body || '').includes("![Binder](")
-          );
-
-          const targetComment = binderComment ?? comments.findLast(
+          // A line posted earlier wins over the Binder comment, so that a badge which started out
+          // in a standalone comment keeps being updated there. Taking the Binder comment first
+          // would strand that earlier comment with a status nothing updates again.
+          const reportComment = comments.findLast(
             comment => isBot(comment) && (comment.body || '')
               .split('\n')
               .some(line => line.startsWith(reportLinePrefix))
+          );
+
+          const targetComment = reportComment ?? comments.findLast(
+            comment => isBot(comment) && (comment.body || '').includes("![Binder](")
           );
 
           if (!targetComment) {
