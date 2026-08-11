@@ -510,6 +510,204 @@ jobs:
 
           popd
 
+  ui_test_report_comment:
+    name: UI Test Report Comment
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      issues: read
+      pull-requests: read
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+
+      # The action reads its data from an artifact of a completed run, so the test uploads one to
+      # this run and then points the action back at this run. Only the prefix of the report URL is
+      # checked, so the artifact it names does not have to exist.
+      - name: Write the report data variants
+        env:
+          ARTIFACTS: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}/artifacts
+          # On a push there is no pull request, and 1 keeps the rejected variants reaching the
+          # check they are meant to exercise instead of stopping at the pull request number.
+          PR_NUMBER: ${{ github.event.pull_request.number || 1 }}
+        run: |
+          mkdir -p comment-data
+          python3 - <<'PY'
+          import json, os, pathlib
+
+          artifacts = os.environ["ARTIFACTS"]
+          repository = os.environ["GITHUB_REPOSITORY"]
+          head_sha = os.environ["GITHUB_SHA"]
+          variants = {
+              "all-passing.json": {"failing": 0, "flaky": 0},
+              "failing.json": {"failing": 2, "flaky": 0},
+              "flaky.json": {"failing": 0, "flaky": 3},
+              "unknown.json": {},
+              "off-site.json": {"reportUrl": "https://not-github.example/report"},
+              "foreign-run.json": {
+                  "reportUrl": f"https://github.com/{repository}/actions/runs/1/artifacts/1"
+              },
+              # A pull request from a fork has its commits served under the base repository, so
+              # this is content the fork wrote sitting behind a github.com/OWNER/REPO URL.
+              "fork-blob.json": {
+                  "reportUrl": f"https://github.com/{repository}/blob/{head_sha}/README.md"
+              },
+              "no-pr.json": {"prNumber": 0},
+          }
+          out = pathlib.Path("comment-data")
+          for name, overrides in variants.items():
+              # Counts are set per variant, so that "unknown" is left without any.
+              data = {
+                  "prNumber": int(os.environ["PR_NUMBER"]),
+                  "reportUrl": f"{artifacts}/1",
+              }
+              data.update(overrides)
+              (out / name).write_text(json.dumps(data))
+          PY
+
+      - name: Upload the report data
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+        with:
+          name: ui-test-report-comment-data
+          path: comment-data
+          retention-days: 1
+
+      # A report the action refuses to link to leaves no comment body behind. These run on pushes
+      # too, because they are all rejected before the pull request is looked up.
+      - name: Reject a report URL off site
+        id: off_site
+        uses: ./.github/actions/ui-test-report-comment
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          run_id: ${{ github.run_id }}
+          comment_data_file: off-site.json
+          dry_run: "true"
+
+      - name: Reject a report URL from another run
+        id: foreign_run
+        uses: ./.github/actions/ui-test-report-comment
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          run_id: ${{ github.run_id }}
+          comment_data_file: foreign-run.json
+          dry_run: "true"
+
+      - name: Reject a report URL serving repository content
+        id: fork_blob
+        uses: ./.github/actions/ui-test-report-comment
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          run_id: ${{ github.run_id }}
+          comment_data_file: fork-blob.json
+          dry_run: "true"
+
+      - name: Reject data without a pull request number
+        id: no_pr
+        uses: ./.github/actions/ui-test-report-comment
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          run_id: ${{ github.run_id }}
+          comment_data_file: no-pr.json
+          dry_run: "true"
+
+      - name: Check every rejected report left no comment
+        env:
+          OFF_SITE: ${{ steps.off_site.outputs.comment_body }}
+          FOREIGN_RUN: ${{ steps.foreign_run.outputs.comment_body }}
+          FORK_BLOB: ${{ steps.fork_blob.outputs.comment_body }}
+          NO_PR: ${{ steps.no_pr.outputs.comment_body }}
+        run: |
+          test -z "${OFF_SITE}"
+          test -z "${FOREIGN_RUN}"
+          test -z "${FORK_BLOB}"
+          test -z "${NO_PR}"
+
+      - name: Fail on a report line prefix which is not usable
+        id: bad_prefix
+        continue-on-error: true
+        uses: ./.github/actions/ui-test-report-comment
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          run_id: ${{ github.run_id }}
+          comment_data_file: all-passing.json
+          report_line_prefix: "  "
+          dry_run: "true"
+
+      - name: Check the unusable prefix failed the action
+        env:
+          OUTCOME: ${{ steps.bad_prefix.outcome }}
+        run: |
+          test "${OUTCOME}" = "failure"
+
+      # The badge itself can only be built for a real pull request, because the action checks that
+      # the run it was given is that pull request's head.
+      - name: Build the badge for a passing report
+        id: all_passing
+        if: ${{ github.event_name == 'pull_request' }}
+        uses: ./.github/actions/ui-test-report-comment
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          run_id: ${{ github.run_id }}
+          comment_data_file: all-passing.json
+          dry_run: "true"
+
+      - name: Build the badge for a failing report
+        id: failing
+        if: ${{ github.event_name == 'pull_request' }}
+        uses: ./.github/actions/ui-test-report-comment
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          run_id: ${{ github.run_id }}
+          comment_data_file: failing.json
+          dry_run: "true"
+
+      - name: Build the badge for a flaky report
+        id: flaky
+        if: ${{ github.event_name == 'pull_request' }}
+        uses: ./.github/actions/ui-test-report-comment
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          run_id: ${{ github.run_id }}
+          comment_data_file: flaky.json
+          dry_run: "true"
+
+      - name: Build the badge for a report without counts
+        id: unknown
+        if: ${{ github.event_name == 'pull_request' }}
+        uses: ./.github/actions/ui-test-report-comment
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          run_id: ${{ github.run_id }}
+          comment_data_file: unknown.json
+          dry_run: "true"
+
+      - name: Check each badge and the report link it carries
+        if: ${{ github.event_name == 'pull_request' }}
+        env:
+          ALL_PASSING: ${{ steps.all_passing.outputs.comment_body }}
+          FAILING: ${{ steps.failing.outputs.comment_body }}
+          FLAKY: ${{ steps.flaky.outputs.comment_body }}
+          UNKNOWN: ${{ steps.unknown.outputs.comment_body }}
+          PREFIX: "View the UI test report in the browser: "
+        run: |
+          grep -qF "${PREFIX}" <<< "${ALL_PASSING}"
+          grep -qF "UI_tests-All_passing-success" <<< "${ALL_PASSING}"
+          # A passing report links to the report itself, with no filter on the failing tests.
+          ! grep -qF "#?q=" <<< "${ALL_PASSING}"
+
+          grep -qF "UI_tests-2_failing-red" <<< "${FAILING}"
+          grep -qF "#?q=s%3Afailed" <<< "${FAILING}"
+
+          grep -qF "UI_tests-3_flaky-orange" <<< "${FLAKY}"
+          grep -qF "#?q=s%3Aflaky" <<< "${FLAKY}"
+
+          grep -qF "UI_tests-Unknown-lightgrey" <<< "${UNKNOWN}"
+
+          # The link has to stay wrapped in angle brackets, so that a parenthesis appearing in the
+          # report URL cannot end the markdown link early.
+          grep -qE '\]\(<https://github\.com/' <<< "${ALL_PASSING}"
+
   make_sdist:
     name: Make SDist
     runs-on: windows-latest

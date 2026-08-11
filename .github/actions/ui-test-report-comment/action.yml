@@ -11,6 +11,18 @@ inputs:
     description: "File name inside the artifact with prNumber, reportUrl, failing, and flaky"
     required: false
     default: "pr-comment-data.json"
+  report_line_prefix:
+    description: "Text placed before the badge, also used to find an already posted line to update. Must be non-empty and on a single line."
+    required: false
+    default: "View the UI test report in the browser: "
+  dry_run:
+    description: "Work out the comment but do not create or update it, leaving the result in the comment_body output. Used by the tests of this action."
+    required: false
+    default: "false"
+outputs:
+  comment_body:
+    description: "The comment body that was posted, or that would have been posted under dry_run. Empty when the report was rejected and no comment was made."
+    value: ${{ steps.update_comment.outputs.comment_body }}
 runs:
   using: "composite"
   steps:
@@ -22,28 +34,95 @@ runs:
         run-id: ${{ inputs.run_id }}
 
     - name: Update PR comment
+      id: update_comment
       uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
       env:
         COMMENT_DATA_FILE: ${{ inputs.comment_data_file }}
+        RUN_ID: ${{ inputs.run_id }}
+        REPORT_LINE_PREFIX: ${{ inputs.report_line_prefix }}
+        DRY_RUN: ${{ inputs.dry_run }}
       with:
         github-token: ${{ inputs.github_token }}
         script: |
+          // The inputs come from the calling workflow and are trusted. Everything in the artifact
+          // was written by the workflow run under test, which for a pull request from a fork is
+          // code that fork controls, so treat every field of it as untrusted.
+          const runId = Number(process.env.RUN_ID);
+          // Everything up to the comment itself still runs under dry_run, so that the tests of
+          // this action cover the checks below with a token that cannot write.
+          const dryRun = process.env.DRY_RUN === 'true';
+
+          // The prefix is what finds the line to update, so an empty one matches every line and
+          // would overwrite the Binder badge, and a multi-line one never matches the line it just
+          // wrote, so the comment would grow on every run. Both are mistakes in the caller.
+          const reportLinePrefix = process.env.REPORT_LINE_PREFIX;
+          if (!reportLinePrefix.trim() || /[\r\n]/.test(reportLinePrefix)) {
+            core.setFailed('report_line_prefix must be non-empty and on a single line.');
+            return;
+          }
+
           const fs = require('fs');
           const data = JSON.parse(
             fs.readFileSync(process.env.COMMENT_DATA_FILE, 'utf8')
           );
 
           const prNumber = Number(data.prNumber);
-          const reportUrl = data.reportUrl;
           const failing = data.failing;
           const flaky = data.flaky;
 
-          if (!Number.isInteger(prNumber) || prNumber <= 0 || !reportUrl) {
-            console.warn('Missing PR number or report URL; skipping preview comment update.');
+          if (!Number.isInteger(prNumber) || prNumber <= 0) {
+            console.warn('Missing PR number; skipping preview comment update.');
             return;
           }
 
-          const reportLinePrefix = 'View the UI test report in the browser: ';
+          // Parsing normalises the URL: newlines are dropped and angle brackets are
+          // percent-encoded, so it cannot break out of the markdown link below.
+          let reportUrl;
+          try {
+            reportUrl = new URL(data.reportUrl);
+          } catch {
+            console.warn('Missing or malformed report URL; skipping preview comment update.');
+            return;
+          }
+
+          // The badge is posted by a trusted bot, so an off-site URL would be a phishing link
+          // sitting under a green "All passing" badge. Restricting it to this repository is not
+          // enough, because the commits of a pull request from a fork are served under the base
+          // repository too, so ".../blob/<sha>/file" would be attacker-authored content behind a
+          // trusted URL. Only ever link at an artifact of the run being reported on, which leaves
+          // the choice of artifact within that run, whose contents the run controls either way.
+          const allowedPrefix = (
+            `https://github.com/${context.repo.owner}/${context.repo.repo}` +
+            `/actions/runs/${runId}/artifacts/`
+          ).toLowerCase();
+          if (!reportUrl.href.toLowerCase().startsWith(allowedPrefix)) {
+            console.warn(`Report URL is not under ${allowedPrefix}; skipping preview comment update.`);
+            return;
+          }
+
+          // The artifact names the PR to comment on, so check that the run it came from really
+          // is that PR's head. This also drops runs superseded by a newer push.
+          const { data: run } = await github.rest.actions.getWorkflowRun({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            run_id: runId
+          });
+          const pullRequest = await github.rest.pulls
+            .get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: prNumber
+            })
+            .then(response => response.data, () => null);
+
+          if (!pullRequest || pullRequest.head.sha !== run.head_sha) {
+            console.warn(
+              `Run ${run.id} was for commit ${run.head_sha}, which is not the head of ` +
+              `PR #${prNumber}; skipping preview comment update.`
+            );
+            return;
+          }
+
           const isNonNegativeInteger = value =>
             typeof value === 'number' && Number.isInteger(value) && value >= 0;
           const hasValidCounts =
@@ -74,14 +153,17 @@ runs:
             badgeTitle = 'All UI tests passed';
           }
 
-          const reportUrlWithFilter = hasValidCounts && failing > 0
-            ? `${reportUrl}#?q=s%3Afailed`
-            : hasValidCounts && flaky > 0
-            ? `${reportUrl}#?q=s%3Aflaky`
-            : reportUrl;
+          if (hasValidCounts && failing > 0) {
+            reportUrl.hash = '?q=s%3Afailed';
+          } else if (hasValidCounts && flaky > 0) {
+            reportUrl.hash = '?q=s%3Aflaky';
+          }
 
+          // The angle brackets stop a parenthesis in the URL from ending the link early, and the
+          // normalisation above stops a ">" or a newline from escaping the angle brackets. Both
+          // are needed: neither one alone keeps the destination intact.
           const badgeUrl = `https://img.shields.io/badge/UI_tests-${badgeStatus}-${badgeColor}`;
-          const reportBadge = `[![UI tests report](${badgeUrl} '${badgeTitle}')](<${reportUrlWithFilter}>)`;
+          const reportBadge = `[![UI tests report](${badgeUrl} '${badgeTitle}')](<${reportUrl.href}>)`;
           const reportLine = `${reportLinePrefix}${reportBadge}`;
 
           const comments = await github.paginate(github.rest.issues.listComments, {
@@ -91,26 +173,30 @@ runs:
             per_page: 100
           });
 
-          const binderComment = comments
-            .slice()
-            .reverse()
-            .find(comment => (comment.body || '').includes("![Binder]("));
+          // Only ever edit a bot's own comment: a human quoting the Binder badge or the report
+          // line (as "Quote reply" does) would otherwise be picked as the comment to rewrite.
+          const isBot = comment => comment.user?.type === 'Bot';
 
-          const reportComment = comments
-            .slice()
-            .reverse()
-            .find(comment => (comment.body || '')
+          const binderComment = comments.findLast(
+            comment => isBot(comment) && (comment.body || '').includes("![Binder](")
+          );
+
+          const targetComment = binderComment ?? comments.findLast(
+            comment => isBot(comment) && (comment.body || '')
               .split('\n')
-              .some(line => line.startsWith(reportLinePrefix)));
+              .some(line => line.startsWith(reportLinePrefix))
+          );
 
-          const targetComment = binderComment || reportComment;
           if (!targetComment) {
-            await github.rest.issues.createComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: prNumber,
-              body: reportLine
-            });
+            core.setOutput('comment_body', reportLine);
+            if (!dryRun) {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: prNumber,
+                body: reportLine
+              });
+            }
             return;
           }
 
@@ -120,9 +206,11 @@ runs:
           const updatedBody =
             existingReportLine === undefined
               ? `${targetComment.body.trimEnd()}\n\n${reportLine}`
-              : targetComment.body.replace(existingReportLine, reportLine);
+              : targetComment.body.replace(existingReportLine, () => reportLine);
 
-          if (targetComment.body.trim() !== updatedBody.trim()) {
+          core.setOutput('comment_body', updatedBody);
+
+          if (!dryRun && targetComment.body.trim() !== updatedBody.trim()) {
             await github.rest.issues.updateComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
