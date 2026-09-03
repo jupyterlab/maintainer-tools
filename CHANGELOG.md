@@ -2,6 +2,29 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 1.0.0
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...6a2505f32b2605bd1c22260f48c78efea37b602e))
+
+### Enhancements made
+
+- Add reusable UI test report comment workflow [#301](https://github.com/jupyterlab/maintainer-tools/pull/301) ([@MUFFANUJ](https://github.com/MUFFANUJ), [@krassowski](https://github.com/krassowski), [@mfisher87](https://github.com/mfisher87))
+
+### Bugs fixed
+
+- Fix same-second timing vulnerability in update-snapshot-checkout [#310](https://github.com/jupyterlab/maintainer-tools/pull/310) ([@Yann-P](https://github.com/Yann-P), [@Carreau](https://github.com/Carreau), [@krassowski](https://github.com/krassowski))
+
+### Contributors to this release
+
+The following people contributed discussions, new ideas, code and documentation contributions, and review.
+See [our definition of contributors](https://github-activity.readthedocs.io/en/latest/use/#how-does-this-tool-define-contributions-in-the-reports).
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2026-07-24&to=2026-09-03&type=c))
+
+@Carreau ([activity](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3ACarreau+updated%3A2026-07-24..2026-09-03&type=Issues)) | @krassowski ([activity](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Akrassowski+updated%3A2026-07-24..2026-09-03&type=Issues)) | @mfisher87 ([activity](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Amfisher87+updated%3A2026-07-24..2026-09-03&type=Issues)) | @MUFFANUJ ([activity](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3AMUFFANUJ+updated%3A2026-07-24..2026-09-03&type=Issues)) | @Yann-P ([activity](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3AYann-P+updated%3A2026-07-24..2026-09-03&type=Issues))
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.35.0
 
 ([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...4ada2338339f16282b883dad3a463bfa7dd69c66))
@@ -24,8 +47,6 @@ See [our definition of contributors](https://github-activity.readthedocs.io/en/l
 ([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2026-07-02&to=2026-07-24&type=c))
 
 @Carreau ([activity](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3ACarreau+updated%3A2026-07-02..2026-07-24&type=Issues)) | @claude ([activity](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Aclaude+updated%3A2026-07-02..2026-07-24&type=Issues)) | @jtpio ([activity](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Ajtpio+updated%3A2026-07-02..2026-07-24&type=Issues)) | @krassowski ([activity](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Akrassowski+updated%3A2026-07-02..2026-07-24&type=Issues)) | @mfisher87 ([activity](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Amfisher87+updated%3A2026-07-02..2026-07-24&type=Issues)) | @MUFFANUJ ([activity](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3AMUFFANUJ+updated%3A2026-07-02..2026-07-24&type=Issues))
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.34.2
 
