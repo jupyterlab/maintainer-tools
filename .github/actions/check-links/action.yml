@@ -10,6 +10,19 @@ inputs:
   links_expire:
     description: "Duration in seconds for links to be cached (default one week)"
     required: false
+    default: "604800"
+  request_timeout:
+    description: "Request timeout in seconds for external links"
+    required: false
+    default: "20"
+  transient_status_codes:
+    description: "HTTP status codes treated as transient failures (space/comma separated)"
+    required: false
+    default: "408 429 503 504"
+  fail_on_transient:
+    description: "Fail when only transient external link failures are found"
+    required: false
+    default: "false"
 
 runs:
   using: "composite"
@@ -20,9 +33,15 @@ runs:
         pip install pytest-check-links[cache]
         export IGNORE_GLOB="${INPUTS_IGNORE_GLOB}"
         export IGNORE_LINKS="${INPUTS_IGNORE_LINKS}"
-        export LINKS_EXPIRE=${INPUTS_LINKS_EXPIRE}
+        export LINKS_EXPIRE="${INPUTS_LINKS_EXPIRE}"
+        export REQUEST_TIMEOUT="${INPUTS_REQUEST_TIMEOUT}"
+        export TRANSIENT_STATUS_CODES="${INPUTS_TRANSIENT_STATUS_CODES}"
+        export FAIL_ON_TRANSIENT="${INPUTS_FAIL_ON_TRANSIENT}"
         python ${{ github.action_path }}/check_links.py
       env:
         INPUTS_IGNORE_GLOB: ${{inputs.ignore_glob}}
         INPUTS_IGNORE_LINKS: ${{inputs.ignore_links}}
         INPUTS_LINKS_EXPIRE: ${{inputs.links_expire}}
+        INPUTS_REQUEST_TIMEOUT: ${{inputs.request_timeout}}
+        INPUTS_TRANSIENT_STATUS_CODES: ${{inputs.transient_status_codes}}
+        INPUTS_FAIL_ON_TRANSIENT: ${{inputs.fail_on_transient}}
