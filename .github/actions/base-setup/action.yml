@@ -198,16 +198,21 @@ runs:
       run: |
         set -eux
         echo "::group::Upgrade packaging dependencies"
+        HATCH_SPEC="hatch>=1.16.5"
         if [ "$PYTHON_PACKAGE_MANAGER" == "uv pip" ]; then
-          uv pip install --system --upgrade pip pipx
+          # Install hatch straight into the system environment instead of an
+          # isolated `uv tool`/pipx venv: this is a throwaway CI runner about
+          # to install project deps into that same environment anyway, so
+          # there's nothing to isolate hatch from, and skipping the separate
+          # venv avoids an extra resolve/install step.
+          uv pip install --system --upgrade pip "$HATCH_SPEC"
         else
           python -m pip install --upgrade pip pipx
-        fi
-        HATCH_SPEC="hatch>=1.16.5"
-        if [ "$RUNNER_OS" != "Windows" ]; then
-          pipx install "$HATCH_SPEC" --python "$(which python)"
-        else
-          pipx install "$HATCH_SPEC"
+          if [ "$RUNNER_OS" != "Windows" ]; then
+            pipx install "$HATCH_SPEC" --python "$(which python)"
+          else
+            pipx install "$HATCH_SPEC"
+          fi
         fi
         echo "::endgroup::"
 
