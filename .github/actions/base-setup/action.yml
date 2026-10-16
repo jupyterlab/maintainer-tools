@@ -93,10 +93,6 @@ runs:
       with:
         path: ${{ steps.python-pm-cache.outputs.dir }}
         key: ${{ env.CACHE_PREFIX }}-${{ steps.python-pm-cache.outputs.cache-key }}-${{ env.PYTHON_VERSION }}-${{ env.DEPENDENCY_TYPE }}${{ inputs.python_cache_key_suffix && format('-{0}', inputs.python_cache_key_suffix) || '' }}-${{ hashFiles('setup.cfg', 'setup.py', '**/requirements.txt', '**/pyproject.toml') }}
-        restore-keys: |
-          ${{ env.CACHE_PREFIX }}-${{ steps.python-pm-cache.outputs.cache-key }}-${{ env.PYTHON_VERSION }}-${{ env.DEPENDENCY_TYPE }}${{ inputs.python_cache_key_suffix && format('-{0}', inputs.python_cache_key_suffix) || '' }}
-          ${{ env.CACHE_PREFIX }}-${{ steps.python-pm-cache.outputs.cache-key }}-${{ env.PYTHON_VERSION }}-${{ env.DEPENDENCY_TYPE }}
-          ${{ env.CACHE_PREFIX }}-${{ steps.python-pm-cache.outputs.cache-key }}-${{ env.PYTHON_VERSION }}
 
     - name: Detect package manager
       id: detect-pm
