@@ -50,6 +50,7 @@ repos:
     hooks:
       - id: mypy
         stages: [manual]
+        pass_filenames: false
         args: ["--install-types", "--non-interactive"]
         additional_dependencies: ["packaging"]
 
