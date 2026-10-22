@@ -163,8 +163,6 @@ runs:
       with:
         path: ${{ steps.pm-cache.outputs.dir }}
         key: ${{ env.CACHE_PREFIX }}-${{ steps.detect-pm.outputs.manager }}-${{ env.NODE_VERSION }}-${{ steps.detect-pm.outputs.lock-hash }}
-        restore-keys: |
-          ${{ env.CACHE_PREFIX }}-${{ steps.detect-pm.outputs.manager }}-${{ env.NODE_VERSION }}
 
     - name: Cache checked links
       if: ${{ matrix.group == 'link_check' }}
