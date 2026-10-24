@@ -151,6 +151,12 @@ runs:
           CACHE_DIR=$(yarn config get cacheFolder 2>/dev/null)
           [[ "$CACHE_DIR" == "undefined" ]] && CACHE_DIR=$(yarn cache dir 2>/dev/null)
           echo "dir=$CACHE_DIR" >> $GITHUB_OUTPUT
+          # Yarn 2+ deletes unused archives during install only when the cache
+          # is local and inside the project, so only then can an older entry
+          # be restored without the cache growing.
+          if [ "$(yarn config get enableGlobalCache 2>/dev/null)" == "false" ] && [[ "$CACHE_DIR" == "$PWD"/* ]]; then
+            echo "restore-key=$CACHE_PREFIX-yarn-$NODE_VERSION-" >> $GITHUB_OUTPUT
+          fi
         elif [ "$MANAGER" == "npm" ]; then
           echo "dir=$(npm config get cache)" >> $GITHUB_OUTPUT
         fi
@@ -163,8 +169,7 @@ runs:
       with:
         path: ${{ steps.pm-cache.outputs.dir }}
         key: ${{ env.CACHE_PREFIX }}-${{ steps.detect-pm.outputs.manager }}-${{ env.NODE_VERSION }}-${{ steps.detect-pm.outputs.lock-hash }}
-        restore-keys: |
-          ${{ env.CACHE_PREFIX }}-${{ steps.detect-pm.outputs.manager }}-${{ env.NODE_VERSION }}
+        restore-keys: ${{ steps.pm-cache.outputs.restore-key }}
 
     - name: Cache checked links
       if: ${{ matrix.group == 'link_check' }}
