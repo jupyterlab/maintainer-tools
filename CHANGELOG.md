@@ -2,6 +2,25 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 1.1.1
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...da5d6f9d87319901b4f6a3226fe82dc327fb0841))
+
+### Bugs fixed
+
+- Do not set `restore-keys` when using global yarn cache in `base-setup` [#313](https://github.com/jupyterlab/maintainer-tools/pull/313) ([@Darshan808](https://github.com/Darshan808), [@krassowski](https://github.com/krassowski))
+
+### Contributors to this release
+
+The following people contributed discussions, new ideas, code and documentation contributions, and review.
+See [our definition of contributors](https://github-activity.readthedocs.io/en/latest/use/#how-does-this-tool-define-contributions-in-the-reports).
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2026-10-19&to=2026-10-26&type=c))
+
+@Darshan808 ([activity](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3ADarshan808+updated%3A2026-10-19..2026-10-26&type=Issues)) | @krassowski ([activity](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Akrassowski+updated%3A2026-10-19..2026-10-26&type=Issues))
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 1.1.0
 
 ([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...6ac6c6eb65f2d67c8b8973cc40ee3c004d24bae4))
@@ -22,8 +41,6 @@ See [our definition of contributors](https://github-activity.readthedocs.io/en/l
 ([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2026-09-03&to=2026-10-19&type=c))
 
 @Carreau ([activity](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3ACarreau+updated%3A2026-09-03..2026-10-19&type=Issues)) | @Darshan808 ([activity](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3ADarshan808+updated%3A2026-09-03..2026-10-19&type=Issues)) | @krassowski ([activity](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Akrassowski+updated%3A2026-09-03..2026-10-19&type=Issues))
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 1.0.0
 
