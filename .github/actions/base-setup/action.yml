@@ -153,8 +153,9 @@ runs:
           echo "dir=$CACHE_DIR" >> $GITHUB_OUTPUT
           # Yarn 2+ deletes unused archives during install only when the cache
           # is local and inside the project, so only then can an older entry
-          # be restored without the cache growing.
-          if [ "$(yarn config get enableGlobalCache 2>/dev/null)" == "false" ] && [[ "$CACHE_DIR" == "$PWD"/* ]]; then
+          # be restored without the cache growing. `--json` prints the value
+          # without the color codes that yarn adds to booleans on CI.
+          if [ "$(yarn config get enableGlobalCache --json 2>/dev/null)" == "false" ] && [[ "$CACHE_DIR" == "$PWD"/* ]]; then
             echo "restore-key=$CACHE_PREFIX-yarn-$NODE_VERSION-" >> $GITHUB_OUTPUT
           fi
         elif [ "$MANAGER" == "npm" ]; then
