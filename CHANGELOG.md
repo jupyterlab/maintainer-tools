@@ -2,6 +2,25 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 1.1.2
+
+([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...22ec9cf644b79483aca018ee41167c11e9783109))
+
+### Bugs fixed
+
+- Fix sniffing for global cache to properly set `restore-key` [#315](https://github.com/jupyterlab/maintainer-tools/pull/315) ([@krassowski](https://github.com/krassowski), [@Darshan808](https://github.com/Darshan808))
+
+### Contributors to this release
+
+The following people contributed discussions, new ideas, code and documentation contributions, and review.
+See [our definition of contributors](https://github-activity.readthedocs.io/en/latest/use/#how-does-this-tool-define-contributions-in-the-reports).
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2026-10-26&to=2026-10-27&type=c))
+
+@Darshan808 ([activity](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3ADarshan808+updated%3A2026-10-26..2026-10-27&type=Issues)) | @krassowski ([activity](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Akrassowski+updated%3A2026-10-26..2026-10-27&type=Issues))
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 1.1.1
 
 ([Full Changelog](https://github.com/jupyterlab/maintainer-tools/compare/v1...da5d6f9d87319901b4f6a3226fe82dc327fb0841))
@@ -18,8 +37,6 @@ See [our definition of contributors](https://github-activity.readthedocs.io/en/l
 ([GitHub contributors page for this release](https://github.com/jupyterlab/maintainer-tools/graphs/contributors?from=2026-10-19&to=2026-10-26&type=c))
 
 @Darshan808 ([activity](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3ADarshan808+updated%3A2026-10-19..2026-10-26&type=Issues)) | @krassowski ([activity](https://github.com/search?q=repo%3Ajupyterlab%2Fmaintainer-tools+involves%3Akrassowski+updated%3A2026-10-19..2026-10-26&type=Issues))
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 1.1.0
 
