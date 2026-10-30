@@ -148,7 +148,13 @@ runs:
         if [ "$MANAGER" == "pnpm" ]; then
           echo "dir=$(pnpm store path)" >> $GITHUB_OUTPUT
         elif [ "$MANAGER" == "yarn" ]; then
-          CACHE_DIR=$(yarn config get cacheFolder)
+          # With corepack, this first yarn call downloads yarn, and corepack
+          # does not retry a failed download.
+          CACHE_DIR=$(yarn config get cacheFolder) || {
+            echo "::warning::yarn config get cacheFolder failed, retrying in 10 s"
+            sleep 10
+            CACHE_DIR=$(yarn config get cacheFolder)
+          }
           [[ "$CACHE_DIR" == "undefined" ]] && CACHE_DIR=$(yarn cache dir)
           echo "dir=$CACHE_DIR" >> $GITHUB_OUTPUT
           # Yarn 2+ deletes unused archives during install only when the cache
