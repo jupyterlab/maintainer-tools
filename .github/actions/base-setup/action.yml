@@ -148,8 +148,8 @@ runs:
         if [ "$MANAGER" == "pnpm" ]; then
           echo "dir=$(pnpm store path)" >> $GITHUB_OUTPUT
         elif [ "$MANAGER" == "yarn" ]; then
-          CACHE_DIR=$(yarn config get cacheFolder 2>/dev/null)
-          [[ "$CACHE_DIR" == "undefined" ]] && CACHE_DIR=$(yarn cache dir 2>/dev/null)
+          CACHE_DIR=$(yarn config get cacheFolder)
+          [[ "$CACHE_DIR" == "undefined" ]] && CACHE_DIR=$(yarn cache dir)
           echo "dir=$CACHE_DIR" >> $GITHUB_OUTPUT
           # Yarn 2+ deletes unused archives during install only when the cache
           # is local and inside the project, so only then can an older entry
