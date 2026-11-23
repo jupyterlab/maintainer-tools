@@ -10,6 +10,10 @@ inputs:
   links_expire:
     description: "Duration in seconds for links to be cached (default one week)"
     required: false
+  changed_files_only:
+    description: "Only check links in files changed by the pull request"
+    required: false
+    default: "false"
 
 runs:
   using: "composite"
@@ -21,8 +25,11 @@ runs:
         export IGNORE_GLOB="${INPUTS_IGNORE_GLOB}"
         export IGNORE_LINKS="${INPUTS_IGNORE_LINKS}"
         export LINKS_EXPIRE=${INPUTS_LINKS_EXPIRE}
+        export CHANGED_FILES_ONLY="${INPUTS_CHANGED_FILES_ONLY}"
         python ${{ github.action_path }}/check_links.py
       env:
         INPUTS_IGNORE_GLOB: ${{inputs.ignore_glob}}
         INPUTS_IGNORE_LINKS: ${{inputs.ignore_links}}
         INPUTS_LINKS_EXPIRE: ${{inputs.links_expire}}
+        INPUTS_CHANGED_FILES_ONLY: ${{inputs.changed_files_only}}
+        PULL_REQUEST_BASE_SHA: ${{github.event.pull_request.base.sha}}
