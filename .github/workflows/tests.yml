@@ -15,7 +15,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
-        python-version: ["3.10", "3.14"]
+        python-version: ["3.11", "3.15"]
         include:
           - os: ubuntu-latest
             python-version: "3.15"
@@ -61,7 +61,7 @@ jobs:
           pip install -e ".[test]"
           # NOTE: keep the python version in sync with README
           python --version
-          python --version | grep "3.10"
+          python --version | grep "3.11"
           hatch run check_minimum
 
   base_setup_minimum_uv_pip:
@@ -79,7 +79,7 @@ jobs:
           uv pip install --system -e ".[test]"
           # NOTE: keep the python version in sync with README
           python --version
-          python --version | grep "3.10"
+          python --version | grep "3.11"
           hatch run check_minimum
 
   base_setup_no_node:
