@@ -8,7 +8,7 @@ from packaging.requirements import Requirement
 if TYPE_CHECKING:
     # not importing this at runtime as it is only exposed in Python 3.10+
     # (although the interface was already followed in earlier versions)
-    from importlib.metadata import PackageMetadata  # type:ignore[attr-defined]
+    from importlib.metadata import PackageMetadata
 else:
     PackageMetadata = Any
 
